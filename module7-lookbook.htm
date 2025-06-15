@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Lookbook Luxe IA – Selezione</title>
+  <style>
+    body {
+      background-color: #0f0c29;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+    }
+    h2 {
+      text-align: center;
+      color: #00ffff;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      background-color: #191933;
+      color: white;
+      border-radius: 10px;
+      border: none;
+    }
+    button {
+      background: #00ffff;
+      color: black;
+      font-weight: bold;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 1rem;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+    }
+    pre {
+      margin-top: 1rem;
+      background: #1b1b2f;
+      padding: 1rem;
+      border-radius: 10px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>📸 Créateur de Lookbook IA</h2>
+  <textarea id="theme" placeholder="Ex: Printemps 2025, minimalisme luxe, streetwear chic..."></textarea>
+  <button onclick="creerLookbook()">Générer</button>
+  <pre id="resultat">🔍 En attente de création...</pre>
+
+  <script>
+    async function creerLookbook() {
+      const theme = document.getElementById('theme').value;
+      const resDiv = document.getElementById('resultat');
+
+      if (!theme.trim()) {
+        resDiv.textContent = "⚠️ Merci de saisir un thème.";
+        return;
+      }
+
+      try {
+        const res = await fetch('https://selezione-ia-backend.onrender.com/lookbook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ theme })
+        });
+
+        const data = await res.json();
+        resDiv.textContent = data.lookbook || "❌ Aucune réponse.";
+      } catch (error) {
+        resDiv.textContent = "🚫 Erreur serveur.";
+      }
+    }
+  </script>
+</body>
+</html>
