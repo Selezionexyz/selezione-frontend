@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Module 2 – Actus & Générateur IA | Selezione</title>
+  <style>
+    body {
+      background-color: #0f0c29;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+      box-shadow: 0 0 25px rgba(0,255,255,0.3);
+    }
+    h2 {
+      text-align: center;
+      font-size: 26px;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+    textarea, input, select, button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 10px;
+      font-size: 15px;
+      border: none;
+    }
+    textarea, input, select {
+      background-color: #191933;
+      color: #fff;
+    }
+    button {
+      background: linear-gradient(90deg, #00ffff, #0088ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+    .news-section, .generation-section {
+      margin-top: 40px;
+    }
+    .article {
+      margin-top: 15px;
+      background: #111122;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+    }
+    .article img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .output {
+      background: #0b0b1f;
+      padding: 20px;
+      margin-top: 15px;
+      border-radius: 12px;
+      color: #00ffff;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📰 Module 2 – Actus & Générateur IA</h2>
+
+    <div class="news-section">
+      <h3>📢 Actualités du Luxe</h3>
+      <button onclick="chargerActus()">🔄 Charger les actualités</button>
+      <div id="actus-luxe"></div>
+    </div>
+
+    <div class="generation-section">
+      <h3>✍️ Générateur de contenu IA</h3>
+      <label>Votre sujet ou idée :</label>
+      <textarea id="contenuPrompt" placeholder="Ex : Rédige une newsletter sur la montée de la seconde main dans le luxe..."></textarea>
+      <button onclick="genererContenu()">⚡ Générer le contenu</button>
+      <div class="output" id="contenuGenere">En attente...</div>
+    </div>
+  </div>
+
+  <script>
+    async function chargerActus() {
+      const container = document.getElementById("actus-luxe");
+      container.innerHTML = "⏳ Chargement...";
+      try {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/actualites-luxe");
+        const data = await res.json();
+        if (!data.actualites) throw new Error();
+        container.innerHTML = "";
+        data.actualites.forEach(article => {
+          container.innerHTML += `
+            <div class="article">
+              <strong>${article.title}</strong><br/>
+              <a href="${article.url}" target="_blank" style="color:#00ffff;">Lire l'article</a><br/>
+              ${article.image ? `<img src="${article.image}" alt="Image actu">` : ""}
+            </div>
+          `;
+        });
+      } catch (err) {
+        container.innerHTML = "❌ Erreur lors du chargement des actualités.";
+      }
+    }
+
+    async function genererContenu() {
+      const prompt = document.getElementById("contenuPrompt").value.trim();
+      const output = document.getElementById("contenuGenere");
+
+      if (!prompt) {
+        output.innerText = "⚠️ Veuillez entrer un sujet.";
+        return;
+      }
+
+      output.innerText = "⏳ Génération en cours...";
+      try {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: prompt })
+        });
+        const data = await res.json();
+        output.innerText = data.reponse || "❌ Aucune réponse générée.";
+      } catch (err) {
+        output.innerText = "❌ Erreur de génération de contenu.";
+      }
+    }
+  </script>
+</body>
+</html>
