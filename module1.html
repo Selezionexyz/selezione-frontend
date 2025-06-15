@@ -1,3 +1,4 @@
+<!-- module1.html - Assistant Luxe IA -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -134,7 +135,7 @@
         });
 
         const data = await res.json();
-        const reponse = data.reponse || "❌ L’IA n’a pas pu répondre.";
+        const reponse = data.response || "❌ L’IA n’a pas pu répondre.";
         simulateTyping(reponse, reponseDiv);
       } catch (err) {
         simulateTyping("🚫 Erreur de connexion au serveur IA.", reponseDiv);
@@ -170,11 +171,11 @@
 
     function exporterPDF() {
       const contenu = document.getElementById('reponse').innerText;
-      const blob = new Blob([contenu], { type: 'application/pdf' });
+      const blob = new Blob([contenu], { type: 'text/plain' });
       const url = URL.createObjectURL(blob);
       const lien = document.createElement('a');
       lien.href = url;
-      lien.download = 'Reponse-IA-Selezione.pdf';
+      lien.download = 'Reponse-IA-Selezione.txt';
       lien.click();
       URL.revokeObjectURL(url);
     }
