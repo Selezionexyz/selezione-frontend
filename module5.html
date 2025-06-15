@@ -1,0 +1,36 @@
+<div class="section">
+  <h2>🗓️ Actus Luxe par Date & RSS</h2>
+  <input type="date" id="dateRss" />
+  <input type="text" id="sujetRss" placeholder="Ex : Dior, Fashion Week..." />
+  <button onclick="genererActusRSS()">📰 Générer Actus</button>
+
+  <div id="resultText" class="result"></div>
+  <div id="resultRss" class="result"></div>
+</div>
+
+<script>
+async function genererActusRSS() {
+  const date = document.getElementById('dateRss').value;
+  const sujet = document.getElementById('sujetRss').value;
+  document.getElementById('resultText').innerText = "⏳ Génération ...";
+  document.getElementById('resultRss').innerText = "";
+
+  try {
+    const res = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe-date-rss", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date, sujet })
+    });
+    const data = await res.json();
+    document.getElementById('resultText').innerText = data.text;
+    if (data.rss && data.rss.length > 0) {
+      const list = data.rss.map(item => `<a href="${item.link}" target="_blank">${item.title}</a>`).join('<br>');
+      document.getElementById('resultRss').innerHTML = `<h3>Articles du jour :</h3>${list}`;
+    } else {
+      document.getElementById('resultRss').innerText = "Aucun article RSS pour cette date.";
+    }
+  } catch(err) {
+    document.getElementById('resultText').innerText = "❌ Erreur génération.";
+  }
+}
+</script>
