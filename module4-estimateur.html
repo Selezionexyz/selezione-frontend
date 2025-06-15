@@ -1,0 +1,98 @@
+<!-- module4-estimateur.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📈 Estimateur Luxe – Selezione</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0f0c29;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #1c1b3a;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.2);
+    }
+    h1 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+    }
+    input {
+      background: #222;
+      color: #fff;
+    }
+    button {
+      background: linear-gradient(90deg, #00ffff, #0077ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .results {
+      background: #141326;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-top: 1.5rem;
+    }
+    .results p {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📈 Estimateur de Prix Luxe</h1>
+    <input type="text" id="produit" placeholder="Ex : Sac Dior Saddle, Sneakers Balenciaga...">
+    <button onclick="estimerPrix()">🚀 Estimer maintenant</button>
+
+    <div id="resultats" class="results">🔍 En attente d’une estimation...</div>
+  </div>
+
+  <script>
+    async function estimerPrix() {
+      const produit = document.getElementById("produit").value.trim();
+      const resultats = document.getElementById("resultats");
+      resultats.innerText = "⏳ Analyse en cours...";
+
+      try {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/estimateur-luxe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ produit })
+        });
+        const data = await res.json();
+
+        if (data.error) {
+          resultats.innerText = "🚫 Erreur : " + data.error;
+        } else {
+          resultats.innerHTML = `
+            <p><strong>Prix moyen :</strong> ${data.prixMoyen} €</p>
+            <p><strong>Prix min :</strong> ${data.prixMin} € | <strong>max :</strong> ${data.prixMax} €</p>
+            <hr/>
+            <p><strong>🧠 Analyse IA :</strong><br/>${data.analyse}</p>
+          `;
+        }
+      } catch (err) {
+        resultats.innerText = "🚫 Erreur serveur.";
+      }
+    }
+  </script>
+</body>
+</html>
