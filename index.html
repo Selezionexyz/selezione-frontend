@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SELEZIONE - Dashboard Luxe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0f1a, #111b2e);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    header {
+      background: rgba(0, 0, 50, 0.9);
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: #00e0ff;
+      text-shadow: 0 0 10px #00e0ff;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #00e0ff44;
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0, 224, 255, 0.3);
+      transition: 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(0, 224, 255, 0.5);
+    }
+    h3 {
+      color: #00e0ff;
+      margin-bottom: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: 12px;
+    }
+    .datetime {
+      text-align: center;
+      margin: 20px auto;
+      font-size: 1.2em;
+      color: #cccccc;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>SELEZIONE - Tableau de bord Luxe</header>
+  <div class="datetime" id="datetime"></div>
+  <div class="dashboard">
+    <div class="card">
+      <h3>Assistant Luxe IA</h3>
+      <iframe src="module1_assistant_luxe.html"></iframe>
+    </div>
+    <div class="card">
+      <h3>Actualités Luxe IA</h3>
+      <iframe src="module2_actualites_luxe.html"></iframe>
+    </div>
+    <div class="card">
+      <h3>Style, Produit & Startups</h3>
+      <iframe src="module3_style_fiche_startup.html"></iframe>
+    </div>
+  </div>
+  <script>
+    const datetime = document.getElementById("datetime");
+    setInterval(() => {
+      const now = new Date();
+      datetime.textContent = now.toLocaleString("fr-FR", {
+        dateStyle: "full",
+        timeStyle: "short"
+      });
+    }, 1000);
+  </script>
+</body>
+</html>
