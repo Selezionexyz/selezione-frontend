@@ -1,110 +1,197 @@
-<!-- module2.html - Actualités & Générateur IA --><!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Actus & Générateur IA – Selezione</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Actualités & Image IA – Selezione</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #101020;
-      color: #fff;
       margin: 0;
-      padding: 20px;
+      padding: 0;
+      background: linear-gradient(to bottom right, #0f0c29, #302b63, #24243e);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
     }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
     h2 {
-      color: #00ffff;
       text-align: center;
-    }
-    .actus {
-      background-color: #1a1a2f;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 20px rgba(0,255,255,0.1);
-    }
-    .news-item {
-      border-bottom: 1px solid #444;
-      padding: 10px 0;
-    }
-    .news-item:last-child {
-      border-bottom: none;
-    }
-    .news-item a {
       color: #00ffff;
-      text-decoration: none;
-      font-weight: bold;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #00ffff;
     }
-    textarea, button {
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .news-card {
+      background-color: #1a1a33;
+      border: 1px solid #00ffff33;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,255,255,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .news-card:hover {
+      transform: scale(1.02);
+    }
+
+    .news-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .news-card .content {
+      padding: 15px;
+    }
+
+    .news-card h4 {
+      margin: 0 0 10px;
+      font-size: 17px;
+      color: #00ffff;
+    }
+
+    .news-card p {
+      font-size: 14px;
+      line-height: 1.4;
+      opacity: 0.8;
+    }
+
+    .news-card a {
+      color: #fff;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+
+    .image-generator {
+      margin-top: 50px;
+      background-color: #1e1e3f;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.1);
+    }
+
+    .image-generator input,
+    .image-generator button {
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 10px;
       border: none;
+      font-size: 16px;
+      margin-top: 10px;
     }
-    textarea {
-      background-color: #1a1a2f;
+
+    .image-generator input {
+      background-color: #2a2a4f;
       color: #fff;
     }
-    #image-container img {
-      max-width: 100%;
-      margin-top: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,255,255,0.2);
-    }
-    button {
+
+    .image-generator button {
       background: linear-gradient(90deg, #00ffff, #0088ff);
       color: #000;
       font-weight: bold;
       cursor: pointer;
     }
+
+    .generated-img {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .generated-img img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 2px solid #00ffff44;
+      box-shadow: 0 0 15px rgba(0,255,255,0.2);
+    }
   </style>
 </head>
 <body>
-  <h2>📰 Actualités du Luxe</h2>
-  <div class="actus" id="actus"></div>  <h2>🎨 Générateur d'image IA</h2>
-  <textarea id="prompt" placeholder="Décris une image de mode luxe à créer..."></textarea>
-  <button onclick="genererImage()">🖼️ Générer Image IA</button>
-  <div id="image-container"></div>  <script>
+  <div class="container">
+    <h2>📰 Actualités Luxe & Générateur DALL·E</h2>
+
+    <div class="news-grid" id="news-container">
+      <!-- Articles injectés ici -->
+    </div>
+
+    <div class="image-generator">
+      <h3>🎨 Générateur d'image IA</h3>
+      <input type="text" id="prompt" placeholder="Ex : Une robe de luxe futuriste dans un défilé à Paris" />
+      <button onclick="genererImage()">🧠 Générer une Image</button>
+      <div class="generated-img" id="resultatImage"></div>
+    </div>
+  </div>
+
+  <script>
     async function chargerActus() {
+      const container = document.getElementById("news-container");
+      container.innerHTML = "⏳ Chargement des actualités...";
+
       try {
         const res = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe");
         const data = await res.json();
-        const actusDiv = document.getElementById("actus");
-        data.actualites.slice(0, 5).forEach(article => {
-          actusDiv.innerHTML += `
-            <div class="news-item">
-              <a href="${article.url}" target="_blank">${article.title}</a>
-              <div><img src="${article.image}" alt="" style="width:100%;max-height:200px;object-fit:cover;margin-top:8px"></div>
-              <small>${new Date(article.publishedAt).toLocaleString()}</small>
+
+        if (!data.actualites || data.actualites.length === 0) {
+          container.innerHTML = "❌ Aucune actualité disponible.";
+          return;
+        }
+
+        container.innerHTML = data.actualites.map(article => `
+          <div class="news-card">
+            <img src="${article.image || 'https://via.placeholder.com/300x200'}" alt="Image actu" />
+            <div class="content">
+              <h4>${article.title}</h4>
+              <p><strong>${article.source}</strong> – ${new Date(article.publishedAt).toLocaleDateString('fr-FR')}</p>
+              <a href="${article.url}" target="_blank">Lire l'article</a>
             </div>
-          `;
-        });
+          </div>
+        `).join('');
       } catch (err) {
-        document.getElementById("actus").textContent = "Erreur chargement actualités.";
+        container.innerHTML = "🚫 Erreur lors du chargement des actualités.";
       }
     }
 
     async function genererImage() {
       const prompt = document.getElementById("prompt").value.trim();
-      if (!prompt) return;
+      const result = document.getElementById("resultatImage");
+
+      if (!prompt) {
+        result.innerHTML = "⚠️ Saisissez un prompt pour générer une image.";
+        return;
+      }
+
+      result.innerHTML = "🖼️ Génération de l’image en cours...";
+
       try {
         const res = await fetch("https://selezione-ia-backend.onrender.com/generate-image", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ prompt })
         });
+
         const data = await res.json();
-        const img = document.createElement("img");
-        img.src = data.imageUrl;
-        const container = document.getElementById("image-container");
-        container.innerHTML = "";
-        container.appendChild(img);
+        if (data.imageUrl) {
+          result.innerHTML = `<img src="${data.imageUrl}" alt="Image IA">`;
+        } else {
+          result.innerHTML = "❌ Image non générée.";
+        }
       } catch (err) {
-        alert("Erreur génération image IA.");
+        result.innerHTML = "🚫 Erreur lors de la génération.";
       }
     }
 
     chargerActus();
-  </script></body>
+  </script>
+</body>
 </html>
