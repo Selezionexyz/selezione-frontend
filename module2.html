@@ -1,130 +1,103 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>📰 Actus & Images – Selezione</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📰 Actus Luxe - Selezione</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: #0f0c29;
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
       margin: 0;
-      padding: 2rem;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: linear-gradient(145deg, #1f1c3b, #302b63);
-      padding: 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0,255,255,0.2);
-    }
-
-    h1 {
-      text-align: center;
-      color: #00ffff;
-      text-shadow: 0 0 12px #00ffff;
-      margin-bottom: 1.5rem;
-    }
-
-    select, input, button {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-    }
-
-    select, input {
-      background: #1c1b2e;
+      font-family: 'Poppins', sans-serif;
+      background: #0f0c29;
       color: #fff;
-    }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }h1 {
+  color: #00ffff;
+  text-shadow: 0 0 8px #00ffff;
+  margin-bottom: 2rem;
+}
 
-    button {
-      background: linear-gradient(90deg, #00ffff, #0077ff);
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.card {
+  background: #1b1b3a;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+  max-width: 700px;
+  width: 100%;
+  margin-bottom: 2rem;
+}
 
-    #resultat {
-      background: #141326;
-      padding: 1rem;
-      border-radius: 12px;
-      margin-top: 1.5rem;
-      white-space: pre-wrap;
-      box-shadow: 0 0 10px rgba(0,255,255,0.1);
-    }
+select, input, button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+  font-size: 16px;
+  border: none;
+}
 
-    img {
-      max-width: 100%;
-      margin-top: 1rem;
-      border-radius: 12px;
-    }
+select, input {
+  background: #2c2c54;
+  color: white;
+}
+
+button {
+  background: linear-gradient(to right, #00ffff, #0077ff);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.result {
+  background: #141432;
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 10px;
+  white-space: pre-wrap;
+  min-height: 100px;
+}
+
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📰 Actus & Générateur d'Image</h1>
-
-    <label for="type">🧠 Type de contenu :</label>
+  <h1>📰 Actualités Luxe</h1>
+  <div class="card">
+    <label for="type">Choisissez un type d'actualité :</label>
     <select id="type">
       <option value="actualite">🗞️ Actualité Luxe</option>
-      <option value="anecdote">📚 Anecdote</option>
-      <option value="tendance">📈 Tendance</option>
-      <option value="evenement">🎭 Événement</option>
+      <option value="anecdote">📖 Anecdote</option>
+      <option value="tendance">📉 Tendance</option>
+      <option value="evenement">🎩 Événement</option>
       <option value="createur">👗 Créateur / Designer</option>
-      <option value="vente">💎 Vente aux enchères</option>
-    </select>
+      <option value="enchere">💫 Vente aux enchères</option>
+    </select><label for="sujet">Sujet (facultatif) :</label>
+<input id="sujet" placeholder="Ex : Gucci, Met Gala...">
 
-    <label for="sujet">🎯 Sujet (optionnel) :</label>
-    <input type="text" id="sujet" placeholder="Ex : Balenciaga, fashion week, Riccardo Tisci..."/>
+<button onclick="genererActu()">🚀 Générer</button>
+<div class="result" id="result">Aucun contenu généré.</div>
 
-    <button onclick="lancerIA()">🚀 Générer le contenu IA</button>
-
-    <div id="resultat">🧬 En attente d'une requête...</div>
-    <img id="image" style="display:none;" />
-  </div>
-
-  <script>
-    async function lancerIA() {
+  </div>  <script>
+    async function genererActu() {
       const type = document.getElementById('type').value;
-      const sujet = document.getElementById('sujet').value.trim();
-      const resDiv = document.getElementById('resultat');
-      const img = document.getElementById('image');
+      const sujet = document.getElementById('sujet').value;
+      const result = document.getElementById('result');
 
-      resDiv.innerText = "⏳ Génération en cours...";
-      img.style.display = "none";
+      result.textContent = "Chargement...";
 
       try {
         const res = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe-ia", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ type, sujet })
         });
-
         const data = await res.json();
-
-        if (data.contenu) {
-          resDiv.innerText = data.contenu;
-        } else {
-          resDiv.innerText = "❌ Aucun contenu généré.";
-        }
-
-        if (data.imageUrl) {
-          img.src = data.imageUrl;
-          img.style.display = "block";
-        }
-
-      } catch (error) {
-        console.error(error);
-        resDiv.innerText = "🚫 Erreur lors de la génération.";
+        result.textContent = data.contenu || "⛔️ Aucune donnée retournée.";
+      } catch (err) {
+        result.textContent = "❌ Erreur lors de la génération.";
       }
     }
-  </script>
-</body>
+  </script></body>
 </html>
