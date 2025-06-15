@@ -1,36 +1,111 @@
-<div class="section">
-  <h2>🗓️ Actus Luxe par Date & RSS</h2>
-  <input type="date" id="dateRss" />
-  <input type="text" id="sujetRss" placeholder="Ex : Dior, Fashion Week..." />
-  <button onclick="genererActusRSS()">📰 Générer Actus</button>
-
-  <div id="resultText" class="result"></div>
-  <div id="resultRss" class="result"></div>
-</div>
-
-<script>
-async function genererActusRSS() {
-  const date = document.getElementById('dateRss').value;
-  const sujet = document.getElementById('sujetRss').value;
-  document.getElementById('resultText').innerText = "⏳ Génération ...";
-  document.getElementById('resultRss').innerText = "";
-
-  try {
-    const res = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe-date-rss", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ date, sujet })
-    });
-    const data = await res.json();
-    document.getElementById('resultText').innerText = data.text;
-    if (data.rss && data.rss.length > 0) {
-      const list = data.rss.map(item => `<a href="${item.link}" target="_blank">${item.title}</a>`).join('<br>');
-      document.getElementById('resultRss').innerHTML = `<h3>Articles du jour :</h3>${list}`;
-    } else {
-      document.getElementById('resultRss').innerText = "Aucun article RSS pour cette date.";
-    }
-  } catch(err) {
-    document.getElementById('resultText').innerText = "❌ Erreur génération.";
-  }
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🗞️ Actus Luxe RSS – Selezione</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0f0c29;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 2rem;
+    }h1 {
+  text-align: center;
+  color: #00ffff;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 8px #00ffff;
 }
-</script>
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  background: #1b1b3a;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.1);
+}
+
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+input, button {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+}
+
+input {
+  background: #2c2c54;
+  color: white;
+}
+
+button {
+  background: linear-gradient(to right, #00ffff, #0077ff);
+  color: black;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: linear-gradient(to right, #00d4ff, #005eff);
+}
+
+.result {
+  background: #141432;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 10px;
+  white-space: pre-wrap;
+  min-height: 100px;
+}
+
+.loading {
+  color: #00ffff;
+  font-style: italic;
+}
+
+  </style>
+</head>
+<body>
+  <h1>🗞️ Actus Luxe par Date & RSS</h1>
+  <div class="container">
+    <label for="keyword">🔍 Sujet facultatif (Dior, Fashion Week, etc) :</label>
+    <input id="keyword" placeholder="Ex : Gucci, Met Gala..." /><label for="date">📅 Choisis une date (facultatif) :</label>
+<input type="date" id="date" />
+
+<button onclick="generer()">🚀 Générer Actus</button>
+<div id="output" class="result loading">⏳ En attente...</div>
+
+  </div>  <script>
+    async function generer() {
+      const sujet = document.getElementById("keyword").value;
+      const date = document.getElementById("date").value;
+      const out = document.getElementById("output");
+      out.innerText = "⏳ Chargement des actualités…";
+
+      try {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/actus-rss-luxe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sujet, date })
+        });
+
+        const data = await res.json();
+        out.innerText = data.result || "❌ Aucune actu générée.";
+      } catch (e) {
+        out.innerText = "❌ Erreur de génération.";
+      }
+    }
+  </script></body>
+</html>
