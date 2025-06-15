@@ -3,116 +3,122 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Actualités Luxe IA – Selezione</title>
+  <title>📰 Actu & Générateur IA – Selezione</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0f0c29;
-      color: #fff;
+      background: #0f0c29;
       font-family: 'Poppins', sans-serif;
+      color: #fff;
       margin: 0;
-      padding: 0;
+      padding: 2rem;
     }
 
     .container {
       max-width: 800px;
-      margin: 50px auto;
-      padding: 30px;
-      background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      margin: auto;
+      background: linear-gradient(145deg, #1f1c3b, #302b63);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,255,255,0.2);
     }
 
-    h2 {
+    h1 {
       text-align: center;
       color: #00ffff;
-      font-size: 28px;
       text-shadow: 0 0 12px #00ffff;
+      margin-bottom: 1.5rem;
     }
 
-    textarea {
+    select, input, button {
       width: 100%;
       padding: 12px;
-      margin-top: 10px;
-      border-radius: 10px;
+      margin: 10px 0;
       border: none;
-      background: #191933;
-      color: #fff;
+      border-radius: 12px;
       font-size: 16px;
+    }
+
+    select, input {
+      background: #1c1b2e;
+      color: #fff;
     }
 
     button {
-      margin-top: 15px;
-      padding: 12px 20px;
-      border-radius: 10px;
-      border: none;
-      background: linear-gradient(90deg, #00ffff, #0088ff);
+      background: linear-gradient(90deg, #00ffff, #0077ff);
       color: #000;
       font-weight: bold;
-      font-size: 16px;
-      width: 100%;
       cursor: pointer;
     }
 
-    .output {
-      margin-top: 25px;
-      background: #101020;
-      padding: 20px;
+    #resultat {
+      background: #141326;
+      padding: 1rem;
       border-radius: 12px;
+      margin-top: 1.5rem;
       white-space: pre-wrap;
-      box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
     }
 
-    .image-preview {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .image-preview img {
+    img {
       max-width: 100%;
+      margin-top: 1rem;
       border-radius: 12px;
-      border: 1px solid #00ffff;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>📰 Actualité Luxe IA + Génération Visuelle</h2>
+    <h1>📰 Actualité & IA – Selezione</h1>
 
-    <textarea id="sujet" placeholder="Ex : Balenciaga défilé 2025, Vinted revente sacs luxe, etc... (facultatif)"></textarea>
-    <button onclick="genererActu()">🚀 Générer Actualité & Image</button>
+    <label for="type">🧠 Choisissez un type :</label>
+    <select id="type">
+      <option value="actualite">🗞️ Actualité</option>
+      <option value="anecdote">📚 Anecdote</option>
+      <option value="tendance">📈 Tendance</option>
+    </select>
 
-    <div class="output" id="actu">🔍 En attente...</div>
-    <div class="image-preview" id="imageContainer"></div>
+    <label for="sujet">🎯 Sujet (optionnel) :</label>
+    <input type="text" id="sujet" placeholder="Ex : Balenciaga, mode éthique, fashion week..."/>
+
+    <button onclick="lancerIA()">🚀 Générer le contenu IA</button>
+
+    <div id="resultat">🧬 En attente d'une requête...</div>
+    <img id="image" style="display:none;" />
   </div>
 
   <script>
-    async function genererActu() {
+    async function lancerIA() {
+      const type = document.getElementById('type').value;
       const sujet = document.getElementById('sujet').value.trim();
-      const actuDiv = document.getElementById('actu');
-      const imageContainer = document.getElementById('imageContainer');
+      const resDiv = document.getElementById('resultat');
+      const img = document.getElementById('image');
 
-      actuDiv.textContent = "⏳ Génération en cours...";
-      imageContainer.innerHTML = "";
+      resDiv.innerText = "⏳ Génération en cours...";
+      img.style.display = "none";
 
       try {
-        const response = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe-ia", {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe-ia", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sujet })
+          body: JSON.stringify({ type, sujet })
         });
 
-        const data = await response.json();
-        actuDiv.textContent = data.actu || "❌ Aucun contenu généré.";
+        const data = await res.json();
+
+        if (data.contenu) {
+          resDiv.innerText = data.contenu;
+        } else {
+          resDiv.innerText = "❌ Aucun contenu généré.";
+        }
 
         if (data.imageUrl) {
-          const img = document.createElement("img");
           img.src = data.imageUrl;
-          img.alt = "Illustration IA";
-          imageContainer.appendChild(img);
+          img.style.display = "block";
         }
-      } catch (err) {
-        actuDiv.textContent = "🚫 Erreur de génération. Veuillez réessayer.";
+
+      } catch (error) {
+        resDiv.innerText = "🚫 Erreur lors de la génération.";
       }
     }
   </script>
