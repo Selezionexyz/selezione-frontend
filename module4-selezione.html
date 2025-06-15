@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sourcing Fournisseurs – Selezione</title>
+  <style>
+    body {
+      background-color: #0f0c29;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      padding: 2rem;
+    }
+    h2 {
+      color: #00ffff;
+      text-align: center;
+    }
+    input[type="file"] {
+      display: block;
+      margin: 1rem auto;
+    }
+    button {
+      background: #00ffff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      display: block;
+      margin: 1rem auto;
+      cursor: pointer;
+    }
+    pre {
+      background: #1b1b2f;
+      padding: 1rem;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2>📦 Sourcing Fournisseurs (Excel)</h2>
+  <input type="file" id="fichierExcel" accept=".xlsx" />
+  <button onclick="envoyerFichier()">Analyser</button>
+  <pre id="resultat">🔍 En attente du fichier...</pre>
+
+  <script>
+    async function envoyerFichier() {
+      const input = document.getElementById('fichierExcel');
+      const resultat = document.getElementById('resultat');
+
+      if (!input.files[0]) {
+        resultat.textContent = "⚠️ Aucun fichier sélectionné.";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('fichier', input.files[0]);
+
+      try {
+        const res = await fetch('https://selezione-ia-backend.onrender.com/sourcing-fournisseurs', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await res.json();
+        if (data.resume) {
+          resultat.textContent = JSON.stringify(data.resume, null, 2);
+        } else {
+          resultat.textContent = "❌ Erreur analyse fichier.";
+        }
+      } catch (err) {
+        resultat.textContent = "🚫 Erreur de connexion au serveur.";
+      }
+    }
+  </script>
+</body>
+</html>
