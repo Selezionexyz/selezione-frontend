@@ -3,154 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Assistant Luxe IA – Selezione</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <title>Module 1 – Assistant Luxe IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #0f0c29;
-      color: #fff;
       font-family: 'Poppins', sans-serif;
+      color: #fff;
       margin: 0;
       padding: 0;
     }
-    #ia-container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: linear-gradient(145deg, #1a1836, #302b63);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,255,255,0.2);
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 20px;
     }
     h2 {
       text-align: center;
       color: #00ffff;
-      font-size: 26px;
-      margin-bottom: 1rem;
+      margin-bottom: 30px;
     }
-    label, select, textarea, input[type="checkbox"] {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      font-size: 16px;
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 30px;
     }
-    select, textarea {
-      background: #1d1a3a;
+    .tab-button {
+      padding: 10px 20px;
       border: none;
       border-radius: 8px;
-      color: #fff;
-      padding: 12px;
-    }
-    .options {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-    .options label {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      width: auto;
-    }
-    .options input {
-      margin-right: 8px;
-    }
-    button {
-      background: linear-gradient(to right, #00ffff, #0088ff);
-      color: #000;
-      font-weight: bold;
-      padding: 12px;
-      width: 100%;
-      border: none;
-      border-radius: 10px;
-      margin-top: 15px;
+      background: #222;
+      color: #00ffff;
       cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s ease;
     }
-    .result {
-      margin-top: 20px;
-      background: #101024;
+    .tab-button.active {
+      background: linear-gradient(90deg, #00ffff, #0088ff);
+      color: #000;
+    }
+    .tool-section {
+      display: none;
+      background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+    .tool-section.active {
+      display: block;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      background: #191933;
+      color: #fff;
+    }
+    button.send-btn {
+      margin-top: 10px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      background: linear-gradient(90deg, #00ffff, #0088ff);
+      color: #000;
+      cursor: pointer;
+      width: 100%;
+    }
+    pre.response {
+      background: #0b0b1f;
       padding: 20px;
       border-radius: 12px;
+      color: #00ffff;
+      margin-top: 20px;
       white-space: pre-wrap;
-    }
-    img {
-      max-width: 100%;
-      margin-top: 10px;
-      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.1);
     }
   </style>
 </head>
 <body>
-  <div id="ia-container">
+  <div class="container">
     <h2>🤖 Assistant Luxe IA</h2>
 
-    <label>🎯 Mode :</label>
-    <select id="mode">
-      <option value="chat">💬 Chat IA</option>
-      <option value="marque">🏷️ Analyse Marque</option>
-      <option value="style">👗 Conseiller Style</option>
-    </select>
-
-    <label>💬 Votre question :</label>
-    <textarea id="question" rows="4" placeholder="Ex : Que penses-tu de Gucci ?"></textarea>
-
-    <div class="options">
-      <label><input type="checkbox" id="imageIA" /> 🖼️ Générer une image IA</label>
-      <label><input type="checkbox" id="anecdote" /> 💡 Ajouter une anecdote</label>
-      <label><input type="checkbox" id="quiz" /> ❓ Ajouter un mini quizz</label>
+    <div class="tabs">
+      <button class="tab-button active" onclick="switchTab('chat')">💬 Chat IA</button>
+      <button class="tab-button" onclick="switchTab('marque')">🏷️ Analyse Marque</button>
+      <button class="tab-button" onclick="switchTab('style')">👗 Conseiller Style</button>
     </div>
 
-    <button onclick="envoyerQuestion()">🚀 Lancer l'Assistant</button>
+    <!-- Chat IA -->
+    <div class="tool-section active" id="tab-chat">
+      <label>Votre question :</label>
+      <textarea id="input-chat" placeholder="Ex : Quelles sont les tendances 2024 ?"></textarea>
+      <button class="send-btn" onclick="envoyer('chat')">🚀 Envoyer</button>
+      <pre id="reponse-chat" class="response">🔍 En attente...</pre>
+    </div>
 
-    <div id="reponse" class="result">🔍 En attente de votre demande...</div>
-    <div id="image" class="result"></div>
+    <!-- Analyse Marque -->
+    <div class="tool-section" id="tab-marque">
+      <label>Nom de la marque :</label>
+      <textarea id="input-marque" placeholder="Ex : Balenciaga, Gucci, Dior..."></textarea>
+      <button class="send-btn" onclick="envoyer('marque')">🚀 Analyser</button>
+      <pre id="reponse-marque" class="response">🔍 En attente...</pre>
+    </div>
+
+    <!-- Conseiller Style -->
+    <div class="tool-section" id="tab-style">
+      <label>Besoin style :</label>
+      <textarea id="input-style" placeholder="Ex : Je cherche un look pour un mariage d'été."></textarea>
+      <button class="send-btn" onclick="envoyer('style')">🚀 Conseiller</button>
+      <pre id="reponse-style" class="response">🔍 En attente...</pre>
+    </div>
   </div>
 
   <script>
-    async function envoyerQuestion() {
-      const question = document.getElementById("question").value.trim();
-      const mode = document.getElementById("mode").value;
-      const imageIA = document.getElementById("imageIA").checked;
-      const anecdote = document.getElementById("anecdote").checked;
-      const quiz = document.getElementById("quiz").checked;
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
 
-      const reponseDiv = document.getElementById("reponse");
-      const imageDiv = document.getElementById("image");
-      reponseDiv.textContent = "⏳ Traitement en cours...";
-      imageDiv.innerHTML = "";
+      document.querySelector(`[onclick="switchTab('${tab}')"]`).classList.add('active');
+      document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    async function envoyer(mode) {
+      const input = document.getElementById(`input-${mode}`);
+      const reponse = document.getElementById(`reponse-${mode}`);
+      const question = input.value.trim();
 
       if (!question) {
-        reponseDiv.textContent = "⚠️ Veuillez saisir une question.";
+        reponse.textContent = "⚠️ Merci d’écrire une question.";
         return;
       }
 
-      let prompt = question;
-      if (anecdote) prompt += "\nAjoute une anecdote sur ce sujet.";
-      if (quiz) prompt += "\nAjoute un mini quiz à choix multiples.";
-      if (imageIA) prompt += "\nGénère aussi une image représentative.";
+      reponse.textContent = "⏳ En cours...";
 
       try {
         const res = await fetch("https://selezione-ia-backend.onrender.com/assistant-luxe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: prompt, mode })
+          body: JSON.stringify({ message: question, mode })
         });
 
         const data = await res.json();
-        reponseDiv.textContent = data.response || "❌ L’IA n’a pas pu répondre.";
-
-        if (imageIA) {
-          const imageRes = await fetch("https://selezione-ia-backend.onrender.com/generate-image", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt: question })
-          });
-          const imgData = await imageRes.json();
-          imageDiv.innerHTML = `<img src="${imgData.imageUrl}" alt="Image IA générée" />`;
-        }
-
-      } catch (error) {
-        reponseDiv.textContent = "🚫 Erreur lors de la communication avec le serveur.";
+        reponse.textContent = data.response || "❌ Aucune réponse générée.";
+      } catch (err) {
+        reponse.textContent = "🚫 Erreur de connexion à l’IA.";
       }
     }
   </script>
