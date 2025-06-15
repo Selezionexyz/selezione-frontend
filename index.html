@@ -1,58 +1,219 @@
-<!-- index.html : Dashboard principal SELEZIONE --><!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SELEZIONE - Dashboard Luxe</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SELEZIONE – Dashboard IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0b7a7d0.js" crossorigin="anonymous"></script>
   <style>
-    body {
-      font-family: 'Orbitron', sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background: linear-gradient(to bottom, #000014, #010a10);
-      color: #00f9ff;
+    :root {
+      --bg: #0f0c29;
+      --bg-alt: #1f1c3b;
+      --text: #ffffff;
+      --accent: #00ffff;
     }
-    h1, h2 {
+
+    body.light-mode {
+      --bg: #f1f1f1;
+      --bg-alt: #ffffff;
+      --text: #111;
+      --accent: #007bff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      display: flex;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    aside {
+      width: 220px;
+      min-height: 100vh;
+      background: var(--bg-alt);
+      padding: 2rem 1rem;
+      position: fixed;
+      left: 0;
+      top: 0;
+      border-right: 1px solid var(--accent);
+    }
+
+    aside h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--accent);
+    }
+
+    aside nav a {
+      display: block;
+      margin-bottom: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    aside nav a:hover {
+      color: var(--accent);
+      padding-left: 10px;
+    }
+
+    .main {
+      margin-left: 220px;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--accent);
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .card i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .card p {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-top: 0.5rem;
+    }
+
+    .toggle-mode {
+      margin-top: 2rem;
       text-align: center;
     }
-    .module {
-      background-color: #111122;
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-    .status {
-      background: #000;
-      padding: 1rem;
-      border-radius: 8px;
-      color: #fff;
-      margin-top: 1rem;
-      font-family: monospace;
-    }
-    iframe {
-      width: 100%;
-      height: 600px;
+
+    .toggle-mode button {
+      padding: 8px 16px;
+      background: var(--accent);
+      color: #000;
       border: none;
-      border-radius: 8px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h1>📊 SELEZIONE - Tableau de bord Luxe</h1>
-  <p style="text-align:center; font-size: 1rem; color: #ccc">Date : <span id="date"></span></p>  <div class="module">
-    <h2>🤖 Assistant Luxe IA</h2>
-    <iframe src="module1.html"></iframe>
-  </div>  <div class="module">
-    <h2>📰 Actualités & Générateur IA</h2>
-    <iframe src="module2.html"></iframe>
-  </div>  <div class="module">
-    <h2>🛍️ Fiche Produit & Assistant Style</h2>
-    <iframe src="module3.html"></iframe>
-  </div>  <script>
-    const date = new Date();
-    document.getElementById("date").textContent = date.toLocaleDateString('fr-FR', {
-      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-    });
-  </script></body>
+  <aside>
+    <h1>SELEZIONE</h1>
+    <nav>
+      <a href="index.html"><i class="fas fa-home"></i> Dashboard</a>
+      <a href="module1.html">🎯 Assistant Luxe</a>
+      <a href="module2.html">📰 Actus & Image IA</a>
+      <a href="module3.html">🧾 Fiche Produit</a>
+      <a href="module4.html">📂 Sourcing</a>
+      <a href="module5.html">💡 Explorateur</a>
+      <a href="module6.html">📊 Opportunités</a>
+      <a href="module7-lookbook.html">🖼️ Lookbook</a>
+      <a href="module8-dashboard.html">📈 Statistiques</a>
+      <a href="module9-scraper.html">🔎 Scraper</a>
+      <hr />
+      <a href="contact.html">📧 Contact</a>
+      <a href="cgu.html">📄 CGU</a>
+      <a href="mentions.html">📚 Mentions</a>
+    </nav>
+    <div class="toggle-mode">
+      <button onclick="toggleMode()">🌓 Mode</button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <h2>👑 Tableau de bord SELEZIONE</h2>
+
+    <div class="grid">
+      <div class="card" onclick="go('module1.html')">
+        <i class="fas fa-comments"></i>
+        <h3>Assistant Luxe IA</h3>
+        <p>Analyse marque & style</p>
+      </div>
+      <div class="card" onclick="go('module2.html')">
+        <i class="fas fa-newspaper"></i>
+        <h3>Actus & Image</h3>
+        <p>News + IA DALL·E</p>
+      </div>
+      <div class="card" onclick="go('module3.html')">
+        <i class="fas fa-tags"></i>
+        <h3>Fiche produit</h3>
+        <p>Optimisation SEO</p>
+      </div>
+      <div class="card" onclick="go('module4.html')">
+        <i class="fas fa-file-excel"></i>
+        <h3>Sourcing</h3>
+        <p>Fournisseurs Excel</p>
+      </div>
+      <div class="card" onclick="go('module5.html')">
+        <i class="fas fa-bulb"></i>
+        <h3>Explorateur luxe</h3>
+        <p>Idées & concepts</p>
+      </div>
+      <div class="card" onclick="go('module6.html')">
+        <i class="fas fa-chart-line"></i>
+        <h3>Opportunités</h3>
+        <p>Tendances e-commerce</p>
+      </div>
+      <div class="card" onclick="go('module7-lookbook.html')">
+        <i class="fas fa-image"></i>
+        <h3>Lookbook IA</h3>
+        <p>Création visuelle</p>
+      </div>
+      <div class="card" onclick="go('module8-dashboard.html')">
+        <i class="fas fa-database"></i>
+        <h3>Statistiques</h3>
+        <p>Données utilisateurs</p>
+      </div>
+      <div class="card" onclick="go('module9-scraper.html')">
+        <i class="fas fa-search-dollar"></i>
+        <h3>Scraper Luxe</h3>
+        <p>Comparateur prix</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function go(url) {
+      window.location.href = url;
+    }
+
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+    }
+  </script>
+</body>
 </html>
