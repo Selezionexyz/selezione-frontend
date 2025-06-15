@@ -1,184 +1,103 @@
-<!-- module1.html - Assistant Luxe IA -->
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Assistant Luxe IA – Selezione</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assistant Luxe IA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0f0c29;
-      font-family: 'Poppins', sans-serif;
-      color: #fff;
       margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #0f0c29;
+      color: #fff;
+      padding: 2rem;
     }
-    #ia-container {
-      max-width: 650px;
-      margin: 50px auto;
-      background: linear-gradient(145deg, #0f0c29, #302b63, #24243e);
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(0,255,255,0.3);
-    }
-    h2 {
+    h1 {
       text-align: center;
       color: #00ffff;
-      font-size: 28px;
-      text-shadow: 0 0 15px #00ffff;
     }
-    select, textarea, button {
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #1f1c3b;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0,255,255,0.3);
+    }
+    label, select, textarea, button {
+      display: block;
       width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 10px;
-      border: none;
-      font-size: 16px;
+      margin-bottom: 1rem;
     }
     select, textarea {
-      background: #191933;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: #2e2b55;
       color: #fff;
     }
-    .button-group {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .button-group button {
-      flex: 1;
-      cursor: pointer;
-      border-radius: 10px;
-      font-weight: bold;
-    }
-    #ia-button {
-      background: linear-gradient(90deg, #00ffff, #0088ff);
+    button {
+      padding: 12px;
+      background: #00ffff;
       color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-    .mic-button {
-      background: #4441;
-      color: #00ffff;
-      border: 1px solid #00ffff;
-    }
-    .pdf-button {
-      background: #222;
-      color: #fff;
-      border: 1px solid #555;
+    button:hover {
+      background: #00c9c9;
     }
     pre {
-      margin-top: 20px;
-      background-color: #0b0b1f;
-      padding: 20px;
+      background: #11102b;
+      padding: 1rem;
       border-radius: 12px;
-      color: #00ffff;
       white-space: pre-wrap;
-      box-shadow: 0 0 15px rgba(0,255,255,0.1);
+      margin-top: 1rem;
+      color: #00ffff;
     }
   </style>
 </head>
 <body>
-  <div id="ia-container">
-    <h2>🤖 Assistant Luxe IA</h2>
-
-    <label>🎯 Choisissez un mode :</label>
+  <div class="container">
+    <h1>🎯 Assistant Luxe IA</h1>
+    <label>Choisir un mode :</label>
     <select id="mode">
-      <option value="chat">💬 Chat IA</option>
-      <option value="marque">🏷️ Analyse Marque</option>
-      <option value="style">👗 Conseiller Style</option>
-    </select>
+      <option value="marque">Analyse de marque</option>
+      <option value="style">Conseil de style</option>
+      <option value="chat">Assistant général</option>
+    </select><label>Votre question :</label>
+<textarea id="message" rows="4" placeholder="Ex : Que penses-tu de Gucci ?"></textarea>
 
-    <label>💬 Votre question :</label>
-    <textarea id="question" placeholder="Ex : Que penses-tu de Gucci ?"></textarea>
+<button onclick="envoyer()">🚀 Lancer l'IA</button>
+<pre id="reponse">En attente...</pre>
 
-    <div class="button-group">
-      <button class="mic-button" onclick="demarrerMicro()">🎙️ Micro</button>
-      <button id="ia-button" onclick="envoyerQuestion()">🚀 Lancer IA</button>
-      <button class="pdf-button" onclick="exporterPDF()">📤 PDF</button>
-    </div>
-
-    <pre id="reponse">🔍 En attente...</pre>
-  </div>
-
-  <script>
-    function simulateTyping(text, element, delay = 15) {
-      element.textContent = '';
-      let i = 0;
-      const typing = setInterval(() => {
-        if (i < text.length) {
-          element.textContent += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(typing);
-        }
-      }, delay);
-    }
-
-    async function envoyerQuestion() {
-      const question = document.getElementById('question').value.trim();
+  </div>  <script>
+    async function envoyer() {
+      const message = document.getElementById('message').value;
       const mode = document.getElementById('mode').value;
       const reponseDiv = document.getElementById('reponse');
-      const bouton = document.getElementById('ia-button');
 
-      if (!question) {
-        simulateTyping("⚠️ Merci de saisir une question avant de lancer l’IA.", reponseDiv);
+      if (!message) {
+        reponseDiv.textContent = "⚠️ Merci de saisir une question.";
         return;
       }
 
-      bouton.innerText = "⏳ Analyse...";
-      bouton.disabled = true;
-      bouton.style.opacity = 0.6;
+      reponseDiv.textContent = "⏳ Analyse en cours...";
 
       try {
         const res = await fetch("https://selezione-ia-backend.onrender.com/assistant-luxe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: question, mode: mode })
+          body: JSON.stringify({ message, mode })
         });
 
         const data = await res.json();
-        const reponse = data.response || "❌ L’IA n’a pas pu répondre.";
-        simulateTyping(reponse, reponseDiv);
+        reponseDiv.textContent = data.response || "❌ Réponse introuvable.";
       } catch (err) {
-        simulateTyping("🚫 Erreur de connexion au serveur IA.", reponseDiv);
+        reponseDiv.textContent = "🚫 Erreur de connexion au serveur IA.";
       }
-
-      bouton.innerText = "🚀 Lancer IA";
-      bouton.disabled = false;
-      bouton.style.opacity = 1;
     }
-
-    function demarrerMicro() {
-      const textarea = document.getElementById('question');
-      if (!('webkitSpeechRecognition' in window)) {
-        alert("🎙️ Micro non compatible avec ce navigateur.");
-        return;
-      }
-
-      const recognition = new webkitSpeechRecognition();
-      recognition.lang = "fr-FR";
-      recognition.interimResults = false;
-      recognition.maxAlternatives = 1;
-
-      recognition.onresult = (event) => {
-        textarea.value = event.results[0][0].transcript;
-      };
-
-      recognition.onerror = () => {
-        alert("🎤 Erreur micro.");
-      };
-
-      recognition.start();
-    }
-
-    function exporterPDF() {
-      const contenu = document.getElementById('reponse').innerText;
-      const blob = new Blob([contenu], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const lien = document.createElement('a');
-      lien.href = url;
-      lien.download = 'Reponse-IA-Selezione.txt';
-      lien.click();
-      URL.revokeObjectURL(url);
-    }
-  </script>
-</body>
+  </script></body>
 </html>
