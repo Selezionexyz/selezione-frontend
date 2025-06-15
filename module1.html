@@ -1,103 +1,212 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Assistant Luxe IA</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Assistant Luxe IA – Selezione</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       font-family: 'Poppins', sans-serif;
-      background: #0f0c29;
       color: #fff;
-      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
-    h1 {
+
+    .assistant-container {
+      background-color: rgba(15, 15, 30, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+      padding: 30px;
+      max-width: 700px;
+      width: 90%;
+    }
+
+    h2 {
       text-align: center;
       color: #00ffff;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-shadow: 0 0 15px #00ffff;
     }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: #1f1c3b;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0,255,255,0.3);
-    }
-    label, select, textarea, button {
+
+    label {
+      font-weight: 600;
       display: block;
-      width: 100%;
-      margin-bottom: 1rem;
+      margin: 10px 0 5px;
     }
-    select, textarea {
-      padding: 10px;
-      border-radius: 8px;
+
+    select, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 10px;
       border: none;
-      background: #2e2b55;
+      font-size: 16px;
+    }
+
+    select, textarea {
+      background: #1e1e36;
       color: #fff;
     }
+
     button {
-      padding: 12px;
-      background: #00ffff;
+      background: linear-gradient(90deg, #00ffff, #0088ff);
       color: #000;
       font-weight: bold;
-      border: none;
-      border-radius: 8px;
+      margin-top: 15px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: transform 0.2s;
     }
+
     button:hover {
-      background: #00c9c9;
+      transform: scale(1.02);
     }
-    pre {
-      background: #11102b;
-      padding: 1rem;
+
+    .response-box {
+      background-color: #0b0b1f;
+      margin-top: 20px;
+      padding: 20px;
       border-radius: 12px;
-      white-space: pre-wrap;
-      margin-top: 1rem;
       color: #00ffff;
+      white-space: pre-wrap;
+      min-height: 100px;
+      font-size: 15px;
+      line-height: 1.5;
+      box-shadow: 0 0 10px rgba(0,255,255,0.1);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .button-group button {
+      flex: 1;
+      font-size: 15px;
+    }
+
+    @media(max-width: 600px) {
+      .assistant-container {
+        padding: 20px;
+      }
+      h2 {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎯 Assistant Luxe IA</h1>
-    <label>Choisir un mode :</label>
+  <div class="assistant-container">
+    <h2>🤖 Assistant Luxe IA</h2>
+
+    <label>🎯 Mode :</label>
     <select id="mode">
-      <option value="marque">Analyse de marque</option>
-      <option value="style">Conseil de style</option>
-      <option value="chat">Assistant général</option>
-    </select><label>Votre question :</label>
-<textarea id="message" rows="4" placeholder="Ex : Que penses-tu de Gucci ?"></textarea>
+      <option value="chat">💬 Chat IA</option>
+      <option value="marque">🏷️ Analyse Marque</option>
+      <option value="style">👗 Conseiller Style</option>
+    </select>
 
-<button onclick="envoyer()">🚀 Lancer l'IA</button>
-<pre id="reponse">En attente...</pre>
+    <label>💬 Votre question :</label>
+    <textarea id="question" placeholder="Ex : Que penses-tu de la stratégie de Gucci ?"></textarea>
 
-  </div>  <script>
-    async function envoyer() {
-      const message = document.getElementById('message').value;
+    <div class="button-group">
+      <button onclick="envoyerQuestion()">🚀 Lancer</button>
+      <button onclick="demarrerMicro()">🎙️ Micro</button>
+      <button onclick="telechargerReponse()">📥 Télécharger</button>
+    </div>
+
+    <div class="response-box" id="reponse">🔍 En attente d’une question...</div>
+  </div>
+
+  <script>
+    function simulateTyping(text, element, delay = 15) {
+      element.textContent = '';
+      let i = 0;
+      const typing = setInterval(() => {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(typing);
+          lireTexte(element.textContent);
+        }
+      }, delay);
+    }
+
+    async function envoyerQuestion() {
+      const question = document.getElementById('question').value.trim();
       const mode = document.getElementById('mode').value;
       const reponseDiv = document.getElementById('reponse');
 
-      if (!message) {
-        reponseDiv.textContent = "⚠️ Merci de saisir une question.";
+      if (!question) {
+        simulateTyping("⚠️ Veuillez écrire une question.", reponseDiv);
         return;
       }
 
-      reponseDiv.textContent = "⏳ Analyse en cours...";
+      simulateTyping("⏳ L'IA réfléchit...", reponseDiv);
 
       try {
         const res = await fetch("https://selezione-ia-backend.onrender.com/assistant-luxe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message, mode })
+          body: JSON.stringify({ message: question, mode: mode })
         });
 
         const data = await res.json();
-        reponseDiv.textContent = data.response || "❌ Réponse introuvable.";
+        const reponse = data.response || "❌ Aucune réponse de l’IA.";
+        simulateTyping(reponse, reponseDiv);
       } catch (err) {
-        reponseDiv.textContent = "🚫 Erreur de connexion au serveur IA.";
+        simulateTyping("🚫 Erreur de connexion au serveur IA.", reponseDiv);
       }
     }
-  </script></body>
+
+    function demarrerMicro() {
+      const textarea = document.getElementById('question');
+      if (!('webkitSpeechRecognition' in window)) {
+        alert("🎙️ Micro non compatible avec ce navigateur.");
+        return;
+      }
+
+      const recognition = new webkitSpeechRecognition();
+      recognition.lang = "fr-FR";
+      recognition.interimResults = false;
+
+      recognition.onresult = (event) => {
+        textarea.value = event.results[0][0].transcript;
+      };
+
+      recognition.onerror = () => {
+        alert("🎤 Erreur micro.");
+      };
+
+      recognition.start();
+    }
+
+    function telechargerReponse() {
+      const contenu = document.getElementById('reponse').innerText;
+      const blob = new Blob([contenu], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const lien = document.createElement('a');
+      lien.href = url;
+      lien.download = 'reponse-ia.txt';
+      lien.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function lireTexte(texte) {
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(texte);
+        utterance.lang = 'fr-FR';
+        speechSynthesis.speak(utterance);
+      }
+    }
+  </script>
+</body>
 </html>
