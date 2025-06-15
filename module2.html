@@ -94,7 +94,7 @@
       const container = document.getElementById("actus-luxe");
       container.innerHTML = "⏳ Chargement...";
       try {
-        const res = await fetch("https://selezione-ia-backend.onrender.com/actualites-luxe");
+        const res = await fetch("https://selezione-ia-backend.onrender.com/actus-luxe");
         const data = await res.json();
         if (!data.actualites) throw new Error();
         container.innerHTML = "";
@@ -123,10 +123,10 @@
 
       output.innerText = "⏳ Génération en cours...";
       try {
-        const res = await fetch("https://selezione-ia-backend.onrender.com/chat", {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/assistant-luxe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: prompt })
+          body: JSON.stringify({ message: prompt, mode: "chat" })
         });
         const data = await res.json();
         output.innerText = data.reponse || "❌ Aucune réponse générée.";
