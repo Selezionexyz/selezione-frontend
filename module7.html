@@ -1,31 +1,68 @@
-// Module 7 : Backend Express pour gestion des commandes SELEZIONE
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 7 - Commande SELEZIONE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-[Inter] p-6">
+  <div class="max-w-xl mx-auto bg-white shadow-xl rounded-2xl p-6">
+    <h2 class="text-2xl font-bold text-center mb-4 text-gray-800">📦 Module 7 : Passer une commande</h2><!-- Carte formulaire -->
+<form id="commande-form" class="space-y-4">
+  <div>
+    <label for="user" class="block text-sm font-medium text-gray-700">👤 Nom du membre</label>
+    <input type="text" id="user" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required />
+  </div>
 
-const express = require('express'); const cors = require('cors'); const bodyParser = require('body-parser'); const nodemailer = require('nodemailer'); const { createClient } = require('@supabase/supabase-js'); require('dotenv').config();
+  <div>
+    <label for="fichier" class="block text-sm font-medium text-gray-700">📁 Nom du fichier</label>
+    <input type="text" id="fichier" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" required />
+  </div>
 
-const app = express(); const PORT = process.env.PORT || 3000;
+  <div>
+    <label for="selections" class="block text-sm font-medium text-gray-700">🛒 Sélections (JSON)</label>
+    <textarea id="selections" rows="6" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500" placeholder='[ { "ligne": 10, "taille": "M", "quantite": 2 }, { "ligne": 11, "taille": "L", "quantite": 1 } ]' required></textarea>
+  </div>
 
-// Middlewares app.use(cors()); app.use(bodyParser.json());
+  <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg">✅ Envoyer la commande</button>
+</form>
 
-// Supabase client const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+<div id="feedback" class="text-center mt-4 text-sm font-medium"></div>
 
-// Nodemailer config (pour e-mail notification admin) const transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.ADMIN_EMAIL, pass: process.env.ADMIN_EMAIL_PASSWORD, }, });
+  </div>  <script>
+    document.getElementById("commande-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const user = document.getElementById("user").value;
+      const fichier = document.getElementById("fichier").value;
+      let selections;
 
-// Enregistrer une commande app.post('/api/commande', async (req, res) => { const { user, fichier, selections } = req.body;
+      try {
+        selections = JSON.parse(document.getElementById("selections").value);
+      } catch (err) {
+        document.getElementById("feedback").innerText = "❌ Format JSON invalide.";
+        document.getElementById("feedback").classList.add("text-red-600");
+        return;
+      }
 
-try { // Enregistrement dans Supabase const { error } = await supabase.from('commandes').insert({ user, fichier, selections, created_at: new Date().toISOString(), });
+      const res = await fetch("/api/commande", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user, fichier, selections }),
+      });
 
-if (error) throw error;
+      const data = await res.json();
 
-// Notification e-mail
-await transporter.sendMail({
-  from: process.env.ADMIN_EMAIL,
-  to: process.env.ADMIN_EMAIL,
-  subject: `Nouvelle commande SELEZIONE de ${user}`,
-  html: `Fichier: <b>${fichier}</b><br/>Commande: <pre>${JSON.stringify(selections, null, 2)}</pre>`,
-});
-
-res.status(200).json({ message: 'Commande enregistrée et notifiée avec succès.' });
-
-} catch (err) { console.error('Erreur commande :', err); res.status(500).json({ error: 'Erreur lors de l’enregistrement de la commande.' }); } });
-
-app.listen(PORT, () => { console.log(🚀 Serveur backend SELEZIONE lancé sur le port ${PORT}); });
+      const feedback = document.getElementById("feedback");
+      if (res.ok) {
+        feedback.innerText = "✅ Commande envoyée avec succès !";
+        feedback.classList.remove("text-red-600");
+        feedback.classList.add("text-green-600");
+      } else {
+        feedback.innerText = `❌ Erreur : ${data.error}`;
+        feedback.classList.remove("text-green-600");
+        feedback.classList.add("text-red-600");
+      }
+    });
+  </script></body>
+</html>
