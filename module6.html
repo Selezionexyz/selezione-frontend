@@ -3,135 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🛍️ Analyse Vestiaire Collective - Selezione</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a2e0b7a7d0.js" crossorigin="anonymous"></script>
+  <title>Scraper Vestiaire Collective</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: #0f0c29;
-      color: #fff;
-      margin: 0;
-      padding: 2rem;
+      font-family: Arial, sans-serif;
+      background-color: #0e0e15;
+      color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
     }
 
     h1 {
-      text-align: center;
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff;
-      margin-bottom: 2rem;
+      color: #00f7ff;
     }
 
     .container {
-      max-width: 700px;
-      margin: auto;
-      background: #1b1b3a;
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin: 1rem 0 0.5rem;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 12px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
+      max-width: 600px;
+      background-color: #1a1a2e;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00f7ff33;
     }
 
     input {
-      background: #2c2c54;
-      color: white;
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
     }
 
     button {
-      background: linear-gradient(to right, #00ffff, #0077ff);
-      color: black;
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: linear-gradient(to right, #00f7ff, #0077ff);
+      border: none;
+      color: white;
       font-weight: bold;
-      margin-top: 1rem;
+      font-size: 16px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    button:hover {
-      transform: scale(1.03);
     }
 
     .result {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: #141432;
-      border-radius: 10px;
+      margin-top: 20px;
       white-space: pre-wrap;
-      animation: fadeIn 0.5s ease-in-out;
+      background: #222;
+      padding: 10px;
+      border-radius: 8px;
     }
 
-    .error {
-      color: #ff6b6b;
+    .link {
+      color: #00f7ff;
     }
   </style>
 </head>
 <body>
-  <h1>🛍️ Analyse Vestiaire Collective</h1>
+  <h1>🛍️ Analyse Prix Vestiaire Collective</h1>
   <div class="container">
-    <label for="produit">🔍 Nom du produit :</label>
-    <input type="text" id="produit" placeholder="Ex : Sac Chanel Timeless, Bague Cartier Love..." />
-
-    <button onclick="analyser()">🚀 Lancer l'analyse</button>
-
-    <div id="result" class="result">En attente...</div>
+    <input id="query" placeholder="Ex: Gucci Sac Dionysus" />
+    <button onclick="scrapeVestiaire()">📊 Lancer l'analyse</button>
+    <div id="result" class="result">⏳ En attente de requête...</div>
   </div>
 
   <script>
-    async function analyser() {
-      const produit = document.getElementById("produit").value.trim();
+    async function scrapeVestiaire() {
+      const query = document.getElementById("query").value;
       const result = document.getElementById("result");
-
-      if (!produit) {
-        result.innerHTML = "❌ Merci d’entrer un nom de produit.";
-        result.classList.add("error");
-        return;
-      }
-
-      result.innerHTML = "⏳ Analyse en cours...";
-      result.classList.remove("error");
+      result.innerText = "⏳ Analyse en cours...";
 
       try {
-        const res = await fetch("https://selezione-ia-backend.onrender.com/vestiaire-analyse", {
+        const res = await fetch("https://selezione-ia-backend.onrender.com/scrape-vestiaire", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ produit })
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ query })
         });
 
         const data = await res.json();
 
-        if (data.error) {
-          result.innerHTML = "❌ Erreur : " + data.error;
-          result.classList.add("error");
-        } else {
-          result.innerHTML = `📦 Produits trouvés : ${data.produits.length}
-💰 Min : ${data.stats.min} €
-💎 Max : ${data.stats.max} €
-📊 Moyen : ${data.stats.avg} €
-
-🧠 Résumé IA :
-${data.resume}`;
+        if (data.produits.length === 0) {
+          result.innerText = "❌ Aucun résultat trouvé.";
+          return;
         }
+
+        const lines = data.produits.map(p => `🔹 ${p.title}\n💶 ${p.price}€\n🔗 ${p.link}`).join("\n\n");
+        const stats = `📉 Min : ${data.stats.min}€\n📈 Max : ${data.stats.max}€\n📊 Moyenne : ${data.stats.avg}€`;
+
+        result.innerText = `✅ Résultats (${data.produits.length} produits) :\n\n${lines}\n\n📌 Analyse IA:\n${data.resume}\n\n${stats}`;
       } catch (err) {
-        result.innerHTML = "❌ Erreur lors de la requête.";
-        result.classList.add("error");
+        result.innerText = "❌ Erreur lors du scraping.";
       }
     }
   </script>
