@@ -2,35 +2,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SELEZIONE - Dashboard</title>
+  <title>SELEZIONE - Luxe & Mode IA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <script src="https://kit.fontawesome.com/a2e0b7a7d0.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --bg: #0f0c29;
       --accent: #00ffff;
       --text: #ffffff;
       --card-bg: #1f1c3b;
-    }body {
+      --hover: #00f2fe;
+    }* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: 'Poppins', sans-serif;
   background: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
+}
+
+header {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1513679408194-e1d6757d09aa') no-repeat center center/cover;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  animation: fadeIn 2s ease-in-out;
+}
+
+header h1 {
+  font-size: 3rem;
+  color: var(--accent);
+  text-shadow: 0 0 15px var(--accent);
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: white;
+}
+
+header button {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #00ffff, #0077ff);
+  border: none;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+header button:hover {
+  transform: scale(1.05);
 }
 
 aside {
-  width: 220px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 230px;
+  height: 100%;
   background: var(--card-bg);
   padding: 2rem 1rem;
-  height: 100vh;
-  position: fixed;
+  z-index: 1000;
 }
 
-aside h1 {
-  font-size: 22px;
-  color: var(--accent);
+aside h2 {
   text-align: center;
+  color: var(--accent);
   margin-bottom: 2rem;
 }
 
@@ -39,109 +87,122 @@ aside nav a {
   color: var(--text);
   text-decoration: none;
   margin-bottom: 1rem;
-  transition: 0.2s;
+  transition: all 0.3s;
 }
 
 aside nav a:hover {
   color: var(--accent);
-  padding-left: 5px;
+  padding-left: 8px;
 }
 
 .main {
-  margin-left: 220px;
+  margin-left: 230px;
   padding: 2rem;
-  width: 100%;
-}
-
-h2 {
-  text-align: center;
-  color: var(--accent);
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 .card {
   background: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: 12px;
   border: 1px solid var(--accent);
+  border-radius: 15px;
+  padding: 2rem;
   text-align: center;
-  transition: 0.3s ease;
+  transition: 0.4s;
   cursor: pointer;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 10px var(--accent);
+  box-shadow: 0 0 15px var(--hover);
 }
 
 .card i {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
   color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.card h3 {
+  color: var(--text);
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 768px) {
+  aside {
+    display: none;
+  }
+  .main {
+    margin-left: 0;
+  }
 }
 
   </style>
 </head>
 <body>
-  <aside>
+  <header>
     <h1>SELEZIONE</h1>
+    <p>Votre assistant IA de luxe, prêt-à-porter & revente</p>
+    <button onclick="scrollToDashboard()">Accéder au tableau de bord</button>
+  </header>  <aside>
+    <h2>SELEZIONE</h2>
     <nav>
-      <a href="index.html">🏠 Dashboard</a>
+      <a href="index.html">🏠 Accueil</a>
       <a href="module1.html">🎯 Assistant Luxe</a>
-      <a href="module2.html">📰 Actus & Images</a>
+      <a href="module2.html">📰 Actus & Tendances</a>
       <a href="module3.html">🧾 Fiche Produit</a>
-<a href="module4.html">💰 Estimateur & Comparateur</a>
-<a href="module5.html">🗞️ Actus Luxe RSS</a>
-<a href="module6.html">💼 Scraper Vestiaire</a>
-      <a href="module7.html">📦 Commande Produits Luxe</a>
+      <a href="module4.html">💰 Estimation & Comparateur</a>
+      <a href="module5.html">📆 Actualités du Jour</a>
+      <a href="module6.html">📊 Scraper Vestiaire</a>
+      <a href="module7.html">📁 Commande Produits Excel</a>
       <a href="contact.html">📧 Contact</a>
-      <a href="cgu.html">📄 CGU</a>
-      <a href="mentions.html">📚 Mentions</a>
     </nav>
-  </aside>  <div class="main">
-    <h2>👑 Tableau de Bord SELEZIONE</h2>
+  </aside>  <div class="main" id="dashboard">
+    <h2 style="text-align:center; color: var(--accent);">🧠 Modules SELEZIONE</h2>
     <div class="grid">
-  <div class="card" onclick="go('module1.html')">
-    <i class="fas fa-robot"></i>
-    <h3>Assistant Luxe IA</h3>
-  </div>
-
-  <div class="card" onclick="go('module2.html')">
-    <i class="fas fa-newspaper"></i>
-    <h3>Actualités & Générateur d'Image</h3>
-  </div>
-
-  <div class="card" onclick="go('module3.html')">
-    <i class="fas fa-tags"></i>
-    <h3>Fiche Produit IA</h3>
-  </div>
-
-  <div class="card" onclick="go('module4.html')">
-    <i class="fas fa-euro-sign"></i>
-    <h3>Estimateur & Comparateur</h3>
-  </div>
-<div class="card" onclick="go('module5.html')">
-  <i class="fas fa-calendar-alt"></i>
-  <h3>Actus Luxe RSS</h3>
-</div>
-<div class="card" onclick="go('module6.html')">
-  <i class="fas fa-search-dollar"></i>
-  <h3>Scraper Vestiaire Collective</h3>
-</div>
-      <div class="card" onclick="go('module7.html')">
-  <i class="fas fa-box-open"></i>
-  <h3>Commande Produits Luxe</h3>
+      <div class="card" onclick="go('module1.html')">
+        <i class="fas fa-robot"></i>
+        <h3>Assistant Luxe IA</h3>
       </div>
-</div>
+      <div class="card" onclick="go('module2.html')">
+        <i class="fas fa-newspaper"></i>
+        <h3>Actus & Images IA</h3>
+      </div>
+      <div class="card" onclick="go('module3.html')">
+        <i class="fas fa-tags"></i>
+        <h3>Fiche Produit</h3>
+      </div>
+      <div class="card" onclick="go('module4.html')">
+        <i class="fas fa-balance-scale"></i>
+        <h3>Estimateur & Comparateur</h3>
+      </div>
+      <div class="card" onclick="go('module5.html')">
+        <i class="fas fa-calendar-day"></i>
+        <h3>Actu Journal Luxe</h3>
+      </div>
+      <div class="card" onclick="go('module6.html')">
+        <i class="fas fa-search"></i>
+        <h3>Scraping Vestiaire</h3>
+      </div>
+      <div class="card" onclick="go('module7.html')">
+        <i class="fas fa-file-excel"></i>
+        <h3>Commande Excel</h3>
+      </div>
+    </div>
   </div>  <script>
     function go(url) {
       window.location.href = url;
+    }
+    function scrollToDashboard() {
+      document.getElementById("dashboard").scrollIntoView({ behavior: 'smooth' });
     }
   </script></body>
 </html>
