@@ -1,208 +1,118 @@
 <!DOCTYPE html><html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SELEZIONE - Luxe & Mode IA</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0f0c29;
-      --accent: #00ffff;
-      --text: #ffffff;
-      --card-bg: #1f1c3b;
-      --hover: #00f2fe;
-    }* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-}
-
-header {
-  height: 100vh;
-  background: url('https://images.unsplash.com/photo-1513679408194-e1d6757d09aa') no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  animation: fadeIn 2s ease-in-out;
-}
-
-header h1 {
-  font-size: 3rem;
-  color: var(--accent);
-  text-shadow: 0 0 15px var(--accent);
-}
-
-header p {
-  font-size: 1.2rem;
-  margin-top: 1rem;
-  color: white;
-}
-
-header button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background: linear-gradient(to right, #00ffff, #0077ff);
-  border: none;
-  color: black;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-header button:hover {
-  transform: scale(1.05);
-}
-
-aside {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 230px;
-  height: 100%;
-  background: var(--card-bg);
-  padding: 2rem 1rem;
-  z-index: 1000;
-}
-
-aside h2 {
-  text-align: center;
-  color: var(--accent);
-  margin-bottom: 2rem;
-}
-
-aside nav a {
-  display: block;
-  color: var(--text);
-  text-decoration: none;
-  margin-bottom: 1rem;
-  transition: all 0.3s;
-}
-
-aside nav a:hover {
-  color: var(--accent);
-  padding-left: 8px;
-}
-
-.main {
-  margin-left: 230px;
-  padding: 2rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--accent);
-  border-radius: 15px;
-  padding: 2rem;
-  text-align: center;
-  transition: 0.4s;
-  cursor: pointer;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px var(--hover);
-}
-
-.card i {
-  font-size: 2.5rem;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.card h3 {
-  color: var(--text);
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@media screen and (max-width: 768px) {
-  aside {
-    display: none;
-  }
-  .main {
-    margin-left: 0;
-  }
-}
-
-  </style>
-</head>
-<body>
-  <header>
-    <h1>SELEZIONE</h1>
-    <p>Votre assistant IA de luxe, prêt-à-porter & revente</p>
-    <button onclick="scrollToDashboard()">Accéder au tableau de bord</button>
-  </header>  <aside>
-    <h2>SELEZIONE</h2>
-    <nav>
-      <a href="index.html">🏠 Accueil</a>
-      <a href="module1.html">🎯 Assistant Luxe</a>
-      <a href="module2.html">📰 Actus & Tendances</a>
-      <a href="module3.html">🧾 Fiche Produit</a>
-      <a href="module4.html">💰 Estimation & Comparateur</a>
-      <a href="module5.html">📆 Actualités du Jour</a>
-      <a href="module6.html">📊 Scraper Vestiaire</a>
-      <a href="module7.html">📁 Commande Produits Excel</a>
-      <a href="contact.html">📧 Contact</a>
-    </nav>
-  </aside>  <div class="main" id="dashboard">
-    <h2 style="text-align:center; color: var(--accent);">🧠 Modules SELEZIONE</h2>
-    <div class="grid">
-      <div class="card" onclick="go('module1.html')">
-        <i class="fas fa-robot"></i>
-        <h3>Assistant Luxe IA</h3>
-      </div>
-      <div class="card" onclick="go('module2.html')">
-        <i class="fas fa-newspaper"></i>
-        <h3>Actus & Images IA</h3>
-      </div>
-      <div class="card" onclick="go('module3.html')">
-        <i class="fas fa-tags"></i>
-        <h3>Fiche Produit</h3>
-      </div>
-      <div class="card" onclick="go('module4.html')">
-        <i class="fas fa-balance-scale"></i>
-        <h3>Estimateur & Comparateur</h3>
-      </div>
-      <div class="card" onclick="go('module5.html')">
-        <i class="fas fa-calendar-day"></i>
-        <h3>Actu Journal Luxe</h3>
-      </div>
-      <div class="card" onclick="go('module6.html')">
-        <i class="fas fa-search"></i>
-        <h3>Scraping Vestiaire</h3>
-      </div>
-      <div class="card" onclick="go('module7.html')">
-        <i class="fas fa-file-excel"></i>
-        <h3>Commande Excel</h3>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SELEZIONE - Luxe IA SaaS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+      body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .hero {
+        background-image: url('https://images.unsplash.com/photo-1521335629791-ce4aec67dd47');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 5rem 1rem;
+        text-shadow: 1px 1px 3px black;
+      }
+      .module-card {
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+      .module-card:hover {
+        transform: translateY(-5px);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero text-center">
+      <h1 class="display-4 fw-bold">SELEZIONE</h1>
+      <p class="lead">L'IA dédiée au prêt-à-porter de luxe</p>
+    </header><main class="container my-5">
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <!-- Module 1 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Assistant Luxe IA</h5>
+          <p class="card-text">Conseils marques, style, morphologie et tendances personnalisées.</p>
+          <a href="module1.html" class="btn btn-dark">Ouvrir</a>
+        </div>
       </div>
     </div>
-  </div>  <script>
-    function go(url) {
-      window.location.href = url;
-    }
-    function scrollToDashboard() {
-      document.getElementById("dashboard").scrollIntoView({ behavior: 'smooth' });
-    }
-  </script></body>
+
+    <!-- Module 2 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Actualité Luxe + Image IA</h5>
+          <p class="card-text">Génère des articles et visuels IA selon les tendances mode et marques.</p>
+          <a href="module2.html" class="btn btn-dark">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 3 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Fiche Produit / Style IA</h5>
+          <p class="card-text">Crée une fiche produit ou obtient des conseils de revente par IA.</p>
+          <a href="module3.html" class="btn btn-dark">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 4 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Estimation / Comparateur</h5>
+          <p class="card-text">Obtiens une estimation de valeur et compare les plateformes.</p>
+          <a href="module4.html" class="btn btn-dark">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 5 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Actus Mode par Date (RSS)</h5>
+          <p class="card-text">Explore les actualités réelles du luxe par sujet et date précise.</p>
+          <a href="module5.html" class="btn btn-dark">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 6 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Scraper Vestiaire Collective</h5>
+          <p class="card-text">Analyse des prix en temps réel + synthèse IA de revente optimale.</p>
+          <a href="module6.html" class="btn btn-dark">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module 7 -->
+    <div class="col">
+      <div class="card module-card">
+        <div class="card-body">
+          <h5 class="card-title">Sélection Panier + Commande</h5>
+          <p class="card-text">Consulte un fichier luxe, choisis les lignes, tailles, quantités → panier.</p>
+          <a href="module7.html" class="btn btn-dark">Ouvrir</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+  </body>
 </html>
