@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SELEZIONE – Tableau de bord</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      height: 100vh;
+      background: #f3f3f3;
+    }
+    aside {
+      width: 250px;
+      background: black;
+      color: white;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    aside h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #fff2;
+      padding-bottom: 0.5rem;
+    }
+    aside a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
+    aside a:hover {
+      color: #aaa;
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    .welcome {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .logout-btn {
+      margin-top: auto;
+      background: white;
+      color: black;
+      padding: 0.5rem;
+      cursor: pointer;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <h2>SELEZIONE</h2>
+    <a href="/index.html">🏠 Accueil</a>
+    <a href="#">📂 Derniers fichiers</a>
+    <a href="#">🧠 Modules IA</a>
+    <a href="#">📰 Actu direct</a>
+    <a href="#">📚 Formations</a>
+    <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+  </aside>
+
+  <main>
+    <div class="welcome" id="welcome">Bienvenue !</div>
+    <div id="content">
+      <!-- Contenu spécifique utilisateur ici -->
+    </div>
+  </main>
+
+  <script>
+    async function fetchUser() {
+      const res = await fetch('/auth/user');
+      const data = await res.json();
+      if (res.ok) {
+        document.getElementById('welcome').textContent = `Bienvenue, ${data.user.email}`;
+      } else {
+        window.location.href = "/index.html";
+      }
+    }
+
+    function logout() {
+      fetch('/auth/logout', { method: 'POST' }).then(() => {
+        window.location.href = "/index.html";
+      });
+    }
+
+    fetchUser();
+  </script>
+</body>
+</html>
