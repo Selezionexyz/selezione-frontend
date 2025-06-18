@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SELEZIONE - Luxe IA SaaS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -14,104 +14,102 @@
       display: flex;
       height: 100vh;
       font-family: 'Outfit', sans-serif;
-      overflow: hidden;
-      background: url('https://selezione.s3.eu-west-3.amazonaws.com/luxevuitton.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
+      color: #fff;
+      background: url('https://cdn.pixabay.com/photo/2017/06/06/22/24/fabric-2377868_1280.jpg') no-repeat center center/cover;
+      overflow-x: hidden;
     }
     aside {
-      width: 260px;
-      background: rgba(0, 0, 0, 0.9);
+      width: 250px;
+      background-color: rgba(0,0,0,0.95);
       padding: 2rem 1rem;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.2rem;
     }
     aside h2 {
-      font-size: 1.7rem;
-      font-weight: 600;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #fff2;
-      padding-bottom: 0.5rem;
       font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #444;
+      padding-bottom: 0.5rem;
     }
     aside a {
       color: white;
       text-decoration: none;
       font-size: 1rem;
+      padding: 0.4rem 0;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 10px;
       transition: 0.3s;
     }
     aside a:hover {
-      color: #aaa;
+      color: #cbb26a;
     }
     main {
       flex: 1;
-      padding: 4rem;
-      background: rgba(0, 0, 0, 0.6);
+      padding: 3rem;
       overflow-y: auto;
+      background-color: rgba(0, 0, 0, 0.6);
     }
-    h1 {
-      font-size: 3.5rem;
+    header {
       font-family: 'Playfair Display', serif;
-      margin-bottom: 1rem;
-      animation: fadeInDown 1s ease-out;
+      font-size: 3rem;
+      margin-bottom: 0.8rem;
+      animation: fadeIn 1s ease-out forwards;
     }
-    .typing {
-      font-size: 1.4rem;
-      white-space: nowrap;
+    .slogan {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      animation: typing 4s steps(40, end) forwards;
       overflow: hidden;
-      border-right: .15em solid #fff;
+      white-space: nowrap;
+      border-right: 2px solid #fff;
       width: 0;
-      animation: typing 5s steps(40, end) forwards;
     }
     @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
+      from { width: 0 }
+      to { width: 100% }
     }
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .cards {
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
     .card {
-      background: rgba(255, 255, 255, 0.05);
+      background-color: rgba(255,255,255,0.08);
       padding: 1.5rem;
-      border-radius: 12px;
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: 0.3s;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
     }
     .card:hover {
       transform: translateY(-5px);
     }
     .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
     }
     .card p {
       font-size: 0.95rem;
+      margin-bottom: 1rem;
     }
     .card button {
-      margin-top: 1rem;
-      background: white;
-      color: black;
       padding: 0.5rem 1rem;
+      background-color: #cbb26a;
+      color: #000;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+    }
+    .card button:hover {
+      background-color: #fff;
+      color: #000;
     }
   </style>
 </head>
@@ -129,9 +127,9 @@
     <a href="formation.html">🎓 Formation</a>
   </aside>
   <main>
-    <h1>SELEZIONE</h1>
-    <p class="typing">L'IA qui révolutionne le prêt-à-porter de luxe, avec des outils intelligents et connectés.</p>
-    <div class="cards">
+    <header>SELEZIONE</header>
+    <p class="slogan">L'IA qui révolutionne le prêt-à-porter de luxe avec des outils intelligents et créatifs.</p>
+    <div class="grid">
       <div class="card">
         <h3>Assistant Luxe IA</h3>
         <p>Conseils personnalisés sur les marques, styles et morphologies.</p>
@@ -139,13 +137,38 @@
       </div>
       <div class="card">
         <h3>Actualité en direct IA</h3>
-        <p>Explore les dernières actualités du luxe avec API connectée.</p>
+        <p>Explore les dernières actualités du luxe avec IA + API connectée.</p>
         <button onclick="location.href='module8.html'">Accéder</button>
       </div>
       <div class="card">
-        <h3>Générateur d'actu + image</h3>
-        <p>Crée du contenu IA autour des marques de luxe.</p>
+        <h3>Générateur d'articles + image</h3>
+        <p>Crée du contenu IA autour de la mode et des marques de luxe.</p>
         <button onclick="location.href='module2.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Fiche Produit IA</h3>
+        <p>Crée ta fiche produit ou fiche style complète via l’IA.</p>
+        <button onclick="location.href='module3.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Estimation & Comparateur</h3>
+        <p>Compare et estime instantanément la valeur de tes pièces.</p>
+        <button onclick="location.href='module4.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Scraper Vestiaire Collective</h3>
+        <p>Analyse en temps réel les tendances du marché luxe.</p>
+        <button onclick="location.href='module6.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Commandes automatisées</h3>
+        <p>Gère tes commandes par fichier pour les plateformes professionnelles.</p>
+        <button onclick="location.href='module7.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Formations SELEZIONE</h3>
+        <p>Découvre les guides et vidéos pour maîtriser tous les modules.</p>
+        <button onclick="location.href='formation.html'">Accéder</button>
       </div>
     </div>
   </main>
