@@ -1,0 +1,146 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formation SELEZIONE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background: black;
+      color: white;
+    }
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: #111;
+      border-bottom: 1px solid #222;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      color: gold;
+      font-size: 2.5rem;
+    }
+    .accordion {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    details {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+    }
+    summary {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: gold;
+      cursor: pointer;
+      outline: none;
+    }
+    .module-content {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #ddd;
+    }
+    .quiz {
+      margin-top: 2rem;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .quiz h3 {
+      color: gold;
+    }
+    .quiz label {
+      display: block;
+      margin: 10px 0;
+    }
+    .quiz button {
+      background: gold;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .coming {
+      color: #999;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Formations SELEZIONE</h1>
+  </header>  <div class="accordion">
+    <details open>
+      <summary>📘 Module 1 – L'Histoire du Luxe</summary>
+      <div class="module-content">
+        <p>Explorez l'origine du luxe, des civilisations antiques aux grandes maisons modernes comme Louis Vuitton, Chanel, Hermès, etc. Le luxe comme langage culturel, économique et stratégique.</p>
+        <p><strong>Extrait :</strong> Louis Vuitton, fondé en 1854, devient fournisseur officiel de l'impératrice Eugénie. En 1896, le célèbre monogramme LV est né. En 2025, LV est la première marque de luxe au monde.</p><div class="quiz">
+      <h3>Quiz d'expertise – Module 1</h3>
+      <form id="quiz-form">
+        <label>1. En quelle année Louis Vuitton a-t-il été fondé ?<br>
+          <input type="radio" name="q1" value="1854"> 1854<br>
+          <input type="radio" name="q1" value="1900"> 1900<br>
+          <input type="radio" name="q1" value="1837"> 1837
+        </label>
+        <label>2. Qui a inventé le parfum Chanel N°5 ?<br>
+          <input type="radio" name="q2" value="Gabrielle Chanel"> Gabrielle Chanel<br>
+          <input type="radio" name="q2" value="Karl Lagerfeld"> Karl Lagerfeld<br>
+          <input type="radio" name="q2" value="Donatella Versace"> Donatella Versace
+        </label>
+        <label>3. Quelle maison a inventé la montre étanche Oyster ?<br>
+          <input type="radio" name="q3" value="Cartier"> Cartier<br>
+          <input type="radio" name="q3" value="Rolex"> Rolex<br>
+          <input type="radio" name="q3" value="Hermès"> Hermès
+        </label>
+        <button type="button" onclick="checkAnswers()">Valider</button>
+        <p id="result"></p>
+      </form>
+    </div>
+  </div>
+</details>
+
+<details>
+  <summary>📗 Module 2 – Fonctionnement des Marques</summary>
+  <div class="coming">Ce module sera débloqué après validation du module 1.</div>
+</details>
+
+<details>
+  <summary>📙 Module 3 – Marketing & Positionnement</summary>
+  <div class="coming">Module à venir prochainement.</div>
+</details>
+
+  </div>  <script>
+    function checkAnswers() {
+      const answers = {
+        q1: "1854",
+        q2: "Gabrielle Chanel",
+        q3: "Rolex"
+      };
+      let score = 0;
+      for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        for (const radio of radios) {
+          if (radio.checked && radio.value === answers[key]) {
+            score++;
+          }
+        }
+      }
+      const percent = (score / Object.keys(answers).length) * 100;
+      const result = document.getElementById("result");
+      result.innerHTML = `Score : ${score}/3 (${percent}%)<br>`;
+      if (percent >= 80) {
+        result.innerHTML += "✅ Félicitations ! Vous avez validé le module.";
+      } else {
+        result.innerHTML += "❌ Vous devez obtenir au moins 80% pour valider.";
+      }
+    }
+  </script></body>
+</html>
