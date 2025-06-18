@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SELEZIONE - Module 1 : Histoire du Luxe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background-color: #000;
+      color: #fff;
+      line-height: 1.6;
+    }
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #111, #000);
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: gold;
+    }
+    .quote {
+      font-style: italic;
+      margin-top: 20px;
+      color: #ccc;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      background-color: #1a1a1a;
+      transform: scale(1.02);
+    }
+    .card h2 {
+      color: gold;
+      font-family: 'Playfair Display', serif;
+    }
+    .card p {
+      color: #eee;
+    }
+    .quiz {
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 60px;
+    }
+    .quiz h2 {
+      color: gold;
+      font-family: 'Playfair Display', serif;
+    }
+    .quiz label {
+      display: block;
+      margin: 10px 0;
+    }
+    .quiz button {
+      background: gold;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Module 1 - L'Histoire du Luxe</h1>
+    <p class="quote">"Le luxe commence là où la nécessité s'arrête. Il ne répond pas à un besoin, mais à une vision." — SELEZIONE</p>
+  </header>  <div class="section">
+    <!-- Cards des maisons historiques insérées ici -->
+  </div>  <div class="section quiz">
+    <h2>Questionnaire Final</h2>
+    <form id="quiz-form">
+      <label>1. En quelle année Louis Vuitton a-t-il été fondé ?<br>
+        <input type="radio" name="q1" value="1854"> 1854<br>
+        <input type="radio" name="q1" value="1900"> 1900<br>
+        <input type="radio" name="q1" value="1837"> 1837
+      </label><label>2. Qui a inventé le parfum Chanel N°5 ?<br>
+    <input type="radio" name="q2" value="Gabrielle Chanel"> Gabrielle Chanel<br>
+    <input type="radio" name="q2" value="Karl Lagerfeld"> Karl Lagerfeld<br>
+    <input type="radio" name="q2" value="Donatella Versace"> Donatella Versace
+  </label>
+
+  <label>3. Quelle maison a inventé la montre étanche Oyster ?<br>
+    <input type="radio" name="q3" value="Cartier"> Cartier<br>
+    <input type="radio" name="q3" value="Rolex"> Rolex<br>
+    <input type="radio" name="q3" value="Hermès"> Hermès
+  </label>
+
+  <label>4. Quel styliste a lancé le concept du prêt-à-porter de luxe ?<br>
+    <input type="radio" name="q4" value="Yves Saint Laurent"> Yves Saint Laurent<br>
+    <input type="radio" name="q4" value="Christian Dior"> Christian Dior<br>
+    <input type="radio" name="q4" value="Guccio Gucci"> Guccio Gucci
+  </label>
+
+  <label>5. Quelle maison est à l’origine du sac Birkin ?<br>
+    <input type="radio" name="q5" value="Hermès"> Hermès<br>
+    <input type="radio" name="q5" value="Louis Vuitton"> Louis Vuitton<br>
+    <input type="radio" name="q5" value="Chanel"> Chanel
+  </label>
+
+  <button type="button" onclick="checkAnswers()">Valider mes réponses</button>
+  <p id="result"></p>
+</form>
+
+  </div>  <footer>
+    &copy; SELEZIONE Formation 2025
+  </footer>  <script>
+    function checkAnswers() {
+      const answers = {
+        q1: "1854",
+        q2: "Gabrielle Chanel",
+        q3: "Rolex",
+        q4: "Yves Saint Laurent",
+        q5: "Hermès"
+      };
+
+      let score = 0;
+      for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        for (const radio of radios) {
+          if (radio.checked && radio.value === answers[key]) {
+            score++;
+          }
+        }
+      }
+
+      const percent = (score / Object.keys(answers).length) * 100;
+      const result = document.getElementById("result");
+      result.innerHTML = `Score : ${score}/5 (${percent}%)<br>`;
+      if (percent >= 80) {
+        result.innerHTML += "✅ Félicitations ! Vous débloquez l'accès aux fichiers SELEZIONE.";
+      } else {
+        result.innerHTML += "❌ Vous devez obtenir au moins 80% pour débloquer les fichiers.";
+      }
+    }
+  </script></body>
+</html>
