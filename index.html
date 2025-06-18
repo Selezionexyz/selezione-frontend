@@ -1,228 +1,248 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SELEZIONE - Luxe IA SaaS</title>
+  <title>SELEZIONE – Luxe IA SaaS</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Playfair Display', serif;
-      background-color: #0e0e0e;
-      color: #fff;
-      overflow-x: hidden;
       display: flex;
-    }#loader {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: black;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 1s ease;
-}
-#loader.fade-out {
-  opacity: 0;
-}
-.loader-text {
-  font-size: 3rem;
-  font-weight: bold;
-  color: white;
-  animation: pulse 1.5s infinite ease-in-out;
-}
-@keyframes pulse {
-  0% { opacity: 0.4; transform: scale(0.96); }
-  50% { opacity: 1; transform: scale(1.04); }
-  100% { opacity: 0.4; transform: scale(0.96); }
-}
-
-aside {
-  width: 220px;
-  background: #000;
-  padding: 2rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  position: fixed;
-  height: 100vh;
-}
-aside h2 {
-  font-size: 1.3rem;
-  border-bottom: 1px solid #333;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-aside a {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-}
-aside a:hover {
-  color: #ccc;
-}
-
-.main-content {
-  margin-left: 220px;
-  width: calc(100% - 220px);
-}
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 80vh;
-  background: url('https://cdn.pixabay.com/photo/2017/11/02/14/26/fashion-2910076_1280.jpg') no-repeat center center/cover;
-  text-align: center;
-  position: relative;
-}
-header::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
-}
-header h1, header p {
-  z-index: 2;
-  position: relative;
-}
-header h1 {
-  font-size: 3.5rem;
-  animation: fadeInDown 1.2s ease-out;
-}
-header p.typing {
-  font-size: 1.3rem;
-  margin-top: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: .15em solid #fff;
-  width: 0;
-  animation: typing 4s steps(40, end) forwards;
-}
-@keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
-}
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-50px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.modules {
-  padding: 3rem 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  background: #1a1a1a;
-}
-.card {
-  background: #222;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 0 12px rgba(255,255,255,0.05);
-  transition: transform 0.3s ease;
-}
-.card:hover {
-  transform: translateY(-5px);
-}
-.card h3 {
-  margin-top: 0;
-}
-.card button {
-  padding: 0.5rem 1rem;
-  background: #7048e8;
-  border: none;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-footer {
-  text-align: center;
-  padding: 2rem;
-  background: #111;
-  font-size: 0.9rem;
-  color: #999;
-}
-
+      font-family: 'Playfair Display', serif;
+      background: #000;
+      color: white;
+      min-height: 100vh;
+    }
+    /* MENU LATÉRAL */
+    aside {
+      width: 260px;
+      background: rgba(0,0,0,0.9);
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+    }
+    aside h2 {
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
+    }
+    aside a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem;
+      transition: background 0.3s;
+    }
+    aside a:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .logout-btn {
+      margin-top: auto;
+      padding: 0.6rem;
+      background: #fff;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    /* CONTENU PRINCIPAL */
+    main {
+      margin-left: 260px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      height: 60vh;
+      background: url('https://cdn.pixabay.com/photo/2022/10/08/15/20/luxury-7500569_1280.jpg') no-repeat center/cover;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      background: rgba(0,0,0,0.5);
+      inset: 0;
+    }
+    header h1, header p {
+      position: relative;
+      z-index: 1;
+      animation: fadeIn 1.5s ease-out both;
+    }
+    header h1 {
+      font-size: 4rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+    header p {
+      font-size: 1.4rem;
+      max-width: 700px;
+      animation-delay: 0.5s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .modules {
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.1);
+    }
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .card button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      background: #7048e8;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card button:hover {
+      background: #5a38c7;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #111;
+      font-size: 0.9rem;
+      margin-top: auto;
+      width: 100%;
+    }
+    /* RESPONSIVE */
+    @media(max-width: 768px) {
+      aside {
+        position: relative;
+        width: 100%;
+        display: none; /* Aujourd'hui mobile ❓ */
+      }
+      body {
+        flex-direction: column;
+      }
+      main {
+        margin: 0;
+      }
+    }
   </style>
 </head>
 <body>
-  <div id="loader"><div class="loader-text">SELEZIONE</div></div>
+
   <aside>
     <h2>SELEZIONE</h2>
     <a href="index.html">🏠 Accueil</a>
     <a href="dashboard.html">📊 Tableau de bord</a>
-    <a href="module8.html">📰 Actu Direct</a>
-    <a href="module2.html">🧠 IA + Image</a>
-    <a href="module3.html">📋 Fiche produit</a>
+    <a href="module8.html">📰 Actu Live</a>
+    <a href="module2.html">🖼️ IA + Image</a>
+    <a href="module1.html">🤖 Assistant IA</a>
+    <a href="module3.html">🎯 Fiche Produit</a>
     <a href="module4.html">💎 Estimation</a>
     <a href="module6.html">🔍 Scraper VC</a>
     <a href="module7.html">📦 Commandes</a>
     <a href="formation.html">🎓 Formation</a>
-  </aside>  <div class="main-content">
+    <button class="logout-btn" onclick="logout()">Se déconnecter</button>
+  </aside>
+
+  <main>
     <header>
       <h1>SELEZIONE</h1>
-      <p class="typing">L'IA qui révolutionne le prêt-à-porter de luxe avec style et innovation</p>
-    </header><section class="modules">
-  <div class="card">
-    <h3>Assistant Luxe IA</h3>
-    <p>Conseils personnalisés sur les marques, styles et morphologies.</p>
-    <button onclick="location.href='module1.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Actualité en direct IA</h3>
-    <p>Explore les dernières actus de la mode et du luxe avec IA connectée.</p>
-    <button onclick="location.href='module8.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Générateur d'articles + image</h3>
-    <p>Crée du contenu IA unique pour les marques de luxe visuellement engageant.</p>
-    <button onclick="location.href='module2.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Fiche Produit / Style IA</h3>
-    <p>Génère des fiches produits optimisées ou des recommandations stylistiques.</p>
-    <button onclick="location.href='module3.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Estimation & Comparateur</h3>
-    <p>Estime la valeur de tes pièces ou compare les meilleures plateformes luxe.</p>
-    <button onclick="location.href='module4.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Scraper Vestiaire Collective</h3>
-    <p>Analyse en temps réel les prix sur le marché seconde main luxe.</p>
-    <button onclick="location.href='module6.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Commandes produits 📦</h3>
-    <p>Permet aux membres de commander via fichier pro (tailles/quantités).</p>
-    <button onclick="location.href='module7.html'">Accéder</button>
-  </div>
-  <div class="card">
-    <h3>Formations SELEZIONE</h3>
-    <p>Accède à des guides IA dédiés à l’univers du luxe.</p>
-    <button onclick="location.href='formation.html'">Accéder</button>
-  </div>
-</section>
+      <p>L’IA qui révolutionne le prêt-à-porter de luxe, avec des services intelligents et performants.</p>
+    </header>
 
-<footer>
-  SELEZIONE © 2025 — Luxe, IA & Performance
-</footer>
+    <section class="modules">
+      <div class="card">
+        <h3>Tableau de bord</h3>
+        <p>Accède à ton espace personnalisé, ai, fichiers récents et commandes.</p>
+        <button onclick="location.href='dashboard.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Actualité en direct IA</h3>
+        <p>Explore les dernières news mode et luxe en temps réel, alimentées par l’IA.</p>
+        <button onclick="location.href='module8.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>IA + Image</h3>
+        <p>Génère visuels et articles autour de marques de luxe et prêt-à-porter.</p>
+        <button onclick="location.href='module2.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Assistant Luxe IA</h3>
+        <p>Conseils personnalisés sur marques, style, morphologie et tendances.</p>
+        <button onclick="location.href='module1.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Fiche Produit / Style IA</h3>
+        <p>Crée une fiche produit de luxe ou conseils revente par IA.</p>
+        <button onclick="location.href='module3.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Estimation & Comparateur</h3>
+        <p>Estime une pièce ou compare les meilleures plateformes luxe.</p>
+        <button onclick="location.href='module4.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Scraper Vestiaire Collective</h3>
+        <p>Analyse les prix du marché seconde main luxe en temps réel.</p>
+        <button onclick="location.href='module6.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Commandes</h3>
+        <p>Gère les commandes via fichier pour tailles et quantités.</p>
+        <button onclick="location.href='module7.html'">Accéder</button>
+      </div>
+      <div class="card">
+        <h3>Formation</h3>
+        <p>Accède à nos guides et formations dédiés au luxe et à l’IA.</p>
+        <button onclick="location.href='formation.html'">Accéder</button>
+      </div>
+    </section>
 
-  </div>  <script>
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      loader.classList.add("fade-out");
-      setTimeout(() => loader.style.display = "none", 1000);
-    });
-  </script></body>
+    <footer>
+      SELEZIONE © 2025 — Luxe, IA & Performance
+    </footer>
+  </main>
+
+  <script>
+    function logout() {
+      fetch('/auth/logout', { method: 'POST' }).then(_ => {
+        window.location.href = 'index.html';
+      });
+    }
+  </script>
+</body>
 </html>
