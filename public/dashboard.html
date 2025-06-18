@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SELEZIONE – Dashboard</title>
+  <title>SELEZIONE – Tableau de bord</title>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -16,7 +16,7 @@
 
     aside {
       width: 250px;
-      background: #000;
+      background: black;
       color: white;
       padding: 2rem 1rem;
       display: flex;
@@ -25,8 +25,8 @@
     }
 
     aside h2 {
-      font-size: 1.4rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
       border-bottom: 1px solid #fff2;
       padding-bottom: 0.5rem;
     }
@@ -39,18 +39,7 @@
     }
 
     aside a:hover {
-      color: #aaa;
-    }
-
-    main {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-    }
-
-    .welcome {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
+      color: #ccc;
     }
 
     .logout-btn {
@@ -58,35 +47,129 @@
       background: white;
       color: black;
       padding: 0.5rem;
+      cursor: pointer;
       border: none;
-      border-radius: 4px;
+      border-radius: 5px;
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      background: #fff;
+    }
+
+    .welcome {
+      font-size: 1.6rem;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #444;
+    }
+
+    .card button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
     }
 
-    .logout-btn:hover {
-      background: #ddd;
+    .card button:hover {
+      background: #333;
     }
   </style>
 </head>
 <body>
   <aside>
     <h2>SELEZIONE</h2>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="dashboard.html">👤 Tableau de bord</a>
-    <a href="module1.html">💬 Assistant Luxe IA</a>
-    <a href="module8.html">📰 Actualité en direct</a>
-    <a href="module3.html">🧥 Fiche Produit / Style</a>
-    <a href="module4.html">💰 Estimation & Comparateur</a>
-    <a href="module6.html">🔎 Scraper Vestiaire</a>
-    <a href="module7.html">📦 Commande Produits</a>
-    <a href="module-formation.html">📚 Formations</a>
+    <a href="/dashboard.html">🏠 Tableau de bord</a>
+    <a href="#">📁 Fichiers</a>
+    <a href="#">🎓 Formations</a>
+    <a href="#">📰 Actu Live</a>
     <button class="logout-btn" onclick="logout()">Se déconnecter</button>
   </aside>
 
   <main>
     <div class="welcome" id="welcome">Bienvenue !</div>
-    <div id="content">
-      <!-- Contenu dynamique ici -->
+
+    <div class="cards">
+      <div class="card">
+        <h3>Assistant Luxe IA</h3>
+        <p>Conseils personnalisés sur les marques, styles et morphologies.</p>
+        <button onclick="location.href='module1.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Actualité Luxe + Image IA</h3>
+        <p>Génère des articles et visuels IA autour de l’univers luxe.</p>
+        <button onclick="location.href='module2.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Fiche Produit / Style IA</h3>
+        <p>Création de fiches produit ou revente par IA.</p>
+        <button onclick="location.href='module3.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Estimation & Comparateur</h3>
+        <p>Estime une pièce ou compare les plateformes de seconde main.</p>
+        <button onclick="location.href='module4.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Actus Mode & Luxe en Direct</h3>
+        <p>Explore les dernières nouvelles mode IA en temps réel.</p>
+        <button onclick="location.href='module8.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Scraper Vestiaire Collective</h3>
+        <p>Analyse de marché et prix sur VC en direct.</p>
+        <button onclick="location.href='module6.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Commandes sur Fichier</h3>
+        <p>Importe un fichier Excel et génère une commande IA.</p>
+        <button onclick="location.href='module7.html'">Accéder</button>
+      </div>
+
+      <div class="card">
+        <h3>Formations SELEZIONE</h3>
+        <p>Découvre des guides IA sur le monde du luxe.</p>
+        <button onclick="location.href='formation.html'">Accéder</button>
+      </div>
     </div>
   </main>
 
@@ -97,13 +180,13 @@
       if (res.ok) {
         document.getElementById('welcome').textContent = `Bienvenue, ${data.user.email}`;
       } else {
-        window.location.href = "index.html";
+        window.location.href = "/index.html";
       }
     }
 
     function logout() {
       fetch('/auth/logout', { method: 'POST' }).then(() => {
-        window.location.href = "index.html";
+        window.location.href = "/index.html";
       });
     }
 
