@@ -153,5 +153,15 @@
         result.innerHTML += "❌ Vous devez obtenir au moins 80% pour débloquer les fichiers.";
       }
     }
+<!-- Sections verrouillage -->
+<div id="locked-section" style="text-align: center; padding: 20px; display: none;">
+  🚫 Vous devez obtenir 80% au quiz pour débloquer le PDF.
+</div>
+
+<div id="download-section" style="text-align: center; padding: 20px; display: none;">
+  ✅ Bravo ! Vous pouvez maintenant télécharger le contenu :
+  <br><br>
+  <a href="Formation-1.pdf" class="btn-download" download>Télécharger le PDF</a>
+</div>
   </script></body>
 </html>
