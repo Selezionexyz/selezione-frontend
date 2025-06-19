@@ -153,7 +153,7 @@
         result.innerHTML += "❌ Vous devez obtenir au moins 80% pour débloquer les fichiers.";
       }
     }
-<!-- Sections verrouillage -->
+<!-- Bloc verrouillage à afficher/masquer -->
 <div id="locked-section" style="text-align: center; margin-top: 30px; display: none;">
   ❌ Vous devez obtenir 80% au quiz pour débloquer le fichier.
 </div>
@@ -162,12 +162,14 @@
   ✅ Bravo ! Vous pouvez maintenant télécharger le contenu :<br><br>
   <a href="Formation-1.pdf" class="btn-download" style="color: gold;">📄 Télécharger le PDF</a>
 </div>
-// Masquer les sections dès le chargement de la page
-window.onload = function () {
-  document.getElementById("locked-section").style.display = "none";
-  document.getElementById("download-section").style.display = "none";
-};
+
 <script>
+  // Masquer les sections au chargement
+  window.onload = function () {
+    document.getElementById("locked-section").style.display = "none";
+    document.getElementById("download-section").style.display = "none";
+  };
+
   function checkAnswers() {
     const answers = {
       q1: "1854",
@@ -191,7 +193,6 @@ window.onload = function () {
     const result = document.getElementById("result");
     result.innerHTML = `Score : ${score}/5 (${percent}%)<br>`;
 
-    // Afficher ou masquer les sections
     if (percent >= 80) {
       result.innerHTML += "✅ Félicitations ! Vous débloquez l'accès aux fichiers SELEZIONE.";
       document.getElementById("download-section").style.display = "block";
