@@ -162,7 +162,11 @@
   ✅ Bravo ! Vous pouvez maintenant télécharger le contenu :<br><br>
   <a href="Formation-1.pdf" class="btn-download" style="color: gold;">📄 Télécharger le PDF</a>
 </div>
-
+// Masquer les sections dès le chargement de la page
+window.onload = function () {
+  document.getElementById("locked-section").style.display = "none";
+  document.getElementById("download-section").style.display = "none";
+};
 <script>
   function checkAnswers() {
     const answers = {
