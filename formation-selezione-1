@@ -154,14 +154,51 @@
       }
     }
 <!-- Sections verrouillage -->
-<div id="locked-section" style="text-align: center; padding: 20px; display: none;">
-  🚫 Vous devez obtenir 80% au quiz pour débloquer le PDF.
+<div id="locked-section" style="text-align: center; margin-top: 30px; display: none;">
+  ❌ Vous devez obtenir 80% au quiz pour débloquer le fichier.
 </div>
 
-<div id="download-section" style="text-align: center; padding: 20px; display: none;">
-  ✅ Bravo ! Vous pouvez maintenant télécharger le contenu :
-  <br><br>
-  <a href="Formation-1.pdf" class="btn-download" download>Télécharger le PDF</a>
+<div id="download-section" style="text-align: center; margin-top: 30px; display: none;">
+  ✅ Bravo ! Vous pouvez maintenant télécharger le contenu :<br><br>
+  <a href="Formation-1.pdf" class="btn-download" style="color: gold;">📄 Télécharger le PDF</a>
 </div>
-  </script></body>
+
+<script>
+  function checkAnswers() {
+    const answers = {
+      q1: "1854",
+      q2: "Gabrielle Chanel",
+      q3: "Rolex",
+      q4: "Yves Saint Laurent",
+      q5: "Hermès"
+    };
+
+    let score = 0;
+    for (let key in answers) {
+      const radios = document.getElementsByName(key);
+      for (const radio of radios) {
+        if (radio.checked && radio.value === answers[key]) {
+          score++;
+        }
+      }
+    }
+
+    const percent = (score / Object.keys(answers).length) * 100;
+    const result = document.getElementById("result");
+    result.innerHTML = `Score : ${score}/5 (${percent}%)<br>`;
+
+    // Afficher ou masquer les sections
+    if (percent >= 80) {
+      result.innerHTML += "✅ Félicitations ! Vous débloquez l'accès aux fichiers SELEZIONE.";
+      document.getElementById("download-section").style.display = "block";
+      document.getElementById("locked-section").style.display = "none";
+    } else {
+      result.innerHTML += "❌ Vous devez obtenir au moins 80% pour débloquer les fichiers.";
+      document.getElementById("download-section").style.display = "none";
+      document.getElementById("locked-section").style.display = "block";
+    }
+  }
+</script>
+</body>
 </html>
+  
