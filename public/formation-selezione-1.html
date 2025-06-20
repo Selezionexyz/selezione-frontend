@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SELEZIONE - Module 1 : Histoire du Luxe</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
@@ -12,19 +12,17 @@
       color: #fff;
       line-height: 1.6;
     }
-    header {
+    header, footer {
       padding: 60px 20px;
       text-align: center;
       background: linear-gradient(to bottom, #111, #000);
     }
-    header h1 {
+    header h1, .section h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 2.5rem;
       color: gold;
     }
     .quote {
       font-style: italic;
-      margin-top: 20px;
       color: #ccc;
     }
     .section {
@@ -44,40 +42,13 @@
       background-color: #1a1a1a;
       transform: scale(1.02);
     }
-    .card h2 {
-      color: gold;
-      font-family: 'Playfair Display', serif;
+    ul, ol {
+      padding-left: 20px;
     }
-    .card p, .card ul, .card ol {
-      color: #eee;
-    }
-    .quiz {
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 30px;
-      margin-top: 60px;
-    }
-    .quiz h2 {
-      color: gold;
-      font-family: 'Playfair Display', serif;
-    }
-    .quiz label {
-      display: block;
-      margin: 10px 0;
-    }
-    .quiz button {
-      background: gold;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #555;
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -85,7 +56,8 @@
   <header>
     <h1>Module 1 - L'Histoire du Luxe</h1>
     <p class="quote">"Le luxe commence là où la nécessité s'arrête. Il ne répond pas à un besoin, mais à une vision." — SELEZIONE</p>
-  </header>  <div class="section">
+  </header>
+  <div class="section">
     <h2>Chapitre 1 : Présentation de l'Achat-Revente de Luxe</h2>
     <div class="card">
       <p>L'achat-revente dans le luxe repose sur un équilibre complexe entre valeur perçue, rareté, storytelling et authenticité. Depuis l'avènement des plateformes comme <strong>Vestiaire Collective</strong> ou <strong>The RealReal</strong>, ce secteur est entré dans une phase de professionnalisation.</p>
@@ -114,7 +86,7 @@
     <li>Versace (1978)</li>
     <li>Marc Jacobs (1984)</li>
   </ol>
-  <p>Chaque maison est développée en 5 sous-parties dans la version complète (fondation, modèles iconiques, rareté, anecdotes, seconde main).</p>
+  <p>Chaque maison est développée dans la version complète (fondation, modèles iconiques, rareté, anecdotes, seconde main).</p>
 </div>
 
 <h2>Chapitre 4 : Dates Clés de l'Évolution du Luxe</h2>
@@ -128,86 +100,38 @@
   </ul>
 </div>
 
-<h2>Chapitre 5 : Enjeux actuels et perspectives</h2>
+<h2>Chapitre 5 : Enjeux Actuels et Perspectives</h2>
 <div class="card">
   <ul>
-    <li>Authentification IA (Entrupy, Certilogo)</li>
-    <li>Blockchain & NFT dans le luxe</li>
+    <li>Authentification par IA (Entrupy, Certilogo)</li>
+    <li>Blockchain & NFT</li>
     <li>Durabilité & savoir-faire</li>
   </ul>
 </div>
 
-  </div>  <div class="quiz section">
-    <h2>Questionnaire Final</h2>
-    <form onsubmit="checkAnswers(); return false;">
-      <label>1. En quelle année Louis Vuitton a-t-il été fondé ?<br>
-        <input type="radio" name="q1" value="1854"> 1854<br>
-        <input type="radio" name="q1" value="1900"> 1900<br>
-        <input type="radio" name="q1" value="1837"> 1837<br>
-      </label>
-      <label>2. Qui a inventé le parfum Chanel N°5 ?<br>
-        <input type="radio" name="q2" value="Gabrielle Chanel"> Gabrielle Chanel<br>
-        <input type="radio" name="q2" value="Karl Lagerfeld"> Karl Lagerfeld<br>
-        <input type="radio" name="q2" value="Donatella Versace"> Donatella Versace<br>
-      </label>
-      <label>3. Quelle maison a inventé la montre étanche Oyster ?<br>
-        <input type="radio" name="q3" value="Rolex"> Rolex<br>
-        <input type="radio" name="q3" value="Omega"> Omega<br>
-        <input type="radio" name="q3" value="Cartier"> Cartier<br>
-      </label>
-      <label>4. Quel créateur a quitté Dior pour créer sa propre maison ?<br>
-        <input type="radio" name="q4" value="Yves Saint Laurent"> Yves Saint Laurent<br>
-        <input type="radio" name="q4" value="Tom Ford"> Tom Ford<br>
-        <input type="radio" name="q4" value="Marc Jacobs"> Marc Jacobs<br>
-      </label>
-      <label>5. Quelle maison a été fondée en 1837 ?<br>
-        <input type="radio" name="q5" value="Hermès"> Hermès<br>
-        <input type="radio" name="q5" value="Prada"> Prada<br>
-        <input type="radio" name="q5" value="Chanel"> Chanel<br>
-      </label>
-      <button type="submit">Valider mes réponses</button>
-    </form>
-    <div id="result" style="margin-top:20px; font-weight: bold;"></div>
-    <div id="locked-section" style="text-align: center; margin-top: 30px; display: none;">❌ Vous devez obtenir 80% au quiz pour débloquer le fichier.</div>
-    <div id="download-section" style="text-align: center; margin-top: 30px; display: none;">
-      ✅ Bravo ! Vous pouvez maintenant télécharger le contenu :<br><br>
-      <a href="Formation-1.pdf" class="btn-download" style="color: gold;">📄 Télécharger le PDF</a>
-    </div>
+<h2>Chapitre 6 : Nouveaux Comportements des Consommateurs</h2>
+<div class="card">
+  <ul>
+    <li>La génération Z privilégie la seconde main et les achats responsables.</li>
+    <li>Les consommateurs recherchent de la transparence et des preuves d'authenticité.</li>
+    <li>Les communautés TikTok et Instagram influencent fortement les tendances d’achat de luxe.</li>
+  </ul>
+</div>
+
+<h2>Chapitre 7 (Bonus) : Scandales et Dérives dans le Luxe</h2>
+<div class="card">
+  <p>Les plus grandes maisons de luxe ont connu des polémiques : travail dissimulé, greenwashing, destructions de stocks...</p>
+  <p>🎬 Animation suggérée : sac de luxe qui s'effondre en cendres → “Le revers du glamour”</p>
+  <ul>
+    <li>🔥 Burberry a brûlé 28M€ de vêtements invendus en 2018</li>
+    <li>😡 Balenciaga a été accusée en 2022 de campagne douteuse avec des enfants</li>
+    <li>🌍 Dolce & Gabbana a déclenché une crise en Chine après des pubs jugées racistes</li>
+    <li>📉 Gucci, Dior et d'autres ont fait l’objet d’enquêtes pour conditions de travail abusives</li>
+  </ul>
+</div>
+
   </div>  <footer>
     &copy; SELEZIONE Formation 2025
-  </footer>  <script>
-    function checkAnswers() {
-      const answers = {
-        q1: "1854",
-        q2: "Gabrielle Chanel",
-        q3: "Rolex",
-        q4: "Yves Saint Laurent",
-        q5: "Hermès"
-      };
-
-      let score = 0;
-      for (let key in answers) {
-        const radios = document.getElementsByName(key);
-        for (const radio of radios) {
-          if (radio.checked && radio.value === answers[key]) {
-            score++;
-          }
-        }
-      }
-
-      const percent = (score / Object.keys(answers).length) * 100;
-      const result = document.getElementById("result");
-      result.innerHTML = `Score : ${score}/5 (${percent}%)<br>`;
-
-      if (percent >= 80) {
-        result.innerHTML += "✅ Félicitations ! Vous débloquez l'accès aux fichiers SELEZIONE.";
-        document.getElementById("download-section").style.display = "block";
-        document.getElementById("locked-section").style.display = "none";
-      } else {
-        result.innerHTML += "❌ Vous devez obtenir au moins 80% pour débloquer les fichiers.";
-        document.getElementById("download-section").style.display = "none";
-        document.getElementById("locked-section").style.display = "block";
-      }
-    }
-  </script></body>
+  </footer>
+</body>
 </html>
