@@ -615,6 +615,110 @@
         : '<br>❌ Atteignez 80 % pour valider.';
     }
   </script>
+      <section id="chapitre2d" class="section">
+  <h2>Chapitre 2.4 : Identification, Authentification &amp; Valorisation des Pièces</h2>
+  <div class="card">
+    <!-- 1. Identification -->
+    <h3>1. Identification des Modèles</h3>
+    <p>Pour reconnaître instantanément une pièce de maroquinerie de luxe, travaillez votre œil sur :</p>
+    <ul>
+      <li><strong>Reconnaissance Visuelle</strong> : designs iconiques, éditions limitées, collaborations spéciales.</li>
+      <li><strong>Codes & Numéros de Série</strong> : codes date LV, numéros de série Chanel, marquages Hermès.</li>
+      <li><strong>Matériaux & Finitions</strong> :
+        <ul>
+          <li>Cuirs : Box, Togo, Epsom, Caviar, Saffiano…</li>
+          <li>Toiles : Monogram, Damier…</li>
+          <li>Coutures : sellier, piqué, points d’arrêt.</li>
+          <li>Hardware : Lampo, Riri, YKK selon les années.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- 2. Authentification -->
+    <h3>2. Authentification : La Chasse aux Contrefaçons</h3>
+    <p>Chaque contrefaçon laisse des traces : apprenez à les dépister.</p>
+    <ul>
+      <li><strong>Qualité globale</strong> : poids, tenue, odeur du cuir.</li>
+      <li><strong>Logo &amp; Typographie</strong> : alignement, espacement, police exacte.</li>
+      <li><strong>Coutures</strong> : régularité, couleur du fil, points d’arrêt nets.</li>
+      <li><strong>Hardware</strong> : gravures précises, finition, poids des métaux.</li>
+      <li><strong>Doublure</strong> : matière, teinte, finitions propres.</li>
+      <li><strong>Packaging &amp; Accessoires</strong> : dust-bag, boîte, cartes d’authenticité (attention aux faux).</li>
+    </ul>
+    <p><strong>Outils &amp; Services</strong> : loupes de bijoutier, lumière UV, Entrupy, Authentifier.com, LegitGrails, forums spécialisés.</p>
+
+    <!-- 3. Valorisation -->
+    <h3>3. Valorisation : Déterminer le Juste Prix</h3>
+    <p>Pour fixer une valeur fiable :</p>
+    <ul>
+      <li><strong>État</strong> : neuf, excellent, très bon, bon, correct (décrire chaque défaut).</li>
+      <li><strong>Rareté &amp; Demande</strong> : modèle iconique, édition limitée, coloris recherché.</li>
+      <li><strong>Provenance &amp; Complétude</strong> : facture, dust-bag, boîte, certificats.</li>
+      <li><strong>Prix du Neuf</strong> : pour modèles toujours en vente.</li>
+      <li><strong>Prix de l’Occasion</strong> : Vestiaire Collective, Collector Square, TheRealReal, eBay pro.</li>
+    </ul>
+    <p><strong>Stratégie</strong> : positionnez-vous par rapport à la concurrence, fixez votre marge et déterminez votre flexibilité de négociation.</p>
+    <p><em>Maîtriser ces trois piliers renforce votre réputation et sécurise vos ventes.</em></p>
+  </div>
+
+  <!-- Quiz Chapitre 2.4 -->
+  <div class="quiz" style="margin-top:40px;">
+    <h3>Quiz – Chapitre 2.4</h3>
+    <form id="quiz2d-form">
+      <label>1. Quel composant n’est PAS un critère d’authentification ?<br>
+        <input type="radio" name="q2d_1" value="Poids du cuir"> Poids du cuir<br>
+        <input type="radio" name="q2d_1" value="Alignement du logo"> Alignement du logo<br>
+        <input type="radio" name="q2d_1" value="Type d’emballage cadeau"> Type d’emballage cadeau
+      </label>
+      <label>2. Quel type de cuir appartient à Chanel ?<br>
+        <input type="radio" name="q2d_2" value="Saffiano"> Saffiano<br>
+        <input type="radio" name="q2d_2" value="Caviar"> Caviar<br>
+        <input type="radio" name="q2d_2" value="Damier"> Damier
+      </label>
+      <label>3. Où trouve-t-on le numéro de série sur un sac LV ?<br>
+        <input type="radio" name="q2d_3" value="Sous la patte intérieure"> Sous la patte intérieure<br>
+        <input type="radio" name="q2d_3" value="Sur la plaque métallique"> Sur la plaque métallique<br>
+        <input type="radio" name="q2d_3" value="Sous la bandoulière"> Sous la bandoulière
+      </label>
+      <label>4. Quel service utilise de l’IA pour authentifier ?<br>
+        <input type="radio" name="q2d_4" value="Entrupy"> Entrupy<br>
+        <input type="radio" name="q2d_4" value="Photoshop"> Photoshop<br>
+        <input type="radio" name="q2d_4" value="Notion"> Notion
+      </label>
+      <label>5. Quel critère n’entre PAS dans la valorisation ?<br>
+        <input type="radio" name="q2d_5" value="Rareté"> Rareté<br>
+        <input type="radio" name="q2d_5" value="Provenance"> Provenance<br>
+        <input type="radio" name="q2d_5" value="Taille du vendeur"> Taille du vendeur
+      </label>
+      <button type="button" onclick="checkQuiz2d()">Valider le quiz</button>
+    </form>
+    <div id="result2d" style="margin-top:20px;font-weight:bold;"></div>
+  </div>
+
+  <script>
+    function checkQuiz2d() {
+      const answers = {
+        q2d_1: "Type d’emballage cadeau",
+        q2d_2: "Caviar",
+        q2d_3: "Sous la patte intérieure",
+        q2d_4: "Entrupy",
+        q2d_5: "Taille du vendeur"
+      };
+      let score = 0, total = Object.keys(answers).length;
+      for (let key in answers) {
+        document.getElementsByName(key).forEach(radio => {
+          if (radio.checked && radio.value === answers[key]) score++;
+        });
+      }
+      const pct = Math.round((score/total)*100);
+      const out = document.getElementById('result2d');
+      out.innerHTML = `Score : ${score}/${total} (${pct}%)`;
+      out.innerHTML += pct >= 80
+        ? '<br>✅ Chapitre validé !'
+        : '<br>❌ Atteignez 80 % pour valider.';
+    }
+  </script>
+      </section>
     </section>
   </section>  <!-- Chapitre 3 -->  <section id="chapitre3" class="section">
     <h2>Chapitre 3 : Les 10 Maisons Incontournables</h2>
