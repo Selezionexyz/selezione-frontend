@@ -2,183 +2,186 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SELEZIONE - Module 2 : Identification & Sourcing de Fournisseurs de Luxe</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { margin: 0; display: flex; font-family: 'Outfit', sans-serif; background: #000; color: #fff; }
-    aside { width: 250px; background: #111; padding: 2rem 1rem; display: flex; flex-direction: column; }
-    aside h2 { font-family: 'Playfair Display', serif; color: gold; margin-bottom:1rem; }
-    aside a { color: #fff; text-decoration: none; margin: .5rem 0; }
-    aside a:hover { color: #aaa; }
-    main { flex:1; overflow-y:auto; padding:2rem; }
-    .section { margin-bottom:3rem; }
-    .card { background:#111; border:1px solid #333; border-radius:12px; padding:1.5rem; margin-bottom:2rem; }
-    h2 { font-family:'Playfair Display', serif; color:gold; margin-bottom:1rem; }
-    h3 { margin-top:0; }
-    p, ul, ol { line-height:1.6; }
-    img, video, canvas { display:block; max-width:100%; margin:1rem auto; border-radius:8px; }
-    .quiz { background:#111; border:1px solid #333; border-radius:12px; padding:1.5rem; }
-    .quiz label { display:block; margin: .75rem 0; }
-    .quiz button { background:gold; border:none; padding:10px 20px; color:#000; cursor:pointer; border-radius:8px; font-weight:600; }
-    footer { text-align:center; padding:1rem; background:#111; color:#555; }
+    body {
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+      background-color: #000;
+      color: #fff;
+      line-height: 1.6;
+    }
+    header, footer {
+      padding: 60px 20px;
+      text-align: center;
+      background: linear-gradient(to bottom, #111, #000);
+    }
+    header h1, .section h2 {
+      font-family: 'Playfair Display', serif;
+      color: gold;
+    }
+    .quote {
+      font-style: italic;
+      color: #ccc;
+    }
+    .section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    .card {
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      background-color: #1a1a1a;
+      transform: scale(1.02);
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+    img, video, canvas {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      display: block;
+    }
+    .quiz {
+      background-color: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .quiz h3 {
+      font-family: 'Playfair Display', serif;
+      color: gold;
+      margin-bottom: 1rem;
+    }
+    .quiz label {
+      display: block;
+      margin: .75rem 0;
+    }
+    .quiz button {
+      background-color: gold;
+      border: none;
+      padding: 10px 20px;
+      color: #000;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
-  <aside>
-    <h2>SELEZIONE</h2>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="formation-selezione-1.html">🎓 Formation 1</a>
-    <a href="formation-selezione-2.html">🎓 Formation 2</a>
-    <a href="formation-selezione-3.html">🎓 Formation 3</a>
-  </aside>
-  <main>
-    <section id="chapitre1" class="section">
-      <h2>Chapitre 1 : Identification &amp; Sourcing de Fournisseurs de Luxe</h2>
+  <header>
+    <h1>Module 2 : Identification &amp; Sourcing de Fournisseurs de Luxe</h1>
+    <p class="quote">"Sans un sourcing solide, votre business de luxe n'est qu'une coquille vide." — SELEZIONE</p>
+  </header>
 
-      <div class="card">
-        <h3>Introduction</h3>
-        <p>
-          Avant toute chose, rappelez-vous qu’un fournisseur fiable est la pierre angulaire de votre
-          business d’achat-revente de prêt-à-porter de luxe. Plus qu’un simple stock, c’est lui qui
-          garantit l’authenticité, la qualité et le renouvellement de vos collections.
-        </p>
-        <ul>
-          <li>Authenticité infaillible et traçabilité</li>
-          <li>Conditions tarifaires négociées</li>
-          <li>Accès à des pièces exclusives et à fort turnover</li>
-          <li>Maintien d’un taux de retours et litiges minimal</li>
-        </ul>
-      </div>
+  <div class="section">
+    <!-- Chapitre 1 -->
+    <h2>Chapitre 1 : Identification &amp; Sourcing de Fournisseurs</h2>
+    <div class="card">
+      <h3>Introduction</h3>
+      <p>Un bon fournisseur, c’est l’assurance d’avoir :</p>
+      <ul>
+        <li>Des produits authentiques</li>
+        <li>Des prix compétitifs</li>
+        <li>Un accès à des pièces rares</li>
+        <li>Un roulement de stock régulier</li>
+        <li>Un faible taux de retours et litiges</li>
+      </ul>
+    </div>
 
-      <div class="card">
-        <h3>Types de Fournisseurs &amp; Canaux d'Approvisionnement</h3>
-        <p>
-          Il existe plusieurs catégories de fournisseurs, chacune avec ses avantages et limites.  
-          Vous devrez jongler entre :
-        </p>
-        <ul>
-          <li><strong>Distributeurs Officiels Agréés</strong><br>
-              Partenaires directs des maisons de couture, ils offrent l’accès aux dernières
-              collections et un gage d’authenticité. En contrepartie, les conditions sont
-              strictes et les minimums de commande élevés.
-          </li>
-          <li><strong>Grossistes &amp; Stocks B2B</strong><br>
-              Provenant souvent de fins de collections ou surstocks, ces acteurs garantissent
-              des tarifs pro mais demandent une vigilance accrue pour éviter les contrefaçons.
-          </li>
-          <li><strong>Ventes Privées &amp; Déstockages</strong><br>
-              Organisées par les marques ou via des plateformes dédiées, elles permettent de saisir
-              des opportunités à prix cassés… à condition d’être rapide et bien connecté.
-          </li>
-          <li><strong>Plateformes Pro (B2B)</strong><br>
-              Sites spécialisés (ex : Vintage Wholesale Europe, Jauce), centralisent des offres
-              professionnelles avec des outils de filtrage avancés.
-          </li>
-          <li><strong>Agents &amp; Courtiers Indépendants</strong><br>
-              Réseaux exclusifs, sourcing sur-mesure, mais attention à la fiabilité et aux
-              commissions parfois élevées.
-          </li>
-        </ul>
+    <div class="card">
+      <h3>Types de Fournisseurs &amp; Canaux d'Approvisionnement</h3>
+      <ul>
+        <li><strong>Distributeurs Officiels Agréés</strong> : authenticité garantie, accès aux nouvelles collections / conditions strictes, minimums de commande élevés.</li>
+        <li><strong>Grossistes &amp; Stocks B2B</strong> : tarifs pros, large catalogue / risque de contrefaçons, collections moins récentes.</li>
+        <li><strong>Ventes Privées &amp; Déstockages</strong> : fortes réductions / stocks limités, concurrence élevée.</li>
+        <li><strong>Plateformes Pro (B2B)</strong> : transaction facilitée, filtrage avancé / commissions parfois élevées.</li>
+        <li><strong>Agents &amp; Courtiers Indépendants</strong> : sourcing sur-mesure, pièces rares / fiabilité variable, commissions.</li>
+      </ul>
+      <p><strong>Canaux :</strong> Salons (Pitti Uomo, Tranoï), LinkedIn, annuaires spécialisés, bouche-à-oreille, forums pro.</p>
+      <img src="https://cdn.pixabay.com/photo/2018/01/15/07/51/leather-3089716_1280.jpg" alt="Chaîne d'approvisionnement luxe">
+    </div>
 
-        <p><strong>Canaux de Recherche :</strong></p>
-        <ul>
-          <li>Salons internationaux (Pitti Uomo, Tranoï, Who’s Next)</li>
-          <li>LinkedIn &amp; groupes privés</li>
-          <li>Annuaires spécialisés payants</li>
-          <li>Bouche-à-oreille &amp; recommandations</li>
-          <li>Forums et communautés professionnelles</li>
-        </ul>
-      </div>
+    <div class="card">
+      <h3>Graphique : Répartition des Fournisseurs (2025)</h3>
+      <canvas id="supplierChart" width="400" height="200"></canvas>
+    </div>
 
-      <div class="card">
-        <h3>Visualisation : Répartition des Fournisseurs</h3>
-        <canvas id="supplierChart" width="600" height="300"></canvas>
-        <p style="font-size:0.9em; color:#ccc; text-align:center;">
-          Carte des parts de marché estimées par type de fournisseur (2025)
-        </p>
-      </div>
+    <div class="card">
+      <h3>Critères de Vérification &amp; Authenticité</h3>
+      <ol>
+        <li><strong>Existence Légale</strong> : vérifier SIRET/VAT, adresse.</li>
+        <li><strong>Réputation</strong> : avis clients, témoignages pro.</li>
+        <li><strong>Transparence</strong> : origine claire des produits.</li>
+        <li><strong>Conditions Commerciales</strong> : politique de retour, garanties.</li>
+        <li><strong>Premier Contact</strong> : professionnalisme et réactivité.</li>
+        <li><strong>Visite</strong> : (optionnel) audit sur site.</li>
+      </ol>
+      <p><strong>Authentification produit :</strong> factures, certificats, traçabilité, échantillons.</p>
+    </div>
 
-      <div class="card">
-        <h3>Critères de Vérification &amp; Authenticité</h3>
-        <ol>
-          <li><strong>Existence Légale</strong><br>
-              Vérifiez SIRET/VAT, adresse et mentions légales. Un site vitrine sans certitudes légales est à fuir.
-          </li>
-          <li><strong>Réputation &amp; Avis</strong><br>
-              Témoignages clients, feedbacks LinkedIn, études de cas. Méfiez-vous des retours trop lisses.
-          </li>
-          <li><strong>Transparence</strong><br>
-              Origine des stocks, certificats d’authenticité, procédures anti-contrefaçon.
-          </li>
-          <li><strong>Conditions Commerciales</strong><br>
-              Délai de paiement, politique de retour, frais de dossier.
-          </li>
-          <li><strong>Premier Contact</strong><br>
-              Qualité de la réponse, délais, propositions de documents.
-          </li>
-          <li><strong>Visite &amp; Audit</strong><br>
-              Si volume important, une visite sur site ou audit tiers renforce la confiance.
-          </li>
-        </ol>
-        <p>
-          Pour l’authentification des produits, exigez toujours : factures originelles,
-          certificats de marque, traçabilité complète, et, pour les commandes majeures,
-          des échantillons physiques à examiner.
-        </p>
-      </div>
+    <!-- Quiz -->
+    <div class="quiz">
+      <h3>Quiz – Chapitre 1</h3>
+      <form id="quiz-chap1">
+        <label>1. Qui garantit l'accès aux dernières collections ?<br>
+          <input type="radio" name="q1" value="Distributeurs"> Distributeurs Officiels Agréés<br>
+          <input type="radio" name="q1" value="Grossistes"> Grossistes B2B<br>
+          <input type="radio" name="q1" value="Agents"> Agents Indépendants
+        </label>
+        <label>2. Quel inconvénient concerne les grossistes ? <br>
+          <input type="radio" name="q2" value="Contrefaçons"> Risque de contrefaçons<br>
+          <input type="radio" name="q2" value="StocksLimités"> Stocks limités<br>
+          <input type="radio" name="q2" value="FraisÉlevés"> Frais élevés
+        </label>
+        <label>3. Où chercher des témoignages pro ?<br>
+          <input type="radio" name="q3" value="LinkedIn"> LinkedIn<br>
+          <input type="radio" name="q3" value="Instagram"> Instagram<br>
+          <input type="radio" name="q3" value="Facebook"> Facebook
+        </label>
+        <label>4. Quel critère exige la vérification d’un SIRET ?<br>
+          <input type="radio" name="q4" value="Legal"> Existence Légale<br>
+          <input type="radio" name="q4" value="Transparence"> Transparence<br>
+          <input type="radio" name="q4" value="Réputation"> Réputation
+        </label>
+        <label>5. Quel document prouve la chaîne d’approvisionnement ?<br>
+          <input type="radio" name="q5" value="Facture"> Facture d’origine<br>
+          <input type="radio" name="q5" value="Certificat"> Certificat<br>
+          <input type="radio" name="q5" value="Brochure"> Brochure marketing
+        </label>
+        <label>6. Quel canal <em>n’est pas</em> cité ?<br>
+          <input type="radio" name="q6" value="Forums"> Forums pro<br>
+          <input type="radio" name="q6" value="TikTok"> TikTok<br>
+          <input type="radio" name="q6" value="Salons"> Salons professionnels
+        </label>
+        <button type="button" onclick="validateChap1()">Valider mes réponses</button>
+      </form>
+      <div id="result-chap1" style="margin-top:1rem; font-weight:600;"></div>
+    </div>
+  </div>
 
-      <div class="quiz">
-        <h3>Quiz – Chapitre 1</h3>
-        <form id="quiz-chap1">
-          <label>1. Quel canal offre un <strong>accès direct</strong> aux dernières collections ?<br>
-            <input type="radio" name="q1" value="Distributeurs"> Distributeurs Officiels Agréés<br>
-            <input type="radio" name="q1" value="Grossistes"> Grossistes B2B<br>
-            <input type="radio" name="q1" value="Agents"> Agents Indépendants
-          </label>
-          <label>2. Quel inconvénient majeur concerne les <strong>grossistes B2B</strong>?<br>
-            <input type="radio" name="q2" value="Contrefacons"> Risque de contrefaçons<br>
-            <input type="radio" name="q2" value="PrixFixes"> Prix trop fixes<br>
-            <input type="radio" name="q2" value="StockLimite"> Stocks trop limités
-          </label>
-          <label>3. Où trouverez-vous <strong>des retours clients professionnels</strong>?<br>
-            <input type="radio" name="q3" value="LinkedIn"> LinkedIn<br>
-            <input type="radio" name="q3" value="Instagram"> Instagram<br>
-            <input type="radio" name="q3" value="TikTok"> TikTok
-          </label>
-          <label>4. Quel critère exige la vérification d’un SIRET ?<br>
-            <input type="radio" name="q4" value="Legal"> Existence Légale<br>
-            <input type="radio" name="q4" value="Reputation"> Réputation<br>
-            <input type="radio" name="q4" value="Transparence"> Transparence
-          </label>
-          <label>5. Quel document prouve la chaîne d’approvisionnement ?<br>
-            <input type="radio" name="q5" value="Facture"> Facture d’origine<br>
-            <input type="radio" name="q5" value="Brochure"> Brochure<br>
-            <input type="radio" name="q5" value="Manual"> Manuel technique
-          </label>
-          <label>6. Quel canal n’est PAS listé pour trouver un fournisseur ?<br>
-            <input type="radio" name="q6" value="Forums"> Forums pro<br>
-            <input type="radio" name="q6" value="YouTube"> YouTube<br>
-            <input type="radio" name="q6" value="Tranoi"> Salons professionnels
-          </label>
-          <button type="button" onclick="validateChap1()">Valider mes réponses</button>
-        </form>
-        <div id="result-chap1" style="margin-top:1rem; font-weight:600;"></div>
-      </div>
-
-    </section>
-  </main>
   <footer>&copy; SELEZIONE Formation 2025</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Chart.js – répartition des fournisseurs
+    // Initialisation du graphique
     const ctx = document.getElementById('supplierChart').getContext('2d');
     new Chart(ctx, {
       type: 'doughnut',
       data: {
         labels: [
-          'Distributeurs Agréés',
+          'Distrib. Agréés',
           'Grossistes B2B',
           'Ventes Privées',
           'Plateformes B2B',
@@ -197,15 +200,15 @@
       }
     });
 
-    // Quiz validation
+    // Validation du quiz
     function validateChap1() {
       const answers = {
         q1: 'Distributeurs',
-        q2: 'Contrefacons',
+        q2: 'Contrefaçons',
         q3: 'LinkedIn',
         q4: 'Legal',
         q5: 'Facture',
-        q6: 'YouTube'
+        q6: 'TikTok'
       };
       let score = 0, total = Object.keys(answers).length;
       for (let q in answers) {
@@ -215,10 +218,10 @@
       }
       const pct = Math.round((score/total)*100);
       const el = document.getElementById('result-chap1');
-      el.innerHTML = `Votre score : ${score}/${total} (${pct}%)<br>`;
-      el.innerHTML += pct >= 80
-        ? '✅ Chapitre validé ! Vous pouvez passer au suivant.'
-        : '❌ Vous devez atteindre 80 % pour valider ce chapitre.';
+      el.innerHTML = `Score : ${score}/${total} (${pct}%)<br>` +
+        (pct >= 80
+          ? '✅ Chapitre validé ! Vous pouvez passer au suivant.'
+          : '❌ Vous devez atteindre 80 % pour valider ce chapitre.');
     }
   </script>
 </body>
