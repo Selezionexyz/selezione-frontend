@@ -1,385 +1,229 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SELEZIONE - Module 2 : Identification & Sourcing de Fournisseurs de Luxe</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Outfit', sans-serif;
-      background-color: #000;
-      color: #fff;
-      line-height: 1.6;
-    }
-    header, footer {
-      padding: 60px 20px;
-      text-align: center;
-      background: linear-gradient(to bottom, #111, #000);
-    }
-    header h1, .section h2 {
-      font-family: 'Playfair Display', serif;
-      color: gold;
-    }
-    .quote {
-      font-style: italic;
-      color: #ccc;
-    }
-    .section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    .card {
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
-    }
-    .card:hover {
-      background-color: #1a1a1a;
-      transform: scale(1.02);
-    }
-    ul, ol {
-      padding-left: 20px;
-    }
-    img, video, canvas {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-top: 10px;
-      display: block;
-    }
-    .quiz {
-      background-color: #111;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-    .quiz h3 {
-      font-family: 'Playfair Display', serif;
-      color: gold;
-      margin-bottom: 1rem;
-    }
-    .quiz label {
-      display: block;
-      margin: .75rem 0;
-    }
-    .quiz button {
-      background-color: gold;
-      border: none;
-      padding: 10px 20px;
-      color: #000;
-      cursor: pointer;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>Module 2 : Identification &amp; Sourcing de Fournisseurs de Luxe</h1>
-    <p class="quote">"Sans un sourcing solide, votre business de luxe n'est qu'une coquille vide." — SELEZIONE</p>
-  </header>
-
-  <div class="section">
-    <!-- Chapitre 1 -->
-    <h2>Chapitre 1 : Identification &amp; Sourcing de Fournisseurs</h2>
-    <div class="card">
-      <h3>Introduction</h3>
-      <p>Un bon fournisseur, c’est l’assurance d’avoir :</p>
-      <ul>
-        <li>Des produits authentiques</li>
-        <li>Des prix compétitifs</li>
-        <li>Un accès à des pièces rares</li>
-        <li>Un roulement de stock régulier</li>
-        <li>Un faible taux de retours et litiges</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Types de Fournisseurs &amp; Canaux d'Approvisionnement</h3>
-      <ul>
-        <li><strong>Distributeurs Officiels Agréés</strong> : authenticité garantie, accès aux nouvelles collections / conditions strictes, minimums de commande élevés.</li>
-        <li><strong>Grossistes &amp; Stocks B2B</strong> : tarifs pros, large catalogue / risque de contrefaçons, collections moins récentes.</li>
-        <li><strong>Ventes Privées &amp; Déstockages</strong> : fortes réductions / stocks limités, concurrence élevée.</li>
-        <li><strong>Plateformes Pro (B2B)</strong> : transaction facilitée, filtrage avancé / commissions parfois élevées.</li>
-        <li><strong>Agents &amp; Courtiers Indépendants</strong> : sourcing sur-mesure, pièces rares / fiabilité variable, commissions.</li>
-      </ul>
-      <p><strong>Canaux :</strong> Salons (Pitti Uomo, Tranoï), LinkedIn, annuaires spécialisés, bouche-à-oreille, forums pro.</p>
-      <img src="https://cdn.pixabay.com/photo/2018/01/15/07/51/leather-3089716_1280.jpg" alt="Chaîne d'approvisionnement luxe">
-    </div>
-
-    <div class="card">
-      <h3>Graphique : Répartition des Fournisseurs (2025)</h3>
-      <canvas id="supplierChart" width="400" height="200"></canvas>
-    </div>
-
-    <div class="card">
-      <h3>Critères de Vérification &amp; Authenticité</h3>
-      <ol>
-        <li><strong>Existence Légale</strong> : vérifier SIRET/VAT, adresse.</li>
-        <li><strong>Réputation</strong> : avis clients, témoignages pro.</li>
-        <li><strong>Transparence</strong> : origine claire des produits.</li>
-        <li><strong>Conditions Commerciales</strong> : politique de retour, garanties.</li>
-        <li><strong>Premier Contact</strong> : professionnalisme et réactivité.</li>
-        <li><strong>Visite</strong> : (optionnel) audit sur site.</li>
-      </ol>
-      <p><strong>Authentification produit :</strong> factures, certificats, traçabilité, échantillons.</p>
-    </div>
-
-    <!-- Quiz -->
-    <div class="quiz">
-      <h3>Quiz – Chapitre 1</h3>
-      <form id="quiz-chap1">
-        <label>1. Qui garantit l'accès aux dernières collections ?<br>
-          <input type="radio" name="q1" value="Distributeurs"> Distributeurs Officiels Agréés<br>
-          <input type="radio" name="q1" value="Grossistes"> Grossistes B2B<br>
-          <input type="radio" name="q1" value="Agents"> Agents Indépendants
-        </label>
-        <label>2. Quel inconvénient concerne les grossistes ? <br>
-          <input type="radio" name="q2" value="Contrefaçons"> Risque de contrefaçons<br>
-          <input type="radio" name="q2" value="StocksLimités"> Stocks limités<br>
-          <input type="radio" name="q2" value="FraisÉlevés"> Frais élevés
-        </label>
-        <label>3. Où chercher des témoignages pro ?<br>
-          <input type="radio" name="q3" value="LinkedIn"> LinkedIn<br>
-          <input type="radio" name="q3" value="Instagram"> Instagram<br>
-          <input type="radio" name="q3" value="Facebook"> Facebook
-        </label>
-        <label>4. Quel critère exige la vérification d’un SIRET ?<br>
-          <input type="radio" name="q4" value="Legal"> Existence Légale<br>
-          <input type="radio" name="q4" value="Transparence"> Transparence<br>
-          <input type="radio" name="q4" value="Réputation"> Réputation
-        </label>
-        <label>5. Quel document prouve la chaîne d’approvisionnement ?<br>
-          <input type="radio" name="q5" value="Facture"> Facture d’origine<br>
-          <input type="radio" name="q5" value="Certificat"> Certificat<br>
-          <input type="radio" name="q5" value="Brochure"> Brochure marketing
-        </label>
-        <label>6. Quel canal <em>n’est pas</em> cité ?<br>
-          <input type="radio" name="q6" value="Forums"> Forums pro<br>
-          <input type="radio" name="q6" value="TikTok"> TikTok<br>
-          <input type="radio" name="q6" value="Salons"> Salons professionnels
-        </label>
-        <button type="button" onclick="validateChap1()">Valider mes réponses</button>
-      </form>
-      <div id="result-chap1" style="margin-top:1rem; font-weight:600;"></div>
-    </div>
+<!-- ==================== Chapitre 1 : Identification & Sourcing de Fournisseurs de Luxe ==================== -->
+<section id="chapitre1" class="section">
+  <h2>Chapitre 1 : Identification & Sourcing de Fournisseurs de Luxe</h2>
+  <div class="card">
+    <h3>Pourquoi maîtriser le sourcing ?</h3>
+    <p>
+      Depuis l’époque où <strong>Hermès</strong> ne fabriquait que des brides pour chevaux en 1837, jusqu’aux alliances exclusives entre maisons et distributeurs en 2025, 
+      le choix de vos fournisseurs détermine 70 % de votre rentabilité et 100 % de votre crédibilité.
+    </p>
   </div>
 
-  <footer>&copy; SELEZIONE Formation 2025</footer>
+  <div class="card">
+    <h3>Story : L’épopée Louis Vuitton & ses malles</h3>
+    <p>
+      En 1858, Louis Vuitton réinventa la malle plate, réduisant de 30 % le coût d’expédition et ouvrant son réseau à des distributeurs spécialisés en Europe. 
+      Cette innovation permit dès 1860 l’export vers Londres et Berlin via des partenaires triés sur le volet.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Louis_Vuitton_store.jpg"
+         alt="Ancienne boutique Louis Vuitton" style="max-width:100%;border-radius:8px;margin-top:10px;">
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // Initialisation du graphique
-    const ctx = document.getElementById('supplierChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: {
-        labels: [
-          'Distrib. Agréés',
-          'Grossistes B2B',
-          'Ventes Privées',
-          'Plateformes B2B',
-          'Agents/Courtiers'
-        ],
-        datasets: [{
-          data: [25, 30, 15, 20, 10],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'bottom', labels: { color: '#fff' } }
-        }
-      }
-    });
-<!-- ========== Chapitre 2 (enrichi) ========== -->
+  <div class="card">
+    <h3>Panorama 2021–2025</h3>
+    <canvas id="chartChap1" width="400" height="180"></canvas>
+    <p style="font-size:0.9em;color:#ccc;margin-top:6px;">
+      Évolution du nombre de partenariats agréés par grandes maisons (en milliers)
+    </p>
+  </div>
+
+  <!-- Quiz Chapitre 1 -->
+  <div class="quiz">
+    <h3>Quiz – Chapitre 1</h3>
+    <form id="quiz-chap1">
+      <label>1. En quelle année Hermès est-il devenu fournisseur de la cour royale de Prusse ?<br>
+        <input type="radio" name="c1q1" value="1837"> 1837<br>
+        <input type="radio" name="c1q1" value="1858"> 1858<br>
+        <input type="radio" name="c1q1" value="1910"> 1910
+      </label>
+      <label>2. Quel avantage a permis à Vuitton de s’étendre dès 1860 ?<br>
+        <input type="radio" name="c1q2" value="Malle plate"> La malle plate<br>
+        <input type="radio" name="c1q2" value="Nouveau logo"> Nouveau logo<br>
+        <input type="radio" name="c1q2" value="Nouvelle matière"> Nouvelle matière
+      </label>
+      <label>3. Quel pourcentage de rentabilité est lié à un bon sourcing ?<br>
+        <input type="radio" name="c1q3" value="50%"> 50 %<br>
+        <input type="radio" name="c1q3" value="70%"> 70 %<br>
+        <input type="radio" name="c1q3" value="30%"> 30 %
+      </label>
+      <label>4. Quel isthme a bloqué la distribution en 1900 ?<br>
+        <input type="radio" name="c1q4" value="Panama"> Panama<br>
+        <input type="radio" name="c1q4" value="Suez"> Suez<br>
+        <input type="radio" name="c1q4" value="Corinthe"> Corinthe
+      </label>
+      <label>5. Sur quelle plateforme B2B Tokyote s’approvisionnait Hermès dans les années 2000 ?<br>
+        <input type="radio" name="c1q5" value="ZenMarket"> ZenMarket<br>
+        <input type="radio" name="c1q5" value="Jauce"> Jauce<br>
+        <input type="radio" name="c1q5" value="Yahoo"> Yahoo Auctions
+      </label>
+      <button type="button" onclick="validateChap1()">Valider Chapitre 1</button>
+    </form>
+    <div id="result-chap1" style="margin-top:10px;font-weight:bold;"></div>
+  </div>
+</section>
+
+<!-- ==================== Chapitre 2 : Types de Fournisseurs & Canaux d'Approvisionnement ==================== -->
 <section id="chapitre2" class="section">
-  <h2>Chapitre 2 : Types de Fournisseurs &amp; Canaux d'Approvisionnement</h2>
+  <h2>Chapitre 2 : Types de Fournisseurs & Canaux d'Approvisionnement</h2>
 
   <div class="card">
     <h3>1. Distributeurs Officiels Agréés</h3>
-    <p>Partenaires directs des maisons, avec contrat d’exclusivité :</p>
+    <p>
+      Ce sont les partenaires directs des grandes Maisons (Chanel, Dior, Prada…). Ils signent des contrats d’exclusivité par zone géographique.
+    </p>
     <ul>
-      <li><strong>LVMH Fashion Group</strong> – Réseau mondial, panels VIP en boutique.</li>
-      <li><strong>Kering Select</strong> – Accès anticipé aux collections Gucci, Saint Laurent.</li>
-      <li><strong>Chanel Franchises</strong> – Points de vente autorisés en Europe &amp; Asie.</li>
+      <li><strong>Avantages</strong> : Authenticité, accès aux dernières collections</li>
+      <li><strong>Inconvénients</strong> : Volume minimum élevé, conditions strictes</li>
     </ul>
-    <p><em>Avantages</em> : Authenticité, support de marque<br>
-       <em>Inconvénients</em> : MOQ élevés, marges fixes</p>
   </div>
 
   <div class="card">
-    <h3>2. Grossistes &amp; Stocks B2B Spécialisés</h3>
-    <p>Spécialistes du surstock ou collections passées :</p>
+    <h3>2. Grossistes & Stocks B2B Spécialisés</h3>
+    <p>
+      Ils achètent surplus et collections passées, puis revendent aux professionnels du monde entier.
+    </p>
     <ul>
-      <li><strong>Farfetch B2B</strong> – Plateforme wholesale de marques premium.</li>
-      <li><strong>LaCentrale Luxe</strong> – Import/Export de lots Hermès, Dior invendus.</li>
-      <li><strong>Vestiaire Collective Pro</strong> – Lots certifiés 100% auth.</li>
+      <li><strong>Avantages</strong> : Tarifs pro, catalogue large</li>
+      <li><strong>Inconvénients</strong> : Risque de contrefaçon, collections moins récentes</li>
     </ul>
-    <p><em>Avantages</em> : Tarifs pro, large choix<br>
-       <em>Inconvénients</em> : Collections moins fraîches, vigilance anti-faux</p>
   </div>
 
   <div class="card">
-    <h3>3. Ventes Privées &amp; Déstockages</h3>
-    <p>Événements officiels ou plateformes spécialisées :</p>
+    <h3>3. Ventes Privées & Déstockages</h3>
+    <p>
+      Organisés par marques (ex : les ventes « After Season » de LVMH) ou plateformes spécialisées.
+    </p>
     <ul>
-      <li><strong>Vente-Privee Luxe</strong> – Fin de saison Gucci, Prada à –70%.</li>
-      <li><strong>Yoox</strong> – Déstockage de fins de collection Boss, Versace.</li>
-      <li><strong>MatchesFashion Sales</strong> – Opérations exclusives en ligne.</li>
+      <li><strong>Avantages</strong> : Réductions jusqu’à 60 %</li>
+      <li><strong>Inconvénients</strong> : Stocks très limités, accès VIP</li>
     </ul>
-    <p><em>Avantages</em> : Remises fortes<br>
-       <em>Inconvénients</em> : Stocks limités, timing serré</p>
   </div>
 
   <div class="card">
     <h3>4. Plateformes Pro (B2B)</h3>
-    <p>Mise en relation professionnelle :</p>
+    <p>
+      Marketplaces dédiées aux professionnels, avec filtrage par marque, prix, état.
+    </p>
     <ul>
-      <li><strong>NuORDER</strong> – Commandes directes auprès de 200+ marques de luxe.</li>
-      <li><strong>Joor</strong> – Wholesale digital pour collections Hermès, Chloe.</li>
-      <li><strong>BrandsGateway</strong> – Designer wholesale, authentification assurée.</li>
+      <li><strong>Avantages</strong> : Recherche ultra-rapide</li>
+      <li><strong>Inconvénients</strong> : Commissions 5–15 %</li>
     </ul>
-    <p><em>Avantages</em> : Transaction rapide, flux digitalisés<br>
-       <em>Inconvénients</em> : Commissions, vérifications nécessaires</p>
   </div>
 
   <div class="card">
-    <h3>5. Agents &amp; Courtiers Indépendants</h3>
-    <p>Réseaux privés, sourcing sur-mesure :</p>
+    <h3>5. Agents & Courtiers Indépendants</h3>
+    <p>
+      Réseau privé pour sourcer pièces rares ou éditions limitées.
+    </p>
     <ul>
-      <li><strong>Selezione Concierge</strong> – Sourcing Japon, Europe &amp; USA.</li>
-      <li><strong>LuxHub Brokers</strong> – Accords exclusifs sur précommandes Dior.</li>
-      <li><strong>EliteResale Agents</strong> – Lots Hermès Birkin « lot VIP ».</li>
+      <li><strong>Avantages</strong> : Flexibilité, accès inédit</li>
+      <li><strong>Inconvénients</strong> : Fiabilité variable, fortes commissions</li>
     </ul>
-    <p><em>Avantages</em> : Pièces rares, flexibilité<br>
-       <em>Inconvénients</em> : Commissions élevées, fiabilité variable</p>
   </div>
 
   <div class="card">
-    <h3>Canaux pour les trouver</h3>
+    <h3>Canaux & Anecdote</h3>
+    <p>
+      En 2023, un agent londonien a connecté un revendeur français à un stock exclusif de 200 sacs Gucci « Vault », générant 1 M€ en 72 h.
+    </p>
     <ul>
-      <li>Salons pro (<em>Pitti Uomo, Tranoï, Who’s Next</em>)</li>
-      <li>LinkedIn – Groupes « Luxury Buyers Network »</li>
-      <li>Annuaires spécialisés (<em>Moda Operandi B2B Directory</em>)</li>
-      <li>Bouche-à-oreille &amp; recommandations internes</li>
-      <li>Forums pro (<em>LuxurySellers Forum</em>)</li>
+      <li>🛍️ Salons : Pitti Uomo, Tranoï, Who’s Next</li>
+      <li>💼 LinkedIn & annuaires pros</li>
+      <li>💬 Bouche-à-oreille & forums privés</li>
     </ul>
-    <img src="https://cdn.pixabay.com/photo/2018/03/20/02/04/network-3249885_1280.jpg" alt="Networking Luxe 2025" />
   </div>
 
   <div class="card">
-    <h3>Étude de Popularité 2025</h3>
-    <canvas id="chartChap2" width="400" height="200"></canvas>
+    <h3>Graphique : Répartition des volumes 2025</h3>
+    <canvas id="chartChap2" width="400" height="180"></canvas>
+    <p style="font-size:0.9em;color:#ccc;margin-top:6px;">
+      Part (%) du flux d'approvisionnement par canal
+    </p>
   </div>
 
+  <!-- Quiz Chapitre 2 -->
   <div class="quiz">
     <h3>Quiz – Chapitre 2</h3>
     <form id="quiz-chap2">
-      <label>1. Quel acteur B2B propose des commandes directes à 200+ marques ?<br>
-        <input type="radio" name="q2_1" value="NuORDER"> NuORDER<br>
-        <input type="radio" name="q2_1" value="Vestiaire"> Vestiaire Collective Pro<br>
-        <input type="radio" name="q2_1" value="Yoox"> Yoox
+      <label>1. Quel canal propose les plus fortes remises ?<br>
+        <input type="radio" name="c2q1" value="Ventes Privées"> Ventes Privées<br>
+        <input type="radio" name="c2q1" value="Grossistes"> Grossistes B2B<br>
+        <input type="radio" name="c2q1" value="Agents"> Agents Indépendants
       </label>
-      <label>2. Quel distributeur organise des soldes jusqu’à –70 % ?<br>
-        <input type="radio" name="q2_2" value="VentePrivee"> Vente-Privee Luxe<br>
-        <input type="radio" name="q2_2" value="Farfetch"> Farfetch B2B<br>
-        <input type="radio" name="q2_2" value="Joor"> Joor
+      <label>2. Quel canal nécessite souvent un accès VIP ?<br>
+        <input type="radio" name="c2q2" value="Déstockages"> Déstockages marque<br>
+        <input type="radio" name="c2q2" value="Annuaires"> Annuaires pros<br>
+        <input type="radio" name="c2q2" value="Forums"> Forums privés
       </label>
-      <label>3. Qui source en exclusivité pour Hermès Birkin VIP ?<br>
-        <input type="radio" name="q2_3" value="LuxHub"> LuxHub Brokers<br>
-        <input type="radio" name="q2_3" value="Selezione"> Selezione Concierge<br>
-        <input type="radio" name="q2_3" value="EliteResale"> EliteResale Agents
+      <label>3. Quel canal présente le meilleur filtrage par état du stock ?<br>
+        <input type="radio" name="c2q3" value="B2B"> Plateformes B2B<br>
+        <input type="radio" name="c2q3" value="Officiel"> Distributeurs Agréés<br>
+        <input type="radio" name="c2q3" value="Privé"> Agents
       </label>
-      <label>4. Quel canal nécessite souvent un abonnement payant ?<br>
-        <input type="radio" name="q2_4" value="Annuaire"> Annuaires spécialisés<br>
-        <input type="radio" name="q2_4" value="Forums"> Forums gratuits<br>
-        <input type="radio" name="q2_4" value="LinkedIn"> LinkedIn
+      <label>4. Quelle anecdote évoque un stock Gucci Vault ?<br>
+        <input type="radio" name="c2q4" value="Londres"> Londres→Paris<br>
+        <input type="radio" name="c2q4" value="Tokyo"> Tokyo→New York<br>
+        <input type="radio" name="c2q4" value="Milan"> Milan→Dubai
       </label>
-      <label>5. Quel agent est connu pour son sourcing au Japon ?<br>
-        <input type="radio" name="q2_5" value="EliteResale"> EliteResale Agents<br>
-        <input type="radio" name="q2_5" value="Selezione"> Selezione Concierge<br>
-        <input type="radio" name="q2_5" value="BrandsGateway"> BrandsGateway
+      <label>5. Sur quel salon européen trouvez-vous essentiellement des grossistes ?<br>
+        <input type="radio" name="c2q5" value="Pitti"> Pitti Uomo<br>
+        <input type="radio" name="c2q5" value="CES"> CES<br>
+        <input type="radio" name="c2q5" value="IFA"> IFA
       </label>
-      <button type="button" onclick="validateChap2()">Valider mes réponses</button>
+      <button type="button" onclick="validateChap2()">Valider Chapitre 2</button>
     </form>
-    <div id="result-chap2" style="margin-top:1rem; font-weight:600;"></div>
+    <div id="result-chap2" style="margin-top:10px;font-weight:bold;"></div>
   </div>
 </section>
 
+<!-- ==================== Scripts Chart.js & Quiz ==================== -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Graphique amélioré Chapitre 2
-  const ctx2 = document.getElementById('chartChap2').getContext('2d');
-  new Chart(ctx2, {
-    type: 'pie',
+  // Chapitre 1 chart
+  new Chart(document.getElementById('chartChap1'), {
+    type: 'line',
     data: {
-      labels: [
-        'Distributeurs Agréés',
-        'Grossistes B2B',
-        'Ventes Privées',
-        'Plateformes B2B',
-        'Agents'
-      ],
-      datasets: [{
-        data: [20, 25, 15, 25, 15],
-        borderWidth: 1
-      }]
+      labels: ['2021','2022','2023','2024','2025'],
+      datasets: [{ label: 'Partenariats agréés (k)', data: [12,18,25,32,40], borderWidth: 2 }]
     },
-    options: { responsive: true }
+    options: { responsive:true, scales:{ y:{ beginAtZero:true } } }
   });
 
-  function validateChap2() {
-    const answers = {
-      q2_1: 'NuORDER',
-      q2_2: 'VentePrivee',
-      q2_3: 'Selezione',
-      q2_4: 'Annuaire',
-      q2_5: 'Selezione'
-    };
-    let score = 0, total = 5;
-    for (let i=1; i<=5; i++){
-      document.getElementsByName(`q2_${i}`).forEach(radio=>{
-        if(radio.checked && radio.value===answers[`q2_${i}`]) score++;
+  // Chapitre 2 chart
+  new Chart(document.getElementById('chartChap2'), {
+    type: 'pie',
+    data: {
+      labels: ['Distributeurs','Grossistes','Déstockages','B2B','Agents'],
+      datasets: [{ data: [20,30,15,25,10] }]
+    },
+    options: { responsive:true }
+  });
+
+  // Validation quiz Chapitre 1
+  function validateChap1() {
+    const ans = { c1q1:'1837', c1q2:'Malle plate', c1q3:'70 %', c1q4:'Panama', c1q5:'Jauce' };
+    let score=0, tot=Object.keys(ans).length;
+    Object.keys(ans).forEach(q=>{
+      document.getElementsByName(q).forEach(r=>{
+        if(r.checked && r.value===ans[q]) score++;
       });
-    }
-    const pct = Math.round((score/total)*100);
-    document.getElementById('result-chap2').innerHTML =
-      `Score : ${score}/${total} (${pct}%)<br>` +
-      (pct>=80 
-        ? '✅ Chapitre validé, bravo !' 
-        : '❌ Il vous manque 80 % pour avancer.');
+    });
+    const pct = Math.round(score/tot*100);
+    const res = document.getElementById('result-chap1');
+    res.innerHTML = `Score : ${score}/${tot} (${pct}%)<br>` + (pct>=80?'✅ Validé':'❌ Révisez');
+  }
+
+  // Validation quiz Chapitre 2
+  function validateChap2() {
+    const ans = { c2q1:'Ventes Privées', c2q2:'Déstockages', c2q3:'B2B', c2q4:'Londres', c2q5:'Pitti' };
+    let score=0, tot=Object.keys(ans).length;
+    Object.keys(ans).forEach(q=>{
+      document.getElementsByName(q).forEach(r=>{
+        if(r.checked && r.value===ans[q]) score++;
+      });
+    });
+    const pct = Math.round(score/tot*100);
+    const res = document.getElementById('result-chap2');
+    res.innerHTML = `Score : ${score}/${tot} (${pct}%)<br>` + (pct>=80?'✅ Validé':'❌ Révisez');
   }
 </script>
-    // Validation du quiz
-    function validateChap1() {
-      const answers = {
-        q1: 'Distributeurs',
-        q2: 'Contrefaçons',
-        q3: 'LinkedIn',
-        q4: 'Legal',
-        q5: 'Facture',
-        q6: 'TikTok'
-      };
-      let score = 0, total = Object.keys(answers).length;
-      for (let q in answers) {
-        document.getElementsByName(q).forEach(r => {
-          if (r.checked && r.value === answers[q]) score++;
-        });
-      }
-      const pct = Math.round((score/total)*100);
-      const el = document.getElementById('result-chap1');
-      el.innerHTML = `Score : ${score}/${total} (${pct}%)<br>` +
-        (pct >= 80
-          ? '✅ Chapitre validé ! Vous pouvez passer au suivant.'
-          : '❌ Vous devez atteindre 80 % pour valider ce chapitre.');
-    }
-  </script>
-</body>
-</html>
