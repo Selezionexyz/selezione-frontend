@@ -1,140 +1,194 @@
-<!DOCTYPE html><html lang="fr"><head>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SELEZIONE – Module 2 : Fournisseurs de Luxe</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <title>SELEZIONE - Module 2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Outfit', sans-serif;
-      background: #000;
-      color: #fff;
+      display: flex;
+      background: black;
+      color: white;
+    }
+    aside {
+      width: 250px;
+      background: #111;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    aside h2 {
+      font-family: 'Playfair Display', serif;
+      color: gold;
+    }
+    aside a {
+      color: white;
+      text-decoration: none;
+      margin: .5rem 0;
+    }
+    aside a:hover {
+      color: gold;
+    }
+    main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    h1, h2 {
+      color: gold;
+      font-family: 'Playfair Display', serif;
+    }
+    .section {
+      margin-bottom: 3rem;
+    }
+    .card {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #333;
+      margin-bottom: 2rem;
+    }
+    .quiz {
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 12px;
       padding: 20px;
-      margin: 0;
-    }h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
-  color: gold;
-}
-
-.section {
-  background: #111;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.quiz {
-  background: #222;
-  border-radius: 12px;
-  padding: 20px;
-}
-
-.quiz input[type="radio"] {
-  margin-right: 10px;
-}
-
-button {
-  background: gold;
-  color: black;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
+    }
+    .quiz label {
+      display: block;
+      margin: .5rem 0;
+    }
+    .quiz button {
+      background: gold;
+      border: none;
+      padding: 10px 20px;
+      color: #000;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    .chart {
+      margin: 2rem 0;
+      text-align: center;
+    }
+    .chart img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #111;
+      color: #888;
+    }
   </style>
-</head><body>
-  <h1>Module 2 : Identification & Sourcing de Fournisseurs de Luxe</h1>  <!-- Chapitre 1 -->  <section class="section">
-    <h2>Chapitre 1 : Types de Fournisseurs et Canaux d'Approvisionnement</h2>
-    <p>Maîtriser l'art de trouver et de vérifier les distributeurs de grandes marques.</p><h3>Distributeurs Officiels Agréés</h3>
-<ul>
-  <li><strong>Avantages :</strong> Authenticité garantie, accès direct.</li>
-  <li><strong>Inconvénients :</strong> Conditions strictes, minimums élevés.</li>
-</ul>
+</head>
+<body>
+  <aside>
+    <h2>SELEZIONE</h2>
+    <a href="index.html">🏠 Accueil</a>
+    <a href="formation-selezione-1.html">🎓 Formation 1</a>
+    <a href="formation-selezione-2.html">🎓 Formation 2</a>
+  </aside>
+  <main>
+    <section class="section">
+      <h1>Module 2 : Identification & Sourcing de Fournisseurs de Luxe</h1>
 
-<h3>Grossistes et Stocks B2B Spécialisés</h3>
-<ul>
-  <li><strong>Avantages :</strong> Prix compétitifs, variété.</li>
-  <li><strong>Inconvénients :</strong> Risque accru de contrefaçons.</li>
-</ul>
+      <div class="card">
+        <h2>Chapitre 1 : Types de Fournisseurs & Canaux</h2>
+        <p><strong>Distributeurs Officiels Agréés</strong> : partenaires directs avec les marques. Avantages : authenticité garantie, accès aux dernières collections. Inconvénients : conditions strictes, minimums élevés.</p>
+        <p><strong>Grossistes B2B</strong> : revendeurs de surstocks. Avantages : prix compétitifs. Inconvénients : risques de contrefaçon.</p>
+        <p><strong>Ventes Privées</strong> : pour écouler les invendus. Avantages : réductions. Inconvénients : stocks limités.</p>
+        <p><strong>Plateformes B2B</strong> : transactions professionnelles facilitées. Inconvénients : commissions.</p>
+        <p><strong>Agents Indépendants</strong> : sourcing sur mesure. Inconvénients : fiabilité variable.</p>
 
-<h3>Ventes Privées et Déstockages</h3>
-<ul>
-  <li><strong>Avantages :</strong> Fortes réductions.</li>
-  <li><strong>Inconvénients :</strong> Stocks limités, forte concurrence.</li>
-</ul>
+        <div class="chart">
+          <h3>Graphique : Répartition des Canaux d’Achat (2025)</h3>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pie_chart_example.svg/600px-Pie_chart_example.svg.png" alt="Graphique fournisseurs luxe" />
+        </div>
 
-<h3>Plateformes B2B</h3>
-<ul>
-  <li><strong>Avantages :</strong> Choix large.</li>
-  <li><strong>Inconvénients :</strong> Commissions, vérification nécessaire.</li>
-</ul>
+        <p><strong>Canaux de Recherche</strong> : salons pro (Pitti Uomo), LinkedIn, annuaires payants, bouche-à-oreille, forums.</p>
 
-<h3>Agents et Courtiers</h3>
-<ul>
-  <li><strong>Avantages :</strong> Pièces rares.</li>
-  <li><strong>Inconvénients :</strong> Fiabilité variable.</li>
-</ul>
+        <p><em>Anecdote Hermès</em> : Pour devenir distributeur, Hermès impose un audit strict et exige un univers de vente 100% dédié à la marque, même pour ses partenaires historiques.</p>
+        <p><em>Anecdote Balenciaga</em> : En 2018, Balenciaga a fermé des dizaines de partenariats distributeurs jugés trop éloignés de son positionnement luxe pour tout recentrer sur ses propres canaux.</p>
+        <p><em>Anecdote Rolex</em> : Rolex retire régulièrement des autorisations de distribution. Leur objectif : raréfier l’accès et renforcer la valeur perçue. Une stratégie de "contrôle par la rareté".</p>
+      </div>
 
-<h3>Canaux clés :</h3>
-<ul>
-  <li>Salons (ex: Pitti Uomo, Tranoï)</li>
-  <li>LinkedIn</li>
-  <li>Annuaires spécialisés</li>
-  <li>Bouche-à-oreille</li>
-</ul>
+      <div class="quiz">
+        <h3>Quiz – Chapitre 1</h3>
+        <form id="quiz1">
+          <label>1. Quel type garantit l'authenticité ?<br>
+            <input type="radio" name="q1" value="A"> Distributeurs Agréés<br>
+            <input type="radio" name="q1" value="B"> Plateformes B2B<br>
+            <input type="radio" name="q1" value="C"> Agents Indépendants
+          </label>
+          <label>2. Quel canal est le plus risqué ?<br>
+            <input type="radio" name="q2" value="A"> Grossistes non certifiés<br>
+            <input type="radio" name="q2" value="B"> Salons pro<br>
+            <input type="radio" name="q2" value="C"> LinkedIn
+          </label>
+          <button type="button" onclick="validerQuiz1()">Valider</button>
+        </form>
+        <div id="result1"></div>
+      </div>
 
-<h3>Anecdotes historiques :</h3>
-<ul>
-  <li><strong>Hermès :</strong> Contrôle strict des distributeurs depuis 1837 pour préserver l'exclusivité.</li>
-  <li><strong>Chanel :</strong> Ferme régulièrement des comptes revendeurs non conformes à ses critères très stricts.</li>
-  <li><strong>Gucci :</strong> A subi de nombreuses contrefaçons, d'où des mesures accrues dès les années 1980.</li>
-</ul>
+      <div class="card">
+        <h2>Chapitre 2 : Critères de Vérification & Authenticité</h2>
+        <ul>
+          <li><strong>Existence légale</strong> : immatriculation, SIRET</li>
+          <li><strong>Réputation</strong> : avis clients, références</li>
+          <li><strong>Transparence</strong> : origine des produits</li>
+          <li><strong>Contrats clairs</strong> : CGV, retours</li>
+          <li><strong>Premier contact</strong> : niveau de professionnalisme</li>
+          <li><strong>Visite</strong> : recommandée pour gros volumes</li>
+        </ul>
+        <p><strong>Vérification des produits :</strong> factures, certificats, traçabilité, échantillons, expertise humaine et IA (ex: Entrupy).</p>
 
-<div class="quiz">
-  <h3>Quiz Chapitre 1</h3>
-  <label><input type="radio" name="q1"> Distributeurs Agréés garantissent-ils l'authenticité ?</label><br>
-  <label><input type="radio" name="q2"> Grossistes présentent-ils un risque de faux plus élevé ?</label><br>
-  <button>Valider</button>
-</div>
+        <p><em>Anecdote Chanel</em> : Chanel interdit la vente sur Internet via ses distributeurs. Une politique qui vise à protéger l’exclusivité et le service client premium.</p>
+        <p><em>Anecdote Louis Vuitton</em> : En 2023, LVMH a lancé un programme d’authentification basée sur la blockchain via Aura Blockchain Consortium.</p>
+        <p><em>Anecdote Gucci</em> : Gucci a été l’une des premières marques à tester l’authentification par IA via des partenaires comme Entrupy dès 2019.</p>
+      </div>
 
-  </section>  <!-- Chapitre 2 -->  <section class="section">
-    <h2>Chapitre 2 : Vérification et Authenticité des Fournisseurs</h2>
-    <p>La crédibilité d'un fournisseur est cruciale.</p><h3>Critères clés :</h3>
-<ul>
-  <li><strong>Existence légale :</strong> Vérifier numéro SIRET/VAT.</li>
-  <li><strong>Réputation :</strong> Témoignages, éviter les offres irréalistes.</li>
-  <li><strong>Transparence :</strong> Origine claire des produits.</li>
-  <li><strong>Conditions commerciales :</strong> Politique de retour.</li>
-  <li><strong>Premier contact :</strong> Réactivité.</li>
-  <li><strong>Visite :</strong> Idéale pour valider la fiabilité.</li>
-</ul>
-
-<h3>Authenticité des Produits :</h3>
-<ul>
-  <li><strong>Documentation :</strong> Factures, certificats.</li>
-  <li><strong>Traçabilité :</strong> Chaîne d’approvisionnement vérifiable.</li>
-  <li><strong>Expertise interne :</strong> Présence d'experts.</li>
-  <li><strong>Politique anti-contrefaçon :</strong> Vérifications strictes.</li>
-</ul>
-
-<h3>Anecdotes historiques :</h3>
-<ul>
-  <li><strong>Louis Vuitton :</strong> Introduit le premier numéro de série dans les années 1980 contre les contrefaçons.</li>
-  <li><strong>Dior :</strong> Utilise des hologrammes depuis 2012 pour renforcer l'authenticité.</li>
-  <li><strong>Gucci :</strong> Pionnier des puces RFID depuis 2016.</li>
-</ul>
-
-<div class="quiz">
-  <h3>Quiz Chapitre 2</h3>
-  <label><input type="radio" name="q3"> La vérification du numéro SIRET est-elle obligatoire ?</label><br>
-  <label><input type="radio" name="q4"> Les factures suffisent-elles à garantir l'authenticité ?</label><br>
-  <button>Valider</button>
-</div>
-
-  </section>  <!-- Graphiques suggérés -->  <section class="section">
-    <h2>Graphiques illustratifs :</h2>
-    <p>(Insérer ici un graphique sur la répartition des types de fournisseurs utilisés par les professionnels du luxe)</p>
-    <p>(Insérer ici un graphique sur les critères de sélection jugés les plus importants par les acheteurs professionnels)</p>
-  </section></body>
+      <div class="quiz">
+        <h3>Quiz – Chapitre 2</h3>
+        <form id="quiz2">
+          <label>1. Quelle vérification est essentielle ?<br>
+            <input type="radio" name="p1" value="A"> Compte Instagram<br>
+            <input type="radio" name="p1" value="B"> SIRET / N° TVA<br>
+            <input type="radio" name="p1" value="C"> Emplacement géographique
+          </label>
+          <label>2. Quel outil utilise la blockchain ?<br>
+            <input type="radio" name="p2" value="A"> Aura Consortium<br>
+            <input type="radio" name="p2" value="B"> Entrupy<br>
+            <input type="radio" name="p2" value="C"> Google Lens
+          </label>
+          <button type="button" onclick="validerQuiz2()">Valider</button>
+        </form>
+        <div id="result2"></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    &copy; SELEZIONE Formation 2025
+  </footer>
+  <script>
+    function validerQuiz1() {
+      let score = 0;
+      if (document.querySelector('input[name="q1"]:checked')?.value === 'A') score++;
+      if (document.querySelector('input[name="q2"]:checked')?.value === 'A') score++;
+      document.getElementById('result1').innerHTML = `Résultat : ${score}/2` + (score === 2 ? '<br>✅ Bravo !' : '<br>❌ Révisez.');
+    }
+    function validerQuiz2() {
+      let score = 0;
+      if (document.querySelector('input[name="p1"]:checked')?.value === 'B') score++;
+      if (document.querySelector('input[name="p2"]:checked')?.value === 'A') score++;
+      document.getElementById('result2').innerHTML = `Résultat : ${score}/2` + (score === 2 ? '<br>✅ Chapitre validé !' : '<br>❌ Recommencez.');
+    }
+  </script>
+</body>
 </html>
