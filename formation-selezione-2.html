@@ -1,194 +1,163 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SELEZIONE - Module 2</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <title>SELEZIONE – Module 2 : Fournisseurs de Luxe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Outfit', sans-serif;
-      display: flex;
-      background: black;
-      color: white;
+      background: #000;
+      color: #fff;
+      padding: 20px;
+      margin: 0;
     }
-    aside {
-      width: 250px;
-      background: #111;
-      padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    aside h2 {
+    h1, h2, h3 {
       font-family: 'Playfair Display', serif;
       color: gold;
-    }
-    aside a {
-      color: white;
-      text-decoration: none;
-      margin: .5rem 0;
-    }
-    aside a:hover {
-      color: gold;
-    }
-    main {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-    }
-    h1, h2 {
-      color: gold;
-      font-family: 'Playfair Display', serif;
     }
     .section {
-      margin-bottom: 3rem;
-    }
-    .card {
-      background: #1a1a1a;
-      padding: 1.5rem;
+      background: #111;
       border-radius: 12px;
-      border: 1px solid #333;
-      margin-bottom: 2rem;
+      padding: 20px;
+      margin-bottom: 20px;
     }
     .quiz {
-      background: #111;
-      border: 1px solid #333;
+      background: #222;
       border-radius: 12px;
       padding: 20px;
     }
-    .quiz label {
-      display: block;
-      margin: .5rem 0;
+    .quiz input[type="radio"] {
+      margin-right: 10px;
     }
-    .quiz button {
+    button {
       background: gold;
+      color: black;
       border: none;
-      padding: 10px 20px;
-      color: #000;
-      cursor: pointer;
       border-radius: 8px;
-    }
-    .chart {
-      margin: 2rem 0;
-      text-align: center;
-    }
-    .chart img {
-      width: 100%;
-      max-width: 600px;
-      border-radius: 10px;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #111;
-      color: #888;
+      padding: 10px 20px;
+      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <aside>
-    <h2>SELEZIONE</h2>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="formation-selezione-1.html">🎓 Formation 1</a>
-    <a href="formation-selezione-2.html">🎓 Formation 2</a>
-  </aside>
-  <main>
-    <section class="section">
-      <h1>Module 2 : Identification & Sourcing de Fournisseurs de Luxe</h1>
+  <h1>Module 2 : Identification & Sourcing de Fournisseurs de Luxe</h1>  <section class="section">
+    <h2>Chapitre 1 : Types de Fournisseurs et Canaux d'Approvisionnement</h2>
+    <p>Maîtriser l'art de trouver et de vérifier les distributeurs de grandes marques.</p><!-- Contenu complet du chapitre 1 -->
+<!-- [Ton texte ici - inclus en entier dans la version PDF si souhaité] -->
 
-      <div class="card">
-        <h2>Chapitre 1 : Types de Fournisseurs & Canaux</h2>
-        <p><strong>Distributeurs Officiels Agréés</strong> : partenaires directs avec les marques. Avantages : authenticité garantie, accès aux dernières collections. Inconvénients : conditions strictes, minimums élevés.</p>
-        <p><strong>Grossistes B2B</strong> : revendeurs de surstocks. Avantages : prix compétitifs. Inconvénients : risques de contrefaçon.</p>
-        <p><strong>Ventes Privées</strong> : pour écouler les invendus. Avantages : réductions. Inconvénients : stocks limités.</p>
-        <p><strong>Plateformes B2B</strong> : transactions professionnelles facilitées. Inconvénients : commissions.</p>
-        <p><strong>Agents Indépendants</strong> : sourcing sur mesure. Inconvénients : fiabilité variable.</p>
+<h3>Graphique illustratif</h3>
+<p>(Insérer ici un graphique sur la répartition des types de fournisseurs utilisés par les professionnels du luxe)</p>
 
-        <div class="chart">
-          <h3>Graphique : Répartition des Canaux d’Achat (2025)</h3>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pie_chart_example.svg/600px-Pie_chart_example.svg.png" alt="Graphique fournisseurs luxe" />
-        </div>
+<div class="quiz">
+  <h3>Quiz – Chapitre 1</h3>
+  <form id="quiz-chapitre1">
+    <label>1. Quel fournisseur offre les produits les plus récents ?<br>
+      <input type="radio" name="q1" value="Distributeurs"> Distributeurs agréés<br>
+      <input type="radio" name="q1" value="Grossistes"> Grossistes<br>
+      <input type="radio" name="q1" value="Agents"> Agents indépendants
+    </label><br>
+    <label>2. Quel canal est le plus risqué pour la contrefaçon ?<br>
+      <input type="radio" name="q2" value="Grossistes"> Grossistes<br>
+      <input type="radio" name="q2" value="Distributeurs"> Distributeurs agréés<br>
+      <input type="radio" name="q2" value="Déstockages"> Déstockages
+    </label><br>
+    <label>3. Quelle est une plateforme B2B ?<br>
+      <input type="radio" name="q3" value="LinkedIn"> LinkedIn<br>
+      <input type="radio" name="q3" value="StockX"> StockX<br>
+      <input type="radio" name="q3" value="Gucci"> Gucci
+    </label><br>
+    <label>4. Quel événement est un salon professionnel ?<br>
+      <input type="radio" name="q4" value="Pitti"> Pitti Uomo<br>
+      <input type="radio" name="q4" value="eBay"> eBay<br>
+      <input type="radio" name="q4" value="Amazon"> Amazon
+    </label><br>
+    <label>5. Quel fournisseur permet l’accès aux pièces rares ?<br>
+      <input type="radio" name="q5" value="Agents"> Agents et courtiers<br>
+      <input type="radio" name="q5" value="Distributeurs"> Distributeurs agréés<br>
+      <input type="radio" name="q5" value="Déstockages"> Déstockages
+    </label><br>
+    <button type="button" onclick="validateChap1()">Valider</button>
+  </form>
+  <div id="result-chapitre1"></div>
+</div>
 
-        <p><strong>Canaux de Recherche</strong> : salons pro (Pitti Uomo), LinkedIn, annuaires payants, bouche-à-oreille, forums.</p>
+  </section>  <section class="section">
+    <h2>Chapitre 2 : Vérification et Authenticité des Fournisseurs</h2>
+    <p>La crédibilité d'un fournisseur est cruciale.</p><!-- Contenu complet du chapitre 2 -->
 
-        <p><em>Anecdote Hermès</em> : Pour devenir distributeur, Hermès impose un audit strict et exige un univers de vente 100% dédié à la marque, même pour ses partenaires historiques.</p>
-        <p><em>Anecdote Balenciaga</em> : En 2018, Balenciaga a fermé des dizaines de partenariats distributeurs jugés trop éloignés de son positionnement luxe pour tout recentrer sur ses propres canaux.</p>
-        <p><em>Anecdote Rolex</em> : Rolex retire régulièrement des autorisations de distribution. Leur objectif : raréfier l’accès et renforcer la valeur perçue. Une stratégie de "contrôle par la rareté".</p>
-      </div>
+<h3>Graphique illustratif</h3>
+<p>(Insérer ici un graphique sur les critères de sélection jugés les plus importants par les acheteurs professionnels)</p>
 
-      <div class="quiz">
-        <h3>Quiz – Chapitre 1</h3>
-        <form id="quiz1">
-          <label>1. Quel type garantit l'authenticité ?<br>
-            <input type="radio" name="q1" value="A"> Distributeurs Agréés<br>
-            <input type="radio" name="q1" value="B"> Plateformes B2B<br>
-            <input type="radio" name="q1" value="C"> Agents Indépendants
-          </label>
-          <label>2. Quel canal est le plus risqué ?<br>
-            <input type="radio" name="q2" value="A"> Grossistes non certifiés<br>
-            <input type="radio" name="q2" value="B"> Salons pro<br>
-            <input type="radio" name="q2" value="C"> LinkedIn
-          </label>
-          <button type="button" onclick="validerQuiz1()">Valider</button>
-        </form>
-        <div id="result1"></div>
-      </div>
+<div class="quiz">
+  <h3>Quiz – Chapitre 2</h3>
+  <form id="quiz-chapitre2">
+    <label>1. Quelle information permet de vérifier l'existence légale ?<br>
+      <input type="radio" name="q1b" value="SIRET"> Numéro SIRET/VAT<br>
+      <input type="radio" name="q1b" value="Adresse"> Adresse mail<br>
+      <input type="radio" name="q1b" value="Nom"> Nom du contact
+    </label><br>
+    <label>2. Quelle méthode permet de vérifier la traçabilité ?<br>
+      <input type="radio" name="q2b" value="Documentation"> Documentation<br>
+      <input type="radio" name="q2b" value="Photos"> Photos des produits<br>
+      <input type="radio" name="q2b" value="Pub"> Publicité de la marque
+    </label><br>
+    <label>3. Pourquoi faire une visite physique du fournisseur ?<br>
+      <input type="radio" name="q3b" value="Confiance"> Créer un lien de confiance<br>
+      <input type="radio" name="q3b" value="Loisir"> Pour le loisir<br>
+      <input type="radio" name="q3b" value="Livraison"> Pour récupérer les colis
+    </label><br>
+    <label>4. Quelle preuve renforce l’authenticité ?<br>
+      <input type="radio" name="q4b" value="Certificat"> Certificat d’authenticité<br>
+      <input type="radio" name="q4b" value="Avis"> Avis clients<br>
+      <input type="radio" name="q4b" value="Pub"> Publicité Instagram
+    </label><br>
+    <label>5. Quelle erreur peut nuire à votre réputation ?<br>
+      <input type="radio" name="q5b" value="Contrefaçon"> Une contrefaçon<br>
+      <input type="radio" name="q5b" value="Remise"> Une remise trop faible<br>
+      <input type="radio" name="q5b" value="Marque"> Vendre une marque inconnue
+    </label><br>
+    <button type="button" onclick="validateChap2()">Valider</button>
+  </form>
+  <div id="result-chapitre2"></div>
+</div>
 
-      <div class="card">
-        <h2>Chapitre 2 : Critères de Vérification & Authenticité</h2>
-        <ul>
-          <li><strong>Existence légale</strong> : immatriculation, SIRET</li>
-          <li><strong>Réputation</strong> : avis clients, références</li>
-          <li><strong>Transparence</strong> : origine des produits</li>
-          <li><strong>Contrats clairs</strong> : CGV, retours</li>
-          <li><strong>Premier contact</strong> : niveau de professionnalisme</li>
-          <li><strong>Visite</strong> : recommandée pour gros volumes</li>
-        </ul>
-        <p><strong>Vérification des produits :</strong> factures, certificats, traçabilité, échantillons, expertise humaine et IA (ex: Entrupy).</p>
-
-        <p><em>Anecdote Chanel</em> : Chanel interdit la vente sur Internet via ses distributeurs. Une politique qui vise à protéger l’exclusivité et le service client premium.</p>
-        <p><em>Anecdote Louis Vuitton</em> : En 2023, LVMH a lancé un programme d’authentification basée sur la blockchain via Aura Blockchain Consortium.</p>
-        <p><em>Anecdote Gucci</em> : Gucci a été l’une des premières marques à tester l’authentification par IA via des partenaires comme Entrupy dès 2019.</p>
-      </div>
-
-      <div class="quiz">
-        <h3>Quiz – Chapitre 2</h3>
-        <form id="quiz2">
-          <label>1. Quelle vérification est essentielle ?<br>
-            <input type="radio" name="p1" value="A"> Compte Instagram<br>
-            <input type="radio" name="p1" value="B"> SIRET / N° TVA<br>
-            <input type="radio" name="p1" value="C"> Emplacement géographique
-          </label>
-          <label>2. Quel outil utilise la blockchain ?<br>
-            <input type="radio" name="p2" value="A"> Aura Consortium<br>
-            <input type="radio" name="p2" value="B"> Entrupy<br>
-            <input type="radio" name="p2" value="C"> Google Lens
-          </label>
-          <button type="button" onclick="validerQuiz2()">Valider</button>
-        </form>
-        <div id="result2"></div>
-      </div>
-    </section>
-  </main>
-  <footer>
-    &copy; SELEZIONE Formation 2025
-  </footer>
-  <script>
-    function validerQuiz1() {
+  </section>  <script>
+    function validateChap1() {
+      const answers = {
+        q1: 'Distributeurs',
+        q2: 'Grossistes',
+        q3: 'StockX',
+        q4: 'Pitti',
+        q5: 'Agents'
+      };
       let score = 0;
-      if (document.querySelector('input[name="q1"]:checked')?.value === 'A') score++;
-      if (document.querySelector('input[name="q2"]:checked')?.value === 'A') score++;
-      document.getElementById('result1').innerHTML = `Résultat : ${score}/2` + (score === 2 ? '<br>✅ Bravo !' : '<br>❌ Révisez.');
+      for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        radios.forEach(r => { if (r.checked && r.value === answers[key]) score++; });
+      }
+      const percent = Math.round((score / 5) * 100);
+      const res = document.getElementById('result-chapitre1');
+      res.innerHTML = `Score : ${score}/5 (${percent}%)<br>` + (percent >= 80 ? '✅ Chapitre validé !' : '❌ Révisez et réessayez.');
     }
-    function validerQuiz2() {
+
+    function validateChap2() {
+      const answers = {
+        q1b: 'SIRET',
+        q2b: 'Documentation',
+        q3b: 'Confiance',
+        q4b: 'Certificat',
+        q5b: 'Contrefaçon'
+      };
       let score = 0;
-      if (document.querySelector('input[name="p1"]:checked')?.value === 'B') score++;
-      if (document.querySelector('input[name="p2"]:checked')?.value === 'A') score++;
-      document.getElementById('result2').innerHTML = `Résultat : ${score}/2` + (score === 2 ? '<br>✅ Chapitre validé !' : '<br>❌ Recommencez.');
+      for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        radios.forEach(r => { if (r.checked && r.value === answers[key]) score++; });
+      }
+      const percent = Math.round((score / 5) * 100);
+      const res = document.getElementById('result-chapitre2');
+      res.innerHTML = `Score : ${score}/5 (${percent}%)<br>` + (percent >= 80 ? '✅ Chapitre validé !' : '❌ Révisez et réessayez.');
     }
-  </script>
-</body>
+  </script></body>
 </html>
