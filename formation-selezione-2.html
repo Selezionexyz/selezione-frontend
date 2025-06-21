@@ -1,208 +1,70 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html><html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SELEZIONE – Module 2 : Identification &amp; Sourcing de Fournisseurs de Luxe</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 2 : Identification & Sourcing de Fournisseurs de Luxe</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body { margin:0; display:flex; font-family:'Outfit',sans-serif; background:#000; color:#fff }
-    aside { width:250px; background:#111; padding:2rem 1rem; }
-    aside h2 { font-family:'Playfair Display',serif; color:gold; margin-bottom:1rem; }
-    aside a { color:#fff; text-decoration:none; display:block; margin:.5rem 0 }
-    aside a:hover { color:#aaa }
-    main { flex:1; overflow-y:auto; padding:2rem; }
-    h1 { font-family:'Playfair Display',serif; color:gold; margin-bottom:.5rem; }
-    h2 { font-family:'Playfair Display',serif; color:gold; margin-top:2rem; margin-bottom:1rem; }
-    .card { background:#111; border:1px solid #333; border-radius:12px; padding:1.5rem; margin-bottom:2rem; }
-    .quiz { background:#111; border:1px solid #333; border-radius:12px; padding:1.5rem; margin-bottom:2rem; }
-    .quiz label { display:block; margin:.6rem 0 }
-    .quiz button { background:gold; color:#000; border:none; padding:.8rem 1.2rem; border-radius:8px; cursor:pointer; margin-top:1rem }
-    .progress-container { margin-bottom:1rem; }
-    .progress-container progress { width:100%; height:20px; }
-    footer { text-align:center; padding:1rem; background:#111; color:#555 }
+    body { font-family: 'Outfit', sans-serif; background: #000; color: #fff; padding: 2rem; }
+    h1, h2 { font-family: 'Playfair Display', serif; color: gold; }
+    .card { background: #111; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+    ul { line-height: 1.5; }
+    .quiz button { background: gold; color: #000; border: none; padding: 8px 16px; cursor: pointer; border-radius: 4px; }
   </style>
 </head>
 <body>
-  <aside>
-    <h2>SELEZIONE</h2>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="formation-selezione-1.html">🎓 Module 1</a>
-    <a href="formation-selezione-2.html">🎓 Module 2</a>
-  </aside>
-  <main>
-    <h1>Module 2 : Identification &amp; Sourcing de Fournisseurs de Luxe</h1>
-    <p style="font-style:italic; color:#ccc; margin-bottom:2rem;">
-      Maîtriser l’art de trouver et de vérifier les distributeurs de grandes marques.
-    </p>
-
-    <!-- Bar progression -->
-    <div class="progress-container">
-      <label>Progression Globale :</label>
-      <progress id="globalProgress" value="0" max="100"></progress>
-      <span id="globalValue">0%</span>
+  <h1>Module 2 : Identification & Sourcing de Fournisseurs de Luxe</h1>
+  <div class="card">
+    <h2>Chapitre 1 : Types de Fournisseurs & Canaux d'Approvisionnement</h2>
+    <p>Maîtrisez l'art de trouver et de vérifier les distributeurs des grandes marques comme Chanel, Dior, Gucci, Hermès ou Louis Vuitton.</p>
+    <ul>
+      <li><strong>Distributeurs Officiels Agréés :</strong> Authenticité garantie, accès aux nouvelles collections. <em>(ex. Gucci partenaire officiel à Milan)</em></li>
+      <li><strong>Grossistes B2B :</strong> Prix compétitifs mais attention aux contrefaçons. <em>(ex. stocks outlet de Prada)</em></li>
+      <li><strong>Ventes Privées :</strong> Réductions élevées mais stocks limités.</li>
+      <li><strong>Plateformes B2B :</strong> Facilité mais commissions élevées.</li>
+      <li><strong>Agents Indépendants :</strong> Accès à des pièces rares avec flexibilité.</li>
+    </ul>
+    <p><strong>Anecdotes :</strong></p>
+    <ul>
+      <li>Hermès limite drastiquement ses distributeurs agréés pour préserver l’exclusivité.</li>
+      <li>Chanel ne vend jamais en gros ses sacs iconiques pour éviter la dilution de marque.</li>
+      <li>Les ventes privées de Dior génèrent des files d'attente en ligne avec des dizaines de milliers de participants.</li>
+    </ul>
+    <p><strong>Graphique :</strong> (Illustration graphique sur les canaux de sourcing les plus utilisés en 2025)</p>
+    <div class="quiz">
+      <h3>Quiz Chapitre 1</h3>
+      <button>Commencer Quiz</button>
     </div>
-
-    <!-- Chapitre 1 -->
-    <section id="chapitre1">
-      <h2>Chapitre 1 : Types de Fournisseurs &amp; Canaux</h2>
-      <div class="card">
-        <p>Naviguer dans le sourcing de luxe exige de connaître les différents types de fournisseurs :</p>
-        <ul>
-          <li><strong>Distributeurs Officiels Agréés</strong><br>
-            Authenticité garantie et accès aux collections récentes, mais conditions strictes et minimums de commande élevés.</li>
-          <li><strong>Grossistes &amp; Stocks B2B Spécialisés</strong><br>
-            Tarifs pros et gros volumes ; attention au risque de contrefaçons.</li>
-          <li><strong>Ventes Privées &amp; Déstockages</strong><br>
-            Réductions fortes ; stocks limités et accès restreint.</li>
-          <li><strong>Plateformes Pro (B2B)</strong><br>
-            Large choix et facilité de transaction ; commissions élevées.</li>
-          <li><strong>Agents &amp; Courtiers Indépendants</strong><br>
-            Flexibilité et accès à des pièces rares ; fiabilité variable et commissions.</li>
-        </ul>
-        <p><strong>Canaux :</strong> Salons (Pitti Uomo, Tranoï), LinkedIn, annuaires spécialisés, bouche-à-oreille, forums pro.</p>
-        <canvas id="chart1" width="400" height="200" style="margin-top:1rem;"></canvas>
-        <h3 style="color:gold; margin-top:1.5rem;">Anecdotes</h3>
-        <ul>
-          <li>En 2018, Chanel exigeait 500 000 € de commandes annuelles pour l’accès VIP.</li>
-          <li>Hermès a réduit de 30 % les quotas d’un agent en Asie début 2022 pour préserver son exclusivité.</li>
-          <li>Gucci a suspendu un compte suite à la découverte d’un stock de faux lors d’une vente privée en 2021.</li>
-        </ul>
-      </div>
-      <div class="quiz">
-        <h3>Quiz – Chapitre 1</h3>
-        <form id="quiz1">
-          <label>1. Qui impose souvent des minimums de commande élevés ?<br>
-            <input type="radio" name="q1" value="Distributeurs"> Distributeurs Agréés<br>
-            <input type="radio" name="q1" value="Grossistes"> Grossistes B2B<br>
-            <input type="radio" name="q1" value="Plateformes"> Plateformes Pro
-          </label>
-          <label>2. Quel canal présente le plus de risques de faux ?<br>
-            <input type="radio" name="q2" value="Grossistes"> Grossistes B2B<br>
-            <input type="radio" name="q2" value="Agréés"> Distributeurs Agréés<br>
-            <input type="radio" name="q2" value="Privées"> Ventes Privées
-          </label>
-          <label>3. Où trouve-t-on les meilleurs grossistes spécialisés ?<br>
-            <input type="radio" name="q3" value="Pitti"> Salons (Pitti Uomo)<br>
-            <input type="radio" name="q3" value="LinkedIn"> LinkedIn<br>
-            <input type="radio" name="q3" value="Forums"> Forums Pro
-          </label>
-          <label>4. Quelle marque a réduit ses quotas en 2022 ?<br>
-            <input type="radio" name="q4" value="Hermès"> Hermès<br>
-            <input type="radio" name="q4" value="Chanel"> Chanel<br>
-            <input type="radio" name="q4" value="Gucci"> Gucci
-          </label>
-          <label>5. Quel canal offre la plus grande flexibilité ?<br>
-            <input type="radio" name="q5" value="Agents"> Agents &amp; Courtiers<br>
-            <input type="radio" name="q5" value="Agréés"> Distributeurs Agréés<br>
-            <input type="radio" name="q5" value="Plateformes"> Plateformes Pro
-          </label>
-          <button type="button" onclick="validate1()">Valider Chapitre 1</button>
-        </form>
-        <div id="result1" style="margin-top:1rem;"></div>
-      </div>
-    </section>
-
-    <!-- Chapitre 2 -->
-    <section id="chapitre2">
-      <h2>Chapitre 2 : Critères de Vérification &amp; Authenticité</h2>
-      <div class="card">
-        <p>La crédibilité d’un fournisseur repose sur :</p>
-        <ol>
-          <li><strong>Existence Légale</strong> : SIRET/VAT vérifiés.</li>
-          <li><strong>Réputation</strong> : Avis et témoignages professionnels.</li>
-          <li><strong>Transparence</strong> : Traçabilité des stocks.</li>
-          <li><strong>Conditions Commerciales</strong> : Politiques de retour, garanties.</li>
-          <li><strong>Premier Contact</strong> : Professionnalisme et réactivité.</li>
-          <li><strong>Visite</strong> : (optionnelle) preuve de sérieux.</li>
-        </ol>
-        <p><strong>Authentification produit :</strong> factures, certificats, traçabilité, échantillons.</p>
-        <canvas id="chart2" width="400" height="200" style="margin-top:1rem;"></canvas>
-        <h3 style="color:gold; margin-top:1.5rem;">Anecdotes</h3>
-        <ul>
-          <li>En 2020, Louis Vuitton a imposé des photos UV pour certifier l’origine du cuir.</li>
-          <li>Chanel a intégré une puce NFC dans le fermoir depuis 2023 pour tracer chaque sac.</li>
-          <li>En 2019, Dior offrait un service d’authentification gratuit pour 10 pièces/an.</li>
-        </ul>
-      </div>
-      <div class="quiz">
-        <h3>Quiz – Chapitre 2</h3>
-        <form id="quiz2">
-          <label>1. Quel critère utilise le SIRET ?<br>
-            <input type="radio" name="r1" value="Legal"> Existence Légale<br>
-            <input type="radio" name="r1" value="Reputation"> Réputation<br>
-            <input type="radio" name="r1" value="Transparence"> Transparence
-          </label>
-          <label>2. Qui a intégré la puce NFC ?<br>
-            <input type="radio" name="r2" value="Chanel"> Chanel<br>
-            <input type="radio" name="r2" value="LV"> Louis Vuitton<br>
-            <input type="radio" name="r2" value="Dior"> Dior
-          </label>
-          <label>3. Quelle marque impose UV pour l’authentification ?<br>
-            <input type="radio" name="r3" value="LV"> Louis Vuitton<br>
-            <input type="radio" name="r3" value="Hermes"> Hermès<br>
-            <input type="radio" name="r3" value="Chanel"> Chanel
-          </label>
-          <label>4. Quel service est gratuit chez Dior ?<br>
-            <input type="radio" name="r4" value="Expert"> Auth. expert 10/an<br>
-            <input type="radio" name="r4" value="Photos"> Photos UV<br>
-            <input type="radio" name="r4" value="Certif"> Certificat papier
-          </label>
-          <label>5. Quel point ne fait pas partie des critères ?<br>
-            <input type="radio" name="r5" value="Visite"> Visite<br>
-            <input type="radio" name="r5" value="Prices"> Prix compétitifs<br>
-            <input type="radio" name="r5" value="Returns"> Politique de retour
-          </label>
-          <button type="button" onclick="validate2()">Valider Chapitre 2</button>
-        </form>
-        <div id="result2" style="margin-top:1rem;"></div>
-      </div>
-    </section>
-
-  </main>
-  <footer>&copy; SELEZIONE Formation 2025</footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // graphique Chapitre 1
-    new Chart(document.getElementById('chart1'), {
-      type: 'pie',
-      data: {
-        labels:['Agréés','Grossistes','Privées','Plateformes','Agents'],
-        datasets:[{ data:[30,25,15,20,10], borderWidth:1 }]
-      }
-    });
-    // graphique Chapitre 2
-    new Chart(document.getElementById('chart2'), {
-      type:'bar',
-      data:{
-        labels:['Legal','Réputation','Transparence','Conditions','Contact','Visite'],
-        datasets:[{ label:'Poids (%)', data:[20,18,17,15,15,15], borderWidth:1 }]
-      },
-      options:{ scales:{ y:{ beginAtZero:true } } }
-    });
-    // validations et progression
-    function updateGlobal() {
-      const v1 = document.getElementById('result1').innerText.includes('Validé') ? 50 : 0;
-      const v2 = document.getElementById('result2').innerText.includes('Validé') ? 50 : 0;
-      const total = v1+v2;
-      document.getElementById('globalProgress').value = total;
-      document.getElementById('globalValue').innerText = total+'%';
-    }
-    function validate1(){
-      const a={q1:'Distributeurs',q2:'Grossistes',q3:'Pitti',q4:'Hermès',q5:'Agents'};
-      let s=0; for(let k in a) document.getElementsByName(k).forEach(r=> r.checked&&r.value===a[k]&&s++);
-      const p=Math.round(s/5*100),out=`Score ${s}/5 (${p}%)`;
-      document.getElementById('result1').innerHTML = out + (p>=80?' ✅ Validé':' ❌ Réviser');
-      updateGlobal();
-    }
-    function validate2(){
-      const a={r1:'Legal',r2:'Chanel',r3:'LV',r4:'Expert',r5:'Prices'};
-      let s=0; for(let k in a) document.getElementsByName(k).forEach(r=> r.checked&&r.value===a[k]&&s++);
-      const p=Math.round(s/5*100),out=`Score ${s}/5 (${p}%)`;
-      document.getElementById('result2').innerHTML = out + (p>=80?' ✅ Validé':' ❌ Réviser');
-      updateGlobal();
-    }
-  </script>
+  </div>  <div class="card">
+    <h2>Chapitre 2 : Critères de Vérification et d'Authenticité</h2>
+    <p>La crédibilité de votre fournisseur est essentielle. Apprenez à vérifier :</p>
+    <ol>
+      <li><strong>Existence Légale :</strong> Vérifiez le numéro SIRET/VAT.</li>
+      <li><strong>Réputation :</strong> Consultez les avis professionnels.</li>
+      <li><strong>Transparence :</strong> L'origine des produits doit être claire.</li>
+      <li><strong>Conditions commerciales :</strong> Contrats et garanties clairement définis.</li>
+      <li><strong>Premier contact :</strong> Professionnalisme et réactivité.</li>
+      <li><strong>Visite physique :</strong> Fortement recommandée pour gros partenariats.</li>
+    </ol>
+    <p><strong>Authenticité des Produits :</strong></p>
+    <ul>
+      <li><strong>Documentation :</strong> Factures et certificats requis.</li>
+      <li><strong>Traçabilité :</strong> Historique détaillé nécessaire.</li>
+      <li><strong>Expertise Interne :</strong> Fournisseur doit avoir des experts.</li>
+      <li><strong>Politique Anti-Contrefaçon :</strong> Protocoles stricts requis.</li>
+      <li><strong>Échantillons :</strong> Toujours inspecter avant grande commande.</li>
+    </ul>
+    <p><strong>Anecdotes :</strong></p>
+    <ul>
+      <li>Gucci utilise une technologie blockchain pour garantir la traçabilité de ses produits.</li>
+      <li>Louis Vuitton dispose d’équipes entières dédiées exclusivement à la lutte contre la contrefaçon.</li>
+      <li>Dior exige des fournisseurs la visite annuelle de ses ateliers par un représentant qualité interne.</li>
+    </ul>
+    <p><strong>Graphique :</strong> (Graphique sur la croissance des incidents liés aux contrefaçons vs. l'authentification proactive)</p>
+    <div class="quiz">
+      <h3>Quiz Chapitre 2</h3>
+      <button>Commencer Quiz</button>
+    </div>
+  </div>
 </body>
 </html>
