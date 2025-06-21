@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SELEZIONE – Module 2 : Identification &amp; Sourcing de Fournisseurs de Luxe</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
@@ -34,48 +34,46 @@
       Maîtriser l'art de trouver et de vérifier les distributeurs de grandes marques.
     </p>
 
+    <!-- Chapitre 1 -->
     <section id="chapitre1">
       <h2>Chapitre 1 : Types de Fournisseurs &amp; Canaux d'Approvisionnement</h2>
       <div class="card">
         <p>Naviguer dans le sourcing de luxe exige de connaître les différents types de fournisseurs :</p>
         <ul>
           <li><strong>Distributeurs Officiels Agréés</strong><br>
-            Authenticité garantie, accès aux collections récentes ; conditions strictes, minimums élevés.</li>
+            Authenticité garantie, accès aux collections récentes ; conditions strictes, minimums de commande élevés.</li>
           <li><strong>Grossistes &amp; Stocks B2B Spécialisés</strong><br>
-            Prix pros, gros volumes ; risque de contrefaçons, stock parfois obsolète.</li>
+            Tarifs pros, gros volumes d’invendus ; risque de contrefaçons si non vérifié.</li>
           <li><strong>Ventes Privées &amp; Déstockages</strong><br>
-            Réductions importantes ; stocks limités, accès souvent restreint.</li>
-          <li><strong>Plateformes de Revente Pro (B2B)</strong><br>
-            Large choix, transactions simplifiées ; commissions élevées.</li>
+            Réductions fortes ; stocks limités, accès restreint.</li>
+          <li><strong>Plateformes Pro (B2B)</strong><br>
+            Large choix, interface simple ; commissions élevées.</li>
           <li><strong>Agents &amp; Courtiers Indépendants</strong><br>
             Accès à des pièces rares, flexibilité ; fiabilité variable, commissions.</li>
         </ul>
-        <p><strong>Où les trouver ?</strong> Salons pro (Pitti Uomo, Tranoï), LinkedIn, annuaires spécialisés, bouche-à-oreille, groupes pro.</p>
-
-        <canvas id="chartChap2_1" width="400" height="200"></canvas>
-
-        <p><strong>Anecdotes :</strong></p>
+        <p><strong>Canaux :</strong> Salons (Pitti Uomo, Tranoï), LinkedIn, annuaires spécialisés, bouche-à-oreille, forums pro.</p>
+        <canvas id="chart1" width="400" height="200" style="margin-top:1rem;"></canvas>
+        <h3 style="margin-top:1.5rem; color:gold;">Anecdotes</h3>
         <ul>
-          <li>En 2018, <strong>Chanel</strong> exigeait 500 000 € de commandes annuelles minimum pour ses distributeurs VIP.</li>
-          <li>En 2022, <strong>Hermès</strong> a réduit volontairement de 30 % les quotas de certains agents pour préserver l’exclusivité.</li>
-          <li>En 2021, <strong>Gucci</strong> a suspendu un gros compte B2B asiatique après détection de faux contrefaits.</li>
+          <li>En 2018, Chanel imposait 500 000 € de volume annuel minimum pour ses distributeurs VIP.</li>
+          <li>Hermès a réduit de 30 % les quotas d’un agent en Asie en 2022 pour protéger son image d’exclusivité.</li>
+          <li>Gucci a suspendu un gros compte B2B après avoir découvert un stock de faux dans une vente privée en 2021.</li>
         </ul>
       </div>
-
       <div class="quiz">
         <h3>Quiz – Chapitre 1</h3>
-        <form id="form-chap1">
-          <label>1. Quel canal garantit l’authenticité absolue ?<br>
+        <form id="quiz1">
+          <label>1. Quel canal garantit l’authenticité la plus forte ?<br>
             <input type="radio" name="q1" value="Distributeurs"> Distributeurs Agréés<br>
             <input type="radio" name="q1" value="Grossistes"> Grossistes B2B<br>
             <input type="radio" name="q1" value="Agents"> Agents Indépendants
           </label>
-          <label>2. Quel fournisseur impose souvent des volumes minimums ?<br>
+          <label>2. Qui impose souvent des minimums de commande élevés ?<br>
             <input type="radio" name="q2" value="Distributeurs"> Distributeurs Agréés<br>
             <input type="radio" name="q2" value="Plateformes"> Plateformes B2B<br>
             <input type="radio" name="q2" value="Ventes"> Ventes Privées
           </label>
-          <label>3. Où dénicher des grossistes spécialisés ?<br>
+          <label>3. Où trouve-t-on les meilleurs grossistes spécialisés ?<br>
             <input type="radio" name="q3" value="LinkedIn"> LinkedIn<br>
             <input type="radio" name="q3" value="Pitti"> Salons (Pitti Uomo)<br>
             <input type="radio" name="q3" value="Forums"> Forums en ligne
@@ -83,16 +81,72 @@
           <label>4. Quelle anecdote concerne Hermès ?<br>
             <input type="radio" name="q4" value="Quota"> Quota réduit de 30 % en 2022<br>
             <input type="radio" name="q4" value="Commande"> 500 000 € de volume minimum<br>
-            <input type="radio" name="q4" value="Suspendu"> Suspension d’un compte B2B
+            <input type="radio" name="q4" value="Suspendu"> Suspension d’un compte
           </label>
-          <label>5. Quel canal présente un risque accru de faux ?<br>
+          <label>5. Quel canal présente le + de risques de faux ?<br>
             <input type="radio" name="q5" value="Grossistes"> Grossistes B2B<br>
             <input type="radio" name="q5" value="Agréés"> Distributeurs Agréés<br>
             <input type="radio" name="q5" value="Privées"> Ventes Privées
           </label>
-          <button type="button" onclick="validateChap1()">Valider</button>
+          <button type="button" onclick="validate1()">Valider</button>
         </form>
-        <div id="result-chap1" style="margin-top:1rem;"></div>
+        <div id="result1" style="margin-top:1rem;"></div>
+      </div>
+    </section>
+
+    <!-- Chapitre 2 -->
+    <section id="chapitre2">
+      <h2>Chapitre 2 : Critères de Vérification &amp; Authenticité</h2>
+      <div class="card">
+        <p>La crédibilité d'un fournisseur se juge avant tout sur ces points :</p>
+        <ol>
+          <li><strong>Existence Légale</strong> : SIRET/VAT et adresse vérifiés.</li>
+          <li><strong>Réputation</strong> : Avis et témoignages professionnels.</li>
+          <li><strong>Transparence</strong> : Origine claire des stocks.</li>
+          <li><strong>Conditions Commerciales</strong> : Politiques de retour et garanties.</li>
+          <li><strong>Premier Contact</strong> : Professionnalisme et réactivité.</li>
+          <li><strong>Visite</strong> : (optionnelle) preuve de sérieux du site.
+        </ol>
+        <p><strong>Authentification produit :</strong> factures, certificats, traçabilité, échantillons.</p>
+        <canvas id="chart2" width="400" height="200" style="margin-top:1rem;"></canvas>
+        <h3 style="margin-top:1.5rem; color:gold;">Anecdotes</h3>
+        <ul>
+          <li>En 2020, Louis Vuitton exigeait des photographies UV de chaque lot pour certifier l’origine du cuir.</li>
+          <li>Chanel crée en 2023 des puces NFC gravées dans l’anneau du fermoir pour tracabilité anti-contrefaçon.</li>
+          <li>En 2019, Dior a lancé un service expert gratuit pour vérifier 10 pièces/an de ses distributeurs pro.</li>
+        </ul>
+      </div>
+      <div class="quiz">
+        <h3>Quiz – Chapitre 2</h3>
+        <form id="quiz2">
+          <label>1. Quel critère vérifie le SIRET ?<br>
+            <input type="radio" name="r1" value="Legal"> Existence Légale<br>
+            <input type="radio" name="r1" value="Reputation"> Réputation<br>
+            <input type="radio" name="r1" value="Transparence"> Transparence
+          </label>
+          <label>2. Qui a introduit la puce NFC ?<br>
+            <input type="radio" name="r2" value="LV"> Louis Vuitton<br>
+            <input type="radio" name="r2" value="Chanel"> Chanel<br>
+            <input type="radio" name="r2" value="Dior"> Dior
+          </label>
+          <label>3. Quelle marque demande UV pour l’authentification ?<br>
+            <input type="radio" name="r3" value="LV"> Louis Vuitton<br>
+            <input type="radio" name="r3" value="Gucci"> Gucci<br>
+            <input type="radio" name="r3" value="Hermes"> Hermès
+          </label>
+          <label>4. Quel service est gratuit chez Dior ?<br>
+            <input type="radio" name="r4" value="Photos"> Photos UV<br>
+            <input type="radio" name="r4" value="Expert"> Expert Vérif. 10 pièces/an<br>
+            <input type="radio" name="r4" value="Certif"> Certificat papier
+          </label>
+          <label>5. Quel point n’est pas listé ?<br>
+            <input type="radio" name="r5" value="Visite"> Visite locale<br>
+            <input type="radio" name="r5" value="Prix"> Prix compétitifs<br>
+            <input type="radio" name="r5" value="Protocol"> Politique anti-faux
+          </label>
+          <button type="button" onclick="validate2()">Valider</button>
+        </form>
+        <div id="result2" style="margin-top:1rem;"></div>
       </div>
     </section>
 
@@ -101,26 +155,44 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Pie chart répartitions canaux
-    new Chart(document.getElementById('chartChap2_1'), {
+    // Chapitre 1 pie chart
+    new Chart(document.getElementById('chart1'), {
       type: 'pie',
       data: {
-        labels: ['Distrib. Agréés','Grossistes B2B','Ventes Privées','Plateformes B2B','Agents'],
+        labels: ['Agréés','Grossistes','Privées','Plateformes','Agents'],
         datasets:[{ data:[30,25,15,20,10], borderWidth:1 }]
       }
     });
-    // Validation quiz
-    function validateChap1(){
+    // Chapitre 2 bar chart
+    new Chart(document.getElementById('chart2'), {
+      type: 'bar',
+      data: {
+        labels: ['Legal','Réputation','Transparence','Conditions','Contact','Visite'],
+        datasets:[{ label:'Importance (%)', data:[20,18,17,15,15,15], borderWidth:1 }]
+      },
+      options:{ scales:{ y:{ beginAtZero:true } } }
+    });
+    // validation chap1
+    function validate1(){
       const a={q1:'Distributeurs',q2:'Distributeurs',q3:'Pitti',q4:'Quota',q5:'Grossistes'};
-      let s=0, t=5;
+      let s=0,t=5;
       for(let k in a){
-        document.getElementsByName(k).forEach(r=>{
-          if(r.checked && r.value===a[k]) s++;
-        });
+        document.getElementsByName(k).forEach(r=>{ if(r.checked&&r.value===a[k]) s++ });
       }
       const p=Math.round(s/t*100);
-      document.getElementById('result-chap1').innerHTML =
-        `Score : ${s}/${t} (${p}%)<br>` + (p>=80?'✅ Chapitre validé !':'❌ Atteindre 80% pour valider.');
+      document.getElementById('result1').innerHTML=
+        `Score ${s}/${t} (${p}%)<br>`+(p>=80?'✅ Validé':'❌ Revoir');
+    }
+    // validation chap2
+    function validate2(){
+      const a={r1:'Legal',r2:'Chanel',r3:'LV',r4:'Expert',r5:'Prix'};
+      let s=0,t=5;
+      for(let k in a){
+        document.getElementsByName(k).forEach(r=>{ if(r.checked&&r.value===a[k]) s++ });
+      }
+      const p=Math.round(s/t*100);
+      document.getElementById('result2').innerHTML=
+        `Score ${s}/${t} (${p}%)<br>`+(p>=80?'✅ Validé':'❌ Revoir');
     }
   </script>
 </body>
