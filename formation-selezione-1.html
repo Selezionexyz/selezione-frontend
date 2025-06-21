@@ -31,15 +31,21 @@
   </header>  <!-- Chapitre 1 -->  <section id="chapitre1" class="section">
     <h2>Chapitre 1 : Présentation de l'Achat-Revente de Luxe</h2>
     <div class="card">
-      <p style="font-size:18px;line-height:1.8;">L'achat-revente dans l'univers du luxe est bien plus qu'un simple acte commercial. [...]</p>
+      <p style="font-size:18px;line-height:1.8;">
+        L'achat-revente dans l'univers du luxe est bien plus qu'un simple acte commercial. Il s'agit d'une science du détail, d'une quête de rareté, d’une narration maîtrisée. À travers les époques, des pièces iconiques ont gagné en valeur non pas grâce à leur fonctionnalité, mais à leur <strong>histoire</strong>.
+      </p>
       <img src="https://www.harpersbazaar.com.sg/wp-content/uploads/2022/10/Vestiaire-Collective-Image.jpg" alt="Vestiaire Collective Luxe">
-      <p>Ce secteur s'est professionnalisé avec des plateformes comme <strong>Vestiaire Collective</strong>, <strong>The RealReal</strong> ou <strong>Rebag</strong>. [...]</p>
-      <div>
-        <strong>Statistique (2025):</strong> 75 milliards d'euros, +12% annuel.
+      <p>
+        Ce secteur s'est professionnalisé avec des plateformes comme <strong>Vestiaire Collective</strong>, <strong>The RealReal</strong> ou encore <strong>Rebag</strong>. Elles garantissent authenticité et transparence, grâce notamment à des outils comme <strong>l’intelligence artificielle</strong> et la <strong>blockchain</strong>.
+      </p>
+      <div style="margin:20px 0;">
+        <strong>Statistique (2025) :</strong><br>
+        Le marché mondial de la seconde main luxe a franchi les <strong>75 milliards d'euros</strong>, avec une croissance annuelle de <strong>12%</strong>.
+        <br><br>
         <canvas id="chartChap1" width="400" height="200"></canvas>
       </div>
-      <p><strong>Anecdote:</strong> Dans les années 1980, [...] 200 000 € aux enchères.</p>
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/RdYbP8Z7NT8" frameborder="0" allowfullscreen></iframe>
+      <p><strong>Anecdote historique :</strong> Dans les années 1980, certains modèles de sacs Hermès Birkin se vendaient à moins de 2 000 €. Aujourd’hui, les modèles rares peuvent dépasser les <strong>200 000 €</strong> aux enchères.</p>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/RdYbP8Z7NT8" title="Marché du luxe et seconde main" frameborder="0" allowfullscreen></iframe>
     </div>
     <div class="quiz" id="quiz-chapitre1">
       <h3>Quiz - Chapitre 1</h3>
@@ -49,7 +55,7 @@
           <input type="radio" name="q1" value="Vestiaire Collective"> Vestiaire Collective<br>
           <input type="radio" name="q1" value="eBay"> eBay
         </label>
-        <label>2. Croissance annuelle du marché seconde main luxe en 2025 ?<br>
+        <label>2. Quelle est la croissance annuelle du marché seconde main luxe en 2025 ?<br>
           <input type="radio" name="q2" value="8%"> 8%<br>
           <input type="radio" name="q2" value="12%"> 12%<br>
           <input type="radio" name="q2" value="20%"> 20%
@@ -61,95 +67,194 @@
         </label>
         <button type="button" onclick="validateChap1()">Valider</button>
       </form>
-      <div id="result-chapitre1"></div>
+      <div id="result-chapitre1" style="margin-top:20px;font-weight:bold;"></div>
     </div>
-    <progress id="progressBar1" value="0" max="100"></progress>
-    <div id="locked1" style="display:none; color:red;">❌ Vous devez obtenir 80% pour déverrouiller.</div>
-    <div id="download1" style="display:none;"><a href="Formation-1.pdf" class="btn-download">📄 Télécharger le PDF</a></div>
+    <div style="margin-top:40px;">
+      <label for="progressBar">Progression : <span id="progressValue">0%</span></label>
+      <progress id="progressBar" value="0" max="100"></progress>
+    </div>
+    <div id="locked-section" style="display:none;color:red;">❌ Vous devez obtenir 80% au quiz pour débloquer le fichier.</div>
+    <div id="download-section" style="display:none;"><a href="Formation-1.pdf" class="btn-download">📄 Télécharger le PDF</a></div>
   </section>  <!-- Chapitre 2 -->  <section id="chapitre2" class="section">
-    <div style="background:#333;border-radius:8px;overflow:hidden;margin-bottom:20px;"><div id="progress-bar-2" style="height:10px;width:0%;background:gold;"></div></div>
+    <div style="background:#333;border-radius:8px;overflow:hidden;margin-bottom:30px;"><div id="progress-bar-2" style="width:0%;background:gold;height:10px;"></div></div>
     <h2>Chapitre 2 : Les Grandes Tendances & Mouvements Actuels</h2>
     <div class="card">
-      <p>Depuis les années 2020, le luxe évolue au rythme d’une jeunesse ultra-connectée,...</p>
-      <ul><li><strong>Gucci</strong> relance des archives via Vault.</li> [...]</ul>
-      <img src="https://cdn.thecoolhunter.net/wp-content/uploads/2022/09/gucci-vault.jpg" alt="Gucci Vault">  
+      <p>Depuis les années 2020, le luxe évolue au rythme d’une jeunesse ultra-connectée, d’un besoin croissant de différenciation, et d’un profond retour au passé. Ces transformations façonnent des mouvements forts et souvent déroutants.</p>
+      <ul>
+        <li><strong>Gucci</strong> relance des archives via son espace <em>Vault</em> – mêlant digital et pièces d’archives.</li>
+        <li><strong>Balenciaga</strong> transforme des baskets usées en objets de collection à plus de 1 500 €.</li>
+        <li><strong>Marc Jacobs</strong> lance "Heaven", un label alternatif inspiré des années 90, apprécié de la Gen Z.</li>
+      </ul>
+      <img src="https://cdn.thecoolhunter.net/wp-content/uploads/2022/09/gucci-vault.jpg" alt="Gucci Vault">
+      <p><strong>Anecdote (2023) :</strong> Un sac Chanel Timeless de 1995 a été revendu à New York pour <strong>25 000 €</strong>, soit plus de 5 fois sa valeur originale.</p>
+      <video controls><source src="https://www.dropbox.com/scl/fi/lx5p3x7z3s7gkd7y9zr1r/gucci-archive.mp4?raw=1" type="video/mp4"></video>
     </div>
     <div class="quiz">
       <h3>Quiz – Chapitre 2</h3>
       <form id="quiz2">
-        <!-- Questions Chapitre 2 -->
+        <label>1. Quelle marque a lancé "Heaven" pour la Gen Z ?<br>
+          <input type="radio" name="q2_1" value="Gucci"> Gucci<br>
+          <input type="radio" name="q2_1" value="Marc Jacobs"> Marc Jacobs<br>
+          <input type="radio" name="q2_1" value="Balenciaga"> Balenciaga
+        </label>
+        <label>2. Quel sac a été revendu 25 000 € en 2023 ?<br>
+          <input type="radio" name="q2_2" value="Dior Saddle"> Dior Saddle<br>
+          <input type="radio" name="q2_2" value="Chanel Timeless"> Chanel Timeless<br>
+          <input type="radio" name="q2_2" value="Birkin Hermès"> Birkin Hermès
+        </label>
+        <label>3. Quel concept décrit Gucci Vault ?<br>
+          <input type="radio" name="q2_3" value="Outlet de soldes"> Outlet de soldes<br>
+          <input type="radio" name="q2_3" value="Archives digitales"> Archives digitales<br>
+          <input type="radio" name="q2_3" value="Vente NFT"> Vente NFT
+        </label>
         <button type="button" onclick="checkQuiz2()">Valider</button>
       </form>
-      <div id="result2"></div>
+      <div id="result2" style="margin-top:20px;font-weight:bold;"></div>
     </div>
   </section>  <!-- Chapitre 3 -->  <section id="chapitre3" class="section">
     <h2>Chapitre 3 : Les 10 Maisons Incontournables</h2>
     <div class="card">
-      <p>Le luxe s'est construit autour de maisons emblématiques...</p>
-      <ol><li><strong>Chanel (1910)</strong> – [...]</li> [...]</ol>
+      <p>Le luxe moderne s'est construit autour de maisons [...]</p>
+      <ol>
+        <li><strong>Chanel (1910)</strong> – Fondation par Gabrielle Chanel, icône du sac 2.55.</li>
+        <li><strong>Louis Vuitton (1854)</strong> – Maître des malles, symbole de voyage de luxe.</li>
+        <li><strong>Hermès (1837)</strong> – Atelier de harnachement devenu légende de maroquinerie.</li>
+        <li><strong>Gucci (1921)</strong> – Fusion vintage et modernité, influence pop.</li>
+        <li><strong>Balenciaga (1917)</strong> – Avant-garde, volumes architecturés.</li>
+        <li><strong>Christian Dior (1946)</strong> – Inventeur du "New Look" post-guerre.</li>
+        <li><strong>Yves Saint Laurent (1961)</strong> – Premier prêt-à-porter de luxe.</li>
+        <li><strong>Prada (1913)</strong> – Minimalisme intellectuel et sac nylon.
+        </li>
+        <li><strong>Versace (1978)</strong> – Glamour excessif, esthétique théâtre.</li>
+        <li><strong>Marc Jacobs (1984)</strong> – Disruption culturelle, streetwear chic.</li>
+      </ol>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Chanel_flagship_store_Paris.jpg/800px-Chanel_flagship_store_Paris.jpg" alt="Chanel Paris">
     </div>
     <div class="quiz">
       <h3>Quiz – Chapitre 3</h3>
-      <!-- Questions Chapitre 3 -->
+      <label>1. Quelle maison est née pour équiper les chevaux ?<br>
+        <input type="radio" name="q3_1" value="Chanel"> Chanel<br>
+        <input type="radio" name="q3_1" value="Hermès"> Hermès<br>
+        <input type="radio" name="q3_1" value="Gucci"> Gucci
+      </label>
+      <label>2. Quel sac iconique porte le numéro 2.55 ?<br>
+        <input type="radio" name="q3_2" value="Birkin"> Birkin<br>
+        <input type="radio" name="q3_2" value="2.55"> 2.55<br>
+        <input type="radio" name="q3_2" value="Speedy"> Speedy
+      </label>
+      <label>3. Quelle maison est synonyme de glam théâtral ?<br>
+        <input type="radio" name="q3_3" value="Versace"> Versace<br>
+        <input type="radio" name="q3_3" value="Dior"> Dior<br>
+        <input type="radio" name="q3_3" value="Prada"> Prada
+      </label>
       <button type="button" onclick="checkChapter3()">Valider</button>
-      <div id="result3"></div>
+      <div id="result3" style="margin-top:20px;font-weight:bold;"></div>
     </div>
   </section>  <!-- Chapitre 4 -->  <section id="chapitre4" class="section">
     <h2>Chapitre 4 : Dates Clés de l'Évolution du Luxe</h2>
     <div class="card">
-      <ul><li><strong>1837</strong> : Fondation de Hermès.</li> [...]</ul>
-      <img src="https://upload.wikimedia.org/...Tokyo.jpg" alt="LV Ginza">
+      <ul>
+        <li><strong>1837</strong> : Fondation de Hermès.</li>
+        <li><strong>1854</strong> : Naissance de Louis Vuitton.</li>
+        <li><strong>1910</strong> : Première boutique Chanel.</li>
+        <li><strong>1946</strong> : Création de Dior.</li>
+        <li><strong>1996</strong> : Lancement de Net-à-Porter.</li>
+        <li><strong>2017</strong> : Boom du vintage.</li>
+        <li><strong>2023</strong> : Vintage > retail.</li>
+      </ul>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Louis_Vuitton_store,_Ginza,_Tokyo.jpg" alt="LV Ginza">
+      <p><strong>Anecdote :</strong> En 1858, Vuitton inventa la malle plate.</p>
     </div>
     <div class="quiz">
       <h3>Quiz – Chapitre 4</h3>
-      <!-- Questions Chapitre 4 -->
+      <label>1. Quelle année pour Hermès ?<br>
+        <input type="radio" name="q4_1" value="1837"> 1837<br>
+        <input type="radio" name="q4_1" value="1910"> 1910<br>
+        <input type="radio" name="q4_1" value="1946"> 1946
+      </label>
+      <label>2. Quand le vintage surpassa-t-il le retail ?<br>
+        <input type="radio" name="q4_2" value="2017"> 2017<br>
+        <input type="radio" name="q4_2" value="2023"> 2023<br>
+        <input type="radio" name="q4_2" value="1996"> 1996
+      </label>
       <button type="button" onclick="checkQuizChapter4()">Valider</button>
-      <div id="result-quiz-4"></div>
+      <div id="result-quiz-4" style="margin-top:20px;font-weight:bold;"></div>
     </div>
   </section>  <!-- Chapitre 5 -->  <section id="chapitre5" class="section">
     <h2>Chapitre 5 : Enjeux Actuels et Perspectives</h2>
     <div class="card">
-      <ul><li><strong>IA & Blockchain</strong> pour tracer la chaîne du luxe.</li> [...]</ul>
-      <img src="chapitre5_graphique_luxe.png" alt="Graphique luxe">
-      <video autoplay muted loop><source src="https://cdn.pixabay.com/...mp4" type="video/mp4"></video>
-      <progress id="progressBar5" value="0" max="100"></progress>
+      <ul>
+        <li><strong>Authentification IA</strong> : Entrupy / Certilogo.</li>
+        <li><strong>Blockchain & NFT</strong> : Certificats AURA par Vuitton.</li>
+        <li><strong>Durabilité</strong> : Éthique, recyclage, artisanat.</li>
+      </ul>
+      <img src="chapitre5_graphique_luxe.png" alt="Graphique Tech">
+      <video autoplay muted loop><source src="https://cdn.pixabay.com/video/2023/03/28/157792-817890016_large.mp4" type="video/mp4"></video>
     </div>
     <div class="quiz">
       <h3>Quiz – Chapitre 5</h3>
+      <label>1. Outil IA pour authentifier ?<br>
+        <input type="radio" name="q5_1" value="Entrupy"> Entrupy<br>
+        <input type="radio" name="q5_1" value="ChatGPT"> ChatGPT<br>
+        <input type="radio" name="q5_1" value="Photoshop"> Photoshop
+      </label>
+      <label>2. Qui a lancé AURA ?<br>
+        <input type="radio" name="q5_2" value="Dior"> Dior<br>
+        <input type="radio" name="q5_2" value="Louis Vuitton"> Louis Vuitton<br>
+        <input type="radio" name="q5_2" value="Gucci"> Gucci
+      </label>
       <button type="button" onclick="checkChapter5()">Valider</button>
-      <div id="result-chap5"></div>
+      <div id="result-chap5" style="margin-top:20px;font-weight:bold;"></div>
     </div>
   </section>  <!-- Chapitre 6 -->  <section id="chapitre6" class="section">
     <h2>Chapitre 6 : Nouveaux Comportements des Consommateurs</h2>
     <div class="card">
-      <ul><li><strong>Génération Z</strong> privilégie seconde main et éthique.</li> [...]</ul>
-      <video autoplay muted loop><source src="https://cdn.pixabay.com/...mp4" type="video/mp4"></video>
-      <progress id="progressBar6" value="0" max="100"></progress>
+      <ul>
+        <li><strong>Génération Z</strong> : Seconde main, éthique.</li>
+        <li><strong>Transparence</strong> : Traçabilité, origine.</li>
+        <li><strong>Influence</strong> : TikTok, Instagram.</li>
+      </ul>
+      <img src="https://cdn.pixabay.com/photo/2022/03/04/08/52/luxury-7045084_1280.jpg" alt="Consommateurs">
+      <video autoplay muted loop><source src="https://cdn.pixabay.com/video/2023/09/22/183838-864228191_large.mp4" type="video/mp4"></video>
     </div>
     <div class="quiz">
       <h3>Quiz – Chapitre 6</h3>
+      <label>1. Quelle génération ?<br>
+        <input type="radio" name="q6_1" value="Tech"> Tech<br>
+        <input type="radio" name="q6_1" value="Génération Z"> Génération Z<br>
+        <input type="radio" name="q6_1" value="X"> X
+      </label>
       <button type="button" onclick="checkChapter6()">Valider</button>
-      <div id="result-chap6"></div>
+      <div id="result-chap6" style="margin-top:20px;font-weight:bold;"></div>
     </div>
   </section>  <!-- Chapitre 7 -->  <section id="chapitre7" class="section">
     <h2>Chapitre 7 (Bonus) : Scandales et Dérives dans le Luxe</h2>
     <div class="card">
-      <ul><li><strong>Burberry</strong> a brûlé 28M€ d'invendus.</li> [...]</ul>
-      <video autoplay muted loop><source src="https://cdn.pixabay.com/...mp4" type="video/mp4"></video>
-      <progress id="progressBar7" value="0" max="100"></progress>
+      <ul>
+        <li><strong>Burberry</strong> : 28M€ détruits en 2018.</li>
+        <li><strong>Balenciaga</strong> : Campagne enfants 2022.</li>
+        <li><strong>Dolce & Gabbana</strong> : Boycott Chine 2018.</li>
+        <li><strong>Gucci/Dior</strong> : Enquêtes sociales.</li>
+      </ul>
+      <img src="https://cdn.pixabay.com/photo/2020/01/13/13/49/burning-4761805_1280.jpg" alt="Scandales">
+      <video autoplay muted loop><source src="https://cdn.pixabay.com/video/2023/10/02/184708-873567481_large.mp4" type="video/mp4"></video>
     </div>
     <div class="quiz">
       <h3>Quiz – Chapitre 7</h3>
+      <label>1. Qui a détruit 28M€ ?<br>
+        <input type="radio" name="q7_1" value="Burberry"> Burberry<br>
+        <input type="radio" name="q7_1" value="Chanel"> Chanel
+      </label>
       <button type="button" onclick="checkChapter7()">Valider</button>
-      <div id="result-chap7"></div>
+      <div id="result-chap7" style="margin-top:20px;font-weight:bold;"></div>
     </div>
-  </section>  <footer>&copy; SELEZIONE Formation 2025</footer>  <!-- Scripts de validation des quiz et de progression -->  <script>
-    function validateChap1() { /* code */ }
-    function checkQuiz2() { /* code */ }
-    function checkChapter3() { /* code */ }
-    function checkQuizChapter4() { /* code */ }
-    function checkChapter5() { /* code */ }
-    function checkChapter6() { /* code */ }
-    function checkChapter7() { /* code */ }
+  </section>  <footer>&copy; SELEZIONE Formation 2025</footer>  <script>
+    function validateChap1() { /* code validation */ }
+    function checkQuiz2() { /* code validation */ }
+    function checkChapter3() { /* code validation */ }
+    function checkQuizChapter4() { /* code validation */ }
+    function checkChapter5() { /* code validation */ }
+    function checkChapter6() { /* code validation */ }
+    function checkChapter7() { /* code validation */ }
   </script></body>
 </html>
