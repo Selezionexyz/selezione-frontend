@@ -1,1 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SELEZIONE – Module 2 : Chapitre 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; font-family:'Outfit',sans-serif; background:#000; color:#fff; line-height:1.6; }
+    header, footer { text-align:center; padding:40px 20px; background:linear-gradient(to bottom,#111,#000); }
+    header h1, .section h2 { font-family:'Playfair Display',serif; color:gold; }
+    .quote { font-style:italic; color:#ccc; }
+    .section { max-width:900px; margin:auto; padding:40px 20px; }
+    .card { background:#111; border:1px solid #333; border-radius:12px; padding:20px; margin-bottom:30px; transition:0.3s; }
+    .card:hover { background:#1a1a1a; transform:scale(1.02); }
+    img, video, canvas { max-width:100%; border-radius:10px; margin:15px 0; }
+    form label { display:block; margin:15px 0; }
+    form input { margin-right:8px; }
+    button { background:gold; color:#000; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; }
+    button:hover { opacity:0.9; }
+    .quiz { background:#222; padding:20px; border-radius:8px; }
+  </style>
+</head>
+<body>
 
+  <header>
+    <h1>Module 2 – Maroquinerie de Luxe Seconde Main</h1>
+    <p class="quote">« Chapitre 1 : Identification &amp; Sourcing de Fournisseurs de Luxe »</p>
+  </header>
+
+  <div class="section">
+
+    <!-- Chapitre 1 du Module 2 -->
+    <section id="chapitre1" class="card">
+      <h2>Chapitre 1 : Identification &amp; Sourcing de Fournisseurs de Luxe</h2>
+      <div class="card">
+        <p>Maîtriser l'art de trouver et de vérifier les distributeurs de maisons comme <strong>Chanel</strong>, <strong>Dior</strong>, <strong>Gucci</strong>, <strong>Hermès</strong> ou <strong>Louis Vuitton</strong> est essentiel pour garantir l'authenticité de vos pièces et la fiabilité de votre supply chain.</p>
+
+        <h3>Types de Fournisseurs &amp; Canaux</h3>
+        <ul>
+          <li><strong>Distributeurs Agréés</strong> – Authenticité garantie, mais conditions strictes.</li>
+          <li><strong>Grossistes B2B</strong> – Tarifs pros, stocks d’invendus, attention aux contrefaçons.</li>
+          <li><strong>Ventes Privées &amp; Déstockages</strong> – Réductions importantes, stocks limités.</li>
+          <li><strong>Plateformes B2B</strong> (Vestiaire Pro, TheRealReal B2B) – Large offre, commissions.</li>
+          <li><strong>Agents &amp; Courtiers</strong> – Pièces rares, flexibilité, commissions variées.</li>
+        </ul>
+
+        <h3>Critères de Vérification</h3>
+        <ol>
+          <li><strong>Existence Légale</strong> : SIRET/TVA, adresse physique.</li>
+          <li><strong>Réputation</strong> : avis de professionnels, témoignages.</li>
+          <li><strong>Transparence</strong> : factures, certificats d’authenticité.</li>
+          <li><strong>Documentation</strong> : historique d’achat, échantillons.</li>
+          <li><strong>Échantillonnage</strong> : tester un produit avant commande en gros.</li>
+        </ol>
+      </div>
+
+      <h3>Quiz – Chapitre 1</h3>
+      <div class="quiz">
+        <form id="quiz-chapitre1">
+          <label>1. Quel canal offre l’authenticité la plus fiable ?<br>
+            <input type="radio" name="q1" value="Grossistes B2B"> Grossistes B2B<br>
+            <input type="radio" name="q1" value="Distributeurs Agréés"> Distributeurs Agréés<br>
+            <input type="radio" name="q1" value="Agents Indépendants"> Agents Indépendants
+          </label>
+          <label>2. Quelle maison travaille exclusivement avec distributeurs officiels ?<br>
+            <input type="radio" name="q2" value="Céline"> Céline<br>
+            <input type="radio" name="q2" value="Hermès"> Hermès<br>
+            <input type="radio" name="q2" value="Vinted"> Vinted
+          </label>
+          <label>3. Quel document garantir la traçabilité ?<br>
+            <input type="radio" name="q3" value="Facture d’origine"> Facture d’origine<br>
+            <input type="radio" name="q3" value="Catalogue photo"> Catalogue photo<br>
+            <input type="radio" name="q3" value="Brochure marketing"> Brochure marketing
+          </label>
+          <label>4. Quel canal présente un risque élevé de contrefaçon ?<br>
+            <input type="radio" name="q4" value="Plateformes B2B"> Plateformes B2B<br>
+            <input type="radio" name="q4" value="Ventes Privées"> Ventes Privées<br>
+            <input type="radio" name="q4" value="Distributeurs Agréés"> Distributeurs Agréés
+          </label>
+          <label>5. Qui peut obtenir un sac rare de Balenciaga sur commande ?<br>
+            <input type="radio" name="q5" value="Grossiste"> Grossiste<br>
+            <input type="radio" name="q5" value="Agents & Courtiers Indépendants"> Agents & Courtiers Indépendants<br>
+            <input type="radio" name="q5" value="Dépôt-vente"> Dépôt-vente
+          </label>
+          <button type="button" onclick="validateChap1()">Valider</button>
+        </form>
+        <div id="result-chapitre1" style="margin-top:15px;font-weight:bold;"></div>
+      </div>
+    </section>
+
+  </div> <!-- /section -->
+
+  <footer>
+    &copy; SELEZIONE Formation 2025
+  </footer>
+
+  <script>
+    function validateChap1() {
+      const answers = {
+        q1: "Distributeurs Agréés",
+        q2: "Hermès",
+        q3: "Facture d’origine",
+        q4: "Ventes Privées",
+        q5: "Agents & Courtiers Indépendants"
+      };
+      let score = 0, total = 5;
+      for (let i = 1; i <= total; i++) {
+        const sel = document.querySelector(`input[name=q${i}]:checked`);
+        if (sel && sel.value === answers['q'+i]) score++;
+      }
+      const pct = Math.round(score / total * 100);
+      const el = document.getElementById('result-chapitre1');
+      el.innerHTML = `✅ Score : ${score}/${total} (${pct}%)`;
+      if (pct < 80) el.innerHTML += `<br>❌ 80% requis pour valider !`;
+      else          el.innerHTML += `<br>🎉 Chapitre 1 validé !`;
+    }
+  </script>
+
+</body>
+</html>
