@@ -198,6 +198,104 @@
 
   </div>
 </section>
+  <!-- CHAPITRE 3 : APPROCHE ET COMMUNICATION PROFESSIONNELLE AVEC LES MAISONS DE LUXE --><section id="chapitre3" class="chapter">
+  <h2>✅ Chapitre 3 : Approche et Communication Professionnelle avec les Maisons de Luxe</h2>  <div class="introduction">
+    <p>
+      Entrer en relation avec une maison de luxe, ce n’est pas seulement une question d’adresse email ou de formulaire de contact. C’est un <strong>art codifié</strong>, basé sur les usages, la réputation et une connaissance fine des dynamiques du secteur. En 2025, alors que la majorité des marques haut de gamme limitent drastiquement le nombre de leurs revendeurs (source : <em>Vogue Business – mars 2025</em>), il est devenu essentiel d’adopter une <strong>approche ultra-professionnelle</strong>, structurée et valorisante dès le premier contact.
+    </p>
+  </div>  <h3>🔍 Recherche & Préparation</h3>
+  <ul>
+    <li><strong>Connaître la marque :</strong> Positionnement, valeurs, marchés cibles, structure de distribution.</li>
+    <li><strong>Exemple 2025 :</strong> Balenciaga limite ses revendeurs à 150 dans le monde après un processus de sélection rigoureux.</li>
+  </ul>  <h3>👤 Identifier le Bon Interlocuteur</h3>
+  <p>Privilégier les responsables wholesale, export B2B, ou agents officiels trouvables via LinkedIn ou Joor.</p>  <h3>✉️ Structurer un Email Parfait</h3>
+  <ul>
+    <li>Objet professionnel</li>
+    <li>Présentation claire de l'entreprise</li>
+    <li>Valeur ajoutée pour la marque</li>
+    <li>Signature professionnelle</li>
+    <li><strong>À éviter :</strong> fautes, demandes de prix immédiates, flou, envois de masse</li>
+  </ul>  <h3>🧠 Suivi & Préparation à la Négociation</h3>
+  <ul>
+    <li>Délais longs = patience</li>
+    <li>Préparer une présentation solide</li>
+    <li>Poser des questions stratégiques</li>
+  </ul>  <h3>🛍️ Cas concrets 2025</h3>
+  <ul>
+    <li><strong>Prada :</strong> Sélection par formulaire + entretien vidéo.</li>
+    <li><strong>Loewe :</strong> Charte éthique imposée aux revendeurs.</li>
+  </ul>  <h3>✅ Avantages</h3>
+  <ul>
+    <li>Image de marque</li>
+    <li>Réseau exclusif</li>
+    <li>Opportunités long terme</li>
+  </ul>  <h3>❌ Inconvénients / erreurs à éviter</h3>
+  <ul>
+    <li>Blacklist possible</li>
+    <li>Pas de réponse</li>
+    <li>Perte d’image</li>
+  </ul>  <h3>✨ Techniques de Négociation (spécifiques au luxe)</h3>
+  <ol>
+    <li>Valoriser la marque</li>
+    <li>Parler de partenariat durable</li>
+    <li>Apporter des chiffres solides</li>
+    <li>Savoir vendre un univers</li>
+  </ol>  <h3>📘 Quiz – Chapitre 3</h3>
+  <div class="quiz">
+    <form id="quiz-chapitre3">
+      <label>1. Quel est le premier réflexe avant de contacter une maison de luxe ?<br>
+        <input type="radio" name="q1" value="Etude"> Étudier la marque et son positionnement<br>
+        <input type="radio" name="q1" value="Mail"> Envoyer un email immédiatement<br>
+        <input type="radio" name="q1" value="Commande"> Faire une commande test
+      </label><br><label>2. Quel canal est recommandé pour trouver un contact B2B ?<br>
+    <input type="radio" name="q2" value="LinkedIn"> LinkedIn<br>
+    <input type="radio" name="q2" value="Instagram"> Instagram<br>
+    <input type="radio" name="q2" value="Facebook"> Facebook
+  </label><br>
+
+  <label>3. Quel est un risque d’un email mal structuré ?<br>
+    <input type="radio" name="q3" value="Ignoré"> Ignoré ou blacklisté<br>
+    <input type="radio" name="q3" value="Tarif"> On reçoit les tarifs trop vite<br>
+    <input type="radio" name="q3" value="Commande"> Ils envoient une commande
+  </label><br>
+
+  <label>4. Quelle marque impose une charte éthique en 2025 ?<br>
+    <input type="radio" name="q4" value="Loewe"> Loewe<br>
+    <input type="radio" name="q4" value="Zara"> Zara<br>
+    <input type="radio" name="q4" value="Shein"> Shein
+  </label><br>
+
+  <label>5. Quelle erreur est la plus grave dans une première approche ?<br>
+    <input type="radio" name="q5" value="Urgent"> Objet de mail trop direct (ex: URGENT)<br>
+    <input type="radio" name="q5" value="Présentation"> Présentation courte<br>
+    <input type="radio" name="q5" value="Signature"> Signature de l’email
+  </label><br>
+
+  <button type="button" onclick="validateChap3()">Valider</button>
+</form>
+<div id="result-chapitre3"></div>
+
+  </div></section><script>
+function validateChap3() {
+  const answers = {
+    q1: 'Etude',
+    q2: 'LinkedIn',
+    q3: 'Ignoré',
+    q4: 'Loewe',
+    q5: 'Urgent'
+  };
+  let score = 0;
+  for (let key in answers) {
+    const radios = document.getElementsByName(key);
+    radios.forEach(r => {
+      if (r.checked && r.value === answers[key]) score++;
+    });
+  }
+  const percent = Math.round((score / 5) * 100);
+  const res = document.getElementById('result-chapitre3');
+  res.innerHTML = `Score : ${score}/5 (${percent}%)<br>` + (percent >= 80 ? '✅ Chapitre validé !' : '❌ Révisez et réessayez.');
+}
+  </script>
   <script>
     function validateChap1() {
       const answers = {
