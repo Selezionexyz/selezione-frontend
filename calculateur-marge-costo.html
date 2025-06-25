@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SELEZIONE – Calculateur de Marge & Costo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { background: #000; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
+    .container { max-width: 440px; margin: 3rem auto 2.5rem auto; background: #111; border-radius: 16px; padding: 2.2rem 1.5rem 1.5rem 1.5rem; box-shadow: 0 0 16px #0009;}
+    h1 { font-family: 'Playfair Display', serif; color: gold; text-align: center; margin-bottom:1.6rem;}
+    .desc { color: #ccc; text-align: center; font-size: 1.07em; margin-bottom:1.7rem;}
+    label { display:block; margin-top:1.2em; font-weight: 500; }
+    input[type="number"], input[type="text"] { width: 99%; padding:0.55em; border-radius:7px; border:none; margin-top:0.27em; font-size:1.06em;}
+    input[type="checkbox"] { margin-left: 0.5em; transform:scale(1.2);}
+    button { width:100%; margin-top:1.7em; background: gold; color:#000; font-weight:700; font-size:1.22em; border:none; border-radius:8px; padding:0.8em 0; cursor:pointer; transition:background 0.15s;}
+    button:hover { background:#ffe57e;}
+    .result { background: #181818; margin-top: 2em; border-radius: 10px; padding: 1.3em 1em;}
+    .row { display: flex; justify-content: space-between; margin:0.38em 0; }
+    .label { color: #bbb;}
+    .big { font-size:1.18em; color:gold;}
+    hr { border:0.6px solid #222; margin:1em 0 1.1em 0;}
+    @media (max-width: 550px) {
+      .container {padding:1.1rem 0.3rem 0.7rem 0.3rem;}
+      h1 {font-size:1.25em;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧮 Calculateur de Marge & Costo</h1>
+    <div class="desc">
+      Calcule instantanément ta marge nette sur chaque produit, avec ou sans URSSAF, frais de port, et toutes les commissions incluses.<br>
+      <span style="color:gold;font-weight:600;">Ton outil SELEZIONE clé en main.</span>
+    </div>
+    <label>Prix de touche (Cost, €):<br>
+      <input type="number" id="cost" min="0" value="300" placeholder="ex: 300">
+    </label>
+    <label>Prix retail (€):<br>
+      <input type="number" id="retail" min="0" value="720" placeholder="ex: 720">
+    </label>
+    <label>Costo (commission fournisseur, %) :<br>
+      <input type="number" id="costo" min="0" value="20" placeholder="ex: 20">
+    </label>
+    <label>
+      <input type="checkbox" id="urssaf" checked>
+      Inclure URSSAF (12,3 %)
+    </label>
+    <label>Frais de port (€):<br>
+      <input type="number" id="shipping" min="0" value="0" placeholder="ex: 15">
+    </label>
+    <button onclick="calculerMarge()">Calculer</button>
 
+    <div id="result" class="result" style="display:none;"></div>
+  </div>
+
+  <script>
+    function calculerMarge() {
+      let cost = parseFloat(document.getElementById('cost').value) || 0;
+      let retail = parseFloat(document.getElementById('retail').value) || 0;
+      let costo = parseFloat(document.getElementById('costo').value) || 0;
+      let urssafChecked = document.getElementById('urssaf').checked;
+      let urssafPct = urssafChecked ? 12.3 : 0;
+      let shipping = parseFloat(document.getElementById('shipping').value) || 0;
+
+      let commission = cost * (costo / 100);
+      let urssaf = cost * (urssafPct / 100);
+      let totalAchat = cost + commission + urssaf + shipping;
+      let marge = retail - totalAchat;
+      let tauxMarge = retail > 0 ? (marge / retail) * 100 : 0;
+
+      document.getElementById('result').innerHTML = `
+        <div class="row"><span class="label">Prix de touche :</span> <span>${cost.toFixed(2)} €</span></div>
+        <div class="row"><span class="label">Commission fournisseur (${costo}%):</span> <span>${commission.toFixed(2)} €</span></div>
+        <div class="row"><span class="label">URSSAF (${urssafPct}%):</span> <span>${urssaf.toFixed(2)} €</span></div>
+        <div class="row"><span class="label">Frais de port :</span> <span>${shipping.toFixed(2)} €</span></div>
+        <div class="row big"><span class="label">Total des coûts :</span> <span>${totalAchat.toFixed(2)} €</span></div>
+        <hr>
+        <div class="row"><span class="label">Prix retail :</span> <span>${retail.toFixed(2)} €</span></div>
+        <div class="row big"><span class="label">Marge brute :</span> <span>${marge.toFixed(2)} €</span></div>
+        <div class="row"><span class="label">Taux de marge :</span> <span>${tauxMarge.toFixed(1)} %</span></div>
+      `;
+      document.getElementById('result').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
