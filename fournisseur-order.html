@@ -21,6 +21,11 @@
   </style>
   <!-- SheetJS pour Excel/CSV -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <!-- EmailJS library -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+<script>
+  emailjs.init('2pePiadVVK8WqUOQe');
+</script>
 </head>
 <body>
   <section class="section">
@@ -100,5 +105,99 @@ document.getElementById('panier-form').addEventListener('submit', function(e){
   document.getElementById('commande-result').innerHTML = recap;
 });
   </script>
+  <body>
+  <section class="section">
+    <h1>📦 Module Fournisseur SELEZIONE</h1>
+    <div class="card file-upload">
+      <h2>1. Importez votre fichier stock fournisseur (Excel ou CSV)</h2>
+      <input type="file" id="fichier-stock" accept=".xlsx,.xls,.csv">
+      <div id="upload-info"></div>
+    </div>
+    <div class="card" id="table-container" style="display:none;">
+      <h2>2. Sélectionnez vos articles & tailles (panier)</h2>
+      <form id="panier-form">
+        <div id="table-dynamique"></div>
+        <button type="submit">Valider ma commande</button>
+      </form>
+      <div id="commande-result"></div>
+    </div>
+  </section>
+
+  <script>
+    // Parsing fichier et affichage tableau
+    document.getElementById('fichier-stock').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if(!file) return;
+      document.getElementById('upload-info').textContent = "Lecture du fichier…";
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        let data = e.target.result;
+        let workbook;
+        if(file.name.endsWith('.csv')) {
+          workbook = XLSX.read(data, {type:'binary', codepage:65001});
+        } else {
+          workbook = XLSX.read(data, {type:'binary'});
+        }
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(firstSheet, {header:1, blankrows:false});
+        if(rows.length < 2) {
+          document.getElementById('upload-info').textContent = "Erreur : fichier vide ou mal formaté.";
+          return;
+        }
+        // Affichage du tableau dynamique
+        let html = '<table><thead><tr>';
+        // En-têtes
+        for(let i=0; i<rows[0].length; i++) {
+          html += `<th>${rows[0][i]}</th>`;
+        }
+        html += '<th>Sélection</th></tr></thead><tbody>';
+        // Lignes
+        for(let r=1; r<rows.length; r++) {
+          html += '<tr>';
+          for(let c=0; c<rows[r].length; c++) {
+            html += `<td>${rows[r][c] ?? ""}</td>`;
+          }
+          // Case à cocher par ligne
+          html += `<td><input type="checkbox" name="ligne[]" value="${rows[r].join(' | ')}"></td>`;
+          html += '</tr>';
+        }
+        html += '</tbody></table>';
+        document.getElementById('table-dynamique').innerHTML = html;
+        document.getElementById('table-container').style.display = '';
+        document.getElementById('upload-info').textContent = "Fichier chargé. Sélectionnez vos articles.";
+      };
+      reader.readAsBinaryString(file);
+    });
+
+    // Gestion du panier et ENVOI EMAIL
+    document.getElementById('panier-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      let checked = Array.from(document.querySelectorAll('input[name="ligne[]"]:checked'));
+      if(checked.length === 0) {
+        document.getElementById('commande-result').innerHTML = "<span style='color:#f44336;font-weight:700;'>Sélectionnez au moins un article.</span>";
+        return;
+      }
+      let recap = "<h3>✅ Votre commande a bien été prise en compte !</h3><ul>";
+      let commande = "";
+      checked.forEach(box => {
+        recap += `<li>${box.value}</li>`;
+        commande += `${box.value}\n`;
+      });
+      recap += "</ul><div style='color:#ccc;font-size:1em;'>Un email est envoyé au fournisseur avec votre panier.</div>";
+      document.getElementById('commande-result').innerHTML = recap;
+
+      // ENVOI PAR EMAILJS
+      emailjs.send("service_o5at45g", "template_4sg16rd", {
+          user_email: "A compléter", // (tu pourras le remplacer plus tard)
+          commande: commande
+        })
+        .then(function(response) {
+          // Optionnel : notif de succès
+        }, function(error) {
+          alert("Erreur d’envoi de la commande. Contacte le support.");
+        });
+    });
+  </script>
+  
 </body>
 </html>
