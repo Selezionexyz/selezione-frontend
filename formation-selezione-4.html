@@ -4,152 +4,243 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SELEZIONE – Module 4 : Lancer son activité PAP Luxe</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body{font-family:'Outfit',sans-serif;background:#f9f9f9;color:#111;margin:0}
-    h1{text-align:center;padding:2rem 1rem}
-    .module-container{width:90%;max-width:900px;margin:1rem auto;border:1px solid #ccc;border-radius:12px;overflow:hidden}
-    .module-header{background:#111;color:#fff;padding:1rem;font-size:1.2rem;font-weight:600;cursor:pointer}
-    .module-content{background:#fff;padding:1.5rem;display:none}
-    .module-content.open{display:block}
-    .chapter-block{margin-bottom:2rem}
-    .chapter-block h3{margin:0 0 .6rem}
-    .tool-name{background:#e6e6e6;padding:.25rem .6rem;border-radius:4px;font-weight:600}
-    ul{padding-left:1.2rem;margin:0}
-    li{margin:.3rem 0}
-    table{width:100%;border-collapse:collapse;margin:.5rem 0}
-    th,td{border:1px solid #ddd;padding:.4rem;text-align:center}
-    th{background:#f0f0f0}
+    body { margin:0; font-family:'Outfit',sans-serif; background:#000; color:#fff; }
+    h1,h2,h3 { font-family:'Playfair Display',serif; color:gold; margin:1rem 0; }
+    h1 { font-size:2.8rem; text-align:center; }
+    h2 { font-size:2rem; }
+    h3 { font-size:1.6rem; }
+    p, li, label { font-size:1rem; line-height:1.6; }
+    .section { padding:2rem; max-width:900px; margin:auto; }
+    .card { background:#111; border-radius:12px; padding:1.5rem; margin-bottom:2rem; }
+    .card img, .card video, .card canvas, .card iframe { display:block; margin:1rem auto; max-width:100%; border-radius:8px; }
+    .big-quote { background:#1a1a1a; border-left:4px solid gold; padding:1rem; margin:1.5rem 0; font-style:italic; color:#ffe082;}
+    table { width:100%; border-collapse:collapse; margin:.5rem 0 1.5rem 0;}
+    th,td { border:1px solid #444; padding:.4rem; text-align:center;}
+    th { background:#222; color:gold;}
+    tr:nth-child(even) {background:#181818;}
+    ul { padding-left:1.2rem; }
+    li { margin:.3rem 0; }
+    .tool-name { background:#222; color:gold; padding:.22rem .55rem; border-radius:4px; font-weight:600;}
+    .quiz { background:#111; border-radius:12px; padding:1.5rem; margin-bottom:2rem;}
+    .quiz label { display:block; margin-bottom:.7rem; font-weight:600;}
+    .quiz button { background:gold; color:#000; font-weight:700; border:none; border-radius:6px; padding:.7rem 1.5rem; font-size:1.15rem; cursor:pointer; margin-top:1.2rem;}
+    #part-score strong { color:#f44336; }
+    @media (max-width:700px) {
+      .section { padding:0.8rem; }
+      h1 { font-size:2.1rem; }
+      h2 { font-size:1.25rem; }
+      h3 { font-size:1.08rem; }
+      .card, .quiz { padding:.7rem; }
+    }
   </style>
 </head>
 <body>
-  <h1>📘 Module 4 – Lancer son activité dans le prêt-à-porter de luxe</h1>
-  <div class="module-container">
-    <div class="module-header" onclick="toggleModule(this)">
-      Cliquez pour ouvrir / fermer le contenu
+  <section class="section">
+    <h1>📘 Module 4 – Lancer son activité dans le prêt-à-porter de luxe</h1>
+
+    <!-- ================= A ================== -->
+    <div class="card" id="part-a">
+      <h2>✅ A. Bien choisir ses produits : l’art de la sélection stratégique</h2>
+      <div class="big-quote">
+        « Choisir un produit, ce n’est pas cocher une case. C’est raconter une histoire que le client voudra vivre. »
+      </div>
+      <p>
+        Dans le luxe, chaque produit vendu incarne plus qu’un objet : il raconte une histoire, incarne une vision et véhicule un héritage. Les maisons comme <b>Jacquemus</b>, <b>Prada</b>, <b>Balenciaga</b> et <b>Loewe</b> maîtrisent l’art de créer la désirabilité. Une pièce forte, dotée d’un storytelling puissant, peut se revendre jusqu’à trois fois son prix d’achat.<br>
+        <em><b>Anecdote réelle :</b> En 2022, la chemise <b>Le Bambino</b> de Jacquemus, présentée lors d’un défilé en Provence, devient virale. Elle évoque l’été, la liberté et le sud de la France. En quelques semaines, elle passe de 260 € à 450 € sur Ssense et Vestiaire Collective, puis disparaît du marché secondaire. La désirabilité précède la rareté.</em>
+      </p>
+      <ul>
+        <li>Analyse la <b>demande sociale</b> : observe TikTok, Instagram Reels, Lyst Index.</li>
+        <li>Identifie l’<b>élément différenciant</b> : logo, coupe, tissu, édition capsule.</li>
+        <li>Vérifie la <b>disponibilité réduite</b> (sold out, édition limitée, collab VIP).</li>
+        <li>Estime la <b>valeur de revente</b> avec Vestiaire Collective, Vinted Pro, Grailed.</li>
+      </ul>
+      <p>
+        <b>Ici sera disponible l’outil :</b>
+        <span class="tool-name">AI Product Selector 🧠</span>
+      </p>
     </div>
-    <div class="module-content open"><!-- ouvert par défaut -->
 
-      <!-- ========== A ========== -->
-      <div class="chapter-block" id="part-a">
-        <h3>✅ A. Bien choisir ses produits : l’art de la sélection stratégique</h3>
-        <p>
-          Dans le luxe, chaque pièce raconte une <strong>histoire</strong>. Sélectionner un produit, c’est miser sur une émotion que l’acheteur voudra posséder. Les marques comme <strong>Jacquemus</strong>, <strong>Loewe</strong> ou <strong>Balenciaga</strong> prouvent qu’une pièce forte peut se revendre jusqu’à <em>trois fois</em> son prix d’achat lorsque désirabilité et rareté se rencontrent.<br>
-          <em>Anecdote :</em> Lors du défilé Provence 2022, la chemise <strong>Le Bambino</strong> (Jacquemus) est passée de 260 € à 450 € sur Vestiaire Collective, portée par la rareté et l’engouement social.
-        </p>
-        <ul>
-          <li>Notoriété marque (présence Lyst Index Q1-2025)</li>
-          <li>Potentiel de rareté (capsule, édition limitée, sold-out)</li>
-          <li>Tendances sociales (#HaulFarfetch, #OOTD…)</li>
-          <li>Multiplicateur marge : prix achat ≤ 40 % retail</li>
-        </ul>
-        <p>
-          <strong>Ici sera disponible l’outil :</strong>
-          <span class="tool-name">AI Product Selector 🧠</span>
-        </p>
+    <!-- ================= B ================== -->
+    <div class="card" id="part-b">
+      <h2>✅ B. Bien mettre en valeur ses produits : l’esthétique comme arme</h2>
+      <div class="big-quote">
+        « Dans le luxe, une photo mal cadrée fait perdre 40 % de valeur perçue. »
       </div>
+      <p>
+        Les plus grandes maisons (<b>Gucci</b>, <b>Jacquemus</b>, <b>Chanel</b>) ont compris que la présentation fait la différence : une photo léchée, un flatlay bien composé, une lumière maîtrisée peuvent doubler ton prix de vente.<br>
+        <em><b>Anecdote réelle :</b> En 2023, Balenciaga a fait parler toute la presse avec sa Paris Sneaker volontairement “destroy”. Résultat : produit viral, sold out mondial malgré un prix de 1 450 €. La mise en scène a créé le buzz, pas la basket en elle-même.</em>
+      </p>
+      <ul>
+        <li>Lumière naturelle ou ring-light blanche</li>
+        <li>Fond sobre et noble (marbre, drapé beige, bois, rideau studio)</li>
+        <li>Angles stratégiques : 45°, macro texture, vue portée “ghost mannequin”</li>
+        <li>Ambiance storytelling (montre, parfum, accessoire haut de gamme à côté)</li>
+      </ul>
+      <p>
+        <b>Ici sera disponible l’outil :</b>
+        <span class="tool-name">Créateur de fond photo authentique 🎨</span>
+      </p>
+    </div>
 
-      <!-- ========== B ========== -->
-      <div class="chapter-block" id="part-b">
-        <h3>✅ B. Bien mettre en valeur ses produits : l’esthétique comme arme</h3>
-        <p>
-          Une photo mal cadrée peut réduire de <strong>40 %</strong> la valeur perçue. Inspire-toi des flatlays Gucci : fond sobre, texture noble (marbre, drapé beige), accessoires premium.<br>
-          <em>Anecdote :</em> En 2023, <strong>Balenciaga</strong> rend virale sa <em>Paris Sneaker</em> volontairement « destroy » ; la mise en scène choque, la visibilité explose, le produit est sold-out malgré un prix de 1 450 €.
-        </p>
-        <ul>
-          <li>Lumière naturelle ou ring-light blanche</li>
-          <li>Angles 45°, macro texture, vue portée « ghost mannequin »</li>
-          <li>Ambiance storytelling (montre + parfum + fond bois)</li>
-        </ul>
-        <p>
-          <strong>Ici sera disponible l’outil :</strong>
-          <span class="tool-name">Créateur de fond photo authentique 🎨</span>
-        </p>
+    <!-- ================= C ================== -->
+    <div class="card" id="part-c">
+      <h2>✅ C. Le marketing : transformer l’élégance en désir</h2>
+      <div class="big-quote">
+        « Si Chanel vendait sans storytelling, ses sacs ne vaudraient pas 9 000 €. »
       </div>
+      <p>
+        Le marketing digital est le pilier du luxe moderne. En 2025, la concurrence est telle que seule une marque à la narration forte tire son épingle du jeu.<br>
+        <em>En 2024, Céline triple son engagement Instagram sans publicité payante : que des visuels éditoriaux et du teasing en story. En mai 2025, Dior lance la mini-série “Le Parfum de l’Héritage” sur Insta, mixant archives et interviews : +4,2 M de vues, +18 % de ventes Miss Dior, engagement féminin 25-34 ans à 8,5 %.</em>
+      </p>
+      <b>Tunnel de conversion 2025 :</b>
+      <ul>
+        <li><b>Feed</b> → Attirer (3 posts premium/semaine)</li>
+        <li><b>Story & Live</b> → Connecter (coulisses, Q&A)</li>
+        <li><b>DM ou site</b> → Convertir (lien direct fiche produit)</li>
+        <li><b>Newsletter VIP</b> → Fidéliser (drops secrets, ventes privées)</li>
+      </ul>
+      <p>
+        <b>Ici sera disponible l’outil :</b>
+        <span class="tool-name">AI Caption & Feed Designer 🧠</span>
+      </p>
+    </div>
 
-      <!-- ========== C ========== -->
-      <div class="chapter-block" id="part-c">
-        <h3>✅ C. Le marketing : transformer l’élégance en désir</h3>
-        <p>
-          Le luxe ne se vend pas ; il se raconte. En 2024, <strong>Céline</strong> triple son engagement avec une stratégie de <em>silence orchestré</em> : aucune publicité payante, uniquement des visuels cinématiques et l’exclusivité boutique.
-        </p>
-        <strong>Tunnel de conversion 2025 :</strong>
-        <ul>
-          <li><strong>Feed</strong> → Attirer (3 posts premium/semaine)</li>
-          <li><strong>Story & Live</strong> → Connecter (coulisses, Q&A)</li>
-          <li><strong>DM / Site</strong> → Convertir (lien direct fiche produit)</li>
-          <li><strong>Newsletter VIP</strong> → Fidéliser (drop secret)</li>
-        </ul>
-        <p>
-          <strong>Ici sera disponible l’outil :</strong>
-          <span class="tool-name">AI Caption & Feed Designer 🧠</span>
-        </p>
+    <!-- ================= D ================== -->
+    <div class="card" id="part-d">
+      <h2>✅ D. Marges, URSSAF & frais réels : les coulisses de la rentabilité</h2>
+      <div class="big-quote">
+        « Un produit mal margé est plus dangereux qu’un produit invendu. »
       </div>
+      <p>
+        De nombreux vendeurs échouent faute de maîtrise de leurs marges. Exemple : sur Vinted Pro, une vendeuse de pulls Margiela, achetés 190 €, revendus 320 €, n’a aucun bénéfice net après : URSSAF, retours, colis, SAV. Moralité : vise toujours une marge nette, jamais brute.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Poste</th><th>Taux / Coût</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>URSSAF micro-BIC</td><td>12,8 % du CA</td></tr>
+          <tr><td>Stripe / Paypal</td><td>1,4 % – 2,9 %</td></tr>
+          <tr><td>Livraison Colissimo 48 h</td><td>8 – 14 €</td></tr>
+          <tr><td>Packaging premium</td><td>3 – 5 €</td></tr>
+          <tr><td>Buffer retours / SAV</td><td>≈ 10 %</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <b>Ici sera disponible l’outil :</b>
+        <span class="tool-name">AI Profit Estimator 💶</span>
+      </p>
+    </div>
 
-      <!-- ========== D ========== -->
-      <div class="chapter-block" id="part-d">
-        <h3>✅ D. Marges, URSSAF & frais réels : les coulisses de la rentabilité</h3>
-        <table>
-          <thead>
-            <tr><th>Poste</th><th>Taux / Coût</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>URSSAF micro-BIC</td><td>12,8 % du CA</td></tr>
-            <tr><td>Stripe / Paypal</td><td>1,4 % – 2,9 %</td></tr>
-            <tr><td>Livraison Colissimo 48 h</td><td>8 – 14 €</td></tr>
-            <tr><td>Packaging premium</td><td>3 – 5 €</td></tr>
-            <tr><td>Buffer retours / SAV</td><td>≈ 10 %</td></tr>
-          </tbody>
-        </table>
-        <p>
-          <strong>Ici sera disponible l’outil :</strong>
-          <span class="tool-name">AI Profit Estimator 💶</span>
-        </p>
+    <!-- ================= E ================== -->
+    <div class="card" id="part-e">
+      <h2>✅ E. Commande test 2 500 – 3 000 € : simulation Juin 2025</h2>
+      <div class="big-quote">
+        « Le but ? Vendre peu mais bien, à forte valeur ajoutée. »
       </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Produit</th><th>Marque</th><th>Prix achat</th><th>Prix revente</th><th>Bénéfice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Mules satin</td><td>Prada</td><td>420 €</td><td>790 €</td><td>370 €</td></tr>
+          <tr><td>T-shirt Anagram</td><td>Loewe</td><td>190 €</td><td>340 €</td><td>150 €</td></tr>
+          <tr><td>Blazer blanc</td><td>Jacquemus</td><td>580 €</td><td>950 €</td><td>370 €</td></tr>
+          <tr><td>Casquette BB</td><td>Balenciaga</td><td>145 €</td><td>250 €</td><td>105 €</td></tr>
+          <tr><td>Hoodie arrow</td><td>Off-White</td><td>420 €</td><td>720 €</td><td>300 €</td></tr>
+        </tbody>
+      </table>
+      <p>
+        <b>Total achat :</b> ~1 755 €<br>
+        <b>Total revente estimée :</b> 3 050 €<br>
+        <b>Marge brute :</b> 1 295 € – Frais env. 450 € = <b>Marge nette ~845 €</b>
+      </p>
+      <p>
+        <b>Ici sera disponible l’outil :</b>
+        <span class="tool-name">Analyseur de prix 🔍</span>
+      </p>
+    </div>
 
-      <!-- ========== E ========== -->
-      <div class="chapter-block" id="part-e">
-        <h3>✅ E. Commande test 2 500 – 3 000 € : simulation Juin 2025</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Produit</th><th>Marque</th><th>Prix achat</th><th>Prix revente</th><th>Marge brute</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Mules satin</td><td>Prada</td><td>420 €</td><td>790 €</td><td>370 €</td></tr>
-            <tr><td>T-shirt Anagram</td><td>Loewe</td><td>190 €</td><td>340 €</td><td>150 €</td></tr>
-            <tr><td>Blazer blanc</td><td>Jacquemus</td><td>580 €</td><td>950 €</td><td>370 €</td></tr>
-            <tr><td>Casquette BB</td><td>Balenciaga</td><td>145 €</td><td>250 €</td><td>105 €</td></tr>
-            <tr><td>Hoodie arrow</td><td>Off-White</td><td>420 €</td><td>720 €</td><td>300 €</td></tr>
-          </tbody>
-        </table>
-        <p><strong>Coût total achat</strong> : 1 755 € → <strong>Revente estimée</strong> : 3 050 € → <strong>Marge brute</strong> : 1 295 € → après frais (~450 €) = <strong>Marge nette ≈ 845 €</strong>.</p>
-        <p>
-          <strong>Ici sera disponible l’outil :</strong>
-          <span class="tool-name">Analyseur de prix 🔍</span>
-        </p>
+    <!-- ================= F ================== -->
+    <div class="card" id="part-f">
+      <h2>✅ F. Conclusion & perspectives 2025</h2>
+      <div class="big-quote">
+        Le marché du luxe progresse de +8,5 % en 2025 (source : Bain). Génération Z & Alpha : 30 % des acheteurs.
       </div>
+      <p>
+        Oui, on peut vivre de la revente PAP luxe, à condition de maîtriser sourcing, présentation, tunnel de vente, marges et surtout la rotation de stock. Les vendeurs qui gagnent sont ceux qui anticipent les tendances grâce aux outils et à une organisation rigoureuse.<br>
+        <b>Évolution possible :</b>
+      </p>
+      <ul>
+        <li>Revente → Création de ta propre marque</li>
+        <li>Instagram → boutique Shopify premium</li>
+        <li>Conciergerie privée → personal shopper</li>
+      </ul>
+      <p>
+        <b>Ici sera disponible l’outil :</b>
+        <span class="tool-name">Détecteur de produits tendance 🔥</span>
+      </p>
+    </div>
 
-      <!-- ========== F ========== -->
-      <div class="chapter-block" id="part-f">
-        <h3>✅ F. Conclusion & perspectives 2025</h3>
-        <p>
-          <strong>Le marché du luxe progresse de +8,5 % en 2025</strong> (source : Bain). Génération Z & Alpha = 30 % des acheteurs. La revente PAP luxe est viable si l’on maîtrise sourcing, présentation, tunnel de vente et marges. Les vendeurs gagnants sont ceux qui anticipent les tendances et travaillent leur storytelling.<br>
-          <em>Le luxe récompense la méthode et la régularité.</em>
-        </p>
-        <p>
-          <strong>Ici sera disponible l’outil :</strong>
-          <span class="tool-name">Détecteur de produits tendance 🔥</span>
-        </p>
-      </div>
+    <!-- ========== QUIZ ========== -->
+    <div class="quiz" id="part-quiz">
+      <h3>📝 Quiz de validation – Module 4</h3>
+      <ol>
+        <li>
+          <b>Un lot de vestes Loewe est proposé à -55 % du prix retail.<br>
+          Comment évaluer si c’est un achat stratégique ? (Cite au moins 3 critères concrets à analyser avant d’acheter.)</b>
+        </li>
+        <li>
+          <b>Pour un hoodie Off-White payé 420 €, vendu 720 €, calcule la marge nette réelle après :<br>
+          - URSSAF (12,8 %)<br>
+          - Stripe (2 %)<br>
+          - Colis (12 €)<br>
+          - Packaging (4 €)<br>
+          Montre le calcul détaillé.</b>
+        </li>
+        <li>
+          <b>Tu hésites entre photographier un T-shirt sur fond marbre ou sur tapis coloré :<br>
+          explique l’impact de ce choix sur la perception de valeur, et la stratégie “luxury branding”.</b>
+        </li>
+        <li>
+          <b>Un produit buzz sur TikTok, mais affiche 40 annonces à vendre sur Vinted, et peu de ventes finalisées. Faut-il l’acheter ?<br>
+          Justifie par une vraie analyse “rotation”.</b>
+        </li>
+        <li>
+          <b>Étude de cas : Avec 2 500 € de budget, tu dois sélectionner 3 pièces parmi :<br>
+            <ul>
+              <li>Prada Blazer - 950 € / revente 1 500 €</li>
+              <li>Balenciaga Sneakers - 690 € / revente 890 €</li>
+              <li>Loewe Chemise capsule - 520 € / revente 950 €</li>
+              <li>Jacquemus Hoodie - 380 € / revente 720 €</li>
+            </ul>
+            Choisis la combinaison la plus rentable ET la plus rapide à vendre.<br>
+            Justifie chaque choix (marge, rotation, storytelling, risque d’invendu).
+          </b>
+        </li>
+      </ol>
+    </div>
 
-    </div><!-- /.module-content -->
-  </div><!-- /.module-container -->
+    <!-- ========== SCORE & VERROUILLAGE ========== -->
+    <div class="quiz" id="part-score">
+      <h3>🔎 Résultat du Quiz Module 4</h3>
+      <p>
+        Nombre de réponses validées : <span id="score-module4">0</span> / 5<br>
+        <strong>⛔ Accès au Module “Fournisseur” verrouillé tant que tu n’as pas 80 % de bonnes réponses</strong>
+      </p>
+      <p style="font-size:.96em;color:#ccc">
+        Reprends tes notes et améliore ton score pour débloquer la suite de la formation.
+      </p>
+    </div>
 
+  </section>
   <script>
     function toggleModule(header){
-      header.nextElementSibling.classList.toggle('open');
+      header.parentElement.querySelector('.module-content').classList.toggle('open');
     }
   </script>
 </body>
