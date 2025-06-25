@@ -84,6 +84,21 @@
       };
       reader.readAsBinaryString(file);
     });
+    // Gestion du panier (validation formulaire)
+document.getElementById('panier-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  let checked = Array.from(document.querySelectorAll('input[name="ligne[]"]:checked'));
+  if(checked.length === 0) {
+    document.getElementById('commande-result').innerHTML = "<span style='color:#f44336;font-weight:700;'>Sélectionnez au moins un article.</span>";
+    return;
+  }
+  let recap = "<h3>✅ Votre commande a bien été prise en compte !</h3><ul>";
+  checked.forEach(box => {
+    recap += `<li>${box.value}</li>`;
+  });
+  recap += "</ul><div style='color:#ccc;font-size:1em;'>Un email ou une notification sera envoyé à l’équipe fournisseur avec votre panier.</div>";
+  document.getElementById('commande-result').innerHTML = recap;
+});
   </script>
 </body>
 </html>
