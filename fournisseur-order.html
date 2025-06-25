@@ -1,1 +1,89 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>SELEZIONE – Module Fournisseur</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { background: #000; color: #fff; font-family: 'Outfit', sans-serif; margin: 0;}
+    .section { padding: 2rem; max-width: 900px; margin: auto; }
+    h1 { font-family: 'Playfair Display', serif; color: gold; text-align: center; }
+    .card { background: #111; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;}
+    th, td { border: 1px solid #444; padding: .45rem; text-align: center; }
+    th { background: #222; color: gold;}
+    tr:nth-child(even) {background: #181818;}
+    button { background: gold; color: #000; font-weight: 700; border: none; border-radius: 6px; padding: .7rem 1.5rem; font-size: 1.15rem; cursor: pointer;}
+    .success { color: #0f0; font-weight: bold; margin-top: 1rem;}
+    .file-upload { margin-bottom: 2rem; }
+    input[type="file"] { color: gold;}
+    .disabled {opacity:.4; pointer-events:none;}
+  </style>
+  <!-- SheetJS pour Excel/CSV -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <section class="section">
+    <h1>📦 Module Fournisseur SELEZIONE</h1>
+    <div class="card file-upload">
+      <h2>1. Importez votre fichier stock fournisseur (Excel/CSV)</h2>
+      <input type="file" id="fichier-stock" accept=".xlsx,.xls,.csv" />
+      <div id="upload-info"></div>
+    </div>
+    <div class="card" id="table-container" style="display:none;">
+      <h2>2. Sélectionnez vos articles & tailles (panier)</h2>
+      <form id="panier-form">
+        <div id="table-dynamique"></div>
+        <button type="submit">Valider ma commande</button>
+      </form>
+      <div id="commande-result"></div>
+    </div>
+  </section>
+  <script>
+    // Parsing fichier et affichage tableau
+    document.getElementById('fichier-stock').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if(!file) return;
+      document.getElementById('upload-info').textContent = "Lecture du fichier…";
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        let data = e.target.result;
+        let workbook;
+        if(file.name.endsWith('.csv')) {
+          workbook = XLSX.read(data, {type:'binary', codepage:65001});
+        } else {
+          workbook = XLSX.read(data, {type:'binary'});
+        }
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const rows = XLSX.utils.sheet_to_json(firstSheet, {header:1, blankrows:false});
+        if(rows.length < 2) {
+          document.getElementById('upload-info').textContent = "Erreur : fichier vide ou mal formaté.";
+          return;
+        }
+        // Affichage du tableau dynamique
+        let html = '<table><thead><tr>';
+        // En-têtes
+        for(let i=0; i<rows[0].length; i++) {
+          html += `<th>${rows[0][i]}</th>`;
+        }
+        html += '<th>Sélection</th></tr></thead><tbody>';
+        // Lignes
+        for(let r=1; r<rows.length; r++) {
+          html += '<tr>';
+          for(let c=0; c<rows[r].length; c++) {
+            html += `<td>${rows[r][c] ?? ""}</td>`;
+          }
+          // Case à cocher par ligne
+          html += `<td><input type="checkbox" name="ligne[]" value="${rows[r].join(' | ')}"></td>`;
+          html += '</tr>';
+        }
+        html += '</tbody></table>';
+        document.getElementById('table-dynamique').innerHTML = html;
+        document.getElementById('table-container').style.display = '';
+        document.getElementById('upload-info').textContent = "Fichier chargé. Sélectionnez vos articles.";
+      };
+      reader.readAsBinaryString(file);
+    });
+  </script>
+</body>
+</html>
