@@ -193,18 +193,20 @@
       </table>
       <b>Total général :</b> ${document.getElementById('total-general').innerText} €`;
 
+      ...
       // ENVOI EmailJS
-emailjs.send("service_o5at45g", "template_4sg16rd", {
-  user_email: member + " / " + canal,
-  commande: html
-}).then(function(response) {
-  document.getElementById('commande-result').innerHTML = "<span style='color:lime;font-weight:700;'>Commande envoyée avec succès !</span>";
-  cart = [];
-  renderCart();
-}, function(error) {
-  alert("Erreur d’envoi de la commande. Voir la console pour plus d’info.");
-  console.log("ERREUR EMAILJS :", error); // ← C’est ça qui va tout nous dire
-});
+      emailjs.send("service_o5at45g", "template_4sg16rd", {
+        user_email: member + " / " + canal,
+        commande: html
+      }).then(function(response) {
+        document.getElementById('commande-result').innerHTML = "<span style='color:lime;font-weight:700;'>Commande envoyée avec succès !</span>";
+        cart = [];
+        renderCart();
+      }, function(error) {
+        alert("Erreur d’envoi de la commande. Voir la console pour plus d’info.");
+        console.log("ERREUR EMAILJS :", error); // ← C’est ça qui va tout nous dire
+      });
+    }
   </script>
 </body>
 </html>
