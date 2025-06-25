@@ -199,6 +199,8 @@
         renderCart();  
       }, function(error) {  
         alert("Erreur d’envoi de la commande. Contacte le support.");  
+        console.log("ERREUR EMAILJS :", error);
+alert("Erreur technique EmailJS : " + JSON.stringify(error));
       });  
     }  
   </script>  </body>  
