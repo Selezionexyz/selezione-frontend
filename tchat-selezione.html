@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>💬 Tchat SELEZIONE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
+    .chat-container { max-width: 600px; margin: 2rem auto; padding: 1rem; background: #222; border-radius: 14px; box-shadow: 0 2px 20px #000a; }
+    .messages { min-height: 350px; max-height: 400px; overflow-y: auto; margin-bottom: 1rem; border:1px solid #333; border-radius:7px; background:#181818; padding:12px; }
+    .message { margin: .5rem 0; }
+    .sender { color: gold; font-weight: bold; }
+    .date { color: #aaa; font-size: 0.8em; margin-left: 5px;}
+    .input-row { display: flex; gap: .7rem; }
+    input, button { font-size: 1em; border-radius: 5px; border:none; padding: .5em; }
+    input { flex: 1; }
+    button { background: gold; color: #111; font-weight: bold; cursor: pointer; }
+  </style>
+  <!-- Supabase client (ESM version) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>💬 Tchat SELEZIONE</h2>
+    <div id="login-block">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Mot de passe" required>
+      <button onclick="login()">Connexion</button>
+      <button onclick="signup()">Créer un compte</button>
+      <div id="auth-msg" style="color:#f66"></div>
+    </div>
+    <div id="chat-block" style="display:none;">
+      <div class="messages" id="messages"></div>
+      <div class="input-row">
+        <input type="text" id="msg-input" placeholder="Votre message...">
+        <button onclick="sendMessage()">Envoyer</button>
+      </div>
+      <button onclick="logout()" style="margin-top:10px;">Déconnexion</button>
+    </div>
+  </div>
+  <!-- À placer juste avant ton script -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
+  <script>
+    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    
+  </script>
+</body>
+</html>
