@@ -15,9 +15,133 @@
     input, button { font-size: 1em; border-radius: 5px; border:none; padding: .5em; }
     input { flex: 1; }
     button { background: gold; color: #111; font-weight: bold; cursor: pointer; }
+    .system { color: #89f; font-size: 0.93em; }
   </style>
-  <!-- Supabase client (ESM version) -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    // --- CONFIG
+    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // --- Elements
+    const loginBlock = document.getElementById('login-block');
+    const chatBlock = document.getElementById('chat-block');
+    const messagesDiv = document.getElementById('messages');
+    const authMsg = document.getElementById('auth-msg');
+    let currentUser = null;
+
+    // --- Auth logic
+    window.signup = async function() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      authMsg.innerText = '';
+      if (!email || !password) return authMsg.innerText = "Email et mot de passe requis.";
+      const { error } = await supabase.auth.signUp({ email, password });
+      authMsg.innerText = error ? error.message : "Compte créé, vérifie tes mails pour valider.";
+    };
+
+    window.login = async function() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      authMsg.innerText = '';
+      if (!email || !password) return authMsg.innerText = "Email et mot de passe requis.";
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) return authMsg.innerText = error.message;
+      currentUser = data.user;
+      loginBlock.style.display = 'none';
+      chatBlock.style.display = '';
+      loadMessages();
+      listenMessages();
+    };
+
+    window.logout = async function() {
+      await supabase.auth.signOut();
+      currentUser = null;
+      loginBlock.style.display = '';
+      chatBlock.style.display = 'none';
+      messagesDiv.innerHTML = '';
+    };
+
+    // --- Affichage auto si déjà connecté
+    supabase.auth.getUser().then(({ data }) => {
+      if (data.user) {
+        currentUser = data.user;
+        loginBlock.style.display = 'none';
+        chatBlock.style.display = '';
+        loadMessages();
+        listenMessages();
+      }
+    });
+
+    // --- Charger les messages
+    async function loadMessages() {
+      messagesDiv.innerHTML = '<div class="system">Chargement…</div>';
+      let { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true }).limit(100);
+      if (error) return messagesDiv.innerHTML = "<span style='color:red;'>Erreur chargement messages</span>";
+      renderMessages(data || []);
+    }
+
+    // --- Afficher les messages
+    function renderMessages(msgs) {
+      messagesDiv.innerHTML = '';
+      msgs.forEach(msg => {
+        messagesDiv.innerHTML += `
+          <div class="message">
+            <span class="sender">${msg.sender}</span>
+            <span class="date">${(new Date(msg.created_at)).toLocaleString('fr-FR').slice(0, -3)}</span> : 
+            ${escapeHtml(msg.content)}
+          </div>
+        `;
+      });
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // --- Envoyer un message
+    window.sendMessage = async function() {
+      const input = document.getElementById('msg-input');
+      const txt = input.value.trim();
+      if (!txt || !currentUser) return;
+      let sender = currentUser.email;
+      // Tu peux ici remplacer par pseudo si tu veux dans la table user
+      await supabase.from('messages').insert([{ sender, content: txt }]);
+      input.value = '';
+    };
+
+    // --- Realtime listener
+    function listenMessages() {
+      supabase
+        .channel('public:messages')
+        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
+          addSingleMessage(payload.new);
+        })
+        .subscribe();
+    }
+    function addSingleMessage(msg) {
+      messagesDiv.innerHTML += `
+        <div class="message">
+          <span class="sender">${msg.sender}</span>
+          <span class="date">${(new Date(msg.created_at)).toLocaleString('fr-FR').slice(0, -3)}</span> : 
+          ${escapeHtml(msg.content)}
+        </div>
+      `;
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // --- Sécurité anti XSS
+    function escapeHtml(text) {
+      return text.replace(/[<>&"]/g, c => ({
+        '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;'
+      })[c]);
+    }
+
+    // --- ENTRÉE clavier
+    document.getElementById('msg-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+
+  </script>
 </head>
 <body>
   <div class="chat-container">
@@ -38,13 +162,5 @@
       <button onclick="logout()" style="margin-top:10px;">Déconnexion</button>
     </div>
   </div>
-  
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.min.js"></script>
-  <script>
-    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    
-  </script>
 </body>
 </html>
