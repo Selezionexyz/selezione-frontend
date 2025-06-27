@@ -16,27 +16,108 @@
     input { flex: 1; }
     button { background: gold; color: #111; font-weight: bold; cursor: pointer; }
     #pseudo-row {margin-bottom: 1.2em;}
+    .annonce-block {
+      background: #ffc400;
+      color: #222;
+      border-radius: 12px;
+      padding: 0.5em 1em;
+      margin-bottom: 1em;
+      font-weight: bold;
+      box-shadow: 0 1px 7px #0001;
+      text-align: center;
+      font-size: 1.12em;
+    }
+    .bubble-row {
+      display: flex;
+      align-items: flex-start;
+      margin: 0.5rem 0;
+    }
+    .avatar {
+      flex: none;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      color: #222;
+      font-weight: bold;
+      font-size: 1.3em;
+      text-align: center;
+      line-height: 38px;
+      margin-right: 9px;
+      box-shadow: 0 2px 7px #0002;
+      border: 2px solid #fff2;
+    }
+    .bubble {
+      background: #fff;
+      color: #21292c;
+      padding: 9px 14px 8px 14px;
+      border-radius: 16px 18px 18px 5px;
+      min-width: 70px;
+      max-width: 75%;
+      box-shadow: 0 1px 4px #0001;
+      position: relative;
+      margin-left: 0;
+      word-break: break-word;
+    }
+    .bubble-header {
+      display: flex; align-items: center; gap: 0.7em; margin-bottom: 2px;
+    }
+    .bubble-text {
+      font-size: 1.11em;
+      margin-top: 1px;
+      padding-left: 1px;
+    }
+    .pseudo {
+      font-weight: 600;
+      color: #348e51;
+      letter-spacing: 0.03em;
+    }
+    .date {
+      color: #777;
+      font-size: 0.84em;
+      margin-left: 2px;
+    }
+    .input-row {
+      display: flex; gap: .7rem;
+    }
+    input, button {
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+      padding: .5em;
+    }
+    button {
+      background: #1de9a5;
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    button:hover {
+      background: #13b176;
+    }
+    @media (max-width: 640px) {
+      .chat-container { max-width: 99vw; padding: 2vw;}
+      .bubble { max-width: 99vw;}
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 </head>
 <body>
   <div class="chat-container">
-  <div id="annonce-block" class="annonce-block"></div>
-  <h2>💬 Tchat SELEZIONE</h2>
-  <div id="pseudo-row">
-    <input type="text" id="pseudo" placeholder="Ton pseudo" />
-    <button onclick="enterChat()">Entrer</button>
-  </div>
-  <div id="chat-block" style="display:none;">
-    <div class="messages" id="messages"></div>
-    <div class="input-row">
-      <input type="text" id="msg-input" placeholder="Ton message..." />
-      <button onclick="sendMessage()">Envoyer</button>
+    <div id="annonce-block" class="annonce-block"></div>
+    <h2>💬 Tchat SELEZIONE</h2>
+    <div id="pseudo-row">
+      <input type="text" id="pseudo" placeholder="Ton pseudo" />
+      <button onclick="enterChat()">Entrer</button>
+    </div>
+    <div id="chat-block" style="display:none;">
+      <div class="messages" id="messages"></div>
+      <div class="input-row">
+        <input type="text" id="msg-input" placeholder="Ton message..." />
+        <button onclick="sendMessage()">Envoyer</button>
+      </div>
     </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 <script>
   // --- À PERSONNALISER ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
@@ -54,12 +135,12 @@
 
   // Charger et afficher la dernière annonce
   async function loadAnnonce() {
-    // Utilise la table "annonce" si tu veux gérer les annonces, sinon adapte ici
     const { data, error } = await supabase
       .from('annonce')
       .select('*')
       .order('created_at', { ascending: false })
       .limit(1);
+    if (error) console.log("Erreur SELECT annonce:", error); // Debug annonce
     if (data && data.length > 0) {
       document.getElementById('annonce-block').innerHTML =
         `<div class="annonce-text">${data[0].content}</div>`;
@@ -89,6 +170,7 @@
       .from('message')
       .select('*')
       .order('created_at', { ascending: true });
+    if (error) console.log("Erreur SELECT messages:", error); // Debug messages SELECT
     renderMessages(data || []);
   }
 
@@ -97,7 +179,8 @@
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
     if (!currentPseudo || !content) return alert("Pseudo et message requis !");
-    await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+    const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+    if (error) console.log("Erreur INSERT message:", error); // Debug message INSERT
     input.value = "";
   }
 
@@ -133,110 +216,5 @@
     box.scrollTop = box.scrollHeight;
   }
 </script>
-<style>
-  .chat-container {
-    max-width: 540px;
-    margin: 2rem auto;
-    padding: 1rem;
-    background: #222;
-    border-radius: 16px;
-    box-shadow: 0 2px 20px #000a;
-    font-family: 'Segoe UI', Arial, sans-serif;
-  }
-  .annonce-block {
-    background: #ffc400;
-    color: #222;
-    border-radius: 12px;
-    padding: 0.5em 1em;
-    margin-bottom: 1em;
-    font-weight: bold;
-    box-shadow: 0 1px 7px #0001;
-    text-align: center;
-    font-size: 1.12em;
-  }
-  .messages {
-    min-height: 360px;
-    max-height: 440px;
-    overflow-y: auto;
-    margin-bottom: 1rem;
-    border: 1px solid #2e2e2e;
-    border-radius: 9px;
-    background: #191c1b;
-    padding: 13px 5px 13px 8px;
-    box-shadow: 0 1px 2px #0003;
-  }
-  .bubble-row {
-    display: flex;
-    align-items: flex-start;
-    margin: 0.5rem 0;
-  }
-  .avatar {
-    flex: none;
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    color: #222;
-    font-weight: bold;
-    font-size: 1.3em;
-    text-align: center;
-    line-height: 38px;
-    margin-right: 9px;
-    box-shadow: 0 2px 7px #0002;
-    border: 2px solid #fff2;
-  }
-  .bubble {
-    background: #fff;
-    color: #21292c;
-    padding: 9px 14px 8px 14px;
-    border-radius: 16px 18px 18px 5px;
-    min-width: 70px;
-    max-width: 75%;
-    box-shadow: 0 1px 4px #0001;
-    position: relative;
-    margin-left: 0;
-    word-break: break-word;
-  }
-  .bubble-header {
-    display: flex; align-items: center; gap: 0.7em; margin-bottom: 2px;
-  }
-  .bubble-text {
-    font-size: 1.11em;
-    margin-top: 1px;
-    padding-left: 1px;
-  }
-  .pseudo {
-    font-weight: 600;
-    color: #348e51;
-    letter-spacing: 0.03em;
-  }
-  .date {
-    color: #777;
-    font-size: 0.84em;
-    margin-left: 2px;
-  }
-  .input-row {
-    display: flex; gap: .7rem;
-  }
-  input, button {
-    font-size: 1em;
-    border-radius: 6px;
-    border: none;
-    padding: .5em;
-  }
-  button {
-    background: #1de9a5;
-    color: #111;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background .2s;
-  }
-  button:hover {
-    background: #13b176;
-  }
-  @media (max-width: 640px) {
-    .chat-container { max-width: 99vw; padding: 2vw;}
-    .bubble { max-width: 99vw;}
-  }
-</style>
-  </script>
 </body>
 </html>
