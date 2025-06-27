@@ -4,6 +4,38 @@
   <meta charset="UTF-8">
   <title>Tchat SUPABASE TEST</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+  <style>
+#result {
+  margin-top: 1em;
+  min-height: 100px;
+}
+.msg-bubble {
+  max-width: 75%;
+  margin: 0.5em 0;
+  padding: 0.7em 1em;
+  border-radius: 1.4em;
+  box-shadow: 0 2px 8px #0003;
+  font-size: 1.05em;
+  display: inline-block;
+  word-break: break-word;
+}
+.msg-me {
+  background: linear-gradient(90deg, #ffe259, #ffa751);
+  color: #222;
+  margin-left: 18%;
+  text-align: right;
+  float: right;
+  clear: both;
+}
+.msg-other {
+  background: #444;
+  color: #fff;
+  margin-right: 18%;
+  text-align: left;
+  float: left;
+  clear: both;
+}
+  </style>
 </head>
 <body style="background:#222;color:#fff;font-family:sans-serif;">
   <div style="margin:2em auto;max-width:500px;padding:2em;background:#333;border-radius:8px;">
