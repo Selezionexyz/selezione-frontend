@@ -45,7 +45,8 @@
     </div>
   </div>
 <script>
-  alert("Script chargé !"); // DEBUG: Affichage si le script est bien exécuté
+  // DEBUG 0 : Script chargé
+  alert("Script chargé !");
 
   // --- À PERSONNALISER ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
@@ -63,21 +64,27 @@
 
   // Charger et afficher la dernière annonce
   async function loadAnnonce() {
-    const { data, error } = await supabase
-      .from('annonce')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(1);
-    if (data && data.length > 0) {
-      document.getElementById('annonce-block').innerHTML =
-        `<div class="annonce-text">${data[0].content}</div>`;
-    } else {
-      document.getElementById('annonce-block').innerHTML = "";
+    try {
+      const { data, error } = await supabase
+        .from('annonce')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      if (error) alert("Erreur Annonce: " + error.message);
+      if (data && data.length > 0) {
+        document.getElementById('annonce-block').innerHTML =
+          `<div class="annonce-text">${data[0].content}</div>`;
+      } else {
+        document.getElementById('annonce-block').innerHTML = "";
+      }
+    } catch (e) {
+      alert("Exception Annonce: " + e.message);
     }
   }
 
   // Entrée dans le chat
   async function enterChat() {
+    alert("Entrée dans le chat appelée");
     const pseudo = document.getElementById('pseudo').value.trim();
     if (!pseudo) {
       alert("Choisis un pseudo pour entrer dans le tchat !");
@@ -89,28 +96,41 @@
     await loadMessages();
     subscribeMessages();
     loadAnnonce();
+    alert("Chat chargé !");
   }
 
   // Affiche tous les messages
   async function loadMessages() {
-    const { data, error } = await supabase
-      .from('message')
-      .select('*')
-      .order('created_at', { ascending: true });
-    renderMessages(data || []);
+    try {
+      const { data, error } = await supabase
+        .from('message')
+        .select('*')
+        .order('created_at', { ascending: true });
+      if (error) alert("Erreur LoadMessages: " + error.message);
+      renderMessages(data || []);
+    } catch (e) {
+      alert("Exception loadMessages: " + e.message);
+    }
   }
 
   // Envoie un message
   async function sendMessage() {
+    alert("sendMessage appelée");
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
     if (!currentPseudo || !content) return alert("Pseudo et message requis !");
-    await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
-    input.value = "";
+    try {
+      let { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+      if (error) alert("Erreur SendMessage: " + error.message);
+      input.value = "";
+    } catch (e) {
+      alert("Exception sendMessage: " + e.message);
+    }
   }
 
   // Écoute en temps réel les nouveaux messages
   function subscribeMessages() {
+    alert("Souscription temps réel messages");
     supabase
       .channel('public:message')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
