@@ -2,44 +2,25 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tchat TEST MINIMAL</title>
+  <title>Test Container</title>
   <style>
     body { background: #111; color: #fff; font-family: Arial, sans-serif; }
-    .container { margin: 40px auto; max-width: 400px; background: #222; border-radius: 8px; padding: 2em; }
-    #chat-block { display: none; }
-    .bubble { background: #fff; color: #21292c; border-radius: 12px; margin: 8px 0; padding: 8px 14px; }
+    .container {
+      margin: 40px auto;
+      max-width: 400px;
+      background: red !important;
+      border-radius: 8px;
+      padding: 4em !important;
+      border: 6px solid yellow !important;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="pseudo-row">
-      <input type="text" id="pseudo" placeholder="Ton pseudo" />
-      <button onclick="enterChat()">Entrer</button>
-    </div>
-    <div id="chat-block">
-      <h3>Bienvenue dans le chat !</h3>
-      <div id="messages"></div>
-      <div>
-        <input type="text" id="msg-input" placeholder="Message..." />
-        <button onclick="sendFakeMessage()">Envoyer</button>
-      </div>
-    </div>
+    <h2>TEST RECTANGLE</h2>
+    <p>Si tu vois ce rectangle rouge, le HTML/CSS fonctionne !</p>
+    <input type="text" placeholder="Essaye d'écrire ici">
+    <button>Tester</button>
   </div>
-  <script>
-    function enterChat() {
-      const pseudo = document.getElementById('pseudo').value.trim();
-      if(!pseudo) { alert('Pseudo obligatoire'); return; }
-      document.getElementById('pseudo-row').style.display = "none";
-      document.getElementById('chat-block').style.display = "";
-      document.getElementById('messages').innerHTML = '<div class="bubble">Message de test du système.</div>';
-    }
-    function sendFakeMessage() {
-      const val = document.getElementById('msg-input').value.trim();
-      if(val) {
-        document.getElementById('messages').innerHTML += `<div class="bubble">${val}</div>`;
-        document.getElementById('msg-input').value = '';
-      }
-    }
-  </script>
 </body>
 </html>
