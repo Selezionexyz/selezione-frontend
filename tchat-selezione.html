@@ -21,7 +21,7 @@
     button { background: #1de9a5; color: #111; font-weight: bold; cursor: pointer; transition: background .2s;}
     button:hover { background: #13b176; }
     #pseudo-row {margin-bottom: 1.2em;}
-    #debug { background: #c32d2d; color: #fff; font-weight: bold; border-radius: 7px; padding: 0.6em 1em; margin-bottom: 1em; box-shadow:0 0 8px #0003;}
+    #debug {background:#c62828; color:#fff; border-radius:10px; margin-bottom:15px; font-size:1.12em; padding:15px 17px 7px 13px; font-weight:bold;}
     @media (max-width: 640px) {
       .chat-container { max-width: 99vw; padding: 2vw;}
       .bubble { max-width: 99vw;}
@@ -99,12 +99,23 @@
     }
     currentPseudo = pseudo;
     debug("Pseudo validé : " + currentPseudo);
-    document.getElementById('pseudo-row').style.display = "none";
-    document.getElementById('chat-block').style.display = "";
-    await loadMessages();
-    subscribeMessages();
-    loadAnnonce();
-    debug("Entrée dans le chat faite");
+
+    try {
+      document.getElementById('pseudo-row').style.display = "none";
+      debug("pseudo-row masqué");
+      document.getElementById('chat-block').style.display = "";
+      debug("chat-block affiché");
+
+      await loadMessages();
+      debug("Messages chargés !");
+      subscribeMessages();
+      debug("Abonnement realtime OK");
+      loadAnnonce();
+      debug("Annonce load appelée");
+      debug("Entrée dans le chat terminée !");
+    } catch(e) {
+      debug("EXCEPTION dans enterChat : " + e);
+    }
   }
 
   async function loadMessages() {
