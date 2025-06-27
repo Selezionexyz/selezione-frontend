@@ -2,39 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tchat SUPABASE TEST</title>
+  <title>Tchat SELEZIONE PRO</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
-#result {
-  margin-top: 1em;
-  min-height: 100px;
-}
-.msg-bubble {
-  max-width: 75%;
-  margin: 0.5em 0;
-  padding: 0.7em 1em;
-  border-radius: 1.4em;
-  box-shadow: 0 2px 8px #0003;
-  font-size: 1.05em;
-  display: inline-block;
-  word-break: break-word;
-}
-.msg-me {
-  background: linear-gradient(90deg, #ffe259, #ffa751);
-  color: #222;
-  margin-left: 18%;
-  text-align: right;
-  float: right;
-  clear: both;
-}
-.msg-other {
-  background: #444;
-  color: #fff;
-  margin-right: 18%;
-  text-align: left;
-  float: left;
-  clear: both;
-  body {
+body {
   background: #191919;
   color: #fff;
   font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
@@ -123,16 +95,16 @@ button {
 }
   </style>
 </head>
-<body style="background:#222;color:#fff;font-family:sans-serif;">
+<body>
   <div style="margin:2em auto;max-width:500px;padding:2em;background:#333;border-radius:8px;">
     <div id="tchat-header">
-  <span class="avatar">👑</span>
-  Tchat SELEZIONE PRO
+      <span class="avatar">👑</span>
+      Tchat SELEZIONE PRO
     </div>
     <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione"/>
     <input type="text" id="msg" placeholder="Message" value="Coucou"/>
     <button onclick="envoyer()">Envoyer</button>
-    <div id="result" style="margin-top:1em;"></div>
+    <div id="result"></div>
     <div id="debug" style="margin-top:1em;color:#ffb300;"></div>
   </div>
   <script>
@@ -141,36 +113,30 @@ button {
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // -- Test lecture dès le chargement
-    document.addEventListener("DOMContentLoaded", async () => {
-      document.getElementById('debug').innerText = "Lecture des messages...";
+    // Fonction affichage messages
+    async function afficherMessages() {
       const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
-      if (error) {
-        document.getElementById('debug').innerText = "Erreur Supabase : " + error.message;
-      } else {
-        document.getElementById('debug').innerText = "Connexion OK. Nb messages : " + (data?.length || 0);
-        // Affiche les messages
-        const me = document.getElementById('pseudo').value;
-        document.getElementById('result').innerHTML = ""; // Vide avant d'ajouter
+      const me = document.getElementById('pseudo').value;
+      document.getElementById('result').innerHTML = "";
+      if (data) {
         data.forEach(m => {
           const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
           document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;
         });
       }
-    });
+      document.getElementById('debug').innerText = error ? "Erreur Supabase : " + error.message : "";
+    }
+
+    document.addEventListener("DOMContentLoaded", afficherMessages);
 
     // -- Envoi d'un message
     async function envoyer() {
       const pseudo = document.getElementById('pseudo').value;
       const msg = document.getElementById('msg').value;
       if(!pseudo || !msg) return;
-      // Ajoute visuellement dans le style bulle
-      const classe = "msg-bubble msg-me";
-      document.getElementById('result').innerHTML += `<div class="${classe}"><b>${pseudo}</b><br>${msg}</div>`;
+      await supabase.from('message').insert([{ pseudo, content: msg }]);
       document.getElementById('msg').value = '';
-      // Ajoute en base
-      const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
-      if (error) alert("Erreur lors de l'envoi: "+error.message);
+      afficherMessages();
     }
   </script>
 </body>
