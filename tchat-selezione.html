@@ -1,177 +1,127 @@
-Tu et sur que ces ok ??? Ta bien vérifier .
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Tchat SELEZIONE PRO</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+  <style>
+    /* Ton ancien CSS (bulles + base) reste ici… */
+    /* … */
 
-<!DOCTYPE html>  <html lang="fr">  
-<head>  
-  <meta charset="UTF-8">  
-  <title>Tchat SUPABASE TEST</title>  
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>  
-  <style>  
-#result {  
-  margin-top: 1em;  
-  min-height: 100px;  
-}  
-.msg-bubble {  
-  max-width: 75%;  
-  margin: 0.5em 0;  
-  padding: 0.7em 1em;  
-  border-radius: 1.4em;  
-  box-shadow: 0 2px 8px #0003;  
-  font-size: 1.05em;  
-  display: inline-block;  
-  word-break: break-word;  
-}  
-.msg-me {  
-  background: linear-gradient(90deg, #ffe259, #ffa751);  
-  color: #222;  
-  margin-left: 18%;  
-  text-align: right;  
-  float: right;  
-  clear: both;  
-}  
-.msg-other {  
-  background: #444;  
-  color: #fff;  
-  margin-right: 18%;  
-  text-align: left;  
-  float: left;  
-  clear: both;  
-  body {  
-  background: #191919;  
-  color: #fff;  
-  font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;  
-}  
-#tchat-header {  
-  background: linear-gradient(90deg, #ffe259, #ffa751);  
-  color: #191919;  
-  padding: 1em 1.5em;  
-  border-radius: 18px 18px 0 0;  
-  font-weight: bold;  
-  font-size: 1.25em;  
-  display: flex;  
-  align-items: center;  
-  gap: .8em;  
-  margin-bottom: 0.3em;  
-  letter-spacing: 0.5px;  
-}  
-#tchat-header .avatar {  
-  background: #fff3;  
-  border-radius: 50%;  
-  width: 38px;  
-  height: 38px;  
-  display: flex;  
-  align-items: center;  
-  justify-content: center;  
-  font-size: 1.35em;  
-  color: #ffe259;  
-}  
-#result {  
-  margin-top: 1em;  
-  min-height: 100px;  
-  max-height: 350px;  
-  overflow-y: auto;  
-  padding: .5em .2em;  
-}  
-.msg-bubble {  
-  max-width: 72%;  
-  margin: 0.35em 0;  
-  padding: 0.68em 1.08em;  
-  border-radius: 1.7em;  
-  font-size: 1.11em;  
-  word-break: break-word;  
-  box-shadow: 0 1px 8px #0004;  
-  display: inline-block;  
-  position: relative;  
-  min-width: 68px;  
-}  
-.msg-me {  
-  background: linear-gradient(90deg, #ffe259 55%, #ffa751 100%);  
-  color: #191919;  
-  margin-left: 26%;  
-  text-align: right;  
-  float: right;  
-  clear: both;  
-  border: 2px solid #ffe25944;  
-}  
-.msg-other {  
-  background: #252525;  
-  color: #fff;  
-  margin-right: 26%;  
-  text-align: left;  
-  float: left;  
-  clear: both;  
-  border: 2px solid #ffe25926;  
-}  
-input[type="text"] {  
-  background: #232323;  
-  border: 1px solid #ffe25944;  
-  color: #fff;  
-  padding: .7em 1em;  
-  border-radius: 10px;  
-  outline: none;  
-  margin-bottom: 0.4em;  
-  font-size: 1em;  
-  margin-right: 6px;  
-}  
-button {  
-  background: linear-gradient(90deg, #ffe259 60%, #ffa751 100%);  
-  color: #181818;  
-  font-weight: bold;  
-  border: none;  
-  border-radius: 10px;  
-  padding: .7em 2.3em;  
-  font-size: 1.08em;  
-  cursor: pointer;  
-}  
-  </style>  
-</head>  
-<body style="background:#222;color:#fff;font-family:sans-serif;">  
-  <div style="margin:2em auto;max-width:500px;padding:2em;background:#333;border-radius:8px;">  
-    <div id="tchat-header">  
-  <span class="avatar">👑</span>  
-  Tchat SELEZIONE PRO  
-    </div>  
-    <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione"/>  
-    <input type="text" id="msg" placeholder="Message" value="Coucou"/>  
-    <button onclick="envoyer()">Envoyer</button>  
-    <div id="result" style="margin-top:1em;"></div>  
-    <div id="debug" style="margin-top:1em;color:#ffb300;"></div>  
-  </div>  
-  <script>  
-    // -- Config Supabase  
-    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";  
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";  
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);  // -- Test lecture dès le chargement  
-document.addEventListener("DOMContentLoaded", async () => {  
-  document.getElementById('debug').innerText = "Lecture des messages...";  
-  const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });  
-  if (error) {  
-    document.getElementById('debug').innerText = "Erreur Supabase : " + error.message;  
-  } else {  
-    document.getElementById('debug').innerText = "Connexion OK. Nb messages : " + (data?.length || 0);  
-    // Affiche les messages  
-    const me = document.getElementById('pseudo').value;  
-    document.getElementById('result').innerHTML = ""; // Vide avant d'ajouter  
-    data.forEach(m => {  
-      const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";  
-      document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;  
-    });  
-  }  
-});  
+    /* === UX Sélezione PRO === */
+    .tchat-card {
+      background: #1f1f1f;
+      border-radius: 18px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+    }
+    #tchat-header {
+      border-radius: 18px 18px 0 0;
+      background: linear-gradient(90deg, #fbb034, #ffdd00);
+      color: #222;
+      padding: 1.2em 1.3em;
+      display: flex; align-items: center; gap: .8em;
+      font-weight: bold; font-size: 1.2em;
+      letter-spacing: .5px;
+    }
+    .tchat-form {
+      margin-top: 1em;
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 0.6em;
+      align-items: center;
+    }
+    .tchat-form input[type="text"] {
+      background: #191919;
+      border: 2px solid transparent;
+      color: #fff;
+      padding: .75em 1em;
+      border-radius: 10px;
+      font-size: 1em;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .tchat-form input[type="text"]:focus {
+      border-color: #fbb034;
+    }
+    .tchat-form button {
+      background: linear-gradient(90deg, #ffe259 60%, #ffa751 100%);
+      color: #181818;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      padding: .75em 2.2em;
+      font-size: 1.05em;
+      cursor: pointer;
+      transition: filter .15s;
+    }
+    .tchat-form button:hover {
+      filter: brightness(1.1);
+    }
+    #result {
+      margin: 0 1.5em 1em 1.5em;
+      background: #161616;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: .8em;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: inset 0 2px 6px #0004;
+    }
+    /* Scrollbar + debug restent identiques… */
+  </style>
+</head>
+<body style="background:#181818;color:#fff;font-family:'Outfit','Segoe UI',Arial,sans-serif;">
+  <div class="tchat-card" style="margin:2em auto;max-width:500px;padding:0;">
+    <div id="tchat-header">
+      <span class="avatar">👑</span>
+      Tchat SELEZIONE PRO
+    </div>
+    <div class="tchat-form" style="padding:1.5em;">
+      <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="off"/>
+      <input type="text" id="msg" placeholder="Message" autocomplete="off"/>
+      <button onclick="envoyer()">Envoyer</button>
+    </div>
+    <div id="result"></div>
+    <div id="debug" style="margin-top:.8em;color:#ffb300;"></div>
+  </div>
 
-// -- Envoi d'un message  
-async function envoyer() {  
-  const pseudo = document.getElementById('pseudo').value;  
-  const msg = document.getElementById('msg').value;  
-  if(!pseudo || !msg) return;  
-  // Ajoute visuellement dans le style bulle  
-  const classe = "msg-bubble msg-me";  
-  document.getElementById('result').innerHTML += `<div class="${classe}"><b>${pseudo}</b><br>${msg}</div>`;  
-  document.getElementById('msg').value = '';  
-  // Ajoute en base  
-  const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);  
-  if (error) alert("Erreur lors de l'envoi: "+error.message);  
-}
+  <script>
+    // -- Config Supabase
+    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+    const SUPABASE_KEY = "eyJhbGci…"; // ta key
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  </script>  
-</body>  
+    // -- Lecture des messages
+    document.addEventListener("DOMContentLoaded", async () => {
+      document.getElementById('debug').innerText = "Lecture des messages…";
+      const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
+      if (error) {
+        document.getElementById('debug').innerText = "Erreur : " + error.message;
+      } else {
+        const me = document.getElementById('pseudo').value;
+        document.getElementById('result').innerHTML = "";
+        data.forEach(m => {
+          const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
+          document.getElementById('result').innerHTML += 
+            `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;
+        });
+        document.getElementById('debug').innerText = `OK – ${data.length} msg.`;
+      }
+    });
+
+    // -- Envoi d'un message
+    async function envoyer() {
+      const pseudo = document.getElementById('pseudo').value;
+      const msg = document.getElementById('msg').value;
+      if (!pseudo || !msg) return;
+      // Affichage local
+      document.getElementById('result').innerHTML += 
+        `<div class="msg-bubble msg-me"><b>${pseudo}</b><br>${msg}</div>`;
+      document.getElementById('msg').value = '';
+      // En base
+      const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
+      if (error) alert("Erreur : "+error.message);
+    }
+  </script>
+</body>
 </html>
