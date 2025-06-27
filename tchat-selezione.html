@@ -21,6 +21,7 @@
     button { background: #1de9a5; color: #111; font-weight: bold; cursor: pointer; transition: background .2s;}
     button:hover { background: #13b176; }
     #pseudo-row {margin-bottom: 1.2em;}
+    #debug { background: #c32d2d; color: #fff; font-weight: bold; border-radius: 7px; padding: 0.6em 1em; margin-bottom: 1em; box-shadow:0 0 8px #0003;}
     @media (max-width: 640px) {
       .chat-container { max-width: 99vw; padding: 2vw;}
       .bubble { max-width: 99vw;}
@@ -30,6 +31,7 @@
 </head>
 <body>
   <div class="chat-container">
+    <div id="debug"></div>
     <div id="annonce-block" class="annonce-block"></div>
     <h2>💬 Tchat SELEZIONE</h2>
     <div id="pseudo-row">
@@ -45,7 +47,12 @@
     </div>
   </div>
 <script>
-  alert("Script chargé !"); // DEBUG
+  // Debug utilitaire
+  function debug(msg) {
+    document.getElementById("debug").innerHTML += `<div>${msg}</div>`;
+    console.log("[DEBUG]", msg);
+  }
+  debug("Script chargé !");
 
   // --- À PERSONNALISER ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
@@ -54,83 +61,91 @@
 
   let currentPseudo = "";
 
-  // Génère une couleur à partir du pseudo (pour l'avatar)
   function getColor(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
     return `hsl(${hash % 360}, 80%, 60%)`;
   }
 
-  // Charger et afficher la dernière annonce
   async function loadAnnonce() {
-    const { data, error } = await supabase
-      .from('annonce')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(1);
-    if (data && data.length > 0) {
-      document.getElementById('annonce-block').innerHTML =
-        `<div class="annonce-text">${data[0].content}</div>`;
-    } else {
-      document.getElementById('annonce-block').innerHTML = "";
+    debug("Appel loadAnnonce");
+    try {
+      const { data, error } = await supabase
+        .from('annonce')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      if (data && data.length > 0) {
+        document.getElementById('annonce-block').innerHTML =
+          `<div class="annonce-text">${data[0].content}</div>`;
+        debug("Annonce chargée.");
+      } else {
+        document.getElementById('annonce-block').innerHTML = "";
+        debug("Aucune annonce.");
+      }
+    } catch(e) {
+      debug("Erreur loadAnnonce : " + e);
     }
   }
 
-  // Entrée dans le chat
   async function enterChat() {
+    debug("Entrée dans la fonction enterChat");
     const pseudo = document.getElementById('pseudo').value.trim();
+    debug("Pseudo saisi : " + pseudo);
     if (!pseudo) {
+      debug("Pseudo vide !");
       alert("Choisis un pseudo pour entrer dans le tchat !");
       return;
     }
     currentPseudo = pseudo;
+    debug("Pseudo validé : " + currentPseudo);
     document.getElementById('pseudo-row').style.display = "none";
     document.getElementById('chat-block').style.display = "";
-    alert("Entrée dans le chat appelée"); // DEBUG
     await loadMessages();
     subscribeMessages();
     loadAnnonce();
+    debug("Entrée dans le chat faite");
   }
 
-  // FONCTION DEBUG loadMessages
   async function loadMessages() {
-    alert("Début loadMessages()");
+    debug("Chargement des messages");
     try {
       const { data, error } = await supabase
         .from('message')
         .select('*')
         .order('created_at', { ascending: true });
-      if (error) {
-        alert("Erreur messages: " + error.message);
-        return;
-      }
-      alert("Données reçues: " + JSON.stringify(data));
+      if(error) debug("Erreur loadMessages : " + error.message);
       renderMessages(data || []);
-      alert("Messages affichés !");
+      debug("Messages chargés");
     } catch(e) {
-      alert("Exception loadMessages: " + e.message);
+      debug("Exception loadMessages : " + e);
     }
   }
 
-  // Envoie un message
   async function sendMessage() {
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
-    if (!currentPseudo || !content) return alert("Pseudo et message requis !");
+    debug("sendMessage: Pseudo = " + currentPseudo + ", Content = " + content);
+    if (!currentPseudo || !content) {
+      debug("Champ pseudo ou message vide !");
+      alert("Pseudo et message requis !");
+      return;
+    }
     await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
     input.value = "";
+    debug("Message envoyé");
   }
 
-  // Écoute en temps réel les nouveaux messages
   function subscribeMessages() {
+    debug("Abonnement realtime messages");
     supabase
       .channel('public:message')
       .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
       .subscribe();
   }
 
-  // Rendu visuel des messages avec bulles et avatars
   function renderMessages(messages) {
+    debug("Rendu messages : " + messages.length + " trouvés");
     const box = document.getElementById('messages');
     box.innerHTML = "";
     messages.forEach(msg => {
