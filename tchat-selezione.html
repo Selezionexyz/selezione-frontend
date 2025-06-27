@@ -5,21 +5,19 @@
   <title>Tchat SELEZIONE PRO</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
   <style>
-    /* === Reset & full-page === */
-    * { box-sizing: border-box; }
+    /* Reset & full-page centering */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       height: 100%;
-      margin: 0;
       background: #121212;
       color: #fff;
       font-family: 'Outfit','Segoe UI',Arial,sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 1em;
     }
 
-    /* === Container principal === */
+    /* Container principal */
     .tchat-card {
       width: 90vw;
       max-width: 600px;
@@ -32,7 +30,7 @@
       overflow: hidden;
     }
 
-    /* === En-tête === */
+    /* Header */
     #tchat-header {
       background: linear-gradient(90deg, #fbb034, #ffdd00);
       color: #222;
@@ -47,7 +45,8 @@
     }
     .avatar {
       background: rgba(255,255,255,0.3);
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -55,7 +54,7 @@
       font-size: 1.4em;
     }
 
-    /* === Zone de messages (scroll) === */
+    /* Zone de messages */
     #result {
       flex: 1;
       margin: 0 1.5em;
@@ -66,7 +65,6 @@
       overflow-y: auto;
       box-shadow: inset 0 2px 6px rgba(0,0,0,0.4);
     }
-    /* Scrollbar perso */
     #result::-webkit-scrollbar {
       width: 8px;
     }
@@ -79,49 +77,7 @@
       border-radius: 4px;
     }
 
-    /* === Formulaire sticky === */
-    .tchat-form {
-      position: sticky;
-      bottom: 0;
-      background: #1f1f1f;
-      padding: 1em 1.5em;
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 0.6em;
-      align-items: center;
-      box-shadow: 0 -4px 8px rgba(0,0,0,0.5);
-      z-index: 10;
-    }
-    .tchat-form input[type="text"] {
-      background: #191919;
-      border: 2px solid transparent;
-      color: #fff;
-      padding: .7em 1em;
-      border-radius: 10px;
-      font-size: 1em;
-      outline: none;
-      transition: border-color .2s;
-    }
-    .tchat-form input[type="text"]:focus {
-      border-color: #fbb034;
-    }
-    .tchat-form button {
-      background: linear-gradient(90deg, #ffe259 60%, #ffa751 100%);
-      color: #181818;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      padding: .7em 1.5em;
-      font-size: 1.05em;
-      cursor: pointer;
-      transition: filter .15s;
-      border-top-left-radius: 0; /* style WhatsApp */
-    }
-    .tchat-form button:hover {
-      filter: brightness(1.1);
-    }
-
-    /* === Bulles WhatsApp === */
+    /* Bulles style WhatsApp */
     .msg-bubble {
       position: relative;
       padding: .7em 1em;
@@ -164,7 +120,48 @@
       margin-bottom: -6px;
     }
 
-    /* === Debug de connexion === */
+    /* Formulaire sticky */
+    .tchat-form {
+      position: sticky;
+      bottom: 0;
+      background: #1f1f1f;
+      padding: 1em 1.5em;
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: .6em;
+      align-items: center;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.5);
+      z-index: 10;
+    }
+    .tchat-form input[type="text"] {
+      background: #191919;
+      border: 2px solid transparent;
+      color: #fff;
+      padding: .7em 1em;
+      border-radius: 10px;
+      font-size: 1em;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .tchat-form input[type="text"]:focus {
+      border-color: #fbb034;
+    }
+    .tchat-form button {
+      background: linear-gradient(90deg, #ffe259 60%, #ffa751 100%);
+      color: #181818;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px 10px 10px 0;
+      padding: .7em 1.5em;
+      font-size: 1.05em;
+      cursor: pointer;
+      transition: filter .15s;
+    }
+    .tchat-form button:hover {
+      filter: brightness(1.1);
+    }
+
+    /* Debug */
     #debug {
       margin: .8em 1.5em;
       color: #ffb300;
@@ -172,32 +169,28 @@
     }
   </style>
 </head>
-
 <body>
   <div class="tchat-card">
     <div id="tchat-header">
       <span class="avatar">👑</span>
       Tchat SELEZIONE PRO
     </div>
-
     <div id="result"></div>
-
     <div class="tchat-form">
       <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="off"/>
       <input type="text" id="msg" placeholder="Message" autocomplete="off"/>
       <button onclick="envoyer()">Envoyer</button>
     </div>
-
     <div id="debug"></div>
   </div>
 
   <script>
-    // -- Configuration Supabase
+    // Config Supabase
     const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-    const SUPABASE_KEY = "eyJhbGci…"; // remplace par ta key
+    const SUPABASE_KEY = "eyJhbGci…"; // TA KEY
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // -- Affiche les messages et scroll en bas
+    // Affichage messages
     async function afficherMessages() {
       document.getElementById('debug').innerText = "Chargement…";
       const { data, error } = await supabase
@@ -208,31 +201,31 @@
         document.getElementById('debug').innerText = "Erreur : " + error.message;
         return;
       }
-      const me = document.getElementById('pseudo').value;
-      const wrap = document.getElementById('result');
-      wrap.innerHTML = "";
+      const me = document.getElementById('pseudo').value.trim();
+      const container = document.getElementById('result');
+      container.innerHTML = "";
       data.forEach(m => {
         const cls = m.pseudo === me
           ? "msg-bubble msg-me"
           : "msg-bubble msg-other";
-        wrap.innerHTML += `<div class="${cls}"><b>${m.pseudo}</b><br>${m.content}</div>`;
+        container.innerHTML += `<div class="${cls}"><b>${m.pseudo}</b><br>${m.content}</div>`;
       });
-      wrap.scrollTop = wrap.scrollHeight;
+      container.scrollTop = container.scrollHeight;
       document.getElementById('debug').innerText = `OK — ${data.length} msg`;
     }
 
-    // -- Au chargement initial
+    // Au chargement
     document.addEventListener("DOMContentLoaded", afficherMessages);
 
-    // -- Envoie un message
+    // Envoi message
     async function envoyer() {
       const pseudo = document.getElementById('pseudo').value.trim();
       const msg    = document.getElementById('msg').value.trim();
       if (!pseudo || !msg) return;
       // Affichage local
-      const wrap = document.getElementById('result');
-      wrap.innerHTML += `<div class="msg-bubble msg-me"><b>${pseudo}</b><br>${msg}</div>`;
-      wrap.scrollTop = wrap.scrollHeight;
+      const container = document.getElementById('result');
+      container.innerHTML += `<div class="msg-bubble msg-me"><b>${pseudo}</b><br>${msg}</div>`;
+      container.scrollTop = container.scrollHeight;
       document.getElementById('msg').value = "";
       // Envoi Supabase
       const { error } = await supabase
