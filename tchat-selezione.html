@@ -139,5 +139,35 @@ button {
       afficherMessages();
     }
   </script>
+  <script>
+  // -- Config Supabase
+  const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // -- Affiche messages
+  async function afficherMessages() {
+    const { data } = await supabase.from('message').select('*').order('created_at', { ascending: true });
+    const me = document.getElementById('pseudo').value;
+    document.getElementById('result').innerHTML = "";
+    if (data) {
+      data.forEach(m => {
+        const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
+        document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;
+      });
+    }
+  }
+  document.addEventListener("DOMContentLoaded", afficherMessages);
+
+  // -- Envoi d'un message
+  async function envoyer() {
+    const pseudo = document.getElementById('pseudo').value;
+    const msg = document.getElementById('msg').value;
+    if(!pseudo || !msg) return;
+    await supabase.from('message').insert([{ pseudo, content: msg }]);
+    document.getElementById('msg').value = '';
+    afficherMessages();
+  }
+  </script>
 </body>
 </html>
