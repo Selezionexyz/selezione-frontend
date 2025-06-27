@@ -5,6 +5,37 @@
   <title>Tchat SUPABASE TEST</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 </head>
+  <style>
+  #result {
+    margin-top: 2em;
+    min-height: 250px;
+    padding-bottom: 1em;
+  }
+  .msg-bubble {
+    max-width: 80%;
+    margin: 8px 0;
+    padding: 10px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 1.05em;
+    word-break: break-word;
+  }
+  .msg-me {
+    background: linear-gradient(90deg,#f6d365 0%,#fda085 100%);
+    color: #1a1a1a;
+    align-self: flex-end;
+    float: right;
+    clear: both;
+  }
+  .msg-other {
+    background: #333;
+    color: #fff;
+    align-self: flex-start;
+    float: left;
+    clear: both;
+    border: 1px solid #666;
+  }
+  </style>
 <body style="background:#222;color:#fff;font-family:sans-serif;">
   <div style="margin:2em auto;max-width:500px;padding:2em;background:#333;border-radius:8px;">
     <h2>Tchat SUPABASE TEST</h2>
@@ -29,11 +60,11 @@
       } else {
         document.getElementById('debug').innerText = "Connexion OK. Nb messages : " + (data?.length || 0);
         // Affiche les messages
-        data.forEach(m => {
-          document.getElementById('result').innerHTML += `<div><b>${m.pseudo}</b> : ${m.content}</div>`;
-        });
-      }
-    });
+        const me = document.getElementById('pseudo').value;
+data.forEach(m => {
+  const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
+  document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;
+});
 
     // -- Envoi d'un message
     async function envoyer() {
