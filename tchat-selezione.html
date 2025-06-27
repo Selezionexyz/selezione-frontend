@@ -2,31 +2,50 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tchat TEST MINIMAL</title>
-  <style>
-    body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; }
-    #container { background: #222; margin: 2em auto; padding: 2em; width: 80%; max-width: 500px; border-radius: 8px; }
-    input, button { padding: .4em; border-radius: 4px; border: none; margin-right: 5px; }
-  </style>
+  <title>Tchat SUPABASE TEST</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 </head>
-<body>
-  <div id="container">
-    <h2>Tchat TEST MINIMAL</h2>
-    <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" />
-    <input type="text" id="msg" placeholder="Message" value="Coucou" />
+<body style="background:#222;color:#fff;font-family:sans-serif;">
+  <div style="margin:2em auto;max-width:500px;padding:2em;background:#333;border-radius:8px;">
+    <h2>Tchat SUPABASE TEST</h2>
+    <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione"/>
+    <input type="text" id="msg" placeholder="Message" value="Coucou"/>
     <button onclick="envoyer()">Envoyer</button>
     <div id="result" style="margin-top:1em;"></div>
+    <div id="debug" style="margin-top:1em;color:#ffb300;"></div>
   </div>
   <script>
-    function envoyer() {
+    // -- Config Supabase
+    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // -- Test lecture dès le chargement
+    document.addEventListener("DOMContentLoaded", async () => {
+      document.getElementById('debug').innerText = "Lecture des messages...";
+      const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
+      if (error) {
+        document.getElementById('debug').innerText = "Erreur Supabase : " + error.message;
+      } else {
+        document.getElementById('debug').innerText = "Connexion OK. Nb messages : " + (data?.length || 0);
+        // Affiche les messages
+        data.forEach(m => {
+          document.getElementById('result').innerHTML += `<div><b>${m.pseudo}</b> : ${m.content}</div>`;
+        });
+      }
+    });
+
+    // -- Envoi d'un message
+    async function envoyer() {
       const pseudo = document.getElementById('pseudo').value;
       const msg = document.getElementById('msg').value;
-      if(!pseudo || !msg) {
-        document.getElementById('result').innerText = "Pseudo et message obligatoires !";
-        return;
-      }
+      if(!pseudo || !msg) return;
+      // Ajoute visuellement
       document.getElementById('result').innerHTML += `<div><b>${pseudo}</b> : ${msg}</div>`;
       document.getElementById('msg').value = '';
+      // Ajoute en base
+      const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
+      if (error) alert("Erreur lors de l'envoi: "+error.message);
     }
   </script>
 </body>
