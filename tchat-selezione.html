@@ -3,48 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Tchat TEST MINIMAL</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+  <style>
+    body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; }
+    #container { background: #222; margin: 2em auto; padding: 2em; width: 80%; max-width: 500px; border-radius: 8px; }
+    input, button { padding: .4em; border-radius: 4px; border: none; margin-right: 5px; }
+  </style>
 </head>
-<body style="background:#111;color:#fff;font-family:sans-serif;">
-  <h2>Tchat TEST MINIMAL</h2>
-  <input type="text" id="pseudo" placeholder="Pseudo">
-  <input type="text" id="msg" placeholder="Message">
-  <button onclick="sendMessage()">Envoyer</button>
-  <div id="erreur" style="color:red;margin-top:10px;"></div>
-  <hr>
-  <div id="messages"></div>
-
-<script>
-const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// Affiche tous les messages
-async function afficherMessages() {
-  document.getElementById('erreur').innerText = '';
-  let { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
-  if(error) return document.getElementById('erreur').innerText = "Erreur chargement : " + error.message;
-  let html = '';
-  (data||[]).forEach(msg => {
-    html += `<div><b>${msg.pseudo || "?"}</b>: ${msg.content}</div>`;
-  });
-  document.getElementById('messages').innerHTML = html;
-}
-
-// Envoie un message
-async function sendMessage() {
-  const pseudo = document.getElementById('pseudo').value.trim();
-  const content = document.getElementById('msg').value.trim();
-  if(!pseudo || !content) return alert('Pseudo et message requis !');
-  let { error } = await supabase.from('message').insert([{ pseudo, content }]);
-  if(error) return document.getElementById('erreur').innerText = "Erreur envoi : " + error.message;
-  document.getElementById('msg').value = '';
-  afficherMessages();
-}
-
-// Rafraîchit toutes les 5 secondes
-setInterval(afficherMessages, 5000);
-afficherMessages();
-</script>
+<body>
+  <div id="container">
+    <h2>Tchat TEST MINIMAL</h2>
+    <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" />
+    <input type="text" id="msg" placeholder="Message" value="Coucou" />
+    <button onclick="envoyer()">Envoyer</button>
+    <div id="result" style="margin-top:1em;"></div>
+  </div>
+  <script>
+    function envoyer() {
+      const pseudo = document.getElementById('pseudo').value;
+      const msg = document.getElementById('msg').value;
+      if(!pseudo || !msg) {
+        document.getElementById('result').innerText = "Pseudo et message obligatoires !";
+        return;
+      }
+      document.getElementById('result').innerHTML += `<div><b>${pseudo}</b> : ${msg}</div>`;
+      document.getElementById('msg').value = '';
+    }
+  </script>
 </body>
 </html>
