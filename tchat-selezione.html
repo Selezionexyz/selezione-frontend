@@ -84,6 +84,7 @@
       gap: 0.5em;
       padding: 1em 1em 0 1em;
       align-items: center;
+      flex-wrap: wrap;
     }
     .chat-input-area input[type="text"] {
       background: #181818;
@@ -113,6 +114,7 @@
       transition: background 0.2s;
       margin-left: 0.5em;
       box-shadow: 0 2px 12px rgba(0,0,0,0.11);
+      flex-shrink: 0;
     }
     .chat-input-area button:active {
       background: #ffe370;
@@ -135,7 +137,8 @@
       Tchat SELEZIONE PRO
     </div>
     <div class="messages-area" id="messages"></div>
-    <form class="chat-input-area" onsubmit="event.preventDefault(); envoyer();">
+    <!-- ON GARDE LE FORM EN LIGNE -->
+    <form class="chat-input-area" id="chatForm">
       <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="username" />
       <input type="text" id="msg" placeholder="Message" autocomplete="off" />
       <button type="submit" id="envoyerBtn">Envoyer</button>
@@ -202,6 +205,12 @@
         await chargerMessages();
       }
     }
+
+    // Interception propre du submit
+    $('#chatForm').addEventListener("submit", function(e) {
+      e.preventDefault();
+      envoyer();
+    });
 
     // ENTER = envoyer
     $('#msg').addEventListener("keydown", e => {
