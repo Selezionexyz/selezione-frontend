@@ -4,199 +4,145 @@
   <meta charset="UTF-8">
   <title>Tchat SELEZIONE PRO</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
-      background: #222;
-      color: #fff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
+    body { background: #181818; color: #fff; font-family: 'Outfit', sans-serif; }
+    .chat-container {
+      margin: 2em auto; max-width: 400px; min-width: 280px;
+      background: #222; border-radius: 24px; box-shadow: 0 6px 28px #0005;
+      padding: 0; overflow: hidden;
     }
-    .tchat-container {
-      max-width: 430px;
-      margin: 3em auto;
-      padding: 0;
-      border-radius: 18px;
-      background: #232323;
-      box-shadow: 0 8px 32px #0008;
-      overflow: hidden;
+    .chat-header {
+      padding: 28px 32px 16px 32px; display: flex; align-items: center;
+      background: linear-gradient(90deg, #FFD600, #CBA600 80%);
+      border-radius: 24px 24px 0 0;
     }
-    .tchat-header {
-      background: linear-gradient(90deg, #ffce36 0%, #b79819 100%);
-      padding: 1.3em 1.3em 1em 1.3em;
-      font-size: 1.2em;
-      font-weight: bold;
-      color: #232323;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 1em;
+    .chat-header .avatar {
+      width: 48px; height: 48px; border-radius: 50%; background: #fff3;
+      display: flex; align-items: center; justify-content: center; margin-right: 18px;
+      font-size: 2em; color: #FFD600;
     }
-    .tchat-header .avatar {
-      background: #fff3c1;
-      border-radius: 50%;
-      color: #b79819;
-      width: 2.1em;
-      height: 2.1em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3em;
-      font-weight: bold;
+    .chat-header span {
+      font-weight: 700; font-size: 1.25em; color: #222;
+      letter-spacing: .5px;
     }
-    .messages {
-      min-height: 310px;
-      max-height: 320px;
-      padding: 1.2em 1em;
-      overflow-y: auto;
-      background: #292929;
-      border-bottom: 1px solid #232323;
-      display: flex;
-      flex-direction: column;
-      gap: .5em;
+    .chat-messages {
+      min-height: 300px; max-height: 320px; overflow-y: auto;
+      background: #232323; padding: 18px 20px 6px 20px;
+      display: flex; flex-direction: column; gap: 12px;
     }
     .bubble {
-      display: inline-block;
-      max-width: 82%;
-      padding: .8em 1.2em;
-      border-radius: 17px;
-      margin-bottom: 0.2em;
-      font-size: 1.05em;
-      word-break: break-word;
-      background: #363636;
-      color: #fff;
+      max-width: 80%; padding: 10px 16px;
+      border-radius: 18px; font-size: 1em; word-break: break-word;
+      margin-bottom: 2px; background: #292929;
+      color: #fff; box-shadow: 0 1px 5px #0002;
       align-self: flex-start;
-      box-shadow: 0 1px 3px #0005;
+      transition: background .2s;
+      position: relative;
     }
     .bubble.me {
-      background: linear-gradient(90deg,#ffde64,#ffc700 70%);
-      color: #292929;
+      background: linear-gradient(90deg, #ffd600 80%, #fff1 100%);
+      color: #222;
       align-self: flex-end;
-      font-weight: 600;
     }
     .bubble .pseudo {
-      font-size: .92em;
-      font-weight: bold;
-      opacity: 0.7;
-      margin-right: .3em;
-      text-shadow: none;
+      font-weight: bold; font-size: .9em; margin-right: 7px; opacity: .7;
     }
-    .tchat-form {
-      display: flex;
-      gap: 0.5em;
-      padding: 1em;
-      background: #232323;
-      border-radius: 0 0 18px 18px;
+    .bubble .date {
+      display: block; font-size: .74em; color: #FFD600;
+      opacity: .6; margin-top: 3px; text-align: right;
     }
-    .tchat-form input[type="text"] {
-      background: #191919;
-      border: none;
-      color: #fff;
-      padding: .85em 1em;
-      border-radius: 8px;
-      font-size: 1em;
-      width: 40%;
-      outline: none;
-      margin-right: 0.5em;
+    .chat-footer {
+      padding: 18px 16px 18px 16px; background: #181818;
+      display: flex; gap: 8px; border-radius: 0 0 24px 24px;
+    }
+    .chat-footer input {
+      background: #232323; color: #fff; border: none; outline: none;
+      border-radius: 8px; padding: 10px 13px; font-size: 1em; width: 30%;
       transition: background .2s;
     }
-    .tchat-form input#msg {
-      width: 100%;
-      margin-right: 0;
+    .chat-footer input#msg { flex: 1 1 auto; width: 100%; }
+    .chat-footer button {
+      background: linear-gradient(90deg, #ffd600 90%, #cba600 100%);
+      border: none; color: #222; font-weight: bold; padding: 12px 24px;
+      border-radius: 8px; font-size: 1.07em; cursor: pointer;
+      transition: box-shadow .1s;
+      box-shadow: 0 2px 8px #0001;
     }
-    .tchat-form button {
-      background: linear-gradient(90deg,#ffd600,#ffc700 80%);
-      color: #232323;
-      font-weight: bold;
-      font-size: 1.13em;
-      border: none;
-      border-radius: 8px;
-      padding: 0 .9em;
-      min-width: 108px;
-      transition: background .22s;
-      cursor: pointer;
-      box-shadow: 0 1px 5px #0003;
-    }
-    .tchat-form button:hover {
-      background: linear-gradient(90deg,#fff18f,#ffdd29 80%);
-    }
-    #debug {
-      color: #ffd600;
-      font-size: .95em;
-      margin-top: 6px;
-      margin-left: 1.4em;
+    .chat-footer button:active { box-shadow: none; }
+    /* Responsive */
+    @media (max-width: 500px) {
+      .chat-container { max-width: 98vw; }
     }
   </style>
 </head>
 <body>
-  <div class="tchat-container">
-    <div class="tchat-header">
-      <div class="avatar">👤</div>
-      Tchat SELEZIONE PRO
+  <div class="chat-container">
+    <div class="chat-header">
+      <span class="avatar">👤</span>
+      <span>Tchat SELEZIONE PRO</span>
     </div>
-    <div class="messages" id="messages"></div>
-    <form class="tchat-form" onsubmit="envoyer();return false;">
-      <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="username" />
-      <input type="text" id="msg" placeholder="Message" autocomplete="off" />
+    <div class="chat-messages" id="result"></div>
+    <form class="chat-footer" onsubmit="envoyer(event)">
+      <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="off"/>
+      <input type="text" id="msg" placeholder="Message" autocomplete="off"/>
       <button type="submit">Envoyer</button>
     </form>
-    <div id="debug"></div>
+    <div id="debug" style="margin:8px 0 2px 10px;color:#FFD600;font-size:.9em;"></div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
   <script>
-    // -- Config Supabase
+    // --- Config Supabase
     const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    let pseudoCourant = document.getElementById('pseudo').value;
 
-    // -- Chargement des messages
+    // --- Chargement messages
     async function chargerMessages() {
-      const pseudoCourant = document.getElementById('pseudo').value;
+      document.getElementById('debug').innerText = "Lecture des messages...";
       const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
-      const zone = document.getElementById('messages');
       if (error) {
-        zone.innerHTML = `<div style="color:#ffd600">Erreur Supabase : ${error.message}</div>`;
-      } else if (!data || data.length === 0) {
-        zone.innerHTML = `<div style="color:#aaa;text-align:center;">Aucun message</div>`;
-      } else {
-        zone.innerHTML = data.map(m =>
-          `<div class="bubble${m.pseudo === pseudoCourant ? ' me' : ''}">
-            <span class="pseudo">${m.pseudo}</span> ${m.content}
-          </div>`
-        ).join('');
-        // Scroll en bas
-        zone.scrollTop = zone.scrollHeight;
+        document.getElementById('debug').innerText = "Erreur Supabase : " + error.message;
+        return;
       }
+      document.getElementById('debug').innerText = "Nb messages : " + (data?.length || 0);
+      const zone = document.getElementById('result');
+      zone.innerHTML = "";
+      data.forEach(m => {
+        zone.innerHTML += `
+          <div class="bubble${m.pseudo === pseudoCourant ? ' me' : ''}">
+            <span class="pseudo">${m.pseudo}</span> ${m.content}
+            <span class="date">${new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+          </div>
+        `;
+      });
+      // Scroll en bas
+      zone.scrollTop = zone.scrollHeight;
     }
 
-    // -- Envoi d'un message
-    async function envoyer() {
+    // --- Envoi d'un message
+    async function envoyer(e) {
+      if(e) e.preventDefault();
       const pseudo = document.getElementById('pseudo').value.trim();
       const msg = document.getElementById('msg').value.trim();
       if(!pseudo || !msg) return;
-      // Ajoute en base
+      pseudoCourant = pseudo;
+      document.getElementById('msg').value = '';
       const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
-      if (error) {
-        document.getElementById('debug').innerText = "Erreur lors de l'envoi: " + error.message;
-      } else {
-        document.getElementById('msg').value = '';
-        await chargerMessages();
-      }
+      if (error) alert("Erreur lors de l'envoi: "+error.message);
+      setTimeout(chargerMessages, 300);
     }
 
-    // -- Recharge au chargement
-    document.addEventListener("DOMContentLoaded", chargerMessages);
-
-    // -- Refresh auto toutes les 3s
-    setInterval(chargerMessages, 3000);
-
-    // -- Focus sur message à l'envoi
-    document.getElementById('msg').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') {
-        e.preventDefault();
-        envoyer();
-      }
+    // --- Rafraîchir pseudo si changé
+    document.getElementById('pseudo').addEventListener('input', e => {
+      pseudoCourant = e.target.value.trim();
+      chargerMessages();
     });
+
+    // --- Initialisation
+    chargerMessages();
+    // --- (Astuce : rafraîchit le chat toutes les 7s)
+    setInterval(chargerMessages, 7000);
   </script>
 </body>
 </html>
