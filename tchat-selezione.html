@@ -2,147 +2,51 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Tchat SELEZIONE PRO</title>
+  <title>Tchat SUPABASE TEST</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { background: #181818; color: #fff; font-family: 'Outfit', sans-serif; }
-    .chat-container {
-      margin: 2em auto; max-width: 400px; min-width: 280px;
-      background: #222; border-radius: 24px; box-shadow: 0 6px 28px #0005;
-      padding: 0; overflow: hidden;
-    }
-    .chat-header {
-      padding: 28px 32px 16px 32px; display: flex; align-items: center;
-      background: linear-gradient(90deg, #FFD600, #CBA600 80%);
-      border-radius: 24px 24px 0 0;
-    }
-    .chat-header .avatar {
-      width: 48px; height: 48px; border-radius: 50%; background: #fff3;
-      display: flex; align-items: center; justify-content: center; margin-right: 18px;
-      font-size: 2em; color: #FFD600;
-    }
-    .chat-header span {
-      font-weight: 700; font-size: 1.25em; color: #222;
-      letter-spacing: .5px;
-    }
-    .chat-messages {
-      min-height: 300px; max-height: 320px; overflow-y: auto;
-      background: #232323; padding: 18px 20px 6px 20px;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .bubble {
-      max-width: 80%; padding: 10px 16px;
-      border-radius: 18px; font-size: 1em; word-break: break-word;
-      margin-bottom: 2px; background: #292929;
-      color: #fff; box-shadow: 0 1px 5px #0002;
-      align-self: flex-start;
-      transition: background .2s;
-      position: relative;
-    }
-    .bubble.me {
-      background: linear-gradient(90deg, #ffd600 80%, #fff1 100%);
-      color: #222;
-      align-self: flex-end;
-    }
-    .bubble .pseudo {
-      font-weight: bold; font-size: .9em; margin-right: 7px; opacity: .7;
-    }
-    .bubble .date {
-      display: block; font-size: .74em; color: #FFD600;
-      opacity: .6; margin-top: 3px; text-align: right;
-    }
-    .chat-footer {
-      padding: 18px 16px 18px 16px; background: #181818;
-      display: flex; gap: 8px; border-radius: 0 0 24px 24px;
-    }
-    .chat-footer input {
-      background: #232323; color: #fff; border: none; outline: none;
-      border-radius: 8px; padding: 10px 13px; font-size: 1em; width: 30%;
-      transition: background .2s;
-    }
-    .chat-footer input#msg { flex: 1 1 auto; width: 100%; }
-    .chat-footer button {
-      background: linear-gradient(90deg, #ffd600 90%, #cba600 100%);
-      border: none; color: #222; font-weight: bold; padding: 12px 24px;
-      border-radius: 8px; font-size: 1.07em; cursor: pointer;
-      transition: box-shadow .1s;
-      box-shadow: 0 2px 8px #0001;
-    }
-    .chat-footer button:active { box-shadow: none; }
-    /* Responsive */
-    @media (max-width: 500px) {
-      .chat-container { max-width: 98vw; }
-    }
-  </style>
 </head>
-<body>
-  <div class="chat-container">
-    <div class="chat-header">
-      <span class="avatar">👤</span>
-      <span>Tchat SELEZIONE PRO</span>
-    </div>
-    <div class="chat-messages" id="result"></div>
-    <form class="chat-footer" onsubmit="envoyer(event)">
-      <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="off"/>
-      <input type="text" id="msg" placeholder="Message" autocomplete="off"/>
-      <button type="submit">Envoyer</button>
-    </form>
-    <div id="debug" style="margin:8px 0 2px 10px;color:#FFD600;font-size:.9em;"></div>
+<body style="background:#222;color:#fff;font-family:sans-serif;">
+  <div style="margin:2em auto;max-width:500px;padding:2em;background:#333;border-radius:8px;">
+    <h2>Tchat SUPABASE TEST</h2>
+    <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione"/>
+    <input type="text" id="msg" placeholder="Message" value="Coucou"/>
+    <button onclick="envoyer()">Envoyer</button>
+    <div id="result" style="margin-top:1em;"></div>
+    <div id="debug" style="margin-top:1em;color:#ffb300;"></div>
   </div>
   <script>
-    // --- Config Supabase
+    // -- Config Supabase
     const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    let pseudoCourant = document.getElementById('pseudo').value;
 
-    // --- Chargement messages
-    async function chargerMessages() {
+    // -- Test lecture dès le chargement
+    document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById('debug').innerText = "Lecture des messages...";
       const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
       if (error) {
         document.getElementById('debug').innerText = "Erreur Supabase : " + error.message;
-        return;
+      } else {
+        document.getElementById('debug').innerText = "Connexion OK. Nb messages : " + (data?.length || 0);
+        // Affiche les messages
+        data.forEach(m => {
+          document.getElementById('result').innerHTML += `<div><b>${m.pseudo}</b> : ${m.content}</div>`;
+        });
       }
-      document.getElementById('debug').innerText = "Nb messages : " + (data?.length || 0);
-      const zone = document.getElementById('result');
-      zone.innerHTML = "";
-      data.forEach(m => {
-        zone.innerHTML += `
-          <div class="bubble${m.pseudo === pseudoCourant ? ' me' : ''}">
-            <span class="pseudo">${m.pseudo}</span> ${m.content}
-            <span class="date">${new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
-          </div>
-        `;
-      });
-      // Scroll en bas
-      zone.scrollTop = zone.scrollHeight;
-    }
-
-    // --- Envoi d'un message
-    async function envoyer(e) {
-      if(e) e.preventDefault();
-      const pseudo = document.getElementById('pseudo').value.trim();
-      const msg = document.getElementById('msg').value.trim();
-      if(!pseudo || !msg) return;
-      pseudoCourant = pseudo;
-      document.getElementById('msg').value = '';
-      const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
-      if (error) alert("Erreur lors de l'envoi: "+error.message);
-      setTimeout(chargerMessages, 300);
-    }
-
-    // --- Rafraîchir pseudo si changé
-    document.getElementById('pseudo').addEventListener('input', e => {
-      pseudoCourant = e.target.value.trim();
-      chargerMessages();
     });
 
-    // --- Initialisation
-    chargerMessages();
-    // --- (Astuce : rafraîchit le chat toutes les 7s)
-    setInterval(chargerMessages, 7000);
+    // -- Envoi d'un message
+    async function envoyer() {
+      const pseudo = document.getElementById('pseudo').value;
+      const msg = document.getElementById('msg').value;
+      if(!pseudo || !msg) return;
+      // Ajoute visuellement
+      document.getElementById('result').innerHTML += `<div><b>${pseudo}</b> : ${msg}</div>`;
+      document.getElementById('msg').value = '';
+      // Ajoute en base
+      const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
+      if (error) alert("Erreur lors de l'envoi: "+error.message);
+    }
   </script>
 </body>
 </html>
