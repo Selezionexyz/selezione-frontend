@@ -21,70 +21,222 @@
 </head>
 <body>
   <div class="chat-container">
-    <h2>💬 Tchat SELEZIONE</h2>
-    <div id="pseudo-row">
-      <input type="text" id="pseudo" placeholder="Ton pseudo (visible)" maxlength="18">
-      <button onclick="enterChat()">Entrer</button>
-    </div>
-    <div id="chat-block" style="display:none;">
-      <div class="messages" id="messages"></div>
-      <div class="input-row">
-        <input type="text" id="msg-input" placeholder="Votre message...">
-        <button onclick="sendMessage()">Envoyer</button>
-      </div>
+  <div id="annonce-block" class="annonce-block"></div>
+  <h2>💬 Tchat SELEZIONE</h2>
+  <div id="pseudo-row">
+    <input type="text" id="pseudo" placeholder="Ton pseudo" />
+    <button onclick="enterChat()">Entrer</button>
+  </div>
+  <div id="chat-block" style="display:none;">
+    <div class="messages" id="messages"></div>
+    <div class="input-row">
+      <input type="text" id="msg-input" placeholder="Ton message..." />
+      <button onclick="sendMessage()">Envoyer</button>
     </div>
   </div>
-  <script>
-    const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+</div>
 
-    let currentPseudo = "";
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
+<script>
+  // --- À PERSONNALISER ---
+  const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    async function enterChat() {
-      const pseudo = document.getElementById('pseudo').value.trim();
-      if (!pseudo) {
-        alert('Choisis un pseudo pour entrer dans le tchat !');
-        return;
-      }
-      currentPseudo = pseudo;
-      document.getElementById('pseudo-row').style.display = 'none';
-      document.getElementById('chat-block').style.display = '';
-      fetchMessages();
-      subscribeMessages();
+  let currentPseudo = "";
+
+  // Génère une couleur à partir du pseudo (pour l'avatar)
+  function getColor(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
+    return `hsl(${hash % 360}, 80%, 60%)`;
+  }
+
+  // Charger et afficher la dernière annonce
+  async function loadAnnonce() {
+    // Utilise la table "annonce" si tu veux gérer les annonces, sinon adapte ici
+    const { data, error } = await supabase
+      .from('annonce')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(1);
+    if (data && data.length > 0) {
+      document.getElementById('annonce-block').innerHTML =
+        `<div class="annonce-text">${data[0].content}</div>`;
+    } else {
+      document.getElementById('annonce-block').innerHTML = "";
     }
+  }
 
-    async function sendMessage() {
-      const input = document.getElementById('msg-input');
-      const content = input.value.trim();
-      if (!content) return;
-      await supabase.from('messages').insert([{ sender: currentPseudo, content }]);
-      input.value = '';
+  // Entrée dans le chat
+  async function enterChat() {
+    const pseudo = document.getElementById('pseudo').value.trim();
+    if (!pseudo) {
+      alert("Choisis un pseudo pour entrer dans le tchat !");
+      return;
     }
+    currentPseudo = pseudo;
+    document.getElementById('pseudo-row').style.display = "none";
+    document.getElementById('chat-block').style.display = "";
+    await loadMessages();
+    subscribeMessages();
+    loadAnnonce();
+  }
 
-    async function fetchMessages() {
-      let { data: messages } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
-      renderMessages(messages);
-    }
+  // Affiche tous les messages
+  async function loadMessages() {
+    const { data, error } = await supabase
+      .from('message')
+      .select('*')
+      .order('created_at', { ascending: true });
+    renderMessages(data || []);
+  }
 
-    function subscribeMessages() {
-      supabase
-        .channel('public:messages')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
-          fetchMessages();
-        })
-        .subscribe();
-    }
+  // Envoie un message
+  async function sendMessage() {
+    const input = document.getElementById('msg-input');
+    const content = input.value.trim();
+    if (!currentPseudo || !content) return alert("Pseudo et message requis !");
+    await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+    input.value = "";
+  }
 
-    function renderMessages(messages) {
-      const messagesDiv = document.getElementById('messages');
-      messagesDiv.innerHTML = '';
-      messages.forEach(msg => {
-        const date = new Date(msg.created_at).toLocaleTimeString();
-        messagesDiv.innerHTML += `<div class="message"><span class="sender">${msg.sender}</span> <span class="date">${date}</span><br>${msg.content}</div>`;
-      });
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
+  // Écoute en temps réel les nouveaux messages
+  function subscribeMessages() {
+    supabase
+      .channel('public:message')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
+      .subscribe();
+  }
+
+  // Rendu visuel des messages avec bulles et avatars
+  function renderMessages(messages) {
+    const box = document.getElementById('messages');
+    box.innerHTML = "";
+    messages.forEach(msg => {
+      const date = new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' });
+      const avatarColor = getColor(msg.pseudo || "?");
+      const initial = (msg.pseudo||"?").substring(0,1).toUpperCase();
+      box.innerHTML += `
+        <div class="bubble-row">
+          <div class="avatar" style="background:${avatarColor};">${initial}</div>
+          <div class="bubble">
+            <div class="bubble-header">
+              <span class="pseudo">${msg.pseudo || "?"}</span>
+              <span class="date">${date}</span>
+            </div>
+            <div class="bubble-text">${msg.content}</div>
+          </div>
+        </div>
+      `;
+    });
+    box.scrollTop = box.scrollHeight;
+  }
+</script>
+<style>
+  .chat-container {
+    max-width: 540px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: #222;
+    border-radius: 16px;
+    box-shadow: 0 2px 20px #000a;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .annonce-block {
+    background: #ffc400;
+    color: #222;
+    border-radius: 12px;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+    font-weight: bold;
+    box-shadow: 0 1px 7px #0001;
+    text-align: center;
+    font-size: 1.12em;
+  }
+  .messages {
+    min-height: 360px;
+    max-height: 440px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    border: 1px solid #2e2e2e;
+    border-radius: 9px;
+    background: #191c1b;
+    padding: 13px 5px 13px 8px;
+    box-shadow: 0 1px 2px #0003;
+  }
+  .bubble-row {
+    display: flex;
+    align-items: flex-start;
+    margin: 0.5rem 0;
+  }
+  .avatar {
+    flex: none;
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    color: #222;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-align: center;
+    line-height: 38px;
+    margin-right: 9px;
+    box-shadow: 0 2px 7px #0002;
+    border: 2px solid #fff2;
+  }
+  .bubble {
+    background: #fff;
+    color: #21292c;
+    padding: 9px 14px 8px 14px;
+    border-radius: 16px 18px 18px 5px;
+    min-width: 70px;
+    max-width: 75%;
+    box-shadow: 0 1px 4px #0001;
+    position: relative;
+    margin-left: 0;
+    word-break: break-word;
+  }
+  .bubble-header {
+    display: flex; align-items: center; gap: 0.7em; margin-bottom: 2px;
+  }
+  .bubble-text {
+    font-size: 1.11em;
+    margin-top: 1px;
+    padding-left: 1px;
+  }
+  .pseudo {
+    font-weight: 600;
+    color: #348e51;
+    letter-spacing: 0.03em;
+  }
+  .date {
+    color: #777;
+    font-size: 0.84em;
+    margin-left: 2px;
+  }
+  .input-row {
+    display: flex; gap: .7rem;
+  }
+  input, button {
+    font-size: 1em;
+    border-radius: 6px;
+    border: none;
+    padding: .5em;
+  }
+  button {
+    background: #1de9a5;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  button:hover {
+    background: #13b176;
+  }
+  @media (max-width: 640px) {
+    .chat-container { max-width: 99vw; padding: 2vw;}
+    .bubble { max-width: 99vw;}
+  }
+</style>
   </script>
 </body>
 </html>
