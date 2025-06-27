@@ -157,9 +157,11 @@
       return;
     }
     currentPseudo = pseudo;
+    alert('DEBUG 1: pseudo validé !');
     document.getElementById('pseudo-row').style.display = "none";
     document.getElementById('chat-block').style.display = "";
     await loadMessages();
+    alert('DEBUG 2: loadMessages appelé !');
     subscribeMessages();
     loadAnnonce();
   }
