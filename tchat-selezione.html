@@ -70,12 +70,14 @@
   }
 
   async function loadAnnonce() {
+    debugLog("[Annonce] Appel loadAnnonce");
     try {
       const { data, error } = await supabase
         .from('annonce')
         .select('*')
         .order('created_at', { ascending: false })
         .limit(1);
+      debugLog("[Annonce] data: " + JSON.stringify(data) + " | error: " + (error ? error.message : 'aucune'));
       if (data && data.length > 0) {
         document.getElementById('annonce-block').innerHTML =
           `<div class="annonce-text">${data[0].content}</div>`;
@@ -83,7 +85,7 @@
         document.getElementById('annonce-block').innerHTML = "";
       }
     } catch (e) {
-      debugLog("Erreur annonce: " + e.message);
+      debugLog("[Annonce] Erreur: " + e.message);
     }
   }
 
@@ -98,6 +100,8 @@
     currentPseudo = pseudo;
     document.getElementById('pseudo-row').style.display = "none";
     document.getElementById('chat-block').style.display = "";
+    debugLog("Appel de loadMessages depuis enterChat");
+    alert("Appel de loadMessages depuis enterChat");
     await loadMessages();
     subscribeMessages();
     loadAnnonce();
@@ -111,13 +115,8 @@
         .from('message')
         .select('*')
         .order('created_at', { ascending: true });
-      if (error) {
-        debugLog("Erreur loadMessages: " + error.message);
-        alert("Erreur loadMessages: " + error.message);
-        return;
-      }
-      debugLog("Données messages reçues : " + JSON.stringify(data));
-      alert("Data Supabase: " + JSON.stringify(data));
+      debugLog("Résultat supabase.from('message').select : " + JSON.stringify(data) + " | error: " + (error ? error.message : 'aucune'));
+      alert("Résultat select: " + JSON.stringify(data));
       renderMessages(data || []);
     } catch (e) {
       debugLog("Erreur JS loadMessages: " + e.message);
@@ -138,6 +137,7 @@
         return;
       }
       input.value = "";
+      debugLog("Appel de loadMessages après sendMessage");
       await loadMessages();
     } catch (e) {
       debugLog("Erreur JS envoi: " + e.message);
