@@ -61,10 +61,11 @@
       } else {
         document.getElementById('debug').innerText = "Connexion OK. Nb messages : " + (data?.length || 0);
         // Affiche les messages
+        const me = document.getElementById('pseudo').value;
+        document.getElementById('result').innerHTML = ""; // Vide avant d'ajouter
         data.forEach(m => {
-          const me = document.getElementById('pseudo').value;
-const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
-document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;
+          const classe = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
+          document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.pseudo}</b><br>${m.content}</div>`;
         });
       }
     });
@@ -74,8 +75,9 @@ document.getElementById('result').innerHTML += `<div class="${classe}"><b>${m.ps
       const pseudo = document.getElementById('pseudo').value;
       const msg = document.getElementById('msg').value;
       if(!pseudo || !msg) return;
-      // Ajoute visuellement
-      document.getElementById('result').innerHTML += `<div><b>${pseudo}</b> : ${msg}</div>`;
+      // Ajoute visuellement dans le style bulle
+      const classe = "msg-bubble msg-me";
+      document.getElementById('result').innerHTML += `<div class="${classe}"><b>${pseudo}</b><br>${msg}</div>`;
       document.getElementById('msg').value = '';
       // Ajoute en base
       const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
