@@ -8,6 +8,7 @@
     body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
     .chat-container { max-width: 600px; margin: 2rem auto; padding: 1rem; background: #222; border-radius: 14px; box-shadow: 0 2px 20px #000a; }
     .annonce-block { background: #ffc400; color: #222; border-radius: 12px; padding: 0.5em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0001; text-align: center; font-size: 1.12em;}
+    .debug-block { background: #b00020; color: #fff; border-radius: 9px; padding: 0.8em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0005; }
     .messages { min-height: 350px; max-height: 400px; overflow-y: auto; margin-bottom: 1rem; border:1px solid #333; border-radius:7px; background:#181818; padding:12px; }
     .bubble-row { display: flex; align-items: flex-start; margin: 0.5rem 0; }
     .avatar { flex: none; width: 38px; height: 38px; border-radius: 50%; color: #222; font-weight: bold; font-size: 1.3em; text-align: center; line-height: 38px; margin-right: 9px; box-shadow: 0 2px 7px #0002; border: 2px solid #fff2;}
@@ -21,7 +22,6 @@
     button { background: #1de9a5; color: #111; font-weight: bold; cursor: pointer; transition: background .2s;}
     button:hover { background: #13b176; }
     #pseudo-row {margin-bottom: 1.2em;}
-    #debug {background:#c62828; color:#fff; border-radius:10px; margin-bottom:15px; font-size:1.12em; padding:15px 17px 7px 13px; font-weight:bold;}
     @media (max-width: 640px) {
       .chat-container { max-width: 99vw; padding: 2vw;}
       .bubble { max-width: 99vw;}
@@ -31,7 +31,7 @@
 </head>
 <body>
   <div class="chat-container">
-    <div id="debug"></div>
+    <div id="debug-block" class="debug-block"></div>
     <div id="annonce-block" class="annonce-block"></div>
     <h2>💬 Tchat SELEZIONE</h2>
     <div id="pseudo-row">
@@ -47,14 +47,14 @@
     </div>
   </div>
 <script>
-  // Debug utilitaire
-  function debug(msg) {
-    document.getElementById("debug").innerHTML += `<div>${msg}</div>`;
-    console.log("[DEBUG]", msg);
+  let debugText = "";
+  function debugLog(txt) {
+    debugText += txt + "<br>";
+    document.getElementById('debug-block').innerHTML = debugText;
   }
-  debug("Script chargé !");
+  debugLog("Script chargé !");
 
-  // --- À PERSONNALISER ---
+  // --- CONFIG SUPABASE ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
   const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -67,8 +67,8 @@
     return `hsl(${hash % 360}, 80%, 60%)`;
   }
 
+  // Charger et afficher la dernière annonce
   async function loadAnnonce() {
-    debug("Appel loadAnnonce");
     try {
       const { data, error } = await supabase
         .from('annonce')
@@ -78,102 +78,103 @@
       if (data && data.length > 0) {
         document.getElementById('annonce-block').innerHTML =
           `<div class="annonce-text">${data[0].content}</div>`;
-        debug("Annonce chargée.");
       } else {
         document.getElementById('annonce-block').innerHTML = "";
-        debug("Aucune annonce.");
       }
-    } catch(e) {
-      debug("Erreur loadAnnonce : " + e);
+    } catch (e) {
+      debugLog("Erreur annonce : " + e.message);
     }
   }
 
+  // Entrée dans le chat
   async function enterChat() {
-    debug("Entrée dans la fonction enterChat");
+    debugLog("Entrée dans la fonction enterChat");
     const pseudo = document.getElementById('pseudo').value.trim();
-    debug("Pseudo saisi : " + pseudo);
+    debugLog("Pseudo saisi : " + pseudo);
     if (!pseudo) {
-      debug("Pseudo vide !");
       alert("Choisis un pseudo pour entrer dans le tchat !");
       return;
     }
     currentPseudo = pseudo;
-    debug("Pseudo validé : " + currentPseudo);
-
-    try {
-      document.getElementById('pseudo-row').style.display = "none";
-      debug("pseudo-row masqué");
-      document.getElementById('chat-block').style.display = "";
-      debug("chat-block affiché");
-
-      await loadMessages();
-      debug("Messages chargés !");
-      subscribeMessages();
-      debug("Abonnement realtime OK");
-      loadAnnonce();
-      debug("Annonce load appelée");
-      debug("Entrée dans le chat terminée !");
-    } catch(e) {
-      debug("EXCEPTION dans enterChat : " + e);
-    }
+    document.getElementById('pseudo-row').style.display = "none";
+    document.getElementById('chat-block').style.display = "";
+    await loadMessages();
+    subscribeMessages();
+    loadAnnonce();
   }
 
+  // Affiche tous les messages
   async function loadMessages() {
-    debug("Chargement des messages");
+    debugLog("Chargement des messages...");
     try {
       const { data, error } = await supabase
         .from('message')
         .select('*')
         .order('created_at', { ascending: true });
-      if(error) {
-        debug("Erreur loadMessages : " + error.message);
-        alert("Erreur loadMessages : " + error.message);
+      if (error) {
+        debugLog("Erreur loadMessages: " + error.message);
+        alert("Erreur loadMessages: " + error.message);
+        return;
       }
+      debugLog("Données messages reçues : " + JSON.stringify(data));
       renderMessages(data || []);
-      debug("Messages chargés (renderMessages exécuté)");
-    } catch(e) {
-      debug("Exception loadMessages : " + e);
-      alert("Exception loadMessages : " + e);
+    } catch (e) {
+      debugLog("Erreur JS loadMessages: " + e.message);
     }
   }
 
+  // Envoie un message
   async function sendMessage() {
+    debugLog("Appel sendMessage()");
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
-    debug("sendMessage: Pseudo = " + currentPseudo + ", Content = " + content);
+    debugLog("Pseudo=" + currentPseudo + " | content=" + content);
     if (!currentPseudo || !content) {
-      debug("Champ pseudo ou message vide !");
       alert("Pseudo et message requis !");
+      debugLog("Pseudo et message requis !");
       return;
     }
     try {
-      const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
-      if(error) debug("Erreur insert : " + error.message);
-      input.value = "";
-      debug("Message envoyé (ou tentative faite)");
-    } catch(e) {
-      debug("Exception sendMessage : " + e);
+      let { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+      if (error) {
+        debugLog('Erreur lors de l\'envoi : ' + error.message);
+        alert('Erreur lors de l\'envoi : ' + error.message);
+      } else {
+        debugLog("Message envoyé avec succès !");
+        await loadMessages();
+      }
+    } catch (e) {
+      debugLog("Erreur JS sendMessage: " + e.message);
     }
+    input.value = "";
   }
 
+  // Écoute en temps réel les nouveaux messages
   function subscribeMessages() {
-    debug("Abonnement realtime messages");
+    debugLog("Souscription en temps réel (channel Supabase)");
     try {
       supabase
         .channel('public:message')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, payload => {
+          debugLog("Nouveau message reçu en live : " + JSON.stringify(payload));
+          loadMessages();
+        })
         .subscribe();
-    } catch(e) {
-      debug("Exception subscribeMessages : " + e);
+    } catch (e) {
+      debugLog("Erreur subscribeMessages: " + e.message);
     }
   }
 
+  // Rendu visuel des messages avec bulles et avatars
   function renderMessages(messages) {
-    debug("Rendu messages : " + messages.length + " trouvés");
     const box = document.getElementById('messages');
     box.innerHTML = "";
+    if (!messages.length) {
+      box.innerHTML = "<i>Aucun message pour l'instant.</i>";
+      return;
+    }
     messages.forEach(msg => {
-      const date = new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' });
+      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' }) : "";
       const avatarColor = getColor(msg.pseudo || "?");
       const initial = (msg.pseudo||"?").substring(0,1).toUpperCase();
       box.innerHTML += `
