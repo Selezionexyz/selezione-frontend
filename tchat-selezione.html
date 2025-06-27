@@ -2,188 +2,33 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>💬 Tchat SELEZIONE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <title>Tchat TEST</title>
   <style>
-    body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
-    .chat-container { max-width: 600px; margin: 2rem auto; padding: 1rem; background: #222; border-radius: 14px; box-shadow: 0 2px 20px #000a; }
-    .debug-block { background: #b71c1c; color: #fff; border-radius: 12px; padding: 0.7em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0001; font-size: 1em; }
-    .annonce-block { background: #ffc400; color: #222; border-radius: 12px; padding: 0.5em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0001; text-align: center; font-size: 1.12em;}
-    .messages { min-height: 350px; max-height: 400px; overflow-y: auto; margin-bottom: 1rem; border:1px solid #333; border-radius:7px; background:#181818; padding:12px; }
-    .bubble-row { display: flex; align-items: flex-start; margin: 0.5rem 0; }
-    .avatar { flex: none; width: 38px; height: 38px; border-radius: 50%; color: #222; font-weight: bold; font-size: 1.3em; text-align: center; line-height: 38px; margin-right: 9px; box-shadow: 0 2px 7px #0002; border: 2px solid #fff2;}
-    .bubble { background: #fff; color: #21292c; padding: 9px 14px 8px 14px; border-radius: 16px 18px 18px 5px; min-width: 70px; max-width: 75%; box-shadow: 0 1px 4px #0001; position: relative; margin-left: 0; word-break: break-word;}
-    .bubble-header { display: flex; align-items: center; gap: 0.7em; margin-bottom: 2px;}
-    .bubble-text { font-size: 1.11em; margin-top: 1px; padding-left: 1px;}
-    .pseudo { font-weight: 600; color: #348e51; letter-spacing: 0.03em;}
-    .date { color: #777; font-size: 0.84em; margin-left: 2px;}
-    .input-row { display: flex; gap: .7rem; }
-    input, button { font-size: 1em; border-radius: 6px; border: none; padding: .5em; }
-    button { background: #1de9a5; color: #111; font-weight: bold; cursor: pointer; transition: background .2s;}
-    button:hover { background: #13b176; }
-    #pseudo-row {margin-bottom: 1.2em;}
-    @media (max-width: 640px) {
-      .chat-container { max-width: 99vw; padding: 2vw;}
-      .bubble { max-width: 99vw;}
-    }
+    body { background: #111; color: #fff; font-family: Arial, sans-serif; }
+    .container { margin: 40px auto; max-width: 400px; background: #222; border-radius: 8px; padding: 2em; }
+    #chat-block { display: none; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 </head>
 <body>
-  <div class="chat-container">
-    <div id="debug-block" class="debug-block"></div>
-    <div id="annonce-block" class="annonce-block"></div>
-    <h2>💬 Tchat SELEZIONE</h2>
+  <div class="container">
     <div id="pseudo-row">
       <input type="text" id="pseudo" placeholder="Ton pseudo" />
       <button onclick="enterChat()">Entrer</button>
     </div>
-    <div id="chat-block" style="display:none;">
-      <div class="messages" id="messages"></div>
-      <div class="input-row">
-        <input type="text" id="msg-input" placeholder="Ton message..." />
-        <button onclick="sendMessage()">Envoyer</button>
-      </div>
+    <div id="chat-block">
+      <h3>Bienvenue dans le chat !</h3>
+      <input type="text" placeholder="Message..." />
+      <button>Envoyer</button>
     </div>
   </div>
-<script>
-  function debugLog(msg) {
-    let block = document.getElementById('debug-block');
-    block.innerHTML = (block.innerHTML ? block.innerHTML + "<br>" : "") + msg;
-    console.log(msg);
-  }
-
-  debugLog("Script chargé !");
-  alert("Script chargé !");
-
-  // --- À PERSONNALISER ---
-  const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  let currentPseudo = "";
-
-  function getColor(str) {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
-    return `hsl(${hash % 360}, 80%, 60%)`;
-  }
-
-  async function loadAnnonce() {
-    debugLog("[Annonce] Appel loadAnnonce");
-    try {
-      const { data, error } = await supabase
-        .from('annonce')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(1);
-      debugLog("[Annonce] data: " + JSON.stringify(data) + " | error: " + (error ? error.message : 'aucune'));
-      if (data && data.length > 0) {
-        document.getElementById('annonce-block').innerHTML =
-          `<div class="annonce-text">${data[0].content}</div>`;
-      } else {
-        document.getElementById('annonce-block').innerHTML = "";
-      }
-    } catch (e) {
-      debugLog("[Annonce] Erreur: " + e.message);
+  <script>
+    function enterChat() {
+      const pseudo = document.getElementById('pseudo').value.trim();
+      if(!pseudo) { alert('Pseudo obligatoire'); return; }
+      document.getElementById('pseudo-row').style.display = "none";
+      document.getElementById('chat-block').style.display = "";
+      alert('UI basculée !');
     }
-  }
-
-  async function enterChat() {
-    debugLog("Entrée dans la fonction enterChat");
-    const pseudo = document.getElementById('pseudo').value.trim();
-    debugLog("Pseudo saisi : " + pseudo);
-    if (!pseudo) {
-      alert("Choisis un pseudo pour entrer dans le tchat !");
-      return;
-    }
-    currentPseudo = pseudo;
-    document.getElementById('pseudo-row').style.display = "none";
-    document.getElementById('chat-block').style.display = "";
-    debugLog("Appel de loadMessages depuis enterChat");
-    alert("Appel de loadMessages depuis enterChat");
-    await loadMessages();
-    subscribeMessages();
-    loadAnnonce();
-  }
-
-  async function loadMessages() {
-    debugLog("Chargement des messages...");
-    alert("Appel de loadMessages !");
-    try {
-      const { data, error } = await supabase
-        .from('message')
-        .select('*')
-        .order('created_at', { ascending: true });
-      debugLog("Résultat supabase.from('message').select : " + JSON.stringify(data) + " | error: " + (error ? error.message : 'aucune'));
-      alert("Résultat select: " + JSON.stringify(data));
-      renderMessages(data || []);
-    } catch (e) {
-      debugLog("Erreur JS loadMessages: " + e.message);
-      alert("Erreur JS loadMessages: " + e.message);
-    }
-  }
-
-  async function sendMessage() {
-    const input = document.getElementById('msg-input');
-    const content = input.value.trim();
-    if (!currentPseudo || !content) return alert("Pseudo et message requis !");
-    debugLog("Envoi du message: " + content);
-    try {
-      const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
-      if (error) {
-        debugLog("Erreur envoi: " + error.message);
-        alert("Erreur envoi message: " + error.message);
-        return;
-      }
-      input.value = "";
-      debugLog("Appel de loadMessages après sendMessage");
-      await loadMessages();
-    } catch (e) {
-      debugLog("Erreur JS envoi: " + e.message);
-      alert("Erreur JS envoi: " + e.message);
-    }
-  }
-
-  function subscribeMessages() {
-    debugLog("Abonnement aux nouveaux messages");
-    try {
-      supabase
-        .channel('public:message')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
-        .subscribe();
-    } catch (e) {
-      debugLog("Erreur subscribe: " + e.message);
-    }
-  }
-
-  function renderMessages(messages) {
-    debugLog("Rendu messages : " + messages.length + " message(s)");
-    const box = document.getElementById('messages');
-    box.innerHTML = "";
-    if (!messages || !messages.length) {
-      box.innerHTML = "<div style='color:#bbb;'>Aucun message pour le moment.</div>";
-      return;
-    }
-    messages.forEach(msg => {
-      const date = new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' });
-      const avatarColor = getColor(msg.pseudo || "?");
-      const initial = (msg.pseudo||"?").substring(0,1).toUpperCase();
-      box.innerHTML += `
-        <div class="bubble-row">
-          <div class="avatar" style="background:${avatarColor};">${initial}</div>
-          <div class="bubble">
-            <div class="bubble-header">
-              <span class="pseudo">${msg.pseudo || "?"}</span>
-              <span class="date">${date}</span>
-            </div>
-            <div class="bubble-text">${msg.content}</div>
-          </div>
-        </div>
-      `;
-    });
-    box.scrollTop = box.scrollHeight;
-  }
-</script>
+  </script>
 </body>
 </html>
