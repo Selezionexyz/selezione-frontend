@@ -125,11 +125,15 @@
         .from('message')
         .select('*')
         .order('created_at', { ascending: true });
-      if(error) debug("Erreur loadMessages : " + error.message);
+      if(error) {
+        debug("Erreur loadMessages : " + error.message);
+        alert("Erreur loadMessages : " + error.message);
+      }
       renderMessages(data || []);
-      debug("Messages chargés");
+      debug("Messages chargés (renderMessages exécuté)");
     } catch(e) {
       debug("Exception loadMessages : " + e);
+      alert("Exception loadMessages : " + e);
     }
   }
 
@@ -142,17 +146,26 @@
       alert("Pseudo et message requis !");
       return;
     }
-    await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
-    input.value = "";
-    debug("Message envoyé");
+    try {
+      const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+      if(error) debug("Erreur insert : " + error.message);
+      input.value = "";
+      debug("Message envoyé (ou tentative faite)");
+    } catch(e) {
+      debug("Exception sendMessage : " + e);
+    }
   }
 
   function subscribeMessages() {
     debug("Abonnement realtime messages");
-    supabase
-      .channel('public:message')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
-      .subscribe();
+    try {
+      supabase
+        .channel('public:message')
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
+        .subscribe();
+    } catch(e) {
+      debug("Exception subscribeMessages : " + e);
+    }
   }
 
   function renderMessages(messages) {
