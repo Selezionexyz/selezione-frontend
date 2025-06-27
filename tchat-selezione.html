@@ -5,59 +5,63 @@
   <title>Tchat SELEZIONE PRO</title>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
   <style>
-    /* === Mise en page full-height et centrée === */
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
+    /* === Body full-page & spacing === */
     body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #181818;
+      display: flex;            
+      align-items: center;      
+      justify-content: center;  
+      min-height: 100vh;        
+      margin: 0;                
+      background: #121212;      /* plus profond */
+      padding: 1em;             /* un peu d’air sur mobile */
       color: #fff;
       font-family: 'Outfit','Segoe UI',Arial,sans-serif;
     }
 
-    /* === Conteneur principal === */
+    /* === Tchat container === */
     .tchat-card {
-      display: flex;
-      flex-direction: column;
       width: 90vw;
       max-width: 600px;
       height: 90vh;
+      display: flex;
+      flex-direction: column;
       background: #1f1f1f;
       border-radius: 18px;
       box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+      overflow: hidden;
     }
 
-    /* === En-tête === */
+    /* === Header === */
     #tchat-header {
-      flex: 0 0 auto;
-      border-radius: 18px 18px 0 0;
       background: linear-gradient(90deg, #fbb034, #ffdd00);
       color: #222;
-      padding: 1.2em 1.5em;
+      padding: 1.2em 1.3em;
       display: flex;
       align-items: center;
       gap: .8em;
       font-weight: bold;
       font-size: 1.2em;
       letter-spacing: .5px;
+      border-radius: 18px 18px 0 0;
+      margin-bottom: 0;
     }
 
-    /* === Zone des messages === */
+    /* === Résultat (scroll) === */
     #result {
-      flex: 1 1 auto;
+      flex: 1;
       margin: 0 1.5em;
       background: #161616;
       border: 1px solid #333;
       border-radius: 12px;
       padding: .8em;
+      width: calc(100% - 3em);
       overflow-y: auto;
+      box-shadow: inset 0 2px 6px #0004;
     }
     /* Scrollbar custom */
-    #result::-webkit-scrollbar { width: 8px; }
+    #result::-webkit-scrollbar {
+      width: 8px;
+    }
     #result::-webkit-scrollbar-track {
       background: #161616;
       border-radius: 4px;
@@ -67,14 +71,18 @@
       border-radius: 4px;
     }
 
-    /* === Formulaire d’envoi === */
+    /* === Formulaire stické en bas === */
     .tchat-form {
-      flex: 0 0 auto;
+      position: sticky;
+      bottom: 0;
+      background: #1f1f1f;
+      padding: 1em 1.5em;
       display: grid;
       grid-template-columns: 1fr 1fr auto;
       gap: 0.6em;
-      padding: 1em 1.5em;
-      border-top: 1px solid #333;
+      align-items: center;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.5);
+      z-index: 10;
     }
     .tchat-form input[type="text"] {
       background: #191919;
@@ -95,16 +103,17 @@
       font-weight: bold;
       border: none;
       border-radius: 10px;
-      padding: .75em 2em;
+      padding: .75em 2.2em;
       font-size: 1.05em;
       cursor: pointer;
       transition: filter .15s;
+      border-top-left-radius: 0;  /* comme WhatsApp */
     }
     .tchat-form button:hover {
       filter: brightness(1.1);
     }
 
-    /* === Bulles WhatsApp Style === */
+    /* === Bulles style WhatsApp === */
     .msg-bubble {
       position: relative;
       padding: .7em 1em;
@@ -112,6 +121,7 @@
       border-radius: 8px;
       max-width: 70%;
       word-break: break-word;
+      box-shadow: none !important;
     }
     .msg-me {
       background: #dcf8c6;
@@ -120,8 +130,8 @@
       border-top-right-radius: 0;
     }
     .msg-other {
-      background: #fff;
-      color: #000;
+      background: #2a2a2a;      /* gris doux pour les autres */
+      color: #eee;
       margin-right: auto;
       border-top-left-radius: 0;
     }
@@ -142,18 +152,13 @@
     .msg-other:after {
       left: -6px;
       border: 6px solid transparent;
-      border-top-color: #fff;
+      border-top-color: #2a2a2a;
       border-left: 0;
       margin-bottom: -6px;
     }
 
-    /* === Ligne debug === */
-    #debug {
-      flex: 0 0 auto;
-      margin: 0 1.5em 1em;
-      color: #ffb300;
-      font-size: .9em;
-    }
+    /* debug */
+    #debug { margin: .8em 1.5em; color: #ffb300; }
   </style>
 </head>
 <body>
@@ -163,57 +168,64 @@
       Tchat SELEZIONE PRO
     </div>
     <div id="result"></div>
-    <div id="debug"></div>
     <div class="tchat-form">
       <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="off"/>
       <input type="text" id="msg" placeholder="Message" autocomplete="off"/>
       <button onclick="envoyer()">Envoyer</button>
     </div>
+    <div id="debug"></div>
   </div>
 
   <script>
+    // -- Config Supabase
     const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-    const SUPABASE_KEY = "eyJhbGci…"; // ta clé complète
+    const SUPABASE_KEY = "eyJhbGci…"; // ta key
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // Lecture initiale
-    document.addEventListener("DOMContentLoaded", async () => {
-      const debug = document.getElementById('debug');
-      debug.innerText = "Lecture des messages…";
+    // -- Lecture initiale
+    document.addEventListener("DOMContentLoaded", afficherMessages);
+
+    async function afficherMessages() {
+      document.getElementById('debug').innerText = "Lecture des messages…";
       const { data, error } = await supabase
         .from('message')
         .select('*')
         .order('created_at', { ascending: true });
       if (error) {
-        debug.innerText = "Erreur : " + error.message;
+        document.getElementById('debug').innerText = "Erreur : " + error.message;
         return;
       }
       const me = document.getElementById('pseudo').value;
-      const result = document.getElementById('result');
-      result.innerHTML = "";
+      const container = document.getElementById('result');
+      container.innerHTML = "";
       data.forEach(m => {
-        const cls = m.pseudo === me
-          ? "msg-bubble msg-me"
-          : "msg-bubble msg-other";
-        result.innerHTML += `<div class="${cls}"><b>${m.pseudo}</b><br>${m.content}</div>`;
+        const cls = m.pseudo === me ? "msg-bubble msg-me" : "msg-bubble msg-other";
+        container.innerHTML += `<div class="${cls}"><b>${m.pseudo}</b><br>${m.content}</div>`;
       });
-      debug.innerText = `OK – ${data.length} msg.`;
-      result.scrollTop = result.scrollHeight;
-    });
+      container.scrollTop = container.scrollHeight;
+      document.getElementById('debug').innerText = `OK – ${data.length} msg.`;
+    }
 
-    // Envoi en base + affichage
+    // -- Envoi d'un message
     async function envoyer() {
-      const pseudo = document.getElementById('pseudo').value.trim();
-      const msg = document.getElementById('msg').value.trim();
+      const pseudo = document.getElementById('pseudo').value;
+      const msg = document.getElementById('msg').value;
       if (!pseudo || !msg) return;
-      const result = document.getElementById('result');
-      result.innerHTML += `<div class="msg-bubble msg-me"><b>${pseudo}</b><br>${msg}</div>`;
-      result.scrollTop = result.scrollHeight;
-      document.getElementById('msg').value = "";
+      // affichage local + autoscroll
+      const container = document.getElementById('result');
+      container.innerHTML += `<div class="msg-bubble msg-me"><b>${pseudo}</b><br>${msg}</div>`;
+      container.scrollTop = container.scrollHeight;
+      document.getElementById('msg').value = '';
+      // envoi en base + relecture
       const { error } = await supabase
         .from('message')
         .insert([{ pseudo, content: msg }]);
-      if (error) alert("Erreur : " + error.message);
+      if (error) {
+        alert("Erreur : "+error.message);
+      } else {
+        // on peut rafraîchir tout, ou simplement laisser la bulle locale
+        // afficherMessages();
+      }
     }
   </script>
 </body>
