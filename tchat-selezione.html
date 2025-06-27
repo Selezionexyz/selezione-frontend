@@ -2,25 +2,49 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Test Container</title>
-  <style>
-    body { background: #111; color: #fff; font-family: Arial, sans-serif; }
-    .container {
-      margin: 40px auto;
-      max-width: 400px;
-      background: red !important;
-      border-radius: 8px;
-      padding: 4em !important;
-      border: 6px solid yellow !important;
-    }
-  </style>
+  <title>Tchat TEST MINIMAL</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 </head>
-<body>
-  <div class="container">
-    <h2>TEST RECTANGLE</h2>
-    <p>Si tu vois ce rectangle rouge, le HTML/CSS fonctionne !</p>
-    <input type="text" placeholder="Essaye d'écrire ici">
-    <button>Tester</button>
-  </div>
+<body style="background:#111;color:#fff;font-family:sans-serif;">
+  <h2>Tchat TEST MINIMAL</h2>
+  <input type="text" id="pseudo" placeholder="Pseudo">
+  <input type="text" id="msg" placeholder="Message">
+  <button onclick="sendMessage()">Envoyer</button>
+  <div id="erreur" style="color:red;margin-top:10px;"></div>
+  <hr>
+  <div id="messages"></div>
+
+<script>
+const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Affiche tous les messages
+async function afficherMessages() {
+  document.getElementById('erreur').innerText = '';
+  let { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
+  if(error) return document.getElementById('erreur').innerText = "Erreur chargement : " + error.message;
+  let html = '';
+  (data||[]).forEach(msg => {
+    html += `<div><b>${msg.pseudo || "?"}</b>: ${msg.content}</div>`;
+  });
+  document.getElementById('messages').innerHTML = html;
+}
+
+// Envoie un message
+async function sendMessage() {
+  const pseudo = document.getElementById('pseudo').value.trim();
+  const content = document.getElementById('msg').value.trim();
+  if(!pseudo || !content) return alert('Pseudo et message requis !');
+  let { error } = await supabase.from('message').insert([{ pseudo, content }]);
+  if(error) return document.getElementById('erreur').innerText = "Erreur envoi : " + error.message;
+  document.getElementById('msg').value = '';
+  afficherMessages();
+}
+
+// Rafraîchit toutes les 5 secondes
+setInterval(afficherMessages, 5000);
+afficherMessages();
+</script>
 </body>
 </html>
