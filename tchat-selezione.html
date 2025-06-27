@@ -7,8 +7,8 @@
   <style>
     body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
     .chat-container { max-width: 600px; margin: 2rem auto; padding: 1rem; background: #222; border-radius: 14px; box-shadow: 0 2px 20px #000a; }
+    .debug-block { background: #b71c1c; color: #fff; border-radius: 12px; padding: 0.7em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0001; font-size: 1em; }
     .annonce-block { background: #ffc400; color: #222; border-radius: 12px; padding: 0.5em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0001; text-align: center; font-size: 1.12em;}
-    .debug-block { background: #b00020; color: #fff; border-radius: 9px; padding: 0.8em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0005; }
     .messages { min-height: 350px; max-height: 400px; overflow-y: auto; margin-bottom: 1rem; border:1px solid #333; border-radius:7px; background:#181818; padding:12px; }
     .bubble-row { display: flex; align-items: flex-start; margin: 0.5rem 0; }
     .avatar { flex: none; width: 38px; height: 38px; border-radius: 50%; color: #222; font-weight: bold; font-size: 1.3em; text-align: center; line-height: 38px; margin-right: 9px; box-shadow: 0 2px 7px #0002; border: 2px solid #fff2;}
@@ -47,14 +47,16 @@
     </div>
   </div>
 <script>
-  let debugText = "";
-  function debugLog(txt) {
-    debugText += txt + "<br>";
-    document.getElementById('debug-block').innerHTML = debugText;
+  function debugLog(msg) {
+    let block = document.getElementById('debug-block');
+    block.innerHTML = (block.innerHTML ? block.innerHTML + "<br>" : "") + msg;
+    console.log(msg);
   }
-  debugLog("Script chargé !");
 
-  // --- CONFIG SUPABASE ---
+  debugLog("Script chargé !");
+  alert("Script chargé !");
+
+  // --- À PERSONNALISER ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
   const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -67,7 +69,6 @@
     return `hsl(${hash % 360}, 80%, 60%)`;
   }
 
-  // Charger et afficher la dernière annonce
   async function loadAnnonce() {
     try {
       const { data, error } = await supabase
@@ -82,11 +83,10 @@
         document.getElementById('annonce-block').innerHTML = "";
       }
     } catch (e) {
-      debugLog("Erreur annonce : " + e.message);
+      debugLog("Erreur annonce: " + e.message);
     }
   }
 
-  // Entrée dans le chat
   async function enterChat() {
     debugLog("Entrée dans la fonction enterChat");
     const pseudo = document.getElementById('pseudo').value.trim();
@@ -103,9 +103,9 @@
     loadAnnonce();
   }
 
-  // Affiche tous les messages
   async function loadMessages() {
     debugLog("Chargement des messages...");
+    alert("Appel de loadMessages !");
     try {
       const { data, error } = await supabase
         .from('message')
@@ -117,64 +117,56 @@
         return;
       }
       debugLog("Données messages reçues : " + JSON.stringify(data));
+      alert("Data Supabase: " + JSON.stringify(data));
       renderMessages(data || []);
     } catch (e) {
       debugLog("Erreur JS loadMessages: " + e.message);
+      alert("Erreur JS loadMessages: " + e.message);
     }
   }
 
-  // Envoie un message
   async function sendMessage() {
-    debugLog("Appel sendMessage()");
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
-    debugLog("Pseudo=" + currentPseudo + " | content=" + content);
-    if (!currentPseudo || !content) {
-      alert("Pseudo et message requis !");
-      debugLog("Pseudo et message requis !");
-      return;
-    }
+    if (!currentPseudo || !content) return alert("Pseudo et message requis !");
+    debugLog("Envoi du message: " + content);
     try {
-      let { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
+      const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
       if (error) {
-        debugLog('Erreur lors de l\'envoi : ' + error.message);
-        alert('Erreur lors de l\'envoi : ' + error.message);
-      } else {
-        debugLog("Message envoyé avec succès !");
-        await loadMessages();
+        debugLog("Erreur envoi: " + error.message);
+        alert("Erreur envoi message: " + error.message);
+        return;
       }
+      input.value = "";
+      await loadMessages();
     } catch (e) {
-      debugLog("Erreur JS sendMessage: " + e.message);
+      debugLog("Erreur JS envoi: " + e.message);
+      alert("Erreur JS envoi: " + e.message);
     }
-    input.value = "";
   }
 
-  // Écoute en temps réel les nouveaux messages
   function subscribeMessages() {
-    debugLog("Souscription en temps réel (channel Supabase)");
+    debugLog("Abonnement aux nouveaux messages");
     try {
       supabase
         .channel('public:message')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, payload => {
-          debugLog("Nouveau message reçu en live : " + JSON.stringify(payload));
-          loadMessages();
-        })
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
         .subscribe();
     } catch (e) {
-      debugLog("Erreur subscribeMessages: " + e.message);
+      debugLog("Erreur subscribe: " + e.message);
     }
   }
 
-  // Rendu visuel des messages avec bulles et avatars
   function renderMessages(messages) {
+    debugLog("Rendu messages : " + messages.length + " message(s)");
     const box = document.getElementById('messages');
     box.innerHTML = "";
-    if (!messages.length) {
-      box.innerHTML = "<i>Aucun message pour l'instant.</i>";
+    if (!messages || !messages.length) {
+      box.innerHTML = "<div style='color:#bbb;'>Aucun message pour le moment.</div>";
       return;
     }
     messages.forEach(msg => {
-      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' }) : "";
+      const date = new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' });
       const avatarColor = getColor(msg.pseudo || "?");
       const initial = (msg.pseudo||"?").substring(0,1).toUpperCase();
       box.innerHTML += `
