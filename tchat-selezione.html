@@ -3,79 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <title>Tchat SELEZIONE BASIQUE</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <style>
-    body { background: #191919; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
-    .container { max-width: 420px; margin: 40px auto; padding: 20px; background: #232323; border-radius: 15px; box-shadow: 0 3px 30px #0004;}
-    h2 {margin-bottom: 12px; font-size: 1.25em;}
-    .form-row { display:flex; gap:7px; margin-bottom:13px;}
-    .form-row input[type="text"] { flex:1; padding:7px 9px; border-radius:6px; border:none; font-size:1em;}
-    .form-row button { padding:7px 14px; background:#ffc400; border:none; border-radius:6px; font-weight:bold; color:#222; cursor:pointer; }
-    .messages { margin-top:12px; max-height:350px; overflow-y:auto; background:#171717; border-radius:10px; padding:11px;}
-    .msg { margin-bottom:11px;}
-    .msg .pseudo { font-weight:bold; color:#7ce08a;}
-    .msg .content { margin-left:4px; }
-    .msg .date { color:#999; font-size:.87em; margin-left:6px;}
-    @media (max-width:500px){ .container{max-width:97vw;padding:7vw;} .messages{padding:2vw;}}
+    body { background: #181818; color: #fff; margin:0; }
+    .center {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 28px;
+      background: #232323;
+      border-radius: 16px;
+      box-shadow: 0 2px 14px #0006;
+    }
+    h2 { margin-bottom: 16px; }
+    input, button {
+      padding: 8px;
+      margin: 4px;
+      border-radius: 5px;
+      border: none;
+    }
+    input { width: 45%; }
+    button {
+      background: #FFC300;
+      color: #222;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    .msg { margin-top: 18px; }
+    .item { padding: 6px 0; border-bottom: 1px solid #222; }
+    .item strong { color: #FFC300; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
 </head>
 <body>
-  <div class="container">
+  <div class="center">
     <h2>Tchat SELEZIONE BASIQUE</h2>
-    <div class="form-row">
-      <input type="text" id="pseudo" placeholder="Pseudo">
-      <input type="text" id="msg" placeholder="Message">
-      <button onclick="sendMessage()">Envoyer</button>
-    </div>
-    <div class="messages" id="messages"></div>
+    <input id="pseudo" placeholder="Pseudo">
+    <input id="message" placeholder="Message">
+    <button id="envoyer">Envoyer</button>
+    <div class="msg" id="messages"></div>
   </div>
+  <script>
+    // 1. Renseigne tes clés Supabase ici :
+    const SUPABASE_URL = 'https://xxxxxxxxxxxxxxxxxxxx.supabase.co';
+    const SUPABASE_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
 
-<script>
-  // ---- CONFIG ----
-  const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
-  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // ---- MAIN ----
-  async function loadMessages() {
-    const {data} = await supabase.from('message').select('*').order('created_at', {ascending:true});
-    renderMessages(data||[]);
-  }
+    const pseudoInput = document.getElementById('pseudo');
+    const messageInput = document.getElementById('message');
+    const envoyerBtn = document.getElementById('envoyer');
+    const messagesDiv = document.getElementById('messages');
 
-  function renderMessages(msgs) {
-    const box = document.getElementById('messages');
-    box.innerHTML = msgs.map(m =>
-      `<div class="msg">
-        <span class="pseudo">${m.pseudo||"?"}</span>
-        <span class="content">${m.content||""}</span>
-        <span class="date">${(m.created_at||"").slice(11,16)}</span>
-      </div>`
-    ).join('');
-    box.scrollTop = box.scrollHeight;
-  }
+    async function loadMessages() {
+      const { data, error } = await supabase
+        .from('message')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(20);
+      messagesDiv.innerHTML = '';
+      if (data) {
+        data.reverse().forEach(msg => {
+          messagesDiv.innerHTML += `<div class="item"><strong>${msg.pseudo}</strong> : ${msg.content}</div>`;
+        });
+      }
+    }
 
-  async function sendMessage() {
-    const pseudo = document.getElementById('pseudo').value.trim();
-    const content = document.getElementById('msg').value.trim();
-    if (!pseudo || !content) return;
-    await supabase.from('message').insert([{ pseudo, content }]);
-    document.getElementById('msg').value = "";
+    envoyerBtn.onclick = async () => {
+      const pseudo = pseudoInput.value.trim();
+      const message = messageInput.value.trim();
+      if (!pseudo || !message) return alert("Pseudo & message obligatoires !");
+      await supabase.from('message').insert([{ pseudo, content: message }]);
+      messageInput.value = '';
+      await loadMessages();
+    };
+
+    // Rafraîchir à l'ouverture
     loadMessages();
-  }
 
-  // ---- AUTO REFRESH ----
-  loadMessages();
-  setInterval(loadMessages, 2000);
-
-  // ---- ENVOI PAR ENTER ----
-  document.getElementById('msg').addEventListener('keypress', function(e){
-    if(e.key === "Enter") sendMessage();
-  });
-  document.getElementById('pseudo').addEventListener('keypress', function(e){
-    if(e.key === "Enter") sendMessage();
-  });
-
-</script>
+    // Auto-refresh toutes les 5s (optionnel, tu peux enlever)
+    setInterval(loadMessages, 5000);
+  </script>
 </body>
 </html>
