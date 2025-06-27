@@ -7,93 +7,20 @@
   <style>
     body { background: #111; color: #fff; font-family: 'Outfit', sans-serif; margin:0; }
     .chat-container { max-width: 600px; margin: 2rem auto; padding: 1rem; background: #222; border-radius: 14px; box-shadow: 0 2px 20px #000a; }
+    .annonce-block { background: #ffc400; color: #222; border-radius: 12px; padding: 0.5em 1em; margin-bottom: 1em; font-weight: bold; box-shadow: 0 1px 7px #0001; text-align: center; font-size: 1.12em;}
     .messages { min-height: 350px; max-height: 400px; overflow-y: auto; margin-bottom: 1rem; border:1px solid #333; border-radius:7px; background:#181818; padding:12px; }
-    .message { margin: .5rem 0; }
-    .sender { color: gold; font-weight: bold; }
-    .date { color: #aaa; font-size: 0.8em; margin-left: 5px;}
+    .bubble-row { display: flex; align-items: flex-start; margin: 0.5rem 0; }
+    .avatar { flex: none; width: 38px; height: 38px; border-radius: 50%; color: #222; font-weight: bold; font-size: 1.3em; text-align: center; line-height: 38px; margin-right: 9px; box-shadow: 0 2px 7px #0002; border: 2px solid #fff2;}
+    .bubble { background: #fff; color: #21292c; padding: 9px 14px 8px 14px; border-radius: 16px 18px 18px 5px; min-width: 70px; max-width: 75%; box-shadow: 0 1px 4px #0001; position: relative; margin-left: 0; word-break: break-word;}
+    .bubble-header { display: flex; align-items: center; gap: 0.7em; margin-bottom: 2px;}
+    .bubble-text { font-size: 1.11em; margin-top: 1px; padding-left: 1px;}
+    .pseudo { font-weight: 600; color: #348e51; letter-spacing: 0.03em;}
+    .date { color: #777; font-size: 0.84em; margin-left: 2px;}
     .input-row { display: flex; gap: .7rem; }
-    input, button { font-size: 1em; border-radius: 5px; border:none; padding: .5em; }
-    input { flex: 1; }
-    button { background: gold; color: #111; font-weight: bold; cursor: pointer; }
+    input, button { font-size: 1em; border-radius: 6px; border: none; padding: .5em; }
+    button { background: #1de9a5; color: #111; font-weight: bold; cursor: pointer; transition: background .2s;}
+    button:hover { background: #13b176; }
     #pseudo-row {margin-bottom: 1.2em;}
-    .annonce-block {
-      background: #ffc400;
-      color: #222;
-      border-radius: 12px;
-      padding: 0.5em 1em;
-      margin-bottom: 1em;
-      font-weight: bold;
-      box-shadow: 0 1px 7px #0001;
-      text-align: center;
-      font-size: 1.12em;
-    }
-    .bubble-row {
-      display: flex;
-      align-items: flex-start;
-      margin: 0.5rem 0;
-    }
-    .avatar {
-      flex: none;
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      color: #222;
-      font-weight: bold;
-      font-size: 1.3em;
-      text-align: center;
-      line-height: 38px;
-      margin-right: 9px;
-      box-shadow: 0 2px 7px #0002;
-      border: 2px solid #fff2;
-    }
-    .bubble {
-      background: #fff;
-      color: #21292c;
-      padding: 9px 14px 8px 14px;
-      border-radius: 16px 18px 18px 5px;
-      min-width: 70px;
-      max-width: 75%;
-      box-shadow: 0 1px 4px #0001;
-      position: relative;
-      margin-left: 0;
-      word-break: break-word;
-    }
-    .bubble-header {
-      display: flex; align-items: center; gap: 0.7em; margin-bottom: 2px;
-    }
-    .bubble-text {
-      font-size: 1.11em;
-      margin-top: 1px;
-      padding-left: 1px;
-    }
-    .pseudo {
-      font-weight: 600;
-      color: #348e51;
-      letter-spacing: 0.03em;
-    }
-    .date {
-      color: #777;
-      font-size: 0.84em;
-      margin-left: 2px;
-    }
-    .input-row {
-      display: flex; gap: .7rem;
-    }
-    input, button {
-      font-size: 1em;
-      border-radius: 6px;
-      border: none;
-      padding: .5em;
-    }
-    button {
-      background: #1de9a5;
-      color: #111;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    button:hover {
-      background: #13b176;
-    }
     @media (max-width: 640px) {
       .chat-container { max-width: 99vw; padding: 2vw;}
       .bubble { max-width: 99vw;}
@@ -117,8 +44,9 @@
       </div>
     </div>
   </div>
-
 <script>
+  alert("Script chargé !"); // DEBUG: Affichage si le script est bien exécuté
+
   // --- À PERSONNALISER ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
@@ -140,7 +68,6 @@
       .select('*')
       .order('created_at', { ascending: false })
       .limit(1);
-    if (error) console.log("Erreur SELECT annonce:", error); // Debug annonce
     if (data && data.length > 0) {
       document.getElementById('annonce-block').innerHTML =
         `<div class="annonce-text">${data[0].content}</div>`;
@@ -157,11 +84,9 @@
       return;
     }
     currentPseudo = pseudo;
-    alert('DEBUG 1: pseudo validé !');
     document.getElementById('pseudo-row').style.display = "none";
     document.getElementById('chat-block').style.display = "";
     await loadMessages();
-    alert('DEBUG 2: loadMessages appelé !');
     subscribeMessages();
     loadAnnonce();
   }
@@ -172,7 +97,6 @@
       .from('message')
       .select('*')
       .order('created_at', { ascending: true });
-    if (error) console.log("Erreur SELECT messages:", error); // Debug messages SELECT
     renderMessages(data || []);
   }
 
@@ -181,8 +105,7 @@
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
     if (!currentPseudo || !content) return alert("Pseudo et message requis !");
-    const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
-    if (error) console.log("Erreur INSERT message:", error); // Debug message INSERT
+    await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
     input.value = "";
   }
 
