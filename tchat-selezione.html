@@ -3,210 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <title>Tchat SELEZIONE PRO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
-    body { background:#181818; color:#fff; font-family:sans-serif; margin:0;}
+    body {
+      background: #191919;
+      color: #fff;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      margin: 0;
+    }
     .chat-container {
-      max-width: 450px;
-      margin: 32px auto;
-      background: #222;
-      border-radius: 14px;
-      box-shadow: 0 2px 12px #0008;
-      padding: 0 0 12px 0;
+      max-width: 500px;
+      margin: 3em auto;
+      background: #232323;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      overflow: hidden;
+      padding-bottom: 1em;
     }
     .chat-header {
-      background: linear-gradient(90deg,#FFC300,#ffd700a0 80%);
-      border-radius: 14px 14px 0 0;
-      padding: 20px 22px 8px 22px;
-      color: #181818;
-      font-size: 1.4em;
-      font-weight: bold;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 2px #0006;
+      background: linear-gradient(90deg, #FFD600 0%, #B29000 100%);
+      color: #191919;
+      font-weight: 700;
+      padding: 1.1em 1.2em;
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      border-bottom: 3px solid #282828;
     }
-    .chat-messages {
-      max-height: 54vh;
-      min-height: 30vh;
-      overflow-y: auto;
-      padding: 18px 10px 6px 10px;
+    .chat-header svg {
+      width: 1.5em;
+      height: 1.5em;
+      vertical-align: middle;
+    }
+    .messages-area {
       background: #222;
+      min-height: 250px;
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 1.2em 1em 0.5em 1em;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      font-size: 1.08em;
+      gap: 0.4em;
+      border-bottom: 2px solid #282828;
     }
-    .bubble {
-      display: flex;
-      flex-direction: column;
-      max-width: 77%;
-      word-break: break-word;
-      margin-bottom: 2px;
-      position: relative;
-      padding-bottom: 2px;
-    }
-    .bubble.self {
-      align-self: flex-end;
-      background: linear-gradient(120deg,#FFC300 80%,#fff7b8 100%);
-      color: #222;
-      border-radius: 14px 14px 3px 14px;
-      box-shadow: 0 0 6px #2229;
-      margin-right: 5px;
-      margin-left: 23%;
-      padding: 8px 13px 6px 14px;
-    }
-    .bubble.other {
-      align-self: flex-start;
-      background: linear-gradient(90deg,#313131 80%,#232323 100%);
-      color: #fff;
-      border-radius: 14px 14px 14px 4px;
-      margin-left: 5px;
-      margin-right: 23%;
-      box-shadow: 0 0 4px #1118;
-      padding: 8px 13px 6px 14px;
-    }
-    .bubble .meta {
-      font-size: 0.85em;
-      color: #ffc300b3;
-      margin-top: 4px;
-      text-align: right;
-      font-weight: 400;
-      letter-spacing: 0.2px;
-    }
-    .bubble .meta.other {
-      color: #b3c5d6;
-      text-align: left;
-    }
-    .chat-inputs {
-      display: flex;
-      gap: 7px;
-      margin: 16px 12px 0 12px;
-    }
-    .chat-inputs input {
-      flex:1;
-      padding:9px 8px;
-      border-radius:6px;
-      border:1px solid #292929;
-      background:#292929;
-      color:#fff;
+    .message-bubble {
+      display: inline-block;
+      padding: 0.7em 1em;
+      margin-bottom: 0.1em;
+      border-radius: 17px;
       font-size: 1em;
-      outline:none;
-      transition: border 0.2s;
+      max-width: 80%;
+      word-break: break-word;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.13);
+      position: relative;
+      line-height: 1.4;
     }
-    .chat-inputs input:focus { border: 1.5px solid #ffc300; }
-    .chat-inputs input#pseudo { max-width:120px; }
-    .chat-inputs button {
-      padding:8px 18px;
-      border-radius:6px;
-      border:none;
-      background: linear-gradient(90deg,#FFC300,#FFD700);
-      color: #222;
-      font-weight:bold;
-      font-size:1em;
-      letter-spacing: 0.7px;
-      cursor:pointer;
-      box-shadow: 0 1px 4px #1116;
-      transition: filter 0.12s;
+    .message-me {
+      background: linear-gradient(120deg,#ffd600 60%,#ffe370 100%);
+      color: #000;
+      align-self: flex-end;
+      border-bottom-right-radius: 3px;
     }
-    .chat-inputs button:active { filter: brightness(0.94); }
-    #debug { margin:10px 0 0 15px; color:#ffc300; font-size: 0.93em;}
-    @media (max-width:550px) {
-      .chat-container { max-width:97vw; }
-      .chat-header { font-size:1.1em;}
+    .message-other {
+      background: #393939;
+      color: #fff;
+      align-self: flex-start;
+      border-bottom-left-radius: 3px;
+    }
+    .message-pseudo {
+      font-size: 0.9em;
+      font-weight: bold;
+      opacity: 0.8;
+      margin-bottom: 0.2em;
+      display: block;
+    }
+    .chat-input-area {
+      display: flex;
+      gap: 0.5em;
+      padding: 1em 1em 0 1em;
+      align-items: center;
+    }
+    .chat-input-area input[type="text"] {
+      background: #181818;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7em 1em;
+      color: #fff;
+      font-size: 1em;
+      outline: none;
+      transition: box-shadow 0.2s;
+      flex: 1;
+      margin: 0;
+    }
+    .chat-input-area input[type="text"]:first-child {
+      max-width: 7em;
+      flex: unset;
+    }
+    .chat-input-area button {
+      background: linear-gradient(90deg, #ffd600 0%, #b29000 100%);
+      color: #191919;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7em 1.2em;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-left: 0.5em;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.11);
+    }
+    .chat-input-area button:active {
+      background: #ffe370;
+    }
+    @media (max-width:600px) {
+      .chat-container { max-width: 99vw; margin: 0.5em; }
+      .chat-header { font-size: 1.1em; padding: 1em 0.8em; }
+      .chat-input-area { flex-direction: column; gap: 0.6em; padding: 1em 0.5em 0 0.5em;}
+      .chat-input-area input[type="text"] { width: 100%; }
+      .chat-input-area input[type="text"]:first-child { max-width: 100%; }
+      .chat-input-area button { width: 100%; margin-left: 0; }
+      .messages-area { max-height: 40vh; }
     }
   </style>
 </head>
 <body>
   <div class="chat-container">
     <div class="chat-header">
-      💬 Tchat SELEZIONE PRO
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#fff"/><path d="M6 17v-1.5C6 13.12 9.33 12 12 12s6 .88 6 3.5V17" fill="none" stroke="#FFD600" stroke-width="1.7"/><circle cx="12" cy="8.5" r="3.2" fill="none" stroke="#FFD600" stroke-width="1.7"/></svg>
+      Tchat SELEZIONE PRO
     </div>
-    <div class="chat-messages" id="messages"></div>
-    <div class="chat-inputs">
-      <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione"/>
-      <input type="text" id="msg" placeholder="Message"/>
-      <button onclick="envoyer()">Envoyer</button>
-    </div>
-    <div id="debug"></div>
+    <div class="messages-area" id="messages"></div>
+    <form class="chat-input-area" onsubmit="event.preventDefault(); envoyer();">
+      <input type="text" id="pseudo" placeholder="Pseudo" value="Selezione" autocomplete="username" />
+      <input type="text" id="msg" placeholder="Message" autocomplete="off" />
+      <button type="submit" id="envoyerBtn">Envoyer</button>
+    </form>
+    <div id="debug" style="padding:0.6em 1em;color:#ffd600;font-size:0.98em"></div>
   </div>
   <script>
-    // -- Config Supabase (remets tes valeurs si tu changes d’instance !)
+    // CONFIG SUPABASE
     const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    // -- Utilitaire date
-    function formatTime(ts) {
-      if(!ts) return '';
-      const d = new Date(ts);
-      return d.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+    // UTIL: Sélecteur
+    const $ = sel => document.querySelector(sel);
+
+    // Affiche les messages dans la bulle WhatsApp style
+    function afficherMessages(data, pseudoCourant) {
+      const messages = data.map(msg => {
+        const isMe = msg.pseudo?.trim().toLowerCase() === pseudoCourant.trim().toLowerCase();
+        return `
+          <div class="message-bubble ${isMe ? "message-me" : "message-other"}">
+            <span class="message-pseudo">${msg.pseudo || "?"}</span>
+            ${msg.content}
+          </div>
+        `;
+      }).join('');
+      $('#messages').innerHTML = messages;
+      $('#messages').scrollTop = 9999999; // scroll down
     }
 
-    // -- Affiche messages avec UX pro bulle
-    function renderMessages(data, currentPseudo) {
-      const zone = document.getElementById('messages');
-      zone.innerHTML = '';
-      data.forEach(m => {
-        const isSelf = (m.pseudo === currentPseudo);
-        zone.innerHTML += `
-          <div class="bubble ${isSelf ? 'self':'other'}">
-            <span>${m.content}</span>
-            <div class="meta ${isSelf ? '' : 'other'}">
-              ${isSelf ? '' : `<b>${m.pseudo}</b> · `}${formatTime(m.created_at)}
-            </div>
-          </div>`;
-      });
-      // Scroll auto en bas
-      zone.scrollTop = zone.scrollHeight;
-    }
+    // Lecture au chargement
+    let pseudoMemo = '';
+    document.addEventListener("DOMContentLoaded", async () => {
+      $('#debug').innerText = "Lecture des messages...";
+      pseudoMemo = $('#pseudo').value;
+      await chargerMessages();
+      // Rafraîchissement auto toutes les 4s
+      setInterval(chargerMessages, 4000);
+    });
 
-    // -- Charge tous les messages à l'ouverture
-    let messagesData = [];
-    let pseudoActuel = document.getElementById('pseudo').value;
-    async function charger() {
-      document.getElementById('debug').innerText = "Chargement...";
+    async function chargerMessages() {
+      const pseudoCourant = $('#pseudo').value;
       const { data, error } = await supabase.from('message').select('*').order('created_at', { ascending: true });
-      if(error) {
-        document.getElementById('debug').innerText = "Erreur : " + error.message;
+      if (error) {
+        $('#debug').innerText = "Erreur Supabase : " + error.message;
       } else {
-        messagesData = data;
-        renderMessages(messagesData, pseudoActuel);
-        document.getElementById('debug').innerText = "Connexion OK – "+messagesData.length+" messages.";
+        $('#debug').innerText = "Nb messages : " + (data?.length || 0);
+        afficherMessages(data || [], pseudoCourant);
       }
     }
 
-    // -- Envoie un message
+    // Envoi d'un message
     async function envoyer() {
-      const pseudo = document.getElementById('pseudo').value.trim();
-      const msg = document.getElementById('msg').value.trim();
+      const pseudo = $('#pseudo').value.trim();
+      const msg = $('#msg').value.trim();
       if(!pseudo || !msg) return;
-      document.getElementById('msg').value = '';
-      // Insert en base
+      $('#msg').value = '';
+      $('#msg').focus();
+      // Ajoute en base
       const { error } = await supabase.from('message').insert([{ pseudo, content: msg }]);
-      if(error) {
-        document.getElementById('debug').innerText = "Erreur d'envoi : " + error.message;
+      if (error) {
+        $('#debug').innerText = "Erreur lors de l'envoi: "+error.message;
       } else {
-        // Recharge messages pour update l'affichage avec timestamp
-        await charger();
+        await chargerMessages();
       }
     }
 
-    // -- Refresh quand pseudo change
-    document.getElementById('pseudo').addEventListener('input', () => {
-      pseudoActuel = document.getElementById('pseudo').value.trim();
-      renderMessages(messagesData, pseudoActuel);
+    // ENTER = envoyer
+    $('#msg').addEventListener("keydown", e => {
+      if(e.key==="Enter") {
+        e.preventDefault();
+        envoyer();
+      }
     });
-
-    // -- Entrée clavier pour envoyer (focus sur message)
-    document.getElementById('msg').addEventListener('keydown', e => {
-      if (e.key === 'Enter') envoyer();
-    });
-
-    // -- Auto-refresh toutes les 6 secondes
-    setInterval(charger, 6000);
-
-    // -- Première charge
-    charger();
   </script>
 </body>
 </html>
