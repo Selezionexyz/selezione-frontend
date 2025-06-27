@@ -45,41 +45,39 @@
     </div>
   </div>
 <script>
-  alert("Script chargé !"); // DEBUG initial
+  alert("Script chargé !"); // DEBUG
 
+  // --- À PERSONNALISER ---
   const SUPABASE_URL = "https://gwcatbpsjbbhwekcsvkr.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3Y2F0YnBzamJiaHdla2NzdmtyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyMTMzNDUsImV4cCI6MjA2Mzc4OTM0NX0.wMu7xBYKSUyzbcRRKDPGjX6iowDh9wdXFjyB71hl_to";
   const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   let currentPseudo = "";
 
+  // Génère une couleur à partir du pseudo (pour l'avatar)
   function getColor(str) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) { hash = str.charCodeAt(i) + ((hash << 5) - hash); }
     return `hsl(${hash % 360}, 80%, 60%)`;
   }
 
+  // Charger et afficher la dernière annonce
   async function loadAnnonce() {
-    try {
-      const { data, error } = await supabase
-        .from('annonce')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(1);
-      if (error) alert("Erreur annonce: " + error.message);
-      if (data && data.length > 0) {
-        document.getElementById('annonce-block').innerHTML =
-          `<div class="annonce-text">${data[0].content}</div>`;
-      } else {
-        document.getElementById('annonce-block').innerHTML = "";
-      }
-    } catch(e) {
-      alert("Exception annonce: " + e.message);
+    const { data, error } = await supabase
+      .from('annonce')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(1);
+    if (data && data.length > 0) {
+      document.getElementById('annonce-block').innerHTML =
+        `<div class="annonce-text">${data[0].content}</div>`;
+    } else {
+      document.getElementById('annonce-block').innerHTML = "";
     }
   }
 
+  // Entrée dans le chat
   async function enterChat() {
-    alert("Entrée dans le chat appelée");
     const pseudo = document.getElementById('pseudo').value.trim();
     if (!pseudo) {
       alert("Choisis un pseudo pour entrer dans le tchat !");
@@ -88,69 +86,55 @@
     currentPseudo = pseudo;
     document.getElementById('pseudo-row').style.display = "none";
     document.getElementById('chat-block').style.display = "";
-    try {
-      await loadMessages();
-      alert("Après loadMessages !");
-    } catch (e) {
-      alert("Erreur après loadMessages: " + e.message);
-    }
-    try {
-      subscribeMessages();
-      alert("Après subscribeMessages !");
-    } catch (e) {
-      alert("Erreur après subscribeMessages: " + e.message);
-    }
-    try {
-      await loadAnnonce();
-      alert("Après loadAnnonce !");
-    } catch (e) {
-      alert("Erreur après loadAnnonce: " + e.message);
-    }
-    alert("Chat chargé !");
+    alert("Entrée dans le chat appelée"); // DEBUG
+    await loadMessages();
+    subscribeMessages();
+    loadAnnonce();
   }
 
+  // FONCTION DEBUG loadMessages
   async function loadMessages() {
+    alert("Début loadMessages()");
     try {
       const { data, error } = await supabase
         .from('message')
         .select('*')
         .order('created_at', { ascending: true });
-      if (error) alert("Erreur messages: " + error.message);
+      if (error) {
+        alert("Erreur messages: " + error.message);
+        return;
+      }
+      alert("Données reçues: " + JSON.stringify(data));
       renderMessages(data || []);
+      alert("Messages affichés !");
     } catch(e) {
       alert("Exception loadMessages: " + e.message);
     }
   }
 
+  // Envoie un message
   async function sendMessage() {
     const input = document.getElementById('msg-input');
     const content = input.value.trim();
     if (!currentPseudo || !content) return alert("Pseudo et message requis !");
-    try {
-      const { error } = await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
-      if (error) alert("Erreur envoi message: " + error.message);
-    } catch(e) {
-      alert("Exception sendMessage: " + e.message);
-    }
+    await supabase.from('message').insert([{ pseudo: currentPseudo, content }]);
     input.value = "";
   }
 
+  // Écoute en temps réel les nouveaux messages
   function subscribeMessages() {
-    try {
-      supabase
-        .channel('public:message')
-        .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
-        .subscribe();
-    } catch(e) {
-      alert("Exception subscribeMessages: " + e.message);
-    }
+    supabase
+      .channel('public:message')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'message' }, loadMessages)
+      .subscribe();
   }
 
+  // Rendu visuel des messages avec bulles et avatars
   function renderMessages(messages) {
     const box = document.getElementById('messages');
     box.innerHTML = "";
     messages.forEach(msg => {
-      const date = msg.created_at ? new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' }) : "";
+      const date = new Date(msg.created_at).toLocaleString("fr-FR", { hour: '2-digit', minute: '2-digit' });
       const avatarColor = getColor(msg.pseudo || "?");
       const initial = (msg.pseudo||"?").substring(0,1).toUpperCase();
       box.innerHTML += `
