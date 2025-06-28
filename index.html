@@ -15,7 +15,7 @@
       font-family:'Outfit',sans-serif;
       background:#F5F5F5; /* Fond très clair, presque blanc */
       color:#333; /* Texte sombre pour le contraste */
-      overflow:hidden;
+      overflow:hidden; /* Garde le body sans scroll */
     }
 
     /* SIDEBAR */
@@ -27,22 +27,22 @@
       flex-direction:column;
       border-right:1px solid #EEEEEE;
       box-shadow: 2px 0 10px rgba(0,0,0,0.03);
-      overflow-y:auto; /* Permet le défilement */
-      flex-shrink: 0; /* Empêche la sidebar de se rétrécir */
+      overflow-y:auto; /* Permet le défilement de la sidebar */
+      flex-shrink: 0;
     }
     aside h2 {
       font-family:'Playfair Display',serif;
-      font-size:2.2rem; /* Plus grand pour le luxe */
-      margin-bottom:2rem; /* Plus d'espace */
+      font-size:2.2rem;
+      margin-bottom:2rem;
       color:#1A1A1A;
-      text-align: center; /* Centrer le logo */
-      padding-bottom:.8rem; /* Conserver la bordure pour un style visuel fort si désiré, sinon enlever */
+      text-align: center;
+      padding-bottom:.8rem;
     }
     aside .sidebar-section {
-        margin-bottom: 2rem; /* Espace entre les sections de la sidebar */
+        margin-bottom: 2rem;
     }
     aside .section-title {
-        margin-top:0.5rem; /* Réduit l'espace car le groupement est plus fort */
+        margin-top:0.5rem;
         margin-bottom:0.8rem;
         font-weight:600;
         color:#888;
@@ -52,14 +52,14 @@
         padding: 0 1rem;
     }
     aside a {
-      display:flex; align-items:center; gap:1rem; /* Plus d'espace pour un look aéré */
+      display:flex; align-items:center; gap:1rem;
       color:#555;
       text-decoration:none;
       transition:color .2s, background-color .2s;
       font-size:1.05rem;
-      padding:0.9rem 1.2rem; /* Plus de padding */
-      border-radius:10px; /* Plus arrondis pour le luxe */
-      margin-bottom: 0.4rem; /* Petit espace entre les liens */
+      padding:0.9rem 1.2rem;
+      border-radius:10px;
+      margin-bottom: 0.4rem;
     }
     aside a:hover {
       color:#1A1A1A;
@@ -70,20 +70,22 @@
         background: linear-gradient(90deg, #5A3F9D, #8E7AC0);
         box-shadow: 0 4px 10px rgba(90, 63, 157, 0.3);
     }
-    aside a .fas, aside a .fab { /* Styles pour les icônes Font Awesome */
-        font-size: 1.2rem; /* Taille des icônes */
-        width: 24px; /* Fixer la largeur pour l'alignement */
+    aside a .fas, aside a .fab {
+        font-size: 1.2rem;
+        width: 24px;
         text-align: center;
     }
-    aside ul {
+    aside ul { /* Pour les sous-menus de formation */
       list-style:none;
       padding-left:0;
-      margin-top:.8rem;
+      margin-top:0.5rem; /* Réduit l'espace */
     }
-    aside ul li { margin:.4rem 0 }
+    aside ul li { margin:.3rem 0 }
     aside ul li a {
       padding-left:3rem; /* Indentation plus forte pour les sous-liens de formation */
-      font-size:1rem;
+      font-size:0.95rem; /* Plus petit pour les sous-liens */
+      padding-top:0.7rem;
+      padding-bottom:0.7rem;
     }
 
     /* MAIN CONTENT AREA */
@@ -91,50 +93,51 @@
       flex:1;
       display:flex;
       flex-direction:column;
-      padding:2.5rem; /* Plus de padding global */
-      overflow-y:auto;
+      padding:2.5rem;
+      overflow-y:auto; /* Permet le défilement du contenu principal */
     }
 
     .main-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3rem; /* Plus d'espace */
+      margin-bottom: 3rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid #E0E0E0;
     }
     .main-header h1 {
       font-family:'Playfair Display',serif;
-      font-size:2.8rem; /* Plus grand pour l'impact */
+      font-size:2.8rem;
       color:#1A1A1A;
     }
     .user-profile {
-      width: 48px; /* Plus grand */
+      width: 48px;
       height: 48px;
       background-color: #E8E8E8;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem; /* Icône plus grande */
+      font-size: 1.8rem;
       color: #666;
       cursor: pointer;
       transition: background-color 0.2s;
     }
     .user-profile:hover { background-color: #D8D8D8; }
 
-    /* DASHBOARD SECTIONS (REPLACE HERO CARD FOR MAIN DASHBOARD) */
+    /* DASHBOARD SECTIONS (Widgets) */
     .dashboard-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 2 ou 3 colonnes flexibles */
-        gap: 2rem; /* Espacement généreux */
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* 2 ou 3 colonnes flexibles, plus grandes */
+        gap: 2rem;
+        margin-bottom: 3rem; /* Espace après la grille de widgets */
     }
 
     .dashboard-card {
         background:#FFFFFF;
-        border-radius:15px; /* Plus arrondis */
+        border-radius:15px;
         padding:2.5rem;
-        box-shadow:0 6px 25px rgba(0,0,0,0.08); /* Ombre plus distincte */
+        box-shadow:0 6px 25px rgba(0,0,0,0.08);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -155,7 +158,7 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        color: #5A3F9D; /* Couleur de lien violette */
+        color: #5A3F9D;
         text-decoration: none;
         font-weight: 600;
         transition: color 0.2s;
@@ -163,7 +166,7 @@
     .dashboard-card .card-link:hover {
         color: #8E7AC0;
     }
-    .dashboard-card .card-button { /* Pour les boutons internes aux cartes */
+    .dashboard-card .card-button {
         margin-top: 1.5rem;
         font-family:'Outfit',sans-serif;
         font-size:1rem;
@@ -174,65 +177,63 @@
         transition:filter .2s, box-shadow .2s;
         background: linear-gradient(90deg, #5A3F9D, #8E7AC0);
         color: #FFFFFF;
-        align-self: flex-start; /* Aligner à gauche si plusieurs lignes de texte */
+        align-self: flex-start;
     }
     .dashboard-card .card-button:hover {
         filter:brightness(1.1);
         box-shadow:0 4px 12px rgba(90, 63, 157, 0.4);
     }
+    /* Specific style for the initial Hero/Welcome card */
+    .dashboard-card.welcome-hero {
+        background: linear-gradient(135deg, #E0E7FC, #D4EDDA); /* Doux dégradé pastel */
+        text-align: center;
+        padding: 4rem 2.5rem; /* Plus de padding pour l'effet hero */
+        margin-bottom: 3rem; /* Espace après le hero */
+    }
+    .dashboard-card.welcome-hero h3 {
+        font-size: 3rem; /* Très grand titre */
+        color: #1A1A1A;
+        margin-bottom: 1.5rem;
+    }
+    .dashboard-card.welcome-hero p {
+        font-size: 1.15rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #555;
+        margin-bottom: 2rem;
+    }
+    .dashboard-card.welcome-hero .hero-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    .dashboard-card.welcome-hero .btn-outline {
+        border:2px solid #8E7AC0;
+        color:#5A3F9D;
+        background:transparent;
+        box-shadow: none;
+    }
+    .dashboard-card.welcome-hero .btn-outline:hover {
+        background-color: #F0F0F0;
+        transform: translateY(-2px);
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
 
-    /* MODULES GRID - Intégré comme une section de tableau de bord */
-    .modules-section {
-        margin-top: 3rem; /* Espacement depuis le haut du dashboard */
+    /* Autres sections de contenu (si besoin, par exemple pour des actus ou promos) */
+    .content-block {
         background:#FFFFFF;
         border-radius:15px;
         padding:2.5rem;
         box-shadow:0 6px 25px rgba(0,0,0,0.08);
+        margin-bottom: 2rem;
     }
-    .modules-section h2 {
+    .content-block h2 {
         font-family:'Playfair Display',serif;
         font-size:2rem;
-        margin-bottom:2rem;
+        margin-bottom:1.5rem;
         color:#1A1A1A;
     }
-    .modules-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajusté pour plus de colonnes */
-        gap: 1.5rem;
-    }
-    .module-card {
-        background-color: #F8F8F8; /* Un léger fond pour les cartes de modules */
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Ombre plus subtile pour les modules individuels */
-        padding: 1.2rem;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        color: #333;
-        transition: transform 0.2s, box-shadow 0.2s;
-        height: 160px; /* Hauteur fixe ajustée */
-    }
-    .module-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    .module-card .icon {
-        font-size: 3rem; /* Grande icône */
-        margin-bottom: 0.8rem;
-        color: #8E7AC0; /* Couleur d'accentuation */
-    }
-    .module-card h3 {
-        font-family:'Outfit',sans-serif;
-        font-size: 1.1rem; /* Plus petit pour les titres de module */
-        font-weight: 600;
-        margin-bottom: 0; /* Pas de marge en bas */
-        color: #1A1A1A;
-    }
-    /* Supprimé le paragraphe de description pour les petites cartes modules pour plus de propreté */
-
 
     /* RESPONSIVE */
     @media (max-width:992px) { /* Tablette */
@@ -240,17 +241,20 @@
       aside h2 { font-size:1.8rem; margin-bottom:1.5rem;}
       aside a { font-size:0.95rem; padding:0.7rem 1rem; gap:0.8rem;}
       aside a .fas, aside a .fab { font-size: 1.1rem; }
+      aside .section-title { font-size:0.85rem; }
+      aside ul li a { padding-left:2.5rem; font-size:0.9rem; }
+
       main { padding:1.5rem; }
       .main-header h1 { font-size:2.2rem; }
       .user-profile { width: 40px; height: 40px; font-size: 1.5rem; }
       .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
       .dashboard-card { padding:2rem; }
       .dashboard-card h3 { font-size:1.6rem; }
-      .modules-section h2 { font-size:1.8rem; margin-bottom:1.5rem; }
-      .modules-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-      .module-card { height: 140px; padding: 1rem; }
-      .module-card .icon { font-size: 2.5rem; }
-      .module-card h3 { font-size: 1rem; }
+      .dashboard-card.welcome-hero h3 { font-size:2.5rem; }
+      .dashboard-card.welcome-hero p { font-size:1rem; }
+      .dashboard-card .card-button { padding:.6em 1.5em; font-size:0.95rem; }
+      .content-block { padding:2rem; }
+      .content-block h2 { font-size:1.8rem; }
     }
 
     @media (max-width:768px) { /* Mobile */
@@ -273,18 +277,20 @@
       .main-header h1 { font-size:1.8rem; }
       .user-profile { width: 36px; height: 36px; font-size: 1.3rem; }
 
-      .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; } /* Une seule colonne sur mobile */
+      .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
       .dashboard-card { padding:1.5rem; }
       .dashboard-card h3 { font-size:1.4rem; }
       .dashboard-card p { font-size:0.9rem; margin-bottom:1rem;}
       .dashboard-card .card-button { padding:.6em 1.5em; font-size:0.9rem; }
 
-      .modules-section { margin-top: 2rem; padding:1.5rem; }
-      .modules-section h2 { font-size:1.6rem; margin-bottom:1rem; }
-      .modules-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.8rem; }
-      .module-card { height: 120px; padding: 0.8rem; }
-      .module-card .icon { font-size: 2rem; margin-bottom: 0.4rem; }
-      .module-card h3 { font-size: 0.9rem; }
+      .dashboard-card.welcome-hero { padding: 2.5rem 1.5rem; margin-bottom: 2rem;}
+      .dashboard-card.welcome-hero h3 { font-size:2rem; margin-bottom:1rem; }
+      .dashboard-card.welcome-hero p { font-size:0.95rem; margin-bottom:1.5rem; }
+      .dashboard-card.welcome-hero .hero-buttons { flex-direction: column; gap: 0.8rem; }
+
+
+      .content-block { padding:1.5rem; margin-bottom: 1.5rem; }
+      .content-block h2 { font-size:1.6rem; margin-bottom:1rem; }
     }
   </style>
 </head>
@@ -294,28 +300,34 @@
     <h2>SELEZIONE</h2>
     <div class="sidebar-section">
         <a href="index.html" class="active"><i class="fas fa-home"></i> Accueil</a>
-        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Tableau de Bord</a>
-    </div>
+        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Tableau de Bord</a> </div>
 
     <div class="sidebar-section">
         <div class="section-title">Démarrer & Apprendre</div>
         <a href="formation-selezione-1.html"><i class="fas fa-book-open"></i> Formations Complètes</a>
+        <ul> <li><a href="formation-selezione-1.html">Histoire du Luxe</a></li>
+            <li><a href="formation-selezione-2.html">Fonctionnement des Marques</a></li>
+            <li><a href="formation-selezione-3.html">Marketing & Positionnement</a></li>
+            <li><a href="formation-selezione-4.html">Lancer son activité</a></li>
+        </ul>
         <a href="onboarding-guide.html"><i class="fas fa-graduation-cap"></i> Guide de Démarrage</a>
     </div>
 
     <div class="sidebar-section">
         <div class="section-title">Sourcing & Acquisition</div>
         <a href="fournisseur-order.html"><i class="fas fa-box-open"></i> Gestion Fournisseurs</a>
-        <a href="module6.html"><i class="fas fa-search-dollar"></i> Scraper VC (Veille Concurrentielle)</a>
+        <a href="module6.html"><i class="fas fa-search-dollar"></i> Scraper VC (Veille)</a>
         <a href="module4.html"><i class="fas fa-gem"></i> Estimation & Authentification</a>
-        </div>
+        <a href="module_nouvelle_acquisition.html"><i class="fas fa-tags"></i> Nouveaux Sourcing</a>
+    </div>
 
     <div class="sidebar-section">
         <div class="section-title">Analyse & Stratégie</div>
         <a href="calculateur-marge-costo.html"><i class="fas fa-calculator"></i> Calculateur de Marge</a>
         <a href="stats-performance.html"><i class="fas fa-chart-pie"></i> Statistiques & Performance</a>
         <a href="tendances-ia.html"><i class="fas fa-robot"></i> Tendances IA & Marché</a>
-        </div>
+        <a href="analyse-concurrence.html"><i class="fas fa-line-chart"></i> Analyse Concurrentielle</a>
+    </div>
 
     <div class="sidebar-section">
         <div class="section-title">Opérations & Ventes</div>
@@ -323,23 +335,25 @@
         <a href="module7.html"><i class="fas fa-shipping-fast"></i> Gestion des Commandes</a>
         <a href="marketing-ia.html"><i class="fas fa-bullhorn"></i> Marketing & Réseaux Sociaux</a>
         <a href="module2.html"><i class="fas fa-palette"></i> IA + Création Visuelle</a>
-        </div>
+        <a href="gestion-stock.html"><i class="fas fa-warehouse"></i> Gestion de Stock</a>
+    </div>
 
     <div class="sidebar-section">
         <div class="section-title">Support & Communauté</div>
         <a href="tchat-selezione.html"><i class="fas fa-comments"></i> Tchat SELEZIONE</a>
         <a href="module8.html"><i class="fas fa-newspaper"></i> Actu Direct & Veille</a>
         <a href="support-faq.html"><i class="fas fa-question-circle"></i> Centre d'Aide & FAQ</a>
+        <a href="contact-support.html"><i class="fas fa-headset"></i> Contacter le Support</a>
     </div>
   </aside>
 
   <main>
     <header class="main-header">
-        <h1>Votre Tableau de Bord SELEZIONE</h1>
+        <h1>Votre Espace SELEZIONE</h1>
         <div class="user-profile"><i class="fas fa-user-circle"></i></div>
     </header>
 
-    <section class="dashboard-card hero-section">
+    <section class="dashboard-card welcome-hero">
         <h3>Bienvenue sur SELEZIONE, Votre Partenaire Luxe IA</h3>
         <p>Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. SELEZIONE met à votre disposition tous les outils IA et les formations nécessaires pour exceller.</p>
         <div class="hero-buttons">
@@ -358,85 +372,41 @@
         <section class="dashboard-card">
             <h3>Statistiques Clés</h3>
             <p>Aperçu de vos performances récentes. Suivez vos marges, vos ventes et l'évolution du marché.</p>
-            <p style="font-size: 2.5rem; font-weight: 600; color: #5A3F9D;">+12%</p>
-            <p style="font-size: 0.9rem; color: #888;">Marge Moyenne le mois dernier</p>
+            <p style="font-size: 2.5rem; font-weight: 600; color: #5A3F9D; margin-bottom: 0.5rem;">+12%</p>
+            <p style="font-size: 0.9rem; color: #888;">Marge Moyenne ce mois-ci</p>
             <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
         </section>
 
         <section class="dashboard-card">
-            <h3>Tendances IA Récentes</h3>
-            <p>Notre IA a identifié de nouvelles opportunités sur le marché des sacs à main vintage.</p>
+            <h3>Opportunités IA du Marché</h3>
+            <p>Notre IA a identifié une forte demande pour les sacs à main vintage en cuir exotique. Explorez nos analyses approfondies.</p>
             <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
         </section>
 
         <section class="dashboard-card">
             <h3>Dernières Commandes</h3>
-            <p>Suivez l'état de vos dernières commandes fournisseurs et clients.</p>
-            <p style="font-size: 1.1rem; color: #555;">2 commandes en attente, 1 livrée hier.</p>
+            <p>Suivez l'état de vos dernières commandes fournisseurs et clients. 2 en cours, 1 livrée hier.</p>
             <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
+        </section>
+
+        <section class="dashboard-card">
+            <h3>Créez une Fiche Produit IA</h3>
+            <p>Générez des descriptions de produits optimisées en un clin d'œil pour vos annonces.</p>
+            <a href="module3.html" class="card-button">Créer une fiche produit</a>
+        </section>
+
+         <section class="dashboard-card">
+            <h3>Nouvelles Acquisions Potentielles</h3>
+            <p>Découvrez des sources de produits de luxe rares et authentiques identifiées par notre système de veille.</p>
+            <a href="module_nouvelle_acquisition.html" class="card-link">Explorer les sources <i class="fas fa-arrow-right"></i></a>
         </section>
     </div>
 
-    <section class="modules-section">
-        <h2>Tous les Outils et Modules</h2>
-        <div class="modules-grid">
-            <a href="fournisseur-order.html" class="module-card">
-                <span class="icon"><i class="fas fa-box-open"></i></span>
-                <h3>Gestion Fournisseurs</h3>
-            </a>
-            <a href="calculateur-marge-costo.html" class="module-card">
-                <span class="icon"><i class="fas fa-calculator"></i></span>
-                <h3>Calculateur Marge</h3>
-            </a>
-            <a href="module2.html" class="module-card">
-                <span class="icon"><i class="fas fa-palette"></i></span>
-                <h3>IA + Création Visuelle</h3>
-            </a>
-            <a href="module3.html" class="module-card">
-                <span class="icon"><i class="fas fa-file-alt"></i></span>
-                <h3>Fiches Produits IA</h3>
-            </a>
-            <a href="module4.html" class="module-card">
-                <span class="icon"><i class="fas fa-gem"></i></span>
-                <h3>Estimation Luxe</h3>
-            </a>
-            <a href="module6.html" class="module-card">
-                <span class="icon"><i class="fas fa-search-dollar"></i></span>
-                <h3>Scraper VC</h3>
-            </a>
-            <a href="module7.html" class="module-card">
-                <span class="icon"><i class="fas fa-shipping-fast"></i></span>
-                <h3>Gestion Commandes</h3>
-            </a>
-            <a href="tchat-selezione.html" class="module-card">
-                <span class="icon"><i class="fas fa-comments"></i></span>
-                <h3>Tchat SELEZIONE</h3>
-            </a>
-            <a href="module8.html" class="module-card">
-                <span class="icon"><i class="fas fa-newspaper"></i></span>
-                <h3>Actu Direct</h3>
-            </a>
-            <a href="stats-performance.html" class="module-card">
-                <span class="icon"><i class="fas fa-chart-pie"></i></span>
-                <h3>Statistiques</h3>
-            </a>
-            <a href="tendances-ia.html" class="module-card">
-                <span class="icon"><i class="fas fa-robot"></i></span>
-                <h3>Tendances IA</h3>
-            </a>
-            <a href="marketing-ia.html" class="module-card">
-                <span class="icon"><i class="fas fa-bullhorn"></i></span>
-                <h3>Marketing IA</h3>
-            </a>
-            </div>
-    </section>
-
-    <section class="dashboard-card" style="margin-top: 2rem;">
-        <h3>Besoin d'aide ou de conseils ?</h3>
-        <p>Notre équipe est là pour vous accompagner. Accédez à notre centre d'aide ou contactez le support.</p>
-        <div style="display: flex; gap: 1rem;">
-            <a href="support-faq.html" class="btn-outline">Centre d'Aide</a>
-            <a href="mailto:contact@selezione.com" class="btn-primary">Contacter le Support</a>
+    <section class="content-block">
+        <h2>Actualités du Luxe & du Business</h2>
+        <p>Restez informé des dernières tendances du prêt-à-porter de luxe et des conseils pour votre entreprise.</p>
+        <div style="margin-top: 1.5rem;">
+            <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
         </div>
     </section>
 
