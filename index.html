@@ -7,290 +7,376 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* RESET + GLOBAL */
+    /* Votre CSS (celui que je vous ai fourni précédemment) va ici */
+    /* N'oubliez pas de modifier la balise <ul> dans la sidebar pour avoir un style="display: none;" */
+    :root {
+        --color-bg-dark: #1A1A1A;
+        --color-bg-light: #FFFFFF;
+        --color-sidebar-bg: #222222;
+        --color-text-primary: #E0E0E0;
+        --color-text-secondary: #AAAAAA;
+        --color-accent-purple: #8E7AC0;
+        --color-accent-dark-purple: #5A3F9D;
+        --color-border-subtle: #444444;
+        --color-shadow-light: rgba(0,0,0,0.05);
+        --color-shadow-dark: rgba(0,0,0,0.25);
+    }
+
     * { margin:0; padding:0; box-sizing:border-box }
     body {
       display: flex;
       height: 100vh;
       font-family:'Outfit',sans-serif;
-      background:#F5F5F5; /* Fond très clair, presque blanc */
-      color:#333; /* Texte sombre pour le contraste */
-      overflow:hidden; /* Garde le body sans scroll */
+      background:var(--color-bg-dark);
+      color:var(--color-text-primary);
+      overflow:hidden;
+      position: relative;
     }
 
-    /* SIDEBAR */
     aside {
       width:280px;
-      background:#FFFFFF;
+      background:var(--color-sidebar-bg);
       padding:2rem 1.5rem;
       display:flex;
       flex-direction:column;
-      border-right:1px solid #EEEEEE;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.03);
-      overflow-y:auto; /* Permet le défilement de la sidebar */
+      border-right:1px solid var(--color-border-subtle);
+      box-shadow: 2px 0 15px var(--color-shadow-dark);
+      overflow-y:auto;
       flex-shrink: 0;
+      transition: width 0.3s ease;
     }
     aside h2 {
       font-family:'Playfair Display',serif;
-      font-size:2.2rem;
-      margin-bottom:2rem;
-      color:#1A1A1A;
+      font-size:2.5rem;
+      margin-bottom:2.5rem;
+      color:var(--color-text-primary);
       text-align: center;
-      padding-bottom:.8rem;
+      line-height: 1;
     }
     aside .sidebar-section {
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     aside .section-title {
-        margin-top:0.5rem;
-        margin-bottom:0.8rem;
+        margin-top:0.8rem;
+        margin-bottom:1rem;
         font-weight:600;
-        color:#888;
-        font-size:0.9rem;
+        color:var(--color-text-secondary);
+        font-size:0.95rem;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
         padding: 0 1rem;
+        border-bottom: 1px solid var(--color-border-subtle);
+        padding-bottom: 0.5rem;
     }
     aside a {
-      display:flex; align-items:center; gap:1rem;
-      color:#555;
+      display:flex; align-items:center; gap:1.2rem;
+      color:var(--color-text-primary);
       text-decoration:none;
-      transition:color .2s, background-color .2s;
-      font-size:1.05rem;
-      padding:0.9rem 1.2rem;
+      transition:color .2s, background-color .2s, transform .2s;
+      font-size:1.1rem;
+      padding:1rem 1.2rem;
       border-radius:10px;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
     }
     aside a:hover {
-      color:#1A1A1A;
-      background-color:#F0F0F0;
+      color:var(--color-accent-purple);
+      background-color:rgba(255,255,255,0.05);
+      transform: translateX(5px);
     }
     aside a.active {
-        color:#FFFFFF;
-        background: linear-gradient(90deg, #5A3F9D, #8E7AC0);
-        box-shadow: 0 4px 10px rgba(90, 63, 157, 0.3);
+        color:var(--color-bg-light);
+        background: linear-gradient(90deg, var(--color-accent-dark-purple), var(--color-accent-purple));
+        box-shadow: 0 4px 15px rgba(90, 63, 157, 0.4);
     }
     aside a .fas, aside a .fab {
-        font-size: 1.2rem;
-        width: 24px;
+        font-size: 1.3rem;
+        width: 28px;
         text-align: center;
+        color: var(--color-text-secondary);
+        transition: color 0.2s;
     }
-    aside ul { /* Pour les sous-menus de formation */
+    aside a.active .fas, aside a.active .fab {
+        color: var(--color-bg-light);
+    }
+    aside ul {
       list-style:none;
       padding-left:0;
-      margin-top:0.5rem; /* Réduit l'espace */
+      margin-top:0.8rem;
+      /* AJOUT IMPORTANT : Masque les sous-menus par défaut */
+      max-height: 0; /* Pour l'animation de slide */
+      overflow: hidden; /* Cache le contenu débordant pendant l'animation */
+      transition: max-height 0.3s ease-out; /* Animation douce */
     }
-    aside ul li { margin:.3rem 0 }
+    aside ul.open {
+        max-height: 500px; /* Grande valeur pour s'assurer que tout le contenu est visible */
+    }
+    aside ul li { margin:.4rem 0 }
     aside ul li a {
-      padding-left:3rem; /* Indentation plus forte pour les sous-liens de formation */
-      font-size:0.95rem; /* Plus petit pour les sous-liens */
-      padding-top:0.7rem;
-      padding-bottom:0.7rem;
+      padding-left:3.5rem;
+      font-size:1rem;
+      color:var(--color-text-secondary);
+    }
+    aside ul li a:hover {
+        color:var(--color-accent-purple);
+        background-color:transparent;
+        transform: translateX(0);
     }
 
-    /* MAIN CONTENT AREA */
     main {
       flex:1;
       display:flex;
       flex-direction:column;
-      padding:2.5rem;
-      overflow-y:auto; /* Permet le défilement du contenu principal */
+      padding:3rem;
+      overflow-y:auto;
+      background:var(--color-bg-light);
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+      margin-left: -20px;
+      position: relative;
     }
 
     .main-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
       padding-bottom: 1.5rem;
       border-bottom: 1px solid #E0E0E0;
     }
     .main-header h1 {
       font-family:'Playfair Display',serif;
-      font-size:2.8rem;
+      font-size:3.2rem;
       color:#1A1A1A;
+      line-height: 1.2;
     }
     .user-profile {
-      width: 48px;
-      height: 48px;
-      background-color: #E8E8E8;
+      width: 52px;
+      height: 52px;
+      background-color: #F0F0F0;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
-      color: #666;
+      font-size: 2rem;
+      color: #777;
       cursor: pointer;
       transition: background-color 0.2s;
     }
-    .user-profile:hover { background-color: #D8D8D8; }
+    .user-profile:hover { background-color: #E0E0E0; }
 
-    /* DASHBOARD SECTIONS (Widgets) */
     .dashboard-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* 2 ou 3 colonnes flexibles, plus grandes */
-        gap: 2rem;
-        margin-bottom: 3rem; /* Espace après la grille de widgets */
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 4rem;
     }
 
     .dashboard-card {
-        background:#FFFFFF;
-        border-radius:15px;
-        padding:2.5rem;
-        box-shadow:0 6px 25px rgba(0,0,0,0.08);
+        background:var(--color-bg-light);
+        border-radius:18px;
+        padding:3rem;
+        box-shadow:0 8px 30px var(--color-shadow-light);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        border: 1px solid #F0F0F0;
     }
     .dashboard-card h3 {
         font-family:'Playfair Display',serif;
-        font-size:1.8rem;
-        color:#333;
-        margin-bottom:1rem;
+        font-size:2rem;
+        color:#1A1A1A;
+        margin-bottom:1.2rem;
     }
     .dashboard-card p {
-        font-size:1rem;
-        line-height:1.6;
-        color:#666;
-        margin-bottom:1.5rem;
+        font-size:1.05rem;
+        line-height:1.7;
+        color:#555;
+        margin-bottom:1.8rem;
+        font-weight: 300;
     }
     .dashboard-card .card-link {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        color: #5A3F9D;
+        gap: 0.8rem;
+        color: var(--color-accent-dark-purple);
         text-decoration: none;
         font-weight: 600;
-        transition: color 0.2s;
+        font-size: 1rem;
+        transition: color 0.2s, transform 0.2s;
     }
     .dashboard-card .card-link:hover {
-        color: #8E7AC0;
+        color: var(--color-accent-purple);
+        transform: translateX(5px);
+    }
+    .dashboard-card .card-link .fas {
+        font-size: 1rem;
     }
     .dashboard-card .card-button {
-        margin-top: 1.5rem;
+        margin-top: 2rem;
         font-family:'Outfit',sans-serif;
-        font-size:1rem;
+        font-size:1.05rem;
         font-weight:600;
-        border-radius:8px;
-        padding:.75em 2em;
+        border-radius:10px;
+        padding:1em 2.8em;
         text-decoration:none;
-        transition:filter .2s, box-shadow .2s;
-        background: linear-gradient(90deg, #5A3F9D, #8E7AC0);
+        transition:transform .2s, box-shadow .2s;
+        background: linear-gradient(90deg, var(--color-accent-dark-purple), var(--color-accent-purple));
         color: #FFFFFF;
         align-self: flex-start;
+        box-shadow:0 6px 18px rgba(90, 63, 157, 0.35);
     }
     .dashboard-card .card-button:hover {
-        filter:brightness(1.1);
-        box-shadow:0 4px 12px rgba(90, 63, 157, 0.4);
+        transform: translateY(-3px);
+        box-shadow:0 8px 22px rgba(90, 63, 157, 0.5);
     }
-    /* Specific style for the initial Hero/Welcome card */
     .dashboard-card.welcome-hero {
-        background: linear-gradient(135deg, #E0E7FC, #D4EDDA); /* Doux dégradé pastel */
+        background: linear-gradient(135deg, #E0E7FC, #D4EDDA);
         text-align: center;
-        padding: 4rem 2.5rem; /* Plus de padding pour l'effet hero */
-        margin-bottom: 3rem; /* Espace après le hero */
+        padding: 5rem 3rem;
+        margin-bottom: 4rem;
+        box-shadow:0 10px 40px rgba(0,0,0,0.1);
     }
     .dashboard-card.welcome-hero h3 {
-        font-size: 3rem; /* Très grand titre */
-        color: #1A1A1A;
-        margin-bottom: 1.5rem;
+        font-size: 3.8rem;
+        color:#1A1A1A;
+        margin-bottom:1.8rem;
     }
     .dashboard-card.welcome-hero p {
-        font-size: 1.15rem;
-        max-width: 700px;
+        font-size:1.3rem;
+        max-width: 800px;
         margin-left: auto;
         margin-right: auto;
-        color: #555;
-        margin-bottom: 2rem;
+        color:#444;
+        margin-bottom: 3rem;
+        font-weight: 300;
     }
     .dashboard-card.welcome-hero .hero-buttons {
         display: flex;
         justify-content: center;
-        gap: 1.5rem;
+        gap: 2rem;
     }
     .dashboard-card.welcome-hero .btn-outline {
-        border:2px solid #8E7AC0;
-        color:#5A3F9D;
+        border:2px solid var(--color-accent-purple);
+        color:var(--color-accent-dark-purple);
         background:transparent;
         box-shadow: none;
     }
     .dashboard-card.welcome-hero .btn-outline:hover {
-        background-color: #F0F0F0;
-        transform: translateY(-2px);
-        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        background-color: #F5F5F5;
+        transform: translateY(-3px);
+        box-shadow:0 6px 15px rgba(0,0,0,0.15);
     }
 
-    /* Autres sections de contenu (si besoin, par exemple pour des actus ou promos) */
     .content-block {
-        background:#FFFFFF;
-        border-radius:15px;
-        padding:2.5rem;
-        box-shadow:0 6px 25px rgba(0,0,0,0.08);
-        margin-bottom: 2rem;
+        background:var(--color-bg-light);
+        border-radius:18px;
+        padding:3rem;
+        box-shadow:0 8px 30px var(--color-shadow-light);
+        margin-bottom: 2.5rem;
+        border: 1px solid #F0F0F0;
     }
     .content-block h2 {
         font-family:'Playfair Display',serif;
-        font-size:2rem;
-        margin-bottom:1.5rem;
+        font-size:2.2rem;
+        margin-bottom:1.8rem;
         color:#1A1A1A;
     }
-
-    /* RESPONSIVE */
-    @media (max-width:992px) { /* Tablette */
-      aside { width:240px; padding:1.5rem 1rem; }
-      aside h2 { font-size:1.8rem; margin-bottom:1.5rem;}
-      aside a { font-size:0.95rem; padding:0.7rem 1rem; gap:0.8rem;}
-      aside a .fas, aside a .fab { font-size: 1.1rem; }
-      aside .section-title { font-size:0.85rem; }
-      aside ul li a { padding-left:2.5rem; font-size:0.9rem; }
-
-      main { padding:1.5rem; }
-      .main-header h1 { font-size:2.2rem; }
-      .user-profile { width: 40px; height: 40px; font-size: 1.5rem; }
-      .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-      .dashboard-card { padding:2rem; }
-      .dashboard-card h3 { font-size:1.6rem; }
-      .dashboard-card.welcome-hero h3 { font-size:2.5rem; }
-      .dashboard-card.welcome-hero p { font-size:1rem; }
-      .dashboard-card .card-button { padding:.6em 1.5em; font-size:0.95rem; }
-      .content-block { padding:2rem; }
-      .content-block h2 { font-size:1.8rem; }
+    .content-block p {
+        font-size:1.05rem;
+        line-height:1.7;
+        color:#555;
+        font-weight: 300;
     }
 
-    @media (max-width:768px) { /* Mobile */
-      body { flex-direction:column; overflow-y:auto; }
-      aside {
-        width:100%; height:auto; border-right:none; border-bottom:1px solid #EEEEEE;
-        flex-direction:row; flex-wrap:wrap; justify-content:space-around;
-        padding:0.8rem 1rem; gap:0.4rem;
-      }
-      aside h2, aside .sidebar-section .section-title, aside ul { display:none; } /* Cache tout sauf les liens principaux sur mobile */
-      aside a {
-        padding:0.5rem; justify-content:center; text-align:center;
-        flex-direction:column; gap:0.2rem; font-size:0.75rem;
-        flex:1; min-width: 70px;
-      }
-      aside a .fas, aside a .fab { font-size: 1.5rem; margin-bottom: 0.1rem; }
+    .mobile-nav-bar {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--color-sidebar-bg);
+        box-shadow: 0 -4px 20px var(--color-shadow-dark);
+        padding: 0.8rem 0;
+        z-index: 1000;
+        justify-content: space-around;
+        align-items: center;
+        border-top: 1px solid var(--color-border-subtle);
+    }
+    .mobile-nav-bar a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: var(--color-text-secondary);
+        font-size: 0.75rem;
+        font-weight: 500;
+        transition: color 0.2s, transform 0.2s;
+        padding: 0.2rem 0.5rem;
+        flex: 1;
+    }
+    .mobile-nav-bar a:hover,
+    .mobile-nav-bar a.active {
+        color: var(--color-accent-purple);
+        transform: translateY(-3px);
+    }
+    .mobile-nav-bar a .fas {
+        font-size: 1.8rem;
+        margin-bottom: 0.4rem;
+    }
 
-      main { padding:1rem; }
+    @media (max-width:992px) {
+      aside { width:220px; padding:1.5rem 1rem; }
+      aside h2 { font-size:2rem; margin-bottom:1.8rem;}
+      aside a { font-size:1rem; padding:0.8rem 1rem; gap:1rem;}
+      aside a .fas, aside a .fab { font-size: 1.1rem; width: 22px; }
+      aside .section-title { font-size:0.8rem; padding: 0 0.8rem; }
+      aside ul li a { padding-left:3rem; font-size:0.85rem; }
+
+      main { padding:2rem; margin-left: -15px; }
+      .main-header h1 { font-size:2.5rem; }
+      .user-profile { width: 44px; height: 44px; font-size: 1.6rem; }
+      .dashboard-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
+      .dashboard-card { padding:2.2rem; border-radius:15px; }
+      .dashboard-card h3 { font-size:1.8rem; }
+      .dashboard-card p { font-size:0.95rem; margin-bottom:1.5rem;}
+      .dashboard-card .card-button { padding:.8em 2em; font-size:0.95rem; }
+      .dashboard-card.welcome-hero { padding: 4rem 2rem; margin-bottom: 3rem;}
+      .dashboard-card.welcome-hero h3 { font-size:3rem; margin-bottom:1.5rem; }
+      .dashboard-card.welcome-hero p { font-size:1.05rem; margin-bottom:2rem; }
+      .dashboard-card.welcome-hero .hero-buttons { gap: 1.5rem; }
+      .content-block { padding:2.2rem; border-radius:15px; }
+      .content-block h2 { font-size:2rem; }
+    }
+
+    @media (max-width:768px) {
+      body { padding-bottom: 70px; }
+      aside { display: none; }
+      main {
+        padding: 1.5rem;
+        margin-left: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
       .main-header { margin-bottom: 1rem; padding-bottom: 0.8rem; }
-      .main-header h1 { font-size:1.8rem; }
+      .main-header h1 { font-size:1.6rem; }
       .user-profile { width: 36px; height: 36px; font-size: 1.3rem; }
 
       .dashboard-grid { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2rem; }
-      .dashboard-card { padding:1.5rem; }
+      .dashboard-card { padding:1.5rem; border-radius:12px; }
       .dashboard-card h3 { font-size:1.4rem; }
-      .dashboard-card p { font-size:0.9rem; margin-bottom:1rem;}
-      .dashboard-card .card-button { padding:.6em 1.5em; font-size:0.9rem; }
+      .dashboard-card p { font-size:0.85rem; margin-bottom:1rem;}
+      .dashboard-card .card-button { padding:.6em 1.5em; font-size:0.85rem; }
 
       .dashboard-card.welcome-hero { padding: 2.5rem 1.5rem; margin-bottom: 2rem;}
       .dashboard-card.welcome-hero h3 { font-size:2rem; margin-bottom:1rem; }
       .dashboard-card.welcome-hero p { font-size:0.95rem; margin-bottom:1.5rem; }
       .dashboard-card.welcome-hero .hero-buttons { flex-direction: column; gap: 0.8rem; }
 
-
-      .content-block { padding:1.5rem; margin-bottom: 1.5rem; }
+      .content-block { padding:1.5rem; border-radius:12px; margin-bottom: 1.5rem; }
       .content-block h2 { font-size:1.6rem; margin-bottom:1rem; }
+
+      .mobile-nav-bar { display: flex; }
     }
   </style>
 </head>
@@ -299,57 +385,64 @@
   <aside>
     <h2>SELEZIONE</h2>
     <div class="sidebar-section">
-        <a href="index.html" class="active"><i class="fas fa-home"></i> Accueil</a>
-        <a href="dashboard.html"><i class="fas fa-chart-line"></i> Tableau de Bord</a> </div>
+        <a href="index.html" class="active"><i class="fas fa-home"></i> Tableau de Bord</a>
+    </div>
 
     <div class="sidebar-section">
-        <div class="section-title">Démarrer & Apprendre</div>
-        <a href="formation-selezione-1.html"><i class="fas fa-book-open"></i> Formations Complètes</a>
-        <ul> <li><a href="formation-selezione-1.html">Histoire du Luxe</a></li>
+        <a href="#" class="sidebar-toggler"><i class="fas fa-gem"></i> Sourcing & Veille Luxe</a>
+        <ul class="submenu"> <li><a href="fournisseur-order.html">Gestion Fournisseurs</a></li>
+            <li><a href="module6.html">Scraper VC (Veille)</a></li>
+            <li><a href="module4.html">Estimation & Authentification</a></li>
+            <li><a href="module_nouvelle_acquisition.html">Nouveaux Sourcing</a></li>
+            <li><a href="analyse-concurrence.html">Analyse Concurrentielle</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler"><i class="fas fa-cogs"></i> Gestion & Opérations Premium</a>
+        <ul class="submenu">
+            <li><a href="calculateur-marge-costo.html">Calculateur de Marge</a></li>
+            <li><a href="module3.html">Fiches Produits IA</a></li>
+            <li><a href="module7.html">Gestion des Commandes</a></li>
+            <li><a href="gestion-stock.html">Gestion de Stock</a></li>
+            <li><a href="marketing-ia.html">Marketing & Réseaux Sociaux</a></li>
+            <li><a href="module2.html">IA + Création Visuelle</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler"><i class="fas fa-chart-line"></i> Analyse & Stratégie IA</a>
+        <ul class="submenu">
+            <li><a href="stats-performance.html">Statistiques & Performance</a></li>
+            <li><a href="tendances-ia.html">Tendances IA & Marché</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler"><i class="fas fa-graduation-cap"></i> Académie SELEZIONE</a>
+        <ul class="submenu">
+            <li><a href="formation-selezione-1.html">Histoire du Luxe</a></li>
             <li><a href="formation-selezione-2.html">Fonctionnement des Marques</a></li>
             <li><a href="formation-selezione-3.html">Marketing & Positionnement</a></li>
             <li><a href="formation-selezione-4.html">Lancer son activité</a></li>
+            <li><a href="onboarding-guide.html">Guide de Démarrage</a></li>
         </ul>
-        <a href="onboarding-guide.html"><i class="fas fa-graduation-cap"></i> Guide de Démarrage</a>
     </div>
 
     <div class="sidebar-section">
-        <div class="section-title">Sourcing & Acquisition</div>
-        <a href="fournisseur-order.html"><i class="fas fa-box-open"></i> Gestion Fournisseurs</a>
-        <a href="module6.html"><i class="fas fa-search-dollar"></i> Scraper VC (Veille)</a>
-        <a href="module4.html"><i class="fas fa-gem"></i> Estimation & Authentification</a>
-        <a href="module_nouvelle_acquisition.html"><i class="fas fa-tags"></i> Nouveaux Sourcing</a>
-    </div>
-
-    <div class="sidebar-section">
-        <div class="section-title">Analyse & Stratégie</div>
-        <a href="calculateur-marge-costo.html"><i class="fas fa-calculator"></i> Calculateur de Marge</a>
-        <a href="stats-performance.html"><i class="fas fa-chart-pie"></i> Statistiques & Performance</a>
-        <a href="tendances-ia.html"><i class="fas fa-robot"></i> Tendances IA & Marché</a>
-        <a href="analyse-concurrence.html"><i class="fas fa-line-chart"></i> Analyse Concurrentielle</a>
-    </div>
-
-    <div class="sidebar-section">
-        <div class="section-title">Opérations & Ventes</div>
-        <a href="module3.html"><i class="fas fa-file-alt"></i> Fiches Produits IA</a>
-        <a href="module7.html"><i class="fas fa-shipping-fast"></i> Gestion des Commandes</a>
-        <a href="marketing-ia.html"><i class="fas fa-bullhorn"></i> Marketing & Réseaux Sociaux</a>
-        <a href="module2.html"><i class="fas fa-palette"></i> IA + Création Visuelle</a>
-        <a href="gestion-stock.html"><i class="fas fa-warehouse"></i> Gestion de Stock</a>
-    </div>
-
-    <div class="sidebar-section">
-        <div class="section-title">Support & Communauté</div>
-        <a href="tchat-selezione.html"><i class="fas fa-comments"></i> Tchat SELEZIONE</a>
-        <a href="module8.html"><i class="fas fa-newspaper"></i> Actu Direct & Veille</a>
-        <a href="support-faq.html"><i class="fas fa-question-circle"></i> Centre d'Aide & FAQ</a>
-        <a href="contact-support.html"><i class="fas fa-headset"></i> Contacter le Support</a>
+        <a href="#" class="sidebar-toggler"><i class="fas fa-headset"></i> Support Privilège & Communauté</a>
+        <ul class="submenu">
+            <li><a href="tchat-selezione.html">Tchat SELEZIONE</a></li>
+            <li><a href="module8.html">Actu Direct & Veille</a></li>
+            <li><a href="support-faq.html">Centre d'Aide & FAQ</a></li>
+            <li><a href="contact-support.html">Contacter le Support</a></li>
+        </ul>
     </div>
   </aside>
 
   <main>
     <header class="main-header">
-        <h1>Votre Espace SELEZIONE</h1>
+        <h1>Votre Tableau de Bord SELEZIONE</h1>
         <div class="user-profile"><i class="fas fa-user-circle"></i></div>
     </header>
 
@@ -365,46 +458,46 @@
     <div class="dashboard-grid">
         <section class="dashboard-card">
             <h3>Votre Avancement Formation</h3>
-            <p>Continuez votre parcours pour maîtriser l'achat-revente de luxe. Prochaine étape : **SELEZIONE 2 – Fonctionnement des Marques**.</p>
+            <p>Continuez votre parcours pour maîtriser l'achat-revente de luxe. Prochaine étape : **Fonctionnement des Marques**.</p>
             <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
         </section>
 
         <section class="dashboard-card">
             <h3>Statistiques Clés</h3>
             <p>Aperçu de vos performances récentes. Suivez vos marges, vos ventes et l'évolution du marché.</p>
-            <p style="font-size: 2.5rem; font-weight: 600; color: #5A3F9D; margin-bottom: 0.5rem;">+12%</p>
-            <p style="font-size: 0.9rem; color: #888;">Marge Moyenne ce mois-ci</p>
+            <p style="font-size: 3rem; font-weight: 600; color: var(--color-accent-dark-purple); margin-bottom: 0.5rem; font-family:'Playfair Display',serif;">+12.5%</p>
+            <p style="font-size: 0.95rem; color: #888;">Marge Moyenne ce mois-ci (vs mois précédent)</p>
             <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
         </section>
 
         <section class="dashboard-card">
             <h3>Opportunités IA du Marché</h3>
-            <p>Notre IA a identifié une forte demande pour les sacs à main vintage en cuir exotique. Explorez nos analyses approfondies.</p>
+            <p>Notre IA a identifié une forte demande pour les **sacs à main vintage** en cuir exotique. Explorez nos analyses approfondies.</p>
             <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
         </section>
 
         <section class="dashboard-card">
-            <h3>Dernières Commandes</h3>
-            <p>Suivez l'état de vos dernières commandes fournisseurs et clients. 2 en cours, 1 livrée hier.</p>
+            <h3>Dernières Opérations</h3>
+            <p>Suivez l'état de vos dernières commandes fournisseurs et clients. **2 commandes en attente**, 1 livrée hier.</p>
             <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
         </section>
 
         <section class="dashboard-card">
-            <h3>Créez une Fiche Produit IA</h3>
-            <p>Générez des descriptions de produits optimisées en un clin d'œil pour vos annonces.</p>
-            <a href="module3.html" class="card-button">Créer une fiche produit</a>
+            <h3>Accédez au Sourcing & Veille Luxe</h3>
+            <p>Découvrez de nouvelles sources exclusives et les dernières tendances du marché.</p>
+            <a href="#sourcing-acquisition-menu" class="card-button">Explorer le Sourcing</a>
         </section>
 
          <section class="dashboard-card">
-            <h3>Nouvelles Acquisions Potentielles</h3>
-            <p>Découvrez des sources de produits de luxe rares et authentiques identifiées par notre système de veille.</p>
-            <a href="module_nouvelle_acquisition.html" class="card-link">Explorer les sources <i class="fas fa-arrow-right"></i></a>
+            <h3>Boostez Vos Opérations Premium</h3>
+            <p>Optimisez vos marges, créez des fiches produits IA et gérez vos stocks efficacement.</p>
+            <a href="#gestion-operations-menu" class="card-button">Optimiser les Opérations</a>
         </section>
     </div>
 
     <section class="content-block">
-        <h2>Actualités du Luxe & du Business</h2>
-        <p>Restez informé des dernières tendances du prêt-à-porter de luxe et des conseils pour votre entreprise.</p>
+        <h2>Actualités Exclusives & Insights Luxe</h2>
+        <p>Restez informé des dernières tendances du prêt-à-porter de luxe et des stratégies pour votre entreprise.</p>
         <div style="margin-top: 1.5rem;">
             <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
         </div>
@@ -412,5 +505,39 @@
 
   </main>
 
-</body>
-</html>
+  <nav class="mobile-nav-bar">
+    <a href="index.html" class="active">
+        <i class="fas fa-home"></i>
+        <span>Accueil</span>
+    </a>
+    <a href="#sourcing-acquisition-menu">
+        <i class="fas fa-gem"></i>
+        <span>Sourcing</span>
+    </a>
+    <a href="#gestion-operations-menu">
+        <i class="fas fa-cogs"></i>
+        <span>Opérations</span>
+    </a>
+    <a href="#academie-selezione-menu">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Académie</span>
+    </a>
+    <a href="#full-menu">
+        <i class="fas fa-bars"></i>
+        <span>Menu</span>
+    </a>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Sélectionne tous les liens qui sont des "sidebar-toggler"
+        const togglers = document.querySelectorAll('.sidebar-toggler');
+
+        togglers.forEach(toggler => {
+            // Pour chaque "toggler", on va chercher son élément frère suivant qui est un ul (le sous-menu)
+            const submenu = toggler.nextElementSibling;
+
+            // Assure-toi que c'est bien un ul et qu'il a la classe 'submenu'
+            if (submenu && submenu.classList.contains('submenu')) {
+                // Initialise le sous-menu comme fermé (important pour l'animation CSS)
+                submenu.style.maxHeig
