@@ -6,120 +6,111 @@
   <title>SELEZIONE – Luxe IA SaaS</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset & global */
-    * { margin:0; padding:0; box-sizing:border-box; }
+    /* RESET + GLOBAL */
+    * { margin:0; padding:0; box-sizing:border-box }
     body {
       display: flex;
       height: 100vh;
-      font-family: 'Outfit', sans-serif;
-      background: #000;
-      color: #fff;
-      overflow: hidden;
+      font-family:'Outfit',sans-serif;
+      background:#000;
+      color:#fff;
+      overflow:hidden;
     }
 
-    /* === Sidebar modules === */
+    /* SIDEBAR */
     aside {
-      width: 260px;
-      background: #111;
-      padding: 2rem 1rem;
-      border-right: 1px solid #222;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      overflow-y: auto;
+      width:250px;
+      background:#111;
+      padding:2rem 1rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      border-right:1px solid #222;
+      overflow-y:auto;
     }
     aside h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.5rem;
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem;
+      margin-bottom:1rem;
+      border-bottom:1px solid #444;
+      padding-bottom:.5rem;
     }
     aside a {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      color: #fff;
-      text-decoration: none;
-      transition: color .2s;
+      display:flex; align-items:center; gap:.5rem;
+      color:#fff; text-decoration:none;
+      transition:color .2s;
+      font-size:1rem;
     }
-    aside a:hover {
-      color: #aaa;
-    }
+    aside a:hover { color:#aaa }
     aside ul {
-      list-style: none;
-      padding-left: 1rem;
-      margin-top: .3rem;
+      list-style:none;
+      padding-left:1rem;
+      margin-top:.3rem;
     }
-    aside ul li {
-      margin: .3rem 0;
-    }
+    aside ul li { margin:.3rem 0 }
 
-    /* === Main hero === */
+    /* HERO CARD */
     main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #000;
-      position: relative;
-      padding: 1rem;
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:1rem;
     }
     .hero-card {
-      background: #111;
-      border-radius: 18px;
-      padding: 2rem;
-      max-width: 600px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+      background:#111;
+      border-radius:18px;
+      padding:2rem;
+      max-width:600px;
+      width:100%;
+      text-align:center;
+      box-shadow:0 6px 24px rgba(0,0,0,0.5);
     }
     .hero-card h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      color: #FFE259;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      font-family:'Playfair Display',serif;
+      font-size:2.8rem;
+      margin-bottom:1rem;
+      color:#FFE259;
+      text-shadow:1px 1px 4px rgba(0,0,0,0.7);
     }
     .hero-card p {
-      font-size: 1.15rem;
-      line-height: 1.5;
-      margin-bottom: 2rem;
-      color: #ddd;
+      font-size:1.15rem;
+      line-height:1.5;
+      margin-bottom:2rem;
+      color:#ddd;
     }
     .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
+      display:flex;
+      flex-wrap:wrap;
+      gap:1rem;
+      justify-content:center;
     }
     .btn-primary, .btn-outline {
-      display: inline-block;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 8px;
-      padding: .75em 2em;
-      transition: filter .2s;
-      text-decoration: none;
+      font-family:'Outfit',sans-serif;
+      font-size:1rem;
+      font-weight:600;
+      border-radius:8px;
+      padding:.75em 2em;
+      text-decoration:none;
+      transition:filter .2s;
     }
     .btn-primary {
       background: linear-gradient(90deg,#ffe259,#ffa751);
       color: #181818;
     }
-    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-primary:hover { filter:brightness(1.1) }
     .btn-outline {
-      border: 2px solid #FFE259;
-      color: #FFE259;
-      background: transparent;
+      border:2px solid #FFE259;
+      color:#FFE259;
+      background:transparent;
     }
-    .btn-outline:hover { filter: brightness(1.2); }
+    .btn-outline:hover { filter:brightness(1.2) }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      aside { width: 200px; }
-      .hero-card h1 { font-size: 2.2rem; }
-      .hero-card p { font-size: 1rem; }
+    /* RÉSPONSIVE */
+    @media (max-width:768px) {
+      aside { width:200px; }
+      .hero-card h1 { font-size:2.2rem }
+      .hero-card p { font-size:1rem }
     }
   </style>
 </head>
@@ -139,7 +130,6 @@
     <a href="module4.html">💎 Estimation</a>
     <a href="module6.html">🔍 Scraper VC</a>
     <a href="module7.html">📦 Commandes</a>
-
     <div style="margin-top:1rem;font-weight:bold;">🎓 Formation</div>
     <ul>
       <li>📘 <a href="formation-selezione-1.html">SELEZIONE 1 – Histoire du Luxe</a></li>
@@ -153,9 +143,7 @@
   <main>
     <div class="hero-card">
       <h1>SELEZIONE</h1>
-      <p>
-        La plateforme IA dédiée au prêt-à-porter de luxe : conseils, analyses & automatisations pour piloter votre sourcing et vos commandes comme un pro.
-      </p>
+      <p>La plateforme IA dédiée au prêt-à-porter de luxe : conseils, analyses & automatisations pour piloter votre sourcing et vos commandes comme un pro.</p>
       <div class="hero-buttons">
         <a href="dashboard.html" class="btn-primary">🚀 Démarrer</a>
         <a href="mailto:contact@selezione.com" class="btn-outline">✉️ Nous contacter</a>
