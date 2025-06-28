@@ -1,174 +1,163 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SELEZIONE - Luxe IA SaaS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SELEZIONE – Luxe IA SaaS</title>
+  <!-- Fonts -->
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" 
+    rel="stylesheet"
+  >
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    /* Reset & base */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; font-family:'Inter',sans-serif; }
+    a { text-decoration:none; color:inherit; }
 
+    /* Layout principal */
     body {
-      font-family: 'Outfit', sans-serif;
       display: flex;
-      background: black;
-      color: white;
-      height: 100vh;
-      overflow: hidden;
+      min-height:100vh;
+      background:#111;
+      color:#EEE;
     }
-
+    /* Sidebar */
     aside {
-      width: 250px;
-      background-color: #111;
-      padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      border-right: 1px solid #222;
-      overflow-y: auto;
+      width:260px;
+      background:#000;
+      display:flex;
+      flex-direction:column;
+      padding:2rem 1.5rem;
+    }
+    aside h1 {
+      font-family:'Playfair Display',serif;
+      color:#FFD700;
+      font-size:2rem;
+      margin-bottom:1.5rem;
+      border-bottom:1px solid #444;
+      padding-bottom:.5rem;
+    }
+    nav { flex:1; display:flex; flex-direction:column; gap:1.2rem; }
+    nav a {
+      display:flex; align-items:center; gap:.6rem;
+      font-size:1rem; transition: color .2s;
+    }
+    nav a:hover { color:#FFD700; }
+    .logout {
+      margin-top:2rem;
+      background:#FFD700; color:#000;
+      border:none; padding:.6rem; border-radius:6px;
+      cursor:pointer; font-weight:600;
     }
 
-    aside h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.5rem;
-    }
-
-    aside a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: 0.3s;
-    }
-
-    aside a:hover {
-      color: #aaa;
-    }
-
-    aside ul {
-      list-style: none;
-      padding-left: 1rem;
-      margin-top: 0.2rem;
-    }
-
-    aside ul li {
-      margin: 0.3rem 0;
-    }
-
+    /* Hero / contenu */
     main {
-      flex: 1;
-      background: url('https://cdn.pixabay.com/photo/2020/09/04/11/38/fashion-5542765_1280.jpg') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:2rem;
+    }
+    .hero-text {
+      max-width:520px;
+    }
+    .hero-text h2 {
+      font-family:'Playfair Display',serif;
+      font-size:3.5rem;
+      margin-bottom:1rem;
+      color:#FFF;
+    }
+    .hero-text p {
+      font-size:1.1rem;
+      line-height:1.6;
+      margin-bottom:2rem;
+      color:#DDD;
+    }
+    .cta-buttons {
+      display:flex; gap:1rem;
+    }
+    .btn-primary {
+      background:linear-gradient(90deg,#FFD700,#FFC107);
+      color:#111; font-weight:600;
+      padding:.8rem 1.8rem; border:none;
+      border-radius:6px; cursor:pointer;
+      transition:filter .2s;
+    }
+    .btn-primary:hover { filter:brightness(1.1); }
+    .btn-secondary {
+      background:transparent;
+      border:2px solid #FFD700;
+      color:#FFD700; font-weight:600;
+      padding:.6rem 1.4rem; border-radius:6px;
+      transition:background .2s, color .2s;
+    }
+    .btn-secondary:hover {
+      background:#FFD700; color:#111;
     }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      z-index: 1;
+    /* Aperçu mobile */
+    .hero-image {
+      width:300px; max-width:40%;
+      box-shadow:0 12px 32px rgba(0,0,0,.6);
+      border-radius:24px; overflow:hidden;
+    }
+    .hero-image img {
+      display:block;
+      width:100%;
+      height:auto;
     }
 
-    .content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .content h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-      transition: 0.3s ease;
-    }
-
-    .content h1:hover {
-      letter-spacing: 2px;
-    }
-
-    .content p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
-      line-height: 1.5;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-    }
-
-    @media (max-width: 768px) {
-      aside {
-        width: 200px;
-        padding: 1rem;
-      }
-
-      .content h1 {
-        font-size: 2.2rem;
-      }
-
-      .content p {
-        font-size: 1rem;
-        padding: 0 1rem;
-      }
+    /* Responsive */
+    @media(max-width: 992px) {
+      aside { width:60px; padding:1.5rem .8rem; }
+      aside h1 { font-size:1.5rem; text-align:center; border:none; }
+      nav a { justify-content:center; font-size:0; }
+      nav a span { display:none; }
+      .logout { font-size:0; padding:.6rem; }
+      main { flex-direction:column; text-align:center; }
+      .hero-text h2 { font-size:2.5rem; }
+      .hero-image { margin-top:2rem; max-width:60%; }
     }
   </style>
 </head>
 <body>
-  <aside>
-    <h2>SELEZIONE</h2>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="dashboard.html">📊 Tableau de bord</a>
-    <a href="fournisseur-order.html">📦 Module Fournisseur</a>
-    <a href="calculateur-marge-costo.html">🧮 Calculateur de marge</a>
-    <li>
-  <a href="tchat-selezione.html">
-    💬 Tchat SELEZIONE
-  </a>
-    </li>
-    <a href="module8.html">📰 Actu Direct</a>
-    <a href="module2.html">🖼️ IA + Image</a>
-    <a href="module3.html">📝 Fiche produit</a>
-    <a href="module4.html">💎 Estimation</a>
-    <a href="module6.html">🔍 Scraper VC</a>
-    <a href="module7.html">📦 Commandes</a>
 
-    <div>
-      <a href="#" style="font-weight: bold;">🎓 Formation</a>
-      <ul>
-        <li>
-  📘 <a href="formation-selezione-1.html">SELEZIONE 1 – Histoire du Luxe</a>
-        </li>
-        <li>
-  <a href="formation-selezione-2.html">🟩 SELEZIONE 2 – Fonctionnement des Marques</a>
-        </li>
-        <li><a href="formation-selezione-3.html">Module 3</a></li>📙 SELEZIONE 3 – Marketing & Positionnement</a></li>
-        <a href="formation-selezione-4.html" style="font-weight: bold;">
-  📘 Module 4 – Lancer son activité
-        </a>
-      </ul>
-    </div>
+  <!-- SIDEBAR -->
+  <aside>
+    <h1>SELEZIONE</h1>
+    <nav>
+      <a href="/dashboard.html">🏠 <span>Accueil</span></a>
+      <a href="/dashboard.html">📊 <span>Tableau de bord</span></a>
+      <a href="/module7.html">📦 <span>Commandes</span></a>
+      <a href="/module6.html">🔍 <span>Scraper VC</span></a>
+      <a href="/chat.html">💬 <span>Tchat</span></a>
+      <a href="/formation.html">🎓 <span>Formation</span></a>
+    </nav>
+    <button class="logout" onclick="logout()">Se déconnecter</button>
   </aside>
 
+  <!-- HERO -->
   <main>
-    <div class="overlay"></div>
-    <div class="content">
-      <h1>SELEZIONE</h1>
-      <p>SELEZIONE IA, l'app qui va révolutionner le prêt-à-porter de luxe.</p>
+    <div class="hero-text">
+      <h2>SELEZIONE</h2>
+      <p>La plateforme IA dédiée au prêt-à-porter de luxe : conseils, analyses & automatisations pour piloter votre sourcing et vos commandes comme un pro.</p>
+      <div class="cta-buttons">
+        <button class="btn-primary" onclick="location.href='/dashboard.html'">🚀 Démarrer</button>
+        <button class="btn-secondary" onclick="location.href='/contact.html'">📩 Nous contacter</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://selezione-frontend.onrender.com/assets/mockup-mobile.png" alt="Aperçu mobile SELEZIONE" />
     </div>
   </main>
+
+  <script>
+    // redirige vers /index.html si non authentifié
+    async function logout() {
+      await fetch('/auth/logout',{method:'POST'});
+      window.location.href = '/index.html';
+    }
+  </script>
 </body>
 </html>
