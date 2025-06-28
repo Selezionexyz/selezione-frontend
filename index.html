@@ -12,115 +12,236 @@
       display: flex;
       height: 100vh;
       font-family:'Outfit',sans-serif;
-      background:#000;
-      color:#fff;
+      background:#F5F5F5; /* Fond très clair, presque blanc */
+      color:#333; /* Texte sombre pour le contraste */
       overflow:hidden;
     }
 
     /* SIDEBAR */
     aside {
-      width:250px;
-      background:#111;
-      padding:2rem 1rem;
+      width:280px; /* Un peu plus large pour une meilleure lisibilité */
+      background:#FFFFFF; /* Fond blanc */
+      padding:2rem 1.5rem;
       display:flex;
       flex-direction:column;
       gap:1rem;
-      border-right:1px solid #222;
+      border-right:1px solid #EEEEEE; /* Bordure très légère */
       overflow-y:auto;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.03); /* Ombre très subtile */
     }
     aside h2 {
       font-family:'Playfair Display',serif;
-      font-size:1.8rem;
-      margin-bottom:1rem;
-      border-bottom:1px solid #444;
-      padding-bottom:.5rem;
+      font-size:2rem; /* Légèrement plus grand */
+      margin-bottom:1.5rem;
+      color:#1A1A1A; /* Titre plus foncé */
+      border-bottom:1px solid #E0E0E0; /* Bordure plus claire */
+      padding-bottom:.8rem;
     }
     aside a {
-      display:flex; align-items:center; gap:.5rem;
-      color:#fff; text-decoration:none;
-      transition:color .2s;
-      font-size:1rem;
+      display:flex; align-items:center; gap:.75rem; /* Plus d'espace pour les icônes */
+      color:#555; /* Couleur de texte neutre pour les liens */
+      text-decoration:none;
+      transition:color .2s, background-color .2s;
+      font-size:1.05rem;
+      padding:0.75rem 1rem; /* Padding pour les liens */
+      border-radius:8px; /* Bords légèrement arrondis */
     }
-    aside a:hover { color:#aaa }
+    aside a:hover {
+      color:#1A1A1A; /* Texte plus foncé au survol */
+      background-color:#F0F0F0; /* Fond très léger au survol */
+    }
+    aside a.active { /* Nouvelle classe pour l'état actif */
+        color:#FFFFFF; /* Texte blanc */
+        background: linear-gradient(90deg, #5A3F9D, #8E7AC0); /* Dégradé violet luxueux */
+        box-shadow: 0 4px 10px rgba(90, 63, 157, 0.3); /* Ombre pour le bouton actif */
+    }
     aside ul {
       list-style:none;
-      padding-left:1rem;
-      margin-top:.3rem;
+      padding-left:0; /* Supprime le padding par défaut */
+      margin-top:.8rem;
     }
-    aside ul li { margin:.3rem 0 }
+    aside ul li { margin:.4rem 0 }
+    aside ul li a {
+      padding-left:2.5rem; /* Indentation pour les sous-liens */
+      font-size:1rem;
+    }
+    aside .section-title { /* Nouveau style pour "Formation" */
+        margin-top:2rem;
+        margin-bottom:0.8rem;
+        font-weight:600;
+        color:#888; /* Couleur plus douce */
+        font-size:0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
 
-    /* HERO CARD */
+
+    /* MAIN CONTENT AREA - to replace hero card directly */
     main {
       flex:1;
       display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:1rem;
+      flex-direction:column; /* Changement : colonne pour le contenu */
+      padding:2rem; /* Plus de padding pour l'espace */
+      overflow-y:auto; /* Permet le défilement si le contenu est long */
     }
-    .hero-card {
-      background:#111;
-      border-radius:18px;
-      padding:2rem;
-      max-width:600px;
-      width:100%;
-      text-align:center;
-      box-shadow:0 6px 24px rgba(0,0,0,0.5);
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
     }
-    .hero-card h1 {
+
+    .main-header h1 {
       font-family:'Playfair Display',serif;
-      font-size:2.8rem;
-      margin-bottom:1rem;
-      color:#FFE259;
-      text-shadow:1px 1px 4px rgba(0,0,0,0.7);
+      font-size:2.5rem;
+      color:#1A1A1A;
     }
-    .hero-card p {
-      font-size:1.15rem;
-      line-height:1.5;
-      margin-bottom:2rem;
-      color:#ddd;
+
+    .user-profile {
+      /* Style pour l'icône utilisateur/menu, inspiré de ThredUp */
+      width: 40px;
+      height: 40px;
+      background-color: #E0E0E0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #666;
+    }
+
+    /* GENERAL CONTENT AREA */
+    .content-section {
+      background:#FFFFFF;
+      border-radius:12px;
+      padding:2.5rem;
+      box-shadow:0 4px 20px rgba(0,0,0,0.05); /* Ombre plus douce */
+      margin-bottom: 2rem; /* Espace entre les sections */
+    }
+
+    .content-section h2 {
+        font-family:'Playfair Display',serif;
+        font-size:1.8rem;
+        margin-bottom:1.5rem;
+        color:#333;
+    }
+
+    /* HERO SECTION (if still desired, integrated into main content) */
+    .hero-section {
+        text-align: center;
+        background: linear-gradient(135deg, #E0E7FC, #D4EDDA); /* Un dégradé très doux et clair */
+        padding: 4rem 2rem;
+        border-radius: 15px;
+        margin-bottom: 3rem;
+    }
+    .hero-section h1 {
+        font-family:'Playfair Display',serif;
+        font-size:3.5rem; /* Plus grand pour l'impact */
+        margin-bottom:1.5rem;
+        color:#333; /* Couleur de texte sombre */
+        text-shadow: none; /* Supprimer l'ombre du texte */
+    }
+    .hero-section p {
+        font-size:1.25rem;
+        line-height:1.6;
+        margin-bottom:2.5rem;
+        color:#555;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
     }
     .hero-buttons {
-      display:flex;
-      flex-wrap:wrap;
-      gap:1rem;
-      justify-content:center;
+        display:flex;
+        flex-wrap:wrap;
+        gap:1.5rem; /* Plus d'espace entre les boutons */
+        justify-content:center;
     }
     .btn-primary, .btn-outline {
       font-family:'Outfit',sans-serif;
-      font-size:1rem;
+      font-size:1.1rem; /* Légèrement plus grand */
       font-weight:600;
-      border-radius:8px;
-      padding:.75em 2em;
+      border-radius:10px; /* Plus arrondis */
+      padding:.9em 2.5em; /* Plus de padding */
       text-decoration:none;
-      transition:filter .2s;
+      transition:transform .2s, box-shadow .2s; /* Effets au survol */
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
     }
     .btn-primary {
-      background: linear-gradient(90deg,#ffe259,#ffa751);
-      color: #181818;
+      background: linear-gradient(90deg, #5A3F9D, #8E7AC0); /* Dégradé violet élégant */
+      color: #FFFFFF;
     }
-    .btn-primary:hover { filter:brightness(1.1) }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow:0 6px 15px rgba(90, 63, 157, 0.4);
+    }
     .btn-outline {
-      border:2px solid #FFE259;
-      color:#FFE259;
+      border:2px solid #8E7AC0; /* Bordure violette */
+      color:#5A3F9D; /* Texte violet */
       background:transparent;
+      box-shadow: none; /* Pas d'ombre pour l'outline */
     }
-    .btn-outline:hover { filter:brightness(1.2) }
+    .btn-outline:hover {
+        background-color: #F0F0F0;
+        transform: translateY(-2px);
+        box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
 
-    /* RÉSPONSIVE */
-    @media (max-width:768px) {
-      aside { width:200px; }
-      .hero-card h1 { font-size:2.2rem }
-      .hero-card p { font-size:1rem }
+    /* RESPONSIVE */
+    @media (max-width:992px) { /* Tablette */
+      aside { width:250px; padding:1.5rem 1rem; }
+      aside h2 { font-size:1.6rem; }
+      aside a { font-size:0.95rem; padding:0.6rem 0.8rem; }
+      .hero-section h1 { font-size:2.8rem }
+      .hero-section p { font-size:1.1rem }
+      main { padding:1.5rem; }
+    }
+
+    @media (max-width:768px) { /* Mobile */
+      body { flex-direction:column; overflow-y:auto; } /* La sidebar passe au-dessus */
+      aside {
+        width:100%;
+        height:auto;
+        border-right:none;
+        border-bottom:1px solid #EEEEEE;
+        flex-direction:row; /* Sidebar horizontale */
+        flex-wrap:wrap;
+        justify-content:space-around;
+        padding:1rem;
+        gap:0.5rem;
+      }
+      aside h2 { display:none; } /* Cache le titre sur mobile */
+      aside a {
+        padding:0.5rem;
+        justify-content:center;
+        text-align:center;
+        flex-direction:column; /* Texte et icône en colonne */
+        gap:0.2rem;
+        font-size:0.8rem;
+        flex:1; /* Permet aux éléments de prendre de la place */
+        min-width: 80px; /* Taille minimale pour chaque bouton */
+      }
+      aside a svg, aside a img { /* Ajuster la taille des icônes si elles sont utilisées */
+          width: 24px;
+          height: 24px;
+      }
+      aside ul { display:none; } /* Masque les sous-menus de formation sur mobile pour simplifier */
+      aside .section-title { display:none; } /* Masque le titre de section "Formation" */
+
+      main { padding:1rem; }
+      .main-header h1 { font-size:2rem; }
+      .hero-section { padding:2rem 1rem; }
+      .hero-section h1 { font-size:2.2rem }
+      .hero-section p { font-size:1rem }
+      .btn-primary, .btn-outline { font-size:0.95rem; padding:.8em 1.8em; }
     }
   </style>
 </head>
 <body>
 
-  <!-- SIDEBAR -->
   <aside>
     <h2>SELEZIONE</h2>
-    <a href="index.html">🏠 Accueil</a>
-    <a href="dashboard.html">📊 Tableau de bord</a>
+    <a href="index.html" class="active">🏠 Accueil</a> <a href="dashboard.html">📊 Tableau de bord</a>
     <a href="fournisseur-order.html">📦 Module Fournisseur</a>
     <a href="calculateur-marge-costo.html">🧮 Calculateur de marge</a>
     <a href="tchat-selezione.html">💬 Tchat SELEZIONE</a>
@@ -130,25 +251,39 @@
     <a href="module4.html">💎 Estimation</a>
     <a href="module6.html">🔍 Scraper VC</a>
     <a href="module7.html">📦 Commandes</a>
-    <div style="margin-top:1rem;font-weight:bold;">🎓 Formation</div>
+    <div class="section-title">Formation</div>
     <ul>
-      <li>📘 <a href="formation-selezione-1.html">SELEZIONE 1 – Histoire du Luxe</a></li>
-      <li>🟩 <a href="formation-selezione-2.html">SELEZIONE 2 – Fonctionnement des Marques</a></li>
-      <li>📙 <a href="formation-selezione-3.html">SELEZIONE 3 – Marketing & Positionnement</a></li>
-      <li>📘 <a href="formation-selezione-4.html">Module 4 – Lancer son activité</a></li>
+      <li><a href="formation-selezione-1.html">Histoire du Luxe</a></li>
+      <li><a href="formation-selezione-2.html">Fonctionnement des Marques</a></li>
+      <li><a href="formation-selezione-3.html">Marketing & Positionnement</a></li>
+      <li><a href="formation-selezione-4.html">Lancer son activité</a></li>
     </ul>
   </aside>
 
-  <!-- HERO PRINCIPAL -->
   <main>
-    <div class="hero-card">
+    <header class="main-header">
+        <h1>Bienvenue sur SELEZIONE</h1>
+        <div class="user-profile">👤</div> </header>
+
+    <section class="hero-section">
       <h1>SELEZIONE</h1>
       <p>La plateforme IA dédiée au prêt-à-porter de luxe : conseils, analyses & automatisations pour piloter votre sourcing et vos commandes comme un pro.</p>
       <div class="hero-buttons">
         <a href="dashboard.html" class="btn-primary">🚀 Démarrer</a>
         <a href="mailto:contact@selezione.com" class="btn-outline">✉️ Nous contacter</a>
       </div>
-    </div>
+    </section>
+
+    <section class="content-section">
+        <h2>Vos Outils Récents</h2>
+        <p>Aperçu rapide de vos modules les plus utilisés.</p>
+        </section>
+
+    <section class="content-section">
+        <h2>Dernières Tendances IA</h2>
+        <p>Découvrez les analyses de marché et les tendances générées par notre IA.</p>
+    </section>
+
   </main>
 
 </body>
