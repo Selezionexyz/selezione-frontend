@@ -1,178 +1,161 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SELEZIONE – Tableau de bord</title>
+  <title>SELEZIONE PRO – Tableau de bord</title>
+
+  <!-- 1. Tailwind + config palette SELEZIONE -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:   '#FFE259',  /* doré clair */
+            secondary: '#FFA751',  /* doré foncé */
+            dark:      '#111111',  /* bg principal */
+            accent:    '#1F1F1F',  /* surfaces secondaires */
+            light:     '#EEEEEE',  /* textes/clairs */
+          },
+          fontFamily: {
+            sans: ['Outfit','sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- 2. Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Outfit', sans-serif;
-      display: flex;
-      height: 100vh;
-      background: #f3f3f3;
-    }
-
-    aside {
-      width: 250px;
-      background: black;
-      color: white;
-      padding: 2rem 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    aside h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #fff2;
-      padding-bottom: 0.5rem;
-    }
-
-    aside a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: 0.3s;
-    }
-
-    aside a:hover {
-      color: #ccc;
-    }
-
-    .logout-btn {
-      margin-top: auto;
-      background: white;
-      color: black;
-      padding: 0.5rem;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-    }
-
-    main {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-      background: #fff;
-    }
-
-    .welcome {
-      font-size: 1.6rem;
-      margin-bottom: 2rem;
-      font-weight: bold;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: #fafafa;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      font-size: 1.2rem;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      color: #444;
-    }
-
-    .card button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: black;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .card button:hover {
-      background: #333;
-    }
-  </style>
 </head>
-<body>
-  <aside>
-    <h2>SELEZIONE</h2>
-    <a href="/dashboard.html">🏠 Tableau de bord</a>
-    <a href="#">📁 Fichiers</a>
-    <a href="#">🎓 Formations</a>
-    <a href="#">📰 Actu Live</a>
-    <button class="logout-btn" onclick="logout()">Se déconnecter</button>
-  </aside>
 
-  <main>
-    <div class="welcome" id="welcome">Bienvenue !</div>
+<body class="flex flex-col h-screen bg-dark font-sans text-light">
 
-    <div class="cards">
-      <div class="card">
-        <h3>Assistant Luxe IA</h3>
-        <p>Conseils personnalisés sur les marques, styles et morphologies.</p>
-        <button onclick="location.href='module1.html'">Accéder</button>
+  <!-- === HEADER === -->
+  <header class="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-primary to-secondary shadow-md z-10">
+    <h1 class="text-lg font-bold">👑 SELEZIONE PRO</h1>
+    <button aria-label="Menu" class="p-2">
+      <!-- une icône hamburger / back / profil -->
+      <svg class="w-6 h-6 text-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- === MAIN CONTENT === -->
+  <main class="flex-1 overflow-y-auto p-4 space-y-6">
+
+    <!-- Bienvenue -->
+    <div id="welcome" class="text-2xl font-bold">Bienvenue !</div>
+
+    <!-- Grille de cartes -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Carte 1 -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Assistant Luxe IA</h2>
+        <p class="mt-2 text-gray-300">Conseils personnalisés sur les marques, styles et morphologies.</p>
+        <button onclick="location.href='module1.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Actualité Luxe + Image IA</h3>
-        <p>Génère des articles et visuels IA autour de l’univers luxe.</p>
-        <button onclick="location.href='module2.html'">Accéder</button>
+      <!-- Carte 2 -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Actualité Luxe + Image IA</h2>
+        <p class="mt-2 text-gray-300">Génère des articles et visuels IA autour de l’univers luxe.</p>
+        <button onclick="location.href='module2.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Fiche Produit / Style IA</h3>
-        <p>Création de fiches produit ou revente par IA.</p>
-        <button onclick="location.href='module3.html'">Accéder</button>
+      <!-- Carte 3 -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Fiche Produit / Style IA</h2>
+        <p class="mt-2 text-gray-300">Création de fiches produit ou revente par IA.</p>
+        <button onclick="location.href='module3.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Estimation & Comparateur</h3>
-        <p>Estime une pièce ou compare les plateformes de seconde main.</p>
-        <button onclick="location.href='module4.html'">Accéder</button>
+      <!-- Carte 4 -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Estimation & Comparateur</h2>
+        <p class="mt-2 text-gray-300">Estime une pièce ou compare les plateformes de seconde main.</p>
+        <button onclick="location.href='module4.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Actus Mode & Luxe en Direct</h3>
-        <p>Explore les dernières nouvelles mode IA en temps réel.</p>
-        <button onclick="location.href='module8.html'">Accéder</button>
+      <!-- Carte Actu Live -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Actus Mode & Luxe</h2>
+        <p class="mt-2 text-gray-300">Explore les dernières nouvelles mode IA en temps réel.</p>
+        <button onclick="location.href='module8.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Scraper Vestiaire Collective</h3>
-        <p>Analyse de marché et prix sur VC en direct.</p>
-        <button onclick="location.href='module6.html'">Accéder</button>
+      <!-- Carte Scraper VC -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Scraper Vestiaire Collective</h2>
+        <p class="mt-2 text-gray-300">Analyse de marché et prix sur VC en direct.</p>
+        <button onclick="location.href='module6.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Commandes sur Fichier</h3>
-        <p>Importe un fichier Excel et génère une commande IA.</p>
-        <button onclick="location.href='module7.html'">Accéder</button>
+      <!-- Carte Commandes -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Commandes sur Fichier</h2>
+        <p class="mt-2 text-gray-300">Importe un fichier Excel et génère une commande IA.</p>
+        <button onclick="location.href='module7.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
 
-      <div class="card">
-        <h3>Formations SELEZIONE</h3>
-        <p>Découvre des guides IA sur le monde du luxe.</p>
-        <button onclick="location.href='formation.html'">Accéder</button>
+      <!-- Carte Formation -->
+      <div class="bg-accent rounded-2xl p-6 shadow-lg hover:shadow-xl transition">
+        <h2 class="text-primary text-lg font-semibold">Formations SELEZIONE</h2>
+        <p class="mt-2 text-gray-300">Découvre des guides IA sur le monde du luxe.</p>
+        <button onclick="location.href='formation.html'"
+                class="mt-4 bg-primary text-dark font-semibold py-2 px-4 rounded-lg shadow-sm hover:opacity-90 transition">
+          Accéder
+        </button>
       </div>
     </div>
   </main>
 
+  <!-- === BOTTOM NAV === -->
+  <nav class="flex justify-around items-center h-14 bg-accent border-t border-gray-800">
+    <button class="flex flex-col items-center text-gray-400 hover:text-light text-xs">
+      <!-- tu peux remplacer par tes SVG -->
+      <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 20 20">…</svg>
+      Accueil
+    </button>
+    <button class="flex flex-col items-center text-gray-400 hover:text-light text-xs">
+      <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 20 20">…</svg>
+      Modules
+    </button>
+    <button class="flex flex-col items-center text-gray-400 hover:text-light text-xs">
+      <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 20 20">…</svg>
+      Chat
+    </button>
+    <button class="flex flex-col items-center text-gray-400 hover:text-light text-xs">
+      <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 20 20">…</svg>
+      Profil
+    </button>
+  </nav>
+
+  <!-- === Ton JS d’authentification === -->
   <script>
     async function fetchUser() {
       const res = await fetch('/auth/user');
@@ -183,13 +166,11 @@
         window.location.href = "/index.html";
       }
     }
-
     function logout() {
       fetch('/auth/logout', { method: 'POST' }).then(() => {
         window.location.href = "/index.html";
       });
     }
-
     fetchUser();
   </script>
 </body>
