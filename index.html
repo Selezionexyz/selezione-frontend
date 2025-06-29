@@ -12,309 +12,288 @@
     referrerpolicy="no-referrer"
   />
   <style>
-    /* ========== VARIABLES & PALETTE ========== */
-    :root {
-      --color-bg-dark: #121212;
-      --color-sidebar-bg: #111111;
-      --color-header-bg: #181818;
-      --color-card-bg: #1f1f1f;
-      --color-border-dark: #222222;
-      --color-border-medium: #333333;
-      --color-border-light: #444444;
-      --color-text-light: #ffffff;
-      --color-text-medium: #dddddd;
-      --color-text-dark: #aaa;
-      --color-accent-gold: #fbb034;
-      --color-accent-gold-hover: #ffdd00;
-      --color-shadow-dark: rgba(0,0,0,0.5);
-      --color-shadow-light: rgba(0,0,0,0.1);
-    }
-    /* Mode clair */
-    body.light-mode {
-      --color-bg-dark: #f0f2f5;
-      --color-sidebar-bg: #ffffff;
-      --color-header-bg: #e0e2e5;
-      --color-card-bg: #ffffff;
-      --color-border-dark: #cccccc;
-      --color-border-medium: #bbbbbb;
-      --color-border-light: #aaaaaa;
-      --color-text-light: #333333;
-      --color-text-medium: #555555;
-      --color-text-dark: #777;
-      --color-accent-gold: #e6a000;
-      --color-accent-gold-hover: #ffbb00;
-      --color-shadow-dark: rgba(0,0,0,0.1);
-      --color-shadow-light: rgba(0,0,0,0.05);
-    }
+  /* -------------------- PALETTE & RESET -------------------- */
+  :root {
+    --bg: #121212;            /* fond */
+    --sidebar: #111111;
+    --header: #181818;
+    --card: #1f1f1f;
+    --text: #fff;
+    --text-md: #ddd;
+    --accent: #fbb034;        /* or */
+    --accent-hover: #ffdd00;
+    --violet: #8b5cf6;        /* violet pour liens */
+    --border: #333;
+    --shadow: rgba(0,0,0,0.5);
+  }
+  body.light-mode {
+    --bg: #f0f2f5;
+    --sidebar: #fff;
+    --header: #e0e2e5;
+    --card: #fff;
+    --text: #333;
+    --text-md:#555;
+    --accent: #e6a000;
+    --accent-hover:#ffbb00;
+    --violet:#6b21a8;
+    --border:#bbb;
+    --shadow:rgba(0,0,0,0.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body {
+    font-family:'Outfit',sans-serif;
+    display:flex;min-height:100vh;
+    background:var(--bg);color:var(--text);
+    transition:background .3s,color .3s;
+  }
+  body.no-js .submenu{visibility:hidden;max-height:none;}
+  /* -------------------- SIDEBAR -------------------- */
+  aside {
+    width:250px;background:var(--sidebar);
+    padding:2rem 1rem;display:flex;
+    flex-direction:column;gap:1rem;
+    overflow-y:auto;transition:background .3s;
+  }
+  aside h2 {
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;border-bottom:1px solid var(--border);
+    padding-bottom:.5rem;margin-bottom:1rem;
+  }
+  .sidebar-section{margin-bottom:1.5rem;}
+  .sidebar-section+ .sidebar-section{
+    border-top:1px solid var(--border);
+    padding-top:1rem;
+  }
+  aside a{
+    display:flex;align-items:center;gap:.8rem;
+    color:var(--text);text-decoration:none;
+    padding:.7rem 1rem;border-radius:6px;
+    transition:background .2s,color .2s;
+  }
+  aside a:hover{background:rgba(255,255,255,.08);color:var(--accent);}
+  aside a.active{background:var(--accent);color:var(--bg);font-weight:600;}
+  aside a .fas,aside a .fab{width:20px;text-align:center;}
+  .sidebar-toggler{cursor:pointer;}
+  .submenu{
+    list-style:none;margin:.5rem 0 0 1.5rem;
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease-out;
+  }
+  .submenu.open{overflow:visible;}
+  .submenu li{margin:.4rem 0;}
+  .submenu a{color:var(--text-md);display:block;font-size:.9rem;padding:.5rem .8rem;}
+  .submenu a:hover{color:var(--accent);}
+  .submenu a.active{color:var(--accent);font-weight:600;}
 
-    /* ========== RESET & LAYOUT ========== */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family:'Outfit',sans-serif;
-      display:flex;
-      min-height:100vh;
-      background:var(--color-bg-dark);
-      color:var(--color-text-light);
-      overflow-y:auto;
-      position: relative;
-      transition: background-color .3s, color .3s;
-    }
-    body.no-scroll { overflow:hidden; }
-    body.no-js .submenu { visibility:hidden; max-height:none; }
-    aside {
-      width:250px;
-      background:var(--color-sidebar-bg);
-      padding:2rem 1rem;
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-      overflow-y:auto;
-      flex-shrink:0;
-      transition:background-color .3s;
-    }
-    main {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      overflow-y:auto;
-    }
+  /* ========== THEME SWITCH ========== */
+  .theme-switch{margin-top:auto;padding-top:1rem;border-top:1px solid var(--border);}
+  .theme-switch button{
+    background:none;border:1px solid var(--border);
+    border-radius:20px;padding:.5rem 1rem;
+    color:var(--text-md);display:flex;align-items:center;gap:.5rem;
+    cursor:pointer;transition:background .2s,color .2s;
+  }
+  .theme-switch button:hover{background:rgba(255,255,255,.08);color:var(--text);}
+  /* ========== HEADER ========== */
+  .main-header{
+    padding:1.5rem;background:var(--header);
+    display:flex;justify-content:space-between;align-items:center;
+    border-bottom:1px solid var(--border);
+    transition:background .3s;
+  }
+  .main-header h1{
+    font-family:'Playfair Display',serif;
+    font-size:1.8rem;color:var(--text);
+  }
+  .user-profile{font-size:1.8rem;color:var(--text);cursor:pointer;}
+  .user-profile:hover{color:var(--accent);}
+  /* ========== CARDS ========== */
+  .dashboard-card{
+    background:var(--card);border-radius:12px;
+    padding:2rem;margin:1.5rem;
+    box-shadow:0 4px 12px var(--shadow);
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:background .3s,box-shadow .3s;
+  }
+  .dashboard-card h3{
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem;margin-bottom:.8rem;color:var(--text);
+  }
+  .dashboard-card p{
+    font-size:1rem;line-height:1.6;
+    color:var(--text-md);margin-bottom:1rem;font-weight:300;
+  }
+  .welcome-hero{
+    text-align:center;
+    background:linear-gradient(135deg,var(--card),#2a2a2a);
+    border:1px solid var(--border);
+  }
+  body.light-mode .welcome-hero{
+    background:linear-gradient(135deg,var(--card),#f8f8f8);
+  }
+  .welcome-hero h3{font-size:2.5rem;margin-bottom:1rem;}
+  .welcome-hero p{font-size:1.1rem;max-width:700px;margin:0 auto 1.5rem;}
+  .hero-buttons{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+  /* boutons */
+  .btn-primary,.btn-outline{
+    display:inline-flex;align-items:center;gap:.6rem;
+    padding:.8rem 1.8rem;border-radius:8px;
+    font-weight:600;text-decoration:none;
+    transition:transform .2s,box-shadow .2s;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(90deg,var(--accent),var(--accent-hover));
+    color:var(--bg);
+    box-shadow:0 4px 10px rgba(251,176,52,0.4);
+  }
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 15px rgba(251,176,52,0.5);
+  }
+  .btn-primary:active{
+    transform:translateY(1px);
+    box-shadow:0 2px 5px rgba(251,176,52,0.3);
+  }
+  .btn-outline{
+    background:transparent;
+    border:2px solid var(--accent);
+    color:var(--accent);
+  }
+  .btn-outline:hover{
+    background:var(--accent);
+    color:var(--bg);
+    transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(251,176,52,0.4);
+  }
+  /* grid */
+  .dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.5rem;padding:0 1.5rem 1.5rem;
+  }
+  .card-link{
+    display:inline-flex;align-items:center;gap:.5rem;
+    color:var(--violet);font-weight:600;text-decoration:none;
+    transition:transform .2s,color .2s;margin-top:1rem;
+  }
+  .card-link:hover{
+    transform:translateX(5px);
+    color:var(--violet);
+  }
 
-    /* ========== SIDEBAR ========== */
-    aside h2 {
-      font-family:'Playfair Display',serif;
-      font-size:1.8rem;
-      border-bottom:1px solid var(--color-border-light);
-      padding-bottom:.5rem;
-      margin-bottom:1rem;
-    }
-    .sidebar-section { margin-bottom:1.5rem; }
-    .sidebar-section + .sidebar-section {
-      margin-top:1.5rem;
-      border-top:1px solid var(--color-border-medium);
-      padding-top:1rem;
-    }
-    aside a {
-      display:flex; align-items:center; gap:.8rem;
-      color:var(--color-text-light);
-      text-decoration:none;
-      font-weight:400;
-      padding:.7rem 1rem;
-      border-radius:6px;
-      transition:background-color .2s, color .2s, transform .2s;
-    }
-    aside a:hover {
-      background-color:rgba(255,255,255,0.08);
-      color:var(--color-accent-gold);
-      transform:translateX(3px);
-    }
-    aside a .fas, aside a .fab {
-      font-size:1.1rem; width:20px; text-align:center;
-    }
-    aside a.active {
-      background-color:var(--color-accent-gold);
-      color:var(--color-bg-dark);
-      font-weight:600;
-      box-shadow:0 4px 8px rgba(251,176,52,0.3);
-    }
-    aside a.active .fas, aside a.active .fab {
-      color:var(--color-bg-dark);
-    }
-    .sidebar-section .sidebar-toggler { cursor:pointer; }
-    .submenu {
-      list-style:none;
-      margin-top:.5rem; margin-left:1.5rem;
-      max-height:0; overflow:hidden;
-      transition:max-height .3s ease-out;
-    }
-    .submenu.open { overflow:visible; }
-    .submenu li { margin:.4rem 0; }
-    .submenu a {
-      color:var(--color-text-medium);
-      text-decoration:none;
-      font-size:.9rem;
-      padding:.5rem .8rem;
-      display:block;
-    }
-    .submenu a:hover { color:var(--color-accent-gold); }
-    .submenu a.active { color:var(--color-accent-gold); font-weight:600; }
+  /* -------------------- MOBILE NAV BAR (icônes en bas) -------------------- */
+  .mobile-nav-bar{
+    display:none; /* desktop off */
+    position:fixed;bottom:0;left:0;right:0;
+    height:60px;background:var(--header);
+    border-top:1px solid var(--border);
+    display:flex;justify-content:space-around;align-items:center;
+    z-index:100;transition:background .3s;
+  }
+  .mobile-nav-bar a{
+    color:var(--text-md);text-decoration:none;
+    font-size:.75rem;display:flex;flex-direction:column;
+    align-items:center;gap:4px;transition:color .2s;
+  }
+  .mobile-nav-bar a svg{width:24px;height:24px;fill:currentColor;}
+  .mobile-nav-bar a:hover,
+  .mobile-nav-bar a.active{
+    color:var(--accent);
+  }
 
-    /* ========== THEME SWITCH ========== */
-    .theme-switch {
-      display:flex; align-items:center; justify-content:center;
-      padding:1rem 0; border-top:1px solid var(--color-border-medium);
-      margin-top:1rem;
-    }
-    .theme-switch button {
-      background:none; border:1px solid var(--color-border-light);
-      border-radius:20px; padding:.5rem 1rem;
-      color:var(--color-text-medium); cursor:pointer;
-      font-size:.9rem; display:flex; align-items:center; gap:.5rem;
-      transition:background-color .2s, color .2s, border-color .2s;
-    }
-    .theme-switch button:hover {
-      background-color:rgba(255,255,255,0.08);
-      color:var(--color-text-light);
-    }
-    body.light-mode .theme-switch button:hover {
-      background-color:rgba(0,0,0,0.05);
-    }
-    .theme-switch button i { font-size:1.1rem; }
+  /* -------------------- OVERLAY -------------------- */
+  #mobileMenuOverlay{
+    position:fixed;top:0;left:0;width:100%;height:100%;
+    background:rgba(0,0,0,.9);visibility:hidden;opacity:0;
+    display:flex;justify-content:center;align-items:center;
+    transition:visibility .3s,opacity .3s;
+    z-index:200;
+  }
+  #mobileMenuOverlay.open{visibility:visible;opacity:1;}
+  .mobile-menu-content{
+    background:var(--sidebar);padding:2rem 1.5rem;
+    width:90%;max-width:400px;border-radius:15px;
+    max-height:90vh;overflow-y:auto;position:relative;
+  }
+  .mobile-menu-content .close-button{
+    position:absolute;top:15px;right:15px;
+    background:none;border:none;font-size:2rem;color:var(--text);
+    cursor:pointer;transition:color .2s;
+  }
+  .mobile-menu-content .close-button:hover{color:var(--accent);}
+  .mobile-menu-content h2{
+    font-family:'Playfair Display',serif;
+    text-align:center;font-size:2rem;
+    margin-bottom:1.5rem;border-bottom:1px solid var(--border);
+    padding-bottom:.8rem;
+  }
 
-    /* ========== HEADER ========== */
-    .main-header {
-      padding:1.5rem; background:var(--color-header-bg);
-      display:flex; align-items:center; justify-content:space-between;
-      border-bottom:1px solid var(--color-border-dark);
-      transition:background-color .3s;
-    }
-    .main-header h1 {
-      font-family:'Playfair Display',serif;
-      font-size:1.8rem; color:var(--color-text-light);
-    }
-    .user-profile {
-      font-size:1.8rem; color:var(--color-text-light);
-      cursor:pointer; transition:color .2s;
-    }
-    .user-profile:hover { color:var(--color-accent-gold); }
-
-    /* ========== DASHBOARD CARDS ========== */
-    .dashboard-card {
-      background:var(--color-card-bg);
-      border-radius:12px; padding:2rem; margin:1.5rem;
-      box-shadow:0 4px 12px var(--color-shadow-dark);
-      display:flex; flex-direction:column; justify-content:space-between;
-      transition:background-color .3s, box-shadow .3s;
-    }
-    .dashboard-card h3 {
-      font-family:'Playfair Display',serif;
-      font-size:1.6rem; margin-bottom:.8rem;
-      color:var(--color-text-light);
-    }
-    .dashboard-card p {
-      font-size:1rem; line-height:1.6;
-      color:var(--color-text-medium);
-      margin-bottom:1rem; font-weight:300;
-    }
-    .welcome-hero {
-      text-align:center;
-      background:linear-gradient(135deg,var(--color-card-bg),#2a2a2a);
-      border:1px solid var(--color-border-dark);
-    }
-    body.light-mode .welcome-hero {
-      background:linear-gradient(135deg,var(--color-card-bg),#f8f8f8);
-    }
-    .welcome-hero h3 { font-size:2.5rem; margin-bottom:1rem; }
-    .welcome-hero p { font-size:1.1rem; max-width:700px; margin:0 auto 1.5rem; }
-    .hero-buttons {
-      display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap;
-      margin-top:1.5rem;
-    }
-    .btn-primary, .btn-outline {
-      display:inline-flex; align-items:center; gap:.6rem;
-      padding:.8rem 1.8rem; border-radius:8px;
-      font-weight:600; text-decoration:none;
-      transition:transform .2s, box-shadow .2s, background-color .3s, color .3s;
-      white-space:nowrap;
-    }
-    .btn-primary {
-      background:linear-gradient(90deg,var(--color-accent-gold),var(--color-accent-gold-hover));
-      color:var(--color-bg-dark);
-      box-shadow:0 4px 10px rgba(251,176,52,0.4);
-    }
-    .btn-primary:hover {
-      transform:translateY(-2px);
-      box-shadow:0 6px 15px rgba(251,176,52,0.5);
-    }
-    .btn-primary:active {
-      transform:translateY(1px);
-      box-shadow:0 2px 5px rgba(251,176,52,0.3);
-    }
-    .btn-primary[data-loading="true"] {
-      pointer-events:none; opacity:.8; cursor:not-allowed;
-    }
-    .btn-primary[data-loading="true"] .btn-text { visibility:hidden; }
-    .btn-primary[data-loading="true"] .loader-spinner { display:inline-block; }
-    .loader-spinner {
-      display:none; width:1em; height:1em;
-      border:2px solid rgba(255,255,255,0.5);
-      border-top-color:var(--color-bg-dark);
-      border-radius:50%; animation:spin .8s linear infinite;
-    }
-    @keyframes spin { to{transform:rotate(360deg);} }
-
-    .btn-outline {
-      background:transparent;
-      border:2px solid var(--color-accent-gold);
-      color:var(--color-accent-gold);
-    }
-    .btn-outline:hover {
-      background:var(--color-accent-gold);
-      color:var(--color-bg-dark);
-      transform:translateY(-2px);
-      box-shadow:0 4px 10px rgba(251,176,52,0.4);
-    }
-    .btn-outline:active {
-      transform:translateY(1px);
-      background:var(--color-accent-gold);
-      box-shadow:0 2px 5px rgba(251,176,52,0.3);
-    }
+  /* -------------------- RWD -------------------- */
+  @media(max-width:992px){
+    aside{width:220px;padding:1.5rem .8rem;}
+  }
+  @media(max-width:768px){
+    aside{display:none;}
+    .mobile-nav-bar{display:flex;}
+    main{padding-bottom:60px;} /* espace nav */
+  }
   </style>
 </head>
 <body class="no-js">
-  <!-- SIDEBAR -->
+  <!-- ===== SIDEBAR ===== -->
   <aside id="sidebar">
     <h2>SELEZIONE</h2>
 
     <div class="sidebar-section">
-      <a href="index.html" class="nav-link" aria-label="Tableau de bord">
-        <i class="fas fa-home"></i> Tableau de bord
+      <a href="index.html" class="nav-link active">
+        <i class="fas fa-home"></i> Accueil
       </a>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu" aria-label="Sourcing & Veille">
-        <i class="fas fa-gem"></i> Sourcing & Veille Luxe
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu">
+        <i class="fas fa-gem"></i> Sourcing & Veille
       </a>
       <ul class="submenu" id="sourcing-submenu">
-        <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-        <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
+        <li><a href="fournisseur-order.html" class="nav-link">Module Fournisseur</a></li>
+        <li><a href="module6.html" class="nav-link">Scraper VC</a></li>
         <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-        <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
+        <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveau Sourcing</a></li>
         <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
       </ul>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu" aria-label="Opérations">
-        <i class="fas fa-cogs"></i> Gestion & Opérations Premium
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu">
+        <i class="fas fa-cogs"></i> Opérations Premium
       </a>
       <ul class="submenu" id="operations-submenu">
         <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
         <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-        <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
+        <li><a href="module7.html" class="nav-link">Commandes</a></li>
         <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-        <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-        <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+        <li><a href="marketing-ia.html" class="nav-link">Marketing IA</a></li>
       </ul>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu" aria-label="Analyse & Stratégie">
-        <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu">
+        <i class="fas fa-chart-line"></i> Analyse & Stratégie
       </a>
       <ul class="submenu" id="analyse-submenu">
-        <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-        <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+        <li><a href="stats-performance.html" class="nav-link">Stats & Performance</a></li>
+        <li><a href="tendances-ia.html" class="nav-link">Tendances IA</a></li>
       </ul>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu" aria-label="Académie">
-        <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu">
+        <i class="fas fa-graduation-cap"></i> Académie
       </a>
       <ul class="submenu" id="academie-submenu">
         <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-        <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
+        <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement Marques</a></li>
         <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
         <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
         <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
@@ -322,14 +301,14 @@
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu" aria-label="Support">
-        <i class="fas fa-headset"></i> Support Privilège & Communauté
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu">
+        <i class="fas fa-headset"></i> Support & FAQ
       </a>
       <ul class="submenu" id="support-submenu">
         <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-        <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-        <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-        <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+        <li><a href="module8.html" class="nav-link">Actu Direct</a></li>
+        <li><a href="support-faq.html" class="nav-link">FAQ</a></li>
+        <li><a href="contact-support.html" class="nav-link">Contact Support</a></li>
       </ul>
     </div>
 
@@ -341,91 +320,86 @@
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- ===== MAIN ===== -->
   <main>
     <header class="main-header">
-      <h1>Votre Tableau de Bord SELEZIONE</h1>
-      <div class="user-profile" role="button" aria-label="Profil Utilisateur" loading="lazy">
+      <h1>Tableau de bord</h1>
+      <div class="user-profile" role="button" aria-label="Profil">
         <i class="fas fa-user-circle"></i>
       </div>
     </header>
 
     <section class="dashboard-card welcome-hero">
-      <h3>Bienvenue sur SELEZIONE, votre Partenaire Luxe IA</h3>
-      <p>Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. Tous vos outils IA, vos formations et votre communauté au même endroit.</p>
+      <h3>Bienvenue sur SELEZIONE</h3>
+      <p>Pilotez votre activité luxe IA en un clic. Tous vos modules et outils IA réunis.</p>
       <div class="hero-buttons">
         <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
-          <span class="btn-text">🚀 Démarrer</span>
+          <span class="btn-text">🚀 Commencer</span>
           <span class="loader-spinner"></span>
         </a>
-        <a href="support-faq.html" class="btn-outline">💡 Aide & FAQ</a>
+        <a href="support-faq.html" class="btn-outline">💡 FAQ</a>
       </div>
     </section>
 
     <div class="dashboard-grid">
       <section class="dashboard-card">
-        <h3>Vos Performances</h3>
-        <p>Suivez vos marges, vos volumes de commandes et l’évolution du marché.</p>
-        <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
+        <h3>Avancement Formation</h3>
+        <p>Prochaine étape : Fonctionnement des Marques.</p>
+        <a href="formation-selezione-2.html" class="card-link">Reprendre formation <i class="fas fa-arrow-right"></i></a>
       </section>
 
       <section class="dashboard-card">
-        <h3>Opportunités IA</h3>
-        <p>Notre IA identifie les tendances fortes : sacs vintage, sneakers édition limitée, etc.</p>
-        <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
+        <h3>Statistiques Clés</h3>
+        <p>+12.5% de marge moyenne ce mois-ci.</p>
+        <a href="stats-performance.html" class="card-link">Voir stats <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Opportunités Marché</h3>
+        <p>Sacs vintage et sneakers édition limitée en forte demande.</p>
+        <a href="tendances-ia.html" class="card-link">Découvrir <i class="fas fa-arrow-right"></i></a>
       </section>
 
       <section class="dashboard-card">
         <h3>Dernières Commandes</h3>
-        <p>2 commandes en attente, 1 expédiée hier.</p>
-        <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
-      </section>
-
-      <section class="dashboard-card">
-        <h3>Formation en cours</h3>
-        <p>Prochaine étape : Fonctionnement des Marques.</p>
-        <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
+        <p>2 en attente • 1 expédiée hier.</p>
+        <a href="module7.html" class="card-link">Gérer commandes <i class="fas fa-arrow-right"></i></a>
       </section>
     </div>
 
     <section class="content-block">
-      <h2>Actualités & Insights Luxe</h2>
-      <p>Restez informé des dernières évolutions du prêt-à-porter de luxe et des stratégies IA.</p>
-      <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
+      <h2>Actualités & Insights</h2>
+      <p>Restez informé des dernières tendances et stratégies IA pour le luxe.</p>
+      <a href="module8.html" class="card-link">Voir toutes <i class="fas fa-arrow-right"></i></a>
     </section>
   </main>
-  <!-- NAVIGATION MOBILE -->
+  <!-- ===== BOTTOM NAV MOBILE ===== -->
   <nav class="mobile-nav-bar">
-    <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 ..."/></svg>
-      <span>Accueil</span>
+    <a href="index.html" class="mobile-nav-link active" aria-label="Accueil">
+      <i class="fas fa-home"></i><span>Accueil</span>
     </a>
     <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 ..."/></svg>
-      <span>Veille</span>
+      <i class="fas fa-search"></i><span>Veille</span>
     </a>
     <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 ..."/></svg>
-      <span>Commandes</span>
+      <i class="fas fa-box"></i><span>Commandes</span>
     </a>
     <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320 ..."/></svg>
-      <span>Académie</span>
+      <i class="fas fa-graduation-cap"></i><span>Académie</span>
     </a>
-    <a href="#" id="menuButton" class="mobile-nav-link" role="button" aria-label="Ouvrir le menu mobile">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 ..."/></svg>
-      <span>Menu</span>
+    <a href="#" id="menuButton" class="mobile-nav-link" aria-label="Menu">
+      <i class="fas fa-bars"></i><span>Menu</span>
     </a>
   </nav>
 
-  <!-- OVERLAY MENU MOBILE -->
-  <div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menu mobile">
+  <!-- ===== OVERLAY MENU MOBILE ===== -->
+  <div id="mobileMenuOverlay" role="dialog" aria-modal="true">
     <div class="mobile-menu-content">
-      <button class="close-button" id="closeMenuButton" aria-label="Fermer le menu mobile">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 ..."/></svg>
+      <button class="close-button" id="closeMenuButton" aria-label="Fermer">
+        <i class="fas fa-times"></i>
       </button>
-      <h2>Navigation SELEZIONE</h2>
-      <!-- (Copiez ici les mêmes blocs .sidebar-section que dans <aside>) -->
+      <h2>Navigation</h2>
+      <!-- Répétez ici les mêmes .sidebar-section qu’en aside -->
       <!-- ... -->
       <div class="theme-switch">
         <button id="themeToggleMobile" aria-label="Changer de thème">
@@ -436,28 +410,16 @@
     </div>
   </div>
 
-  <!-- SCRIPT DE GESTION MENU & THEME -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded',()=>{
       document.body.classList.remove('no-js');
-      // Variables
-      const togglers = document.querySelectorAll('.sidebar-toggler');
-      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-      const menuButton = document.getElementById('menuButton');
-      const closeMenuButton = document.getElementById('closeMenuButton');
-      const startBtn = document.getElementById('startBtn');
-      const themeToggle = document.getElementById('themeToggle');
-      const themeIcon = document.getElementById('themeIcon');
-      const themeText = document.getElementById('themeText');
-      const themeToggleMobile = document.getElementById('themeToggleMobile');
-      const themeIconMobile = document.getElementById('themeIconMobile');
-      const themeTextMobile = document.getElementById('themeTextMobile');
 
-      // Ouvre/ferme les sous‐menus
-      function closeAllSubmenus(except=null){
+      /* ============ Sous-menus ============ */
+      const togglers=document.querySelectorAll('.sidebar-toggler');
+      function closeAll(except){
         document.querySelectorAll('.submenu.open').forEach(sm=>{
           if(sm!==except){
-            sm.style.maxHeight='0'; sm.classList.remove('open');
+            sm.style.maxHeight='0';sm.classList.remove('open');
             sm.previousElementSibling.setAttribute('aria-expanded','false');
           }
         });
@@ -467,7 +429,7 @@
           e.preventDefault();
           const sm=t.nextElementSibling;
           const open=sm.classList.contains('open');
-          closeAllSubmenus(open?null:sm);
+          closeAll(open?null:sm);
           if(!open){
             sm.classList.add('open');
             sm.style.maxHeight=sm.scrollHeight+'px';
@@ -476,35 +438,41 @@
         });
       });
 
-      // Mobile menu overlay
-      menuButton.addEventListener('click',e=>{
+      /* ============ Mobile overlay ============ */
+      const overlay=document.getElementById('mobileMenuOverlay'),
+            btnOpen=document.getElementById('menuButton'),
+            btnClose=document.getElementById('closeMenuButton');
+      btnOpen.addEventListener('click',e=>{
         e.preventDefault();
-        mobileMenuOverlay.classList.add('open');
+        overlay.classList.add('open');
         document.body.classList.add('no-scroll');
-        closeAllSubmenus();
+        closeAll();
       });
-      closeMenuButton.addEventListener('click',()=>{
-        mobileMenuOverlay.classList.remove('open');
+      btnClose.addEventListener('click',()=>{
+        overlay.classList.remove('open');
         document.body.classList.remove('no-scroll');
       });
-      mobileMenuOverlay.addEventListener('click',e=>{
-        if(e.target===mobileMenuOverlay){
-          mobileMenuOverlay.classList.remove('open');
+      overlay.addEventListener('click',e=>{
+        if(e.target===overlay){
+          overlay.classList.remove('open');
           document.body.classList.remove('no-scroll');
         }
       });
 
-      // Bouton Démarrer feedback
-      if(startBtn){
-        startBtn.addEventListener('click',e=>{
-          startBtn.setAttribute('data-loading','true');
-          setTimeout(()=>{
-            startBtn.setAttribute('data-loading','false');
-          },1500);
-        });
-      }
+      /* ============ Démarrer feedback ============ */
+      const startBtn=document.getElementById('startBtn');
+      if(startBtn)startBtn.addEventListener('click',()=>{
+        startBtn.setAttribute('data-loading','true');
+        setTimeout(()=>startBtn.setAttribute('data-loading','false'),1500);
+      });
 
-      // Thème clair/sombre
+      /* ============ Thème ============ */
+      const themeToggle=document.getElementById('themeToggle'),
+            themeText=document.getElementById('themeText'),
+            themeIcon=document.getElementById('themeIcon'),
+            themeToggleMobile=document.getElementById('themeToggleMobile'),
+            themeTextMobile=document.getElementById('themeTextMobile'),
+            themeIconMobile=document.getElementById('themeIconMobile');
       function applyTheme(t){
         if(t==='light'){
           document.body.classList.add('light-mode');
@@ -522,12 +490,15 @@
         localStorage.setItem('theme',t);
       }
       const saved=localStorage.getItem('theme');
-      if(saved) applyTheme(saved);
-      else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) applyTheme('light');
+      if(saved)applyTheme(saved);
+      else if(window.matchMedia('(prefers-color-scheme: light)').matches)applyTheme('light');
       else applyTheme('dark');
 
-      themeToggle.addEventListener('click',()=>applyTheme(document.body.classList.contains('light-mode')?'dark':'light'));
-      themeToggleMobile.addEventListener('click',()=>applyTheme(document.body.classList.contains('light-mode')?'dark':'light'));
+      [themeToggle,themeToggleMobile].forEach(btn=>{
+        if(btn)btn.addEventListener('click',()=>{
+          applyTheme(document.body.classList.contains('light-mode')?'dark':'light');
+        });
+      });
     });
   </script>
 </body>
