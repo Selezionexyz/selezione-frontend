@@ -1,263 +1,528 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELEZIONE - Votre Tableau de Bord Luxe IA</title>
-    
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>SELEZIONE – Tableau de bord</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    /* VARIABLES DE COULEURS (Avec prise en compte du mode clair/sombre) */
+    :root {
+        /* Dark Mode (par défaut) */
+        --color-bg-dark: #121212;
+        --color-sidebar-bg: #111111;
+        --color-header-bg: #181818;
+        --color-card-bg: #1f1f1f;
+        --color-border-dark: #222222;
+        --color-border-medium: #333333;
+        --color-border-light: #444444;
+
+        --color-text-light: #ffffff;
+        --color-text-medium: #dddddd;
+        --color-text-dark: #aaa;
+        --color-text-skeleton: #333;
+        --color-skeleton-highlight: #444;
+
+        --color-accent-gold: #fbb034;
+        --color-accent-gold-hover: #ffdd00;
+
+        --color-shadow-dark: rgba(0,0,0,0.5);
+        --color-shadow-light: rgba(0,0,0,0.1);
+    }
+
+    /* Light Mode */
+    body.light-mode {
+        --color-bg-dark: #f0f2f5;
+        --color-sidebar-bg: #ffffff;
+        --color-header-bg: #e0e2e5;
+        --color-card-bg: #ffffff;
+        --color-border-dark: #cccccc;
+        --color-border-medium: #bbbbbb;
+        --color-border-light: #aaaaaa;
+
+        --color-text-light: #333333;
+        --color-text-medium: #555555;
+        --color-text-dark: #777;
+        --color-text-skeleton: #e0e0e0;
+        --color-skeleton-highlight: #f5f5f5;
+
+        --color-accent-gold: #e6a000;
+        --color-accent-gold-hover: #ffbb00;
+
+        --color-shadow-dark: rgba(0,0,0,0.1);
+        --color-shadow-light: rgba(0,0,0,0.05);
+    }
+
+
+    /* ========== RESET & LAYOUT ========== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Outfit',sans-serif;
+      display:flex;
+      min-height:100vh;
+      background:var(--color-bg-dark);
+      color:var(--color-text-light);
+      overflow-y:auto;
+      position: relative;
+      transition: background-color .3s, color .3s;
+    }
+    body.no-scroll { overflow: hidden; }
+
+    aside {
+      width:250px;
+      background:var(--color-sidebar-bg);
+      padding:2rem 1rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      overflow-y:auto;
+      flex-shrink: 0;
+      transition: background-color .3s;
+    }
+    main {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      overflow-y:auto;
+    }
+
+    /* ========== SIDEBAR ========== */
+    aside h2 {
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem;
+      border-bottom:1px solid var(--color-border-light);
+      padding-bottom:.5rem;
+      margin-bottom:1rem;
+    }
+    .sidebar-section {
+        margin-bottom: 1.5rem;
+    }
+    .sidebar-section + .sidebar-section {
+      margin-top:1.5rem;
+      border-top:1px solid var(--color-border-medium);
+      padding-top:1rem;
+    }
+    aside a {
+      display:flex;
+      align-items:center;
+      gap:.8rem;
+      color:var(--color-text-light);
+      text-decoration:none;
+      font-weight:400;
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      transition: background-color .2s, color .2s, transform .2s;
+    }
+    aside a:hover {
+      background-color: rgba(255,255,255,0.08);
+      color: var(--color-accent-gold);
+      transform: translateX(3px);
+    }
+    aside a .fas, aside a .fab {
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+    }
+    aside a.active {
+        background-color: var(--color-accent-gold);
+        color: var(--color-bg-dark);
+        font-weight: 600;
+        box-shadow: 0 4px 8px rgba(251,176,52,0.3);
+    }
+    aside a.active .fas, aside a.active .fab {
+        color: var(--color-bg-dark);
+    }
+
+    .sidebar-section .sidebar-toggler {
+      cursor:pointer;
+    }
+    .submenu {
+      list-style:none;
+      margin-top:0.5rem;
+      margin-left:1.5rem;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease-out;
+    }
+    body.no-js .submenu {
+        visibility: hidden;
+        max-height: none;
+    }
+    .submenu.open {
+      overflow: visible;
+    }
+    .submenu li {
+      margin:.4rem 0;
+    }
+    .submenu a {
+      color:var(--color-text-medium);
+      text-decoration:none;
+      font-size:.9rem;
+      padding: 0.5rem 0.8rem;
+    }
+    .submenu a:hover {
+        color: var(--color-accent-gold);
+    }
+    .submenu a.active {
+      color: var(--color-accent-gold);
+      font-weight: 600;
+    }
+
+    /* Mode Switch */
+    .theme-switch {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 0;
+        border-top: 1px solid var(--color-border-medium);
+        margin-top: 1rem;
+    }
+    .theme-switch button {
+        background: none;
+        border: 1px solid var(--color-border-light);
+        border-radius: 20px;
+        padding: 0.5rem 1rem;
+        color: var(--color-text-medium);
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: background-color .2s, color .2s;
+    }
+    .theme-switch button:hover {
+        background-color: rgba(255,255,255,0.08);
+        color: var(--color-text-light);
+    }
+    body.light-mode .theme-switch button:hover {
+        background-color: rgba(0,0,0,0.05);
+    }
+    .theme-switch button i {
+        font-size: 1.1rem;
+    }
+  </style>
 </head>
 <body class="no-js">
-    
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <img src="logo.png" alt="Logo SELEZIONE" class="logo"> 
-        </div>
+    <aside id="sidebar">
+    <h2>SELEZIONE</h2>
 
-        <div class="sidebar-section">
-            <a href="index.html" class="nav-link" aria-label="Tableau de bord">
-                <i class="fas fa-home"></i> Tableau de bord
-            </a>
-        </div>
-
-        <div class="sidebar-section">
-            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu" aria-label="Sourcing et Veille Luxe">
-                <i class="fas fa-gem"></i> Sourcing & Veille Luxe
-            </a>
-            <ul class="submenu" id="sourcing-submenu">
-                <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-                <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-                <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-                <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-                <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar-section">
-            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu" aria-label="Gestion et Opérations Premium">
-                <i class="fas fa-cogs"></i> Gestion & Opérations Premium
-            </a>
-            <ul class="submenu" id="operations-submenu">
-                <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-                <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-                <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-                <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-                <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-                <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar-section">
-            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu" aria-label="Analyse et Stratégie IA">
-                <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
-            </a>
-            <ul class="submenu" id="analyse-submenu">
-                <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-                <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar-section">
-            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu" aria-label="Académie SELEZIONE">
-                <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
-            </a>
-            <ul class="submenu" id="academie-submenu">
-                <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-                <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-                <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-                <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-                <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-            </ul>
-        </div>
-
-        <div class="sidebar-section">
-            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu" aria-label="Support Privilège et Communauté">
-                <i class="fas fa-headset"></i> Support Privilège & Communauté
-            </a>
-            <ul class="submenu" id="support-submenu">
-                <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-                <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-                <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-                <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
-            </ul>
-        </div>
-
-        <div class="theme-switch">
-            <button id="themeToggle" aria-label="Changer de thème (clair ou sombre)">
-                <i class="fas fa-moon" id="themeIcon"></i> <span id="themeText">Mode Sombre</span>
-            </button>
-        </div>
-    </aside>
-
-    <main class="main-content">
-        <header class="main-header">
-            <h1 class="main-title">Votre Tableau de Bord SELEZIONE</h1>
-            <div class="user-profile" role="button" aria-label="Profil Utilisateur">
-                <i class="fas fa-user-circle"></i>
-            </div>
-        </header>
-
-        <section class="dashboard-card welcome-hero">
-            <h2 class="section-title">Bienvenue sur SELEZIONE, votre Partenaire Luxe IA</h2>
-            <p class="section-description">Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. Tous vos outils IA, vos formations et votre communauté au même endroit.</p>
-            <div class="hero-buttons">
-                <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
-                    <span class="btn-text">🚀 Démarrer</span>
-                    <span class="loader-spinner"></span>
-                </a>
-                <a href="support-faq.html" class="btn-outline">💡 Aide & FAQ</a>
-            </div>
-        </section>
-
-        <div class="dashboard-grid">
-            <section class="dashboard-card">
-                <h3 class="card-title">Vos Performances</h3>
-                <p class="card-text">Suivez vos marges, vos volumes de commandes et l’évolution du marché.</p>
-                <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
-            </section>
-
-            <section class="dashboard-card">
-                <h3 class="card-title">Opportunités IA</h3>
-                <p class="card-text">Notre IA identifie les tendances fortes : sacs vintage, sneakers édition limitée, etc.</p>
-                <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
-            </section>
-
-            <section class="dashboard-card">
-                <h3 class="card-title">Dernières Commandes</h3>
-                <p class="card-text">2 commandes en attente, 1 expédiée hier.</p>
-                <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
-            </section>
-
-            <section class="dashboard-card">
-                <h3 class="card-title">Formation en cours</h3>
-                <p class="card-text">Prochaine étape : Fonctionnement des Marques.</p>
-                <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
-            </section>
-        </div>
-
-        <section class="content-block">
-            <h2 class="section-title">Actualités & Insights Luxe</h2>
-            <div class="news-list">
-                <div class="news-item skeleton-card">
-                    <div class="skeleton-image"></div>
-                    <div class="skeleton-content">
-                        <p class="skeleton-text long"></p>
-                        <p class="skeleton-text medium"></p>
-                    </div>
-                </div>
-                <div class="news-item skeleton-card">
-                    <div class="skeleton-image"></div>
-                    <div class="skeleton-content">
-                        <p class="skeleton-text long"></p>
-                        <p class="skeleton-text medium"></p>
-                    </div>
-                </div>
-            </div>
-            <p class="section-description">Restez informé des dernières évolutions du prêt-à-porter de luxe et des stratégies IA.</p>
-            <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
-        </section>
-    </main>
-
-    <nav class="mobile-nav-bar">
-        <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.4c-1.5 0-3-.1-4.5-.2H96c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17.6 10-24.7L266.4 8.2c6.1-5.6 14.8-8.2 22.4-8.2s16.3 2.6 22.4 8.2l25.5 23.4V56.8c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16.8c0-6.7-7.7-10.4-13.3-6.3L2.7 236.4c-11.3 10.4-11.3 27.2 0 37.6l258.6 237.4c5.4 5 12.7 7.6 20.1 7.6s14.7-2.6 20.1-7.6l264.7-243.2c8.2-7.9 13.3-19.2 13.3-31.1z"/></svg>
-            <span>Accueil</span>
+    <div class="sidebar-section">
+        <a href="index.html" class="nav-link" aria-label="Tableau de bord">
+          <i class="fas fa-home"></i> Tableau de bord
         </a>
-        <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-            <span>Veille</span>
-        </a>
-        <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM192 192H320c17.7 0 32 14.3 32 32V320c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/></svg>
-            <span>Commandes</span>
-        </a>
-        <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160v.9 144V448c0 35.3 28.7 64 64 64H576c35.3 0 64-28.7 64-64V304.9 160.9 160c0-10.1-6.3-19.1-15.8-22.5L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 288c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H160c-17.7 0-32-14.3-32-32zM96 160c0 17.7 14.3 32 32 32H288c17.7 0 32-14.3 32-32s-14.3-32-32-32H128c-17.7 0-32 14.3-32 32z"/></svg>
-            <span>Académie</span>
-        </a>
-        <a href="#" id="menuButton" class="mobile-nav-link" role="button" aria-label="Ouvrir le menu mobile">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0 17.7 14.3 32 32 32H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H32c-17.7 0-32 14.3-32 32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-            <span>Menu</span>
-        </a>
-    </nav>
-
-    <div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menu de navigation mobile">
-        <div class="mobile-menu-content">
-            <button class="close-button" id="closeMenuButton" aria-label="Fermer le menu mobile">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
-            </button>
-            <h2 class="menu-overlay-title">Navigation SELEZIONE</h2>
-
-            <div class="sidebar-section">
-                <a href="index.html" class="nav-link" aria-label="Tableau de bord"><i class="fas fa-home"></i> Tableau de bord</a>
-            </div>
-
-            <div class="sidebar-section">
-                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-sourcing-submenu" aria-label="Sourcing et Veille Luxe"><i class="fas fa-gem"></i> Sourcing & Veille Luxe</a>
-                <ul class="submenu" id="mobile-sourcing-submenu">
-                    <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-                    <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-                    <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-                    <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-                    <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-operations-submenu" aria-label="Gestion et Opérations Premium"><i class="fas fa-cogs"></i> Gestion & Opérations Premium</a>
-                <ul class="submenu" id="mobile-operations-submenu">
-                    <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-                    <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-                    <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-                    <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-                    <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-                    <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-analyse-submenu" aria-label="Analyse et Stratégie IA"><i class="fas fa-chart-line"></i> Analyse & Stratégie IA</a>
-                <ul class="submenu" id="mobile-analyse-submenu">
-                    <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-                    <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-academie-submenu" aria-label="Académie SELEZIONE"><i class="fas fa-graduation-cap"></i> Académie SELEZIONE</a>
-                <ul class="submenu" id="mobile-academie-submenu">
-                    <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-                    <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-                    <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-                    <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-                    <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-                </ul>
-            </div>
-
-            <div class="sidebar-section">
-                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-support-submenu" aria-label="Support Privilège et Communauté"><i class="fas fa-headset"></i> Support Privilège & Communauté</a>
-                <ul class="submenu" id="mobile-support-submenu">
-                    <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-                    <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-                    <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-                    <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
-                </ul>
-            </div>
-            <div class="theme-switch">
-                <button id="themeToggleMobile" aria-label="Changer de thème (clair ou sombre)">
-                    <i class="fas fa-moon" id="themeIconMobile"></i> <span id="themeTextMobile">Mode Sombre</span>
-                </button>
-            </div>
-        </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu" aria-label="Sourcing & Veille Luxe">
+          <i class="fas fa-gem"></i> Sourcing & Veille Luxe
+        </a>
+        <ul class="submenu" id="sourcing-submenu">
+            <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
+            <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
+            <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
+            <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
+            <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu" aria-label="Gestion & Opérations Premium">
+          <i class="fas fa-cogs"></i> Gestion & Opérations Premium
+        </a>
+        <ul class="submenu" id="operations-submenu">
+            <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
+            <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
+            <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
+            <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
+            <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
+            <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu" aria-label="Analyse & Stratégie IA">
+          <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
+        </a>
+        <ul class="submenu" id="analyse-submenu">
+            <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
+            <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu" aria-label="Académie SELEZIONE">
+          <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
+        </a>
+        <ul class="submenu" id="academie-submenu">
+            <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
+            <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
+            <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
+            <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
+            <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu" aria-label="Support Privilège & Communauté">
+          <i class="fas fa-headset"></i> Support Privilège & Communauté
+        </a>
+        <ul class="submenu" id="support-submenu">
+            <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
+            <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
+            <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
+            <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+        </ul>
+    </div>
+
+    <div class="theme-switch">
+        <button id="themeToggle" aria-label="Changer de thème (clair/sombre)">
+          <i class="fas fa-moon" id="themeIcon"></i>
+          <span id="themeText">Mode Sombre</span>
+        </button>
+    </div>
+  </aside>
+
+  <main>
+    <header class="main-header">
+      <h1>Votre Tableau de Bord SELEZIONE</h1>
+      <div class="user-profile" role="button" aria-label="Profil Utilisateur" loading="lazy">
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+    <section class="dashboard-card welcome-hero">
+      <h3>Bienvenue sur SELEZIONE, votre Partenaire Luxe IA</h3>
+      <p>Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. Tous vos outils IA, vos formations et votre communauté au même endroit.</p>
+      <div class="hero-buttons">
+        <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
+            <span class="btn-text">🚀 Démarrer</span>
+            <span class="loader-spinner"></span>
+        </a>
+        <a href="support-faq.html" class="btn-outline">💡 Aide & FAQ</a>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      <section class="dashboard-card">
+        <h3>Vos Performances</h3>
+        <p class="skeleton-text long"></p>
+        <p class="skeleton-text short"></p>
+        <p>Suivez vos marges, vos volumes de commandes et l’évolution du marché.</p>
+        <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Opportunités IA</h3>
+        <p>Notre IA identifie les tendances fortes : sacs vintage, sneakers édition limitée, etc.</p>
+        <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Dernières Commandes</h3>
+        <p>2 commandes en attente, 1 expédiée hier.</p>
+        <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Formation en cours</h3>
+        <p>Prochaine étape : Fonctionnement des Marques.</p>
+        <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
+      </section>
+    </div>
+
+    <section class="content-block">
+      <h2>Actualités & Insights Luxe</h2>
+      <div class="skeleton-card"></div>
+      <p class="skeleton-text long"></p>
+      <p class="skeleton-text medium"></p>
+      <p>Restez informé des dernières évolutions du prêt-à-porter de luxe et des stratégies IA.</p>
+      <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
+    </section>
+  </main>
+
+  <nav class="mobile-nav-bar">
+    <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5…"/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208…"/></svg>
+      <span>Veille</span>
+    </a>
+    <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 0…"/></svg>
+      <span>Commandes</span>
+    </a>
+    <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320 32…"/></svg>
+      <span>Académie</span>
+    </a>
+    <a href="#" id="menuButton" class="mobile-nav-link" role="button" aria-label="Ouvrir le menu mobile">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96…"/></svg>
+      <span>Menu</span>
+    </a>
+  </nav>
+
+  <div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menu de navigation mobile">
+    <div class="mobile-menu-content">
+      <button class="close-button" id="closeMenuButton" aria-label="Fermer le menu mobile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6…"/></svg>
+      </button>
+      <h2>Navigation SELEZIONE</h2>
+
+      <!-- (Reprends ici les mêmes blocs <div class="sidebar-section">…</div> que pour la sidebar desktop, + le theme-switch mobile) -->
+
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.remove('no-js');
+
+      const currentPath = window.location.pathname.split('/').pop();
+      const mainLinks = document.querySelectorAll('aside .nav-link, .mobile-menu-content .nav-link');
+      const sidebarTogglers = document.querySelectorAll('.sidebar-toggler');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      const menuButton = document.getElementById('menuButton');
+      const closeMenuButton = document.getElementById('closeMenuButton');
+      const startBtn = document.getElementById('startBtn');
+
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+      const themeToggleMobile = document.getElementById('themeToggleMobile');
+      const themeIconMobile = document.getElementById('themeIconMobile');
+      const themeTextMobile = document.getElementById('themeTextMobile');
+
+      function closeAllSubmenus(exceptSubmenu = null) {
+        document.querySelectorAll('.submenu.open').forEach(openSub => {
+          if (openSub !== exceptSubmenu) {
+            openSub.style.maxHeight = '0';
+            openSub.classList.remove('open');
+            const toggler = openSub.previousElementSibling;
+            if (toggler && toggler.classList.contains('sidebar-toggler')) {
+              toggler.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+      }
+
+      function toggleSubmenu(toggler) {
+        const submenu = toggler.nextElementSibling;
+        if (submenu && submenu.classList.contains('submenu')) {
+          const isOpen = submenu.classList.contains('open');
+          closeAllSubmenus(submenu);
+          if (!isOpen) {
+            submenu.classList.add('open');
+            submenu.style.maxHeight = submenu.scrollHeight + 'px';
+            toggler.setAttribute('aria-expanded', 'true');
+          } else {
+            submenu.classList.remove('open');
+            submenu.style.maxHeight = '0';
+            toggler.setAttribute('aria-expanded', 'false');
+          }
+        }
+      }
+
+      // Liens actifs desktop/mobile
+      mainLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        const norm = (currentPath === '' ? 'index.html' : currentPath);
+        if (norm === href) {
+          link.classList.add('active');
+          const parent = link.closest('.submenu');
+          if (parent) {
+            parent.classList.add('open');
+            parent.style.maxHeight = parent.scrollHeight + 'px';
+            const tog = parent.previousElementSibling;
+            tog?.setAttribute('aria-expanded','true');
+          }
+        }
+      });
+
+      sidebarTogglers.forEach(tog => {
+        tog.addEventListener('click', e => { e.preventDefault(); toggleSubmenu(tog); });
+      });
+
+      // Menu mobile
+      document.querySelectorAll('.mobile-nav-bar .mobile-nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (link.id === 'menuButton') {
+          link.addEventListener('click', e => {
+            e.preventDefault();
+            mobileMenuOverlay.classList.add('open');
+            document.body.classList.add('no-scroll');
+            closeAllSubmenus();
+          });
+        } else if (href === (currentPath || 'index.html')) {
+          link.classList.add('active');
+        }
+      });
+
+      // Fermer overlay
+      if (closeMenuButton) {
+        closeMenuButton.addEventListener('click', () => {
+          mobileMenuOverlay.classList.remove('open');
+          document.body.classList.remove('no-scroll');
+          closeAllSubmenus();
+        });
+        mobileMenuOverlay.addEventListener('click', e => {
+          if (e.target === mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('open');
+            document.body.classList.remove('no-scroll');
+            closeAllSubmenus();
+          }
+        });
+      }
+
+      // Feedback bouton Démarrer
+      startBtn?.addEventListener('click', e => {
+        startBtn.setAttribute('data-loading','true');
+        setTimeout(()=>{
+          startBtn.setAttribute('data-loading','false');
+          // window.location.href = startBtn.href;
+        },1500);
+      });
+
+      // Thème
+      const setLocalTheme = theme => {
+        if(theme==='dark'){
+          document.body.classList.remove('light-mode');
+          localStorage.setItem('theme','dark');
+          themeIcon.classList.replace('fa-sun','fa-moon');
+          themeText.textContent='Mode Sombre';
+          themeIconMobile?.classList.replace('fa-sun','fa-moon');
+          themeTextMobile?.textContent='Mode Sombre';
+        } else {
+          document.body.classList.add('light-mode');
+          localStorage.setItem('theme','light');
+          themeIcon.classList.replace('fa-moon','fa-sun');
+          themeText.textContent='Mode Clair';
+          themeIconMobile?.classList.replace('fa-moon','fa-sun');
+          themeTextMobile?.textContent='Mode Clair';
+        }
+      };
+
+      const saved = localStorage.getItem('theme');
+      if(saved) setLocalTheme(saved);
+      else if(window.matchMedia('(prefers-color-scheme: light)').matches) setLocalTheme('light');
+      else setLocalTheme('dark');
+
+      themeToggle?.addEventListener('click', ()=>{
+        const cur = document.body.classList.contains('light-mode')?'light':'dark';
+        setLocalTheme(cur==='dark'?'light':'dark');
+      });
+      themeToggleMobile?.addEventListener('click', ()=>{
+        const cur = document.body.classList.contains('light-mode')?'light':'dark';
+        setLocalTheme(cur==='dark'?'light':'dark');
+      });
+    });
+  </script>
 </body>
 </html>
