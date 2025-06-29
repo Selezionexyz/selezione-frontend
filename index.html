@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>SELEZIONE – Tableau de bord</title>
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <link
     rel="stylesheet"
@@ -12,288 +13,179 @@
     referrerpolicy="no-referrer"
   />
   <style>
-  /* -------------------- PALETTE & RESET -------------------- */
-  :root {
-    --bg: #121212;            /* fond */
-    --sidebar: #111111;
-    --header: #181818;
-    --card: #1f1f1f;
-    --text: #fff;
-    --text-md: #ddd;
-    --accent: #fbb034;        /* or */
-    --accent-hover: #ffdd00;
-    --violet: #8b5cf6;        /* violet pour liens */
-    --border: #333;
-    --shadow: rgba(0,0,0,0.5);
-  }
-  body.light-mode {
-    --bg: #f0f2f5;
-    --sidebar: #fff;
-    --header: #e0e2e5;
-    --card: #fff;
-    --text: #333;
-    --text-md:#555;
-    --accent: #e6a000;
-    --accent-hover:#ffbb00;
-    --violet:#6b21a8;
-    --border:#bbb;
-    --shadow:rgba(0,0,0,0.1);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body {
-    font-family:'Outfit',sans-serif;
-    display:flex;min-height:100vh;
-    background:var(--bg);color:var(--text);
-    transition:background .3s,color .3s;
-  }
-  body.no-js .submenu{visibility:hidden;max-height:none;}
-  /* -------------------- SIDEBAR -------------------- */
-  aside {
-    width:250px;background:var(--sidebar);
-    padding:2rem 1rem;display:flex;
-    flex-direction:column;gap:1rem;
-    overflow-y:auto;transition:background .3s;
-  }
-  aside h2 {
-    font-family:'Playfair Display',serif;
-    font-size:1.8rem;border-bottom:1px solid var(--border);
-    padding-bottom:.5rem;margin-bottom:1rem;
-  }
-  .sidebar-section{margin-bottom:1.5rem;}
-  .sidebar-section+ .sidebar-section{
-    border-top:1px solid var(--border);
-    padding-top:1rem;
-  }
-  aside a{
-    display:flex;align-items:center;gap:.8rem;
-    color:var(--text);text-decoration:none;
-    padding:.7rem 1rem;border-radius:6px;
-    transition:background .2s,color .2s;
-  }
-  aside a:hover{background:rgba(255,255,255,.08);color:var(--accent);}
-  aside a.active{background:var(--accent);color:var(--bg);font-weight:600;}
-  aside a .fas,aside a .fab{width:20px;text-align:center;}
-  .sidebar-toggler{cursor:pointer;}
-  .submenu{
-    list-style:none;margin:.5rem 0 0 1.5rem;
-    max-height:0;overflow:hidden;
-    transition:max-height .3s ease-out;
-  }
-  .submenu.open{overflow:visible;}
-  .submenu li{margin:.4rem 0;}
-  .submenu a{color:var(--text-md);display:block;font-size:.9rem;padding:.5rem .8rem;}
-  .submenu a:hover{color:var(--accent);}
-  .submenu a.active{color:var(--accent);font-weight:600;}
-
-  /* ========== THEME SWITCH ========== */
-  .theme-switch{margin-top:auto;padding-top:1rem;border-top:1px solid var(--border);}
-  .theme-switch button{
-    background:none;border:1px solid var(--border);
-    border-radius:20px;padding:.5rem 1rem;
-    color:var(--text-md);display:flex;align-items:center;gap:.5rem;
-    cursor:pointer;transition:background .2s,color .2s;
-  }
-  .theme-switch button:hover{background:rgba(255,255,255,.08);color:var(--text);}
-  /* ========== HEADER ========== */
-  .main-header{
-    padding:1.5rem;background:var(--header);
-    display:flex;justify-content:space-between;align-items:center;
-    border-bottom:1px solid var(--border);
-    transition:background .3s;
-  }
-  .main-header h1{
-    font-family:'Playfair Display',serif;
-    font-size:1.8rem;color:var(--text);
-  }
-  .user-profile{font-size:1.8rem;color:var(--text);cursor:pointer;}
-  .user-profile:hover{color:var(--accent);}
-  /* ========== CARDS ========== */
-  .dashboard-card{
-    background:var(--card);border-radius:12px;
-    padding:2rem;margin:1.5rem;
-    box-shadow:0 4px 12px var(--shadow);
-    display:flex;flex-direction:column;justify-content:space-between;
-    transition:background .3s,box-shadow .3s;
-  }
-  .dashboard-card h3{
-    font-family:'Playfair Display',serif;
-    font-size:1.6rem;margin-bottom:.8rem;color:var(--text);
-  }
-  .dashboard-card p{
-    font-size:1rem;line-height:1.6;
-    color:var(--text-md);margin-bottom:1rem;font-weight:300;
-  }
-  .welcome-hero{
-    text-align:center;
-    background:linear-gradient(135deg,var(--card),#2a2a2a);
-    border:1px solid var(--border);
-  }
-  body.light-mode .welcome-hero{
-    background:linear-gradient(135deg,var(--card),#f8f8f8);
-  }
-  .welcome-hero h3{font-size:2.5rem;margin-bottom:1rem;}
-  .welcome-hero p{font-size:1.1rem;max-width:700px;margin:0 auto 1.5rem;}
-  .hero-buttons{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
-  /* boutons */
-  .btn-primary,.btn-outline{
-    display:inline-flex;align-items:center;gap:.6rem;
-    padding:.8rem 1.8rem;border-radius:8px;
-    font-weight:600;text-decoration:none;
-    transition:transform .2s,box-shadow .2s;
-    white-space:nowrap;
-  }
-  .btn-primary{
-    background:linear-gradient(90deg,var(--accent),var(--accent-hover));
-    color:var(--bg);
-    box-shadow:0 4px 10px rgba(251,176,52,0.4);
-  }
-  .btn-primary:hover{
-    transform:translateY(-2px);
-    box-shadow:0 6px 15px rgba(251,176,52,0.5);
-  }
-  .btn-primary:active{
-    transform:translateY(1px);
-    box-shadow:0 2px 5px rgba(251,176,52,0.3);
-  }
-  .btn-outline{
-    background:transparent;
-    border:2px solid var(--accent);
-    color:var(--accent);
-  }
-  .btn-outline:hover{
-    background:var(--accent);
-    color:var(--bg);
-    transform:translateY(-2px);
-    box-shadow:0 4px 10px rgba(251,176,52,0.4);
-  }
-  /* grid */
-  .dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:1.5rem;padding:0 1.5rem 1.5rem;
-  }
-  .card-link{
-    display:inline-flex;align-items:center;gap:.5rem;
-    color:var(--violet);font-weight:600;text-decoration:none;
-    transition:transform .2s,color .2s;margin-top:1rem;
-  }
-  .card-link:hover{
-    transform:translateX(5px);
-    color:var(--violet);
-  }
-
-  /* -------------------- MOBILE NAV BAR (icônes en bas) -------------------- */
-  .mobile-nav-bar{
-    display:none; /* desktop off */
-    position:fixed;bottom:0;left:0;right:0;
-    height:60px;background:var(--header);
-    border-top:1px solid var(--border);
-    display:flex;justify-content:space-around;align-items:center;
-    z-index:100;transition:background .3s;
-  }
-  .mobile-nav-bar a{
-    color:var(--text-md);text-decoration:none;
-    font-size:.75rem;display:flex;flex-direction:column;
-    align-items:center;gap:4px;transition:color .2s;
-  }
-  .mobile-nav-bar a svg{width:24px;height:24px;fill:currentColor;}
-  .mobile-nav-bar a:hover,
-  .mobile-nav-bar a.active{
-    color:var(--accent);
-  }
-
-  /* -------------------- OVERLAY -------------------- */
-  #mobileMenuOverlay{
-    position:fixed;top:0;left:0;width:100%;height:100%;
-    background:rgba(0,0,0,.9);visibility:hidden;opacity:0;
-    display:flex;justify-content:center;align-items:center;
-    transition:visibility .3s,opacity .3s;
-    z-index:200;
-  }
-  #mobileMenuOverlay.open{visibility:visible;opacity:1;}
-  .mobile-menu-content{
-    background:var(--sidebar);padding:2rem 1.5rem;
-    width:90%;max-width:400px;border-radius:15px;
-    max-height:90vh;overflow-y:auto;position:relative;
-  }
-  .mobile-menu-content .close-button{
-    position:absolute;top:15px;right:15px;
-    background:none;border:none;font-size:2rem;color:var(--text);
-    cursor:pointer;transition:color .2s;
-  }
-  .mobile-menu-content .close-button:hover{color:var(--accent);}
-  .mobile-menu-content h2{
-    font-family:'Playfair Display',serif;
-    text-align:center;font-size:2rem;
-    margin-bottom:1.5rem;border-bottom:1px solid var(--border);
-    padding-bottom:.8rem;
-  }
-
-  /* -------------------- RWD -------------------- */
-  @media(max-width:992px){
-    aside{width:220px;padding:1.5rem .8rem;}
-  }
-  @media(max-width:768px){
-    aside{display:none;}
-    .mobile-nav-bar{display:flex;}
-    main{padding-bottom:60px;} /* espace nav */
-  }
+    /* ================== VARIABLES & RESET ================== */
+    :root {
+      --bg: #121212;              /* fond sombre */
+      --bg-alt: #1f1f1f;          /* cartes, sidebar */
+      --text: #eee;
+      --text-alt: #ccc;
+      --accent: #fbb034;
+      --accent-hover: #ffdd00;
+      --border: #333;
+      --shadow: rgba(0,0,0,0.5);
+    }
+    body.light-mode {
+      --bg: #f0f2f5;
+      --bg-alt: #fff;
+      --text: #333;
+      --text-alt: #555;
+      --accent: #e6a000;
+      --accent-hover: #ffbb00;
+      --border: #bbb;
+      --shadow: rgba(0,0,0,0.1);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{
+      font-family:'Outfit',sans-serif;
+      display:flex; min-height:100vh;
+      background:var(--bg); color:var(--text);
+      transition: background .3s, color .3s;
+      position:relative;
+    }
+    aside{
+      width:250px; background:var(--bg-alt);
+      padding:2rem 1rem; overflow-y:auto;
+      border-right:1px solid var(--border);
+      transition: background .3s;
+    }
+    main{
+      flex:1; display:flex; flex-direction:column;
+      overflow-y:auto;
+    }
+    h2,h3{font-family:'Playfair Display',serif;}
+    a{color:inherit;text-decoration:none;}
+    /* ================== SIDEBAR ================== */
+    aside h2{
+      font-size:1.8rem; margin-bottom:1rem;
+      border-bottom:1px solid var(--border); padding-bottom:.5rem;
+    }
+    .sidebar-section{margin-top:1.5rem;}
+    .sidebar-section:first-of-type{margin-top:0;}
+    .sidebar-section + .sidebar-section{
+      border-top:1px solid var(--border);
+      padding-top:1rem;
+    }
+    aside a.nav-link{
+      display:flex;align-items:center;gap:.6rem;
+      padding:.6rem 1rem; border-radius:6px;
+      transition:background .2s,transform .2s;
+    }
+    aside a.nav-link:hover{
+      background:rgba(255,255,255,0.08);
+      transform:translateX(3px);
+      color:var(--accent);
+    }
+    aside a.nav-link.active{
+      background:var(--accent); color:var(--bg);
+      font-weight:600; box-shadow:0 4px 12px var(--shadow);
+    }
+    aside .sidebar-toggler{cursor:pointer;}
+    ul.submenu{
+      list-style:none; margin:0.5rem 0 0 1.5rem;
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease-out;
+    }
+    ul.submenu.open{ max-height:500px; /* assez grand */ }
+    ul.submenu li{margin:.4rem 0;}
+    ul.submenu a{font-size:.9rem; color:var(--text-alt);}
+    /* ================== THEME SWITCH ================== */
+    .theme-switch{margin-top:2rem;text-align:center;}
+    .theme-switch button{
+      background:none;border:1px solid var(--border);
+      padding:.5rem 1rem;border-radius:20px;
+      color:var(--text-alt);cursor:pointer;
+      display:inline-flex;align-items:center;gap:.5rem;
+      transition:background .2s,color .2s,border .2s;
+    }
+    .theme-switch button:hover{
+      background:rgba(255,255,255,0.08);
+    }
+    /* ================== HEADER ================== */
+    .main-header{
+      display:flex;justify-content:space-between;
+      padding:1.2rem 1.5rem; background:var(--bg-alt);
+      border-bottom:1px solid var(--border);
+      transition:background .3s;
+    }
+    .main-header h3{font-size:1.8rem;}
+    .user-profile{font-size:1.8rem;cursor:pointer;transition:color .2s;}
+    .user-profile:hover{color:var(--accent);}
+    /* ================== DASHBOARD CARDS ================== */
+    .dashboard-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:1.5rem;padding:1.5rem;
+    }
+    .dashboard-card{
+      background:var(--bg-alt);padding:1.5rem;
+      border-radius:12px;box-shadow:0 4px 12px var(--shadow);
+      display:flex;flex-direction:column;justify-content:space-between;
+      transition:background .3s,box-shadow .3s;
+    }
+    .dashboard-card h3{margin-bottom:1rem;font-size:1.4rem;}
+    .dashboard-card p{font-size:1rem;line-height:1.5;color:var(--text-alt);}
+    .card-link{
+      margin-top:1rem;color:var(--accent);
+      font-weight:600;display:inline-flex;align-items:center;
+      gap:.4rem;transition:transform .2s,color .2s;
+    }
+    .card-link:hover{
+      transform:translateX(4px);
+      color:var(--accent-hover);
+    }
   </style>
 </head>
 <body class="no-js">
-  <!-- ===== SIDEBAR ===== -->
-  <aside id="sidebar">
+  <aside>
     <h2>SELEZIONE</h2>
 
     <div class="sidebar-section">
-      <a href="index.html" class="nav-link active">
-        <i class="fas fa-home"></i> Accueil
-      </a>
+      <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Tableau de bord</a>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu">
-        <i class="fas fa-gem"></i> Sourcing & Veille
+      <a href="#" class="sidebar-toggler" aria-expanded="false">  
+        <i class="fas fa-gem"></i> Sourcing & Veille Luxe
       </a>
-      <ul class="submenu" id="sourcing-submenu">
-        <li><a href="fournisseur-order.html" class="nav-link">Module Fournisseur</a></li>
-        <li><a href="module6.html" class="nav-link">Scraper VC</a></li>
+      <ul class="submenu">
+        <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
+        <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
         <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-        <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveau Sourcing</a></li>
+        <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
         <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
       </ul>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu">
-        <i class="fas fa-cogs"></i> Opérations Premium
+      <a href="#" class="sidebar-toggler" aria-expanded="false">
+        <i class="fas fa-cogs"></i> Gestion & Opérations Premium
       </a>
-      <ul class="submenu" id="operations-submenu">
+      <ul class="submenu">
         <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
         <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-        <li><a href="module7.html" class="nav-link">Commandes</a></li>
+        <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
         <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-        <li><a href="marketing-ia.html" class="nav-link">Marketing IA</a></li>
+        <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
+        <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
       </ul>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu">
-        <i class="fas fa-chart-line"></i> Analyse & Stratégie
+      <a href="#" class="sidebar-toggler" aria-expanded="false">
+        <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
       </a>
-      <ul class="submenu" id="analyse-submenu">
-        <li><a href="stats-performance.html" class="nav-link">Stats & Performance</a></li>
-        <li><a href="tendances-ia.html" class="nav-link">Tendances IA</a></li>
+      <ul class="submenu">
+        <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
+        <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
       </ul>
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu">
-        <i class="fas fa-graduation-cap"></i> Académie
+      <a href="#" class="sidebar-toggler" aria-expanded="false">
+        <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
       </a>
-      <ul class="submenu" id="academie-submenu">
+      <ul class="submenu">
         <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-        <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement Marques</a></li>
+        <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
         <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
         <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
         <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
@@ -301,205 +193,140 @@
     </div>
 
     <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu">
-        <i class="fas fa-headset"></i> Support & FAQ
+      <a href="#" class="sidebar-toggler" aria-expanded="false">
+        <i class="fas fa-headset"></i> Support Privilège & Communauté
       </a>
-      <ul class="submenu" id="support-submenu">
+      <ul class="submenu">
         <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-        <li><a href="module8.html" class="nav-link">Actu Direct</a></li>
-        <li><a href="support-faq.html" class="nav-link">FAQ</a></li>
-        <li><a href="contact-support.html" class="nav-link">Contact Support</a></li>
+        <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
+        <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
+        <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
       </ul>
     </div>
 
     <div class="theme-switch">
-      <button id="themeToggle" aria-label="Changer de thème">
-        <i class="fas fa-moon" id="themeIcon"></i>
-        <span id="themeText">Mode Sombre</span>
+      <button id="themeToggle">
+        <i class="fas fa-moon"></i> <span>Mode Sombre</span>
       </button>
     </div>
   </aside>
 
-  <!-- ===== MAIN ===== -->
   <main>
     <header class="main-header">
-      <h1>Tableau de bord</h1>
-      <div class="user-profile" role="button" aria-label="Profil">
-        <i class="fas fa-user-circle"></i>
-      </div>
+      <h3>Votre Tableau de Bord SELEZIONE</h3>
+      <div class="user-profile"><i class="fas fa-user-circle"></i></div>
     </header>
 
-    <section class="dashboard-card welcome-hero">
-      <h3>Bienvenue sur SELEZIONE</h3>
-      <p>Pilotez votre activité luxe IA en un clic. Tous vos modules et outils IA réunis.</p>
-      <div class="hero-buttons">
-        <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
-          <span class="btn-text">🚀 Commencer</span>
-          <span class="loader-spinner"></span>
-        </a>
-        <a href="support-faq.html" class="btn-outline">💡 FAQ</a>
+    <section class="dashboard-grid">
+      <div class="dashboard-card">
+        <h3>Votre Avancement Formation</h3>
+        <p>Continuez votre parcours… Prochaine étape : Fonctionnement des Marques.</p>
+        <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
       </div>
-    </section>
-
-    <div class="dashboard-grid">
-      <section class="dashboard-card">
-        <h3>Avancement Formation</h3>
-        <p>Prochaine étape : Fonctionnement des Marques.</p>
-        <a href="formation-selezione-2.html" class="card-link">Reprendre formation <i class="fas fa-arrow-right"></i></a>
-      </section>
-
-      <section class="dashboard-card">
+      <div class="dashboard-card">
         <h3>Statistiques Clés</h3>
-        <p>+12.5% de marge moyenne ce mois-ci.</p>
-        <a href="stats-performance.html" class="card-link">Voir stats <i class="fas fa-arrow-right"></i></a>
-      </section>
-
-      <section class="dashboard-card">
-        <h3>Opportunités Marché</h3>
-        <p>Sacs vintage et sneakers édition limitée en forte demande.</p>
-        <a href="tendances-ia.html" class="card-link">Découvrir <i class="fas fa-arrow-right"></i></a>
-      </section>
-
-      <section class="dashboard-card">
+        <p>Suivez vos marges, vos ventes et l'évolution du marché.</p>
+        <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="dashboard-card">
+        <h3>Opportunités IA</h3>
+        <p>Notre IA identifie les tendances : sacs vintage, sneakers édition limitée…</p>
+        <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="dashboard-card">
         <h3>Dernières Commandes</h3>
-        <p>2 en attente • 1 expédiée hier.</p>
-        <a href="module7.html" class="card-link">Gérer commandes <i class="fas fa-arrow-right"></i></a>
-      </section>
-    </div>
-
-    <section class="content-block">
-      <h2>Actualités & Insights</h2>
-      <p>Restez informé des dernières tendances et stratégies IA pour le luxe.</p>
-      <a href="module8.html" class="card-link">Voir toutes <i class="fas fa-arrow-right"></i></a>
+        <p>2 commandes en attente, 1 expédiée hier.</p>
+        <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
+      </div>
     </section>
-  </main>
-  <!-- ===== BOTTOM NAV MOBILE ===== -->
-  <nav class="mobile-nav-bar">
-    <a href="index.html" class="mobile-nav-link active" aria-label="Accueil">
-      <i class="fas fa-home"></i><span>Accueil</span>
-    </a>
-    <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
-      <i class="fas fa-search"></i><span>Veille</span>
-    </a>
-    <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
-      <i class="fas fa-box"></i><span>Commandes</span>
-    </a>
-    <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
-      <i class="fas fa-graduation-cap"></i><span>Académie</span>
-    </a>
-    <a href="#" id="menuButton" class="mobile-nav-link" aria-label="Menu">
-      <i class="fas fa-bars"></i><span>Menu</span>
-    </a>
-  </nav>
+    <!-- Barre de nav mobile -->
+    <nav class="mobile-nav-bar">
+      <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
+        <svg viewBox="0 0 576 512"><path d="…"/></svg>
+        <span>Accueil</span>
+      </a>
+      <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
+        <svg viewBox="0 0 512 512"><path d="…"/></svg>
+        <span>Veille</span>
+      </a>
+      <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
+        <svg viewBox="0 0 512 512"><path d="…"/></svg>
+        <span>Commandes</span>
+      </a>
+      <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
+        <svg viewBox="0 0 640 512"><path d="…"/></svg>
+        <span>Académie</span>
+      </a>
+      <a href="#" id="menuButton" class="mobile-nav-link" aria-label="Menu">
+        <svg viewBox="0 0 448 512"><path d="…"/></svg>
+        <span>Menu</span>
+      </a>
+    </nav>
 
-  <!-- ===== OVERLAY MENU MOBILE ===== -->
-  <div id="mobileMenuOverlay" role="dialog" aria-modal="true">
-    <div class="mobile-menu-content">
-      <button class="close-button" id="closeMenuButton" aria-label="Fermer">
-        <i class="fas fa-times"></i>
-      </button>
-      <h2>Navigation</h2>
-      <!-- Répétez ici les mêmes .sidebar-section qu’en aside -->
-      <!-- ... -->
-      <div class="theme-switch">
-        <button id="themeToggleMobile" aria-label="Changer de thème">
-          <i class="fas fa-moon" id="themeIconMobile"></i>
-          <span id="themeTextMobile">Mode Sombre</span>
-        </button>
+    <!-- Overlay menu mobile -->
+    <div id="mobileMenuOverlay">
+      <div class="mobile-menu-content">
+        <button id="closeMenuButton" class="close-button"><i class="fas fa-times"></i></button>
+        <h2>Navigation</h2>
+        <!-- Réplique les mêmes sections que la sidebar -->
+        <!-- … (idem Partie 2) … -->
+        <div class="theme-switch">
+          <button id="themeToggleMobile">
+            <i class="fas fa-moon"></i> <span>Mode Sombre</span>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+
+  </main>
 
   <script>
-    document.addEventListener('DOMContentLoaded',()=>{
-      document.body.classList.remove('no-js');
+    document.body.classList.remove('no-js');
 
-      /* ============ Sous-menus ============ */
-      const togglers=document.querySelectorAll('.sidebar-toggler');
-      function closeAll(except){
-        document.querySelectorAll('.submenu.open').forEach(sm=>{
-          if(sm!==except){
-            sm.style.maxHeight='0';sm.classList.remove('open');
-            sm.previousElementSibling.setAttribute('aria-expanded','false');
-          }
-        });
-      }
-      togglers.forEach(t=>{
-        t.addEventListener('click',e=>{
-          e.preventDefault();
-          const sm=t.nextElementSibling;
-          const open=sm.classList.contains('open');
-          closeAll(open?null:sm);
-          if(!open){
-            sm.classList.add('open');
-            sm.style.maxHeight=sm.scrollHeight+'px';
-            t.setAttribute('aria-expanded','true');
-          }
-        });
-      });
-
-      /* ============ Mobile overlay ============ */
-      const overlay=document.getElementById('mobileMenuOverlay'),
-            btnOpen=document.getElementById('menuButton'),
-            btnClose=document.getElementById('closeMenuButton');
-      btnOpen.addEventListener('click',e=>{
+    // Sous-menus sidebar & overlay
+    document.querySelectorAll('.sidebar-toggler').forEach(t => {
+      t.addEventListener('click', e => {
         e.preventDefault();
-        overlay.classList.add('open');
-        document.body.classList.add('no-scroll');
-        closeAll();
-      });
-      btnClose.addEventListener('click',()=>{
-        overlay.classList.remove('open');
-        document.body.classList.remove('no-scroll');
-      });
-      overlay.addEventListener('click',e=>{
-        if(e.target===overlay){
-          overlay.classList.remove('open');
-          document.body.classList.remove('no-scroll');
-        }
-      });
-
-      /* ============ Démarrer feedback ============ */
-      const startBtn=document.getElementById('startBtn');
-      if(startBtn)startBtn.addEventListener('click',()=>{
-        startBtn.setAttribute('data-loading','true');
-        setTimeout(()=>startBtn.setAttribute('data-loading','false'),1500);
-      });
-
-      /* ============ Thème ============ */
-      const themeToggle=document.getElementById('themeToggle'),
-            themeText=document.getElementById('themeText'),
-            themeIcon=document.getElementById('themeIcon'),
-            themeToggleMobile=document.getElementById('themeToggleMobile'),
-            themeTextMobile=document.getElementById('themeTextMobile'),
-            themeIconMobile=document.getElementById('themeIconMobile');
-      function applyTheme(t){
-        if(t==='light'){
-          document.body.classList.add('light-mode');
-          themeIcon.classList.replace('fa-moon','fa-sun');
-          themeText.textContent='Mode Clair';
-          themeIconMobile.classList.replace('fa-moon','fa-sun');
-          themeTextMobile.textContent='Mode Clair';
-        }else{
-          document.body.classList.remove('light-mode');
-          themeIcon.classList.replace('fa-sun','fa-moon');
-          themeText.textContent='Mode Sombre';
-          themeIconMobile.classList.replace('fa-sun','fa-moon');
-          themeTextMobile.textContent='Mode Sombre';
-        }
-        localStorage.setItem('theme',t);
-      }
-      const saved=localStorage.getItem('theme');
-      if(saved)applyTheme(saved);
-      else if(window.matchMedia('(prefers-color-scheme: light)').matches)applyTheme('light');
-      else applyTheme('dark');
-
-      [themeToggle,themeToggleMobile].forEach(btn=>{
-        if(btn)btn.addEventListener('click',()=>{
-          applyTheme(document.body.classList.contains('light-mode')?'dark':'light');
-        });
+        const ul = t.nextElementSibling;
+        ul.classList.toggle('open');
       });
     });
+
+    // Menu mobile
+    const overlay = document.getElementById('mobileMenuOverlay');
+    document.getElementById('menuButton').addEventListener('click', e => {
+      e.preventDefault(); overlay.classList.add('open');
+      document.body.classList.add('no-scroll');
+    });
+    document.getElementById('closeMenuButton').addEventListener('click', ()=> {
+      overlay.classList.remove('open');
+      document.body.classList.remove('no-scroll');
+    });
+    overlay.addEventListener('click', e => {
+      if(e.target===overlay) {
+        overlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      }
+    });
+
+    // Switch Clair/Sombre
+    function setTheme(mode) {
+      document.body.classList.toggle('light-mode', mode==='light');
+      const icon = mode==='light' ? 'fa-sun' : 'fa-moon';
+      document.querySelectorAll('#themeToggle i, #themeToggleMobile i')
+        .forEach(i=>i.className=`fas ${icon}`);
+      document.querySelectorAll('#themeToggle span, #themeToggleMobile span')
+        .forEach(s=>s.textContent = mode==='light' ? 'Mode Clair' : 'Mode Sombre');
+      localStorage.setItem('theme', mode);
+    }
+    // initial
+    const saved = localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    setTheme(saved);
+    document.getElementById('themeToggle')
+      .addEventListener('click', ()=> setTheme(document.body.classList.contains('light-mode')?'dark':'light'));
+    document.getElementById('themeToggleMobile')
+      .addEventListener('click', ()=> setTheme(document.body.classList.contains('light-mode')?'dark':'light'));
   </script>
 </body>
 </html>
