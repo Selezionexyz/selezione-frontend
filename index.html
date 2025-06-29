@@ -3,107 +3,183 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>SELEZIONE – Tableau de bord</title>
+  <title>SELEZIONE – Luxury Fashion Intelligence Platform</title>
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
   <style>
-    /* ================== VARIABLES & RESET ================== */
+    /* ================== VARIABLES ULTRA PRO ================== */
     :root {
-      --bg: #0a0a0a;
-      --bg-alt: #141414;
-      --card-bg: #1a1a1a;
-      --text: #ffffff;
-      --text-alt: #b8b8b8;
-      --text-muted: #888888;
-      --accent: #d4af37;
-      --accent-hover: #ffd700;
-      --accent-gradient: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #d4af37 100%);
-      --border: #2a2a2a;
-      --shadow: rgba(0,0,0,0.3);
-      --shadow-accent: 0 8px 32px rgba(212, 175, 55, 0.2);
-      --glass-bg: rgba(26, 26, 26, 0.8);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --hover-bg: rgba(212, 175, 55, 0.1);
+      /* Colors Luxury */
+      --primary-black: #000000;
+      --deep-black: #0a0a0a;
+      --carbon-black: #141414;
+      --obsidian: #1a1a1a;
+      --charcoal: #2a2a2a;
+      
+      /* Gold Palette */
+      --gold-primary: #d4af37;
+      --gold-bright: #ffd700;
+      --gold-pale: #f4e4bc;
+      --gold-dark: #b8941f;
+      --champagne: #f5e6d3;
+      
+      /* Luxury Gradients */
+      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #ffd700 25%, #f4e4bc 50%, #ffd700 75%, #d4af37 100%);
+      --black-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2a2a2a 100%);
+      --glass-gradient: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+      
+      /* Typography */
+      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Playfair Display', serif;
+      --font-tech: 'Space Grotesk', monospace;
+      
+      /* Spacing & Layout */
+      --border-radius: 16px;
+      --border-radius-lg: 24px;
+      --shadow-luxury: 0 32px 64px rgba(0, 0, 0, 0.4);
+      --shadow-gold: 0 16px 48px rgba(212, 175, 55, 0.3);
+      --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.15);
+      
+      /* Animation */
+      --transition-luxury: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      
+      /* Glass Effects */
+      --glass-bg: rgba(26, 26, 26, 0.85);
+      --glass-border: rgba(212, 175, 55, 0.2);
+      --glass-backdrop: blur(20px) saturate(180%);
     }
 
     body.light-mode {
-      --bg: #f8f9fa;
-      --bg-alt: #ffffff;
-      --card-bg: #ffffff;
-      --text: #1a1a1a;
-      --text-alt: #4a4a4a;
-      --text-muted: #6a6a6a;
-      --accent: #d4af37;
-      --accent-hover: #ffd700;
-      --border: #e1e5e9;
-      --shadow: rgba(0,0,0,0.1);
-      --shadow-accent: 0 8px 32px rgba(212, 175, 55, 0.15);
+      --primary-black: #ffffff;
+      --deep-black: #f8f9fa;
+      --carbon-black: #ffffff;
+      --obsidian: #f5f5f5;
+      --charcoal: #e0e0e0;
+      --champagne: #2a2a2a;
       --glass-bg: rgba(255, 255, 255, 0.9);
-      --glass-border: rgba(0, 0, 0, 0.1);
-      --hover-bg: rgba(212, 175, 55, 0.05);
+      --glass-border: rgba(212, 175, 55, 0.3);
+      --shadow-luxury: 0 32px 64px rgba(0, 0, 0, 0.1);
     }
 
-    *{margin:0;padding:0;box-sizing:border-box;}
-    
-    body{
-      font-family:'Inter',sans-serif;
-      display:flex; min-height:100vh;
-      background:var(--bg); color:var(--text);
-      transition: background .3s, color .3s;
-      position:relative;
+    /* ================== RESET & BASE ================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-primary);
+      background: var(--deep-black);
+      color: var(--champagne);
+      display: flex;
+      min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
+      font-weight: 300;
+      letter-spacing: 0.02em;
     }
 
-    /* Animated background */
-    body::before {
-      content: '';
+    body.no-scroll {
+      overflow: hidden;
+    }
+
+    /* ================== ANIMATED BACKGROUND SYSTEM ================== */
+    .luxury-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -2;
+      background: var(--black-gradient);
+    }
+
+    .particles-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.04) 0%, transparent 50%);
       z-index: -1;
-      animation: float 20s ease-in-out infinite;
+      overflow: hidden;
     }
 
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(30px, -30px) rotate(120deg); }
-      66% { transform: translate(-20px, 20px) rotate(240deg); }
+    .particle {
+      position: absolute;
+      background: var(--gold-primary);
+      border-radius: 50%;
+      animation: float-particle 15s infinite ease-in-out;
+      opacity: 0.6;
     }
 
-    aside{
-      width:280px; 
+    .particle:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { width: 6px; height: 6px; top: 40%; left: 30%; animation-delay: 2s; }
+    .particle:nth-child(3) { width: 3px; height: 3px; top: 60%; left: 70%; animation-delay: 4s; }
+    .particle:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 20%; animation-delay: 6s; }
+    .particle:nth-child(5) { width: 2px; height: 2px; top: 30%; left: 80%; animation-delay: 8s; }
+
+    @keyframes float-particle {
+      0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.6; }
+      25% { transform: translateY(-30px) translateX(20px) rotate(90deg); opacity: 0.8; }
+      50% { transform: translateY(-60px) translateX(-10px) rotate(180deg); opacity: 0.4; }
+      75% { transform: translateY(-30px) translateX(-30px) rotate(270deg); opacity: 0.9; }
+    }
+
+    .geometric-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: 
+        radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+      animation: pulse-overlay 8s ease-in-out infinite;
+    }
+
+    @keyframes pulse-overlay {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    /* ================== SIDEBAR ULTRA LUXE ================== */
+    .sidebar {
+      width: 320px;
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
-      padding:0; overflow-y:auto;
-      border-right:1px solid var(--glass-border);
-      transition: background .3s;
+      backdrop-filter: var(--glass-backdrop);
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
       position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-glass);
+      transition: var(--transition-luxury);
     }
 
-    main{
-      flex:1; display:flex; flex-direction:column;
-      overflow-y:auto;
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gold-gradient);
+      animation: shimmer 3s ease-in-out infinite;
     }
 
-    h2,h3{font-family:'Playfair Display',serif;}
-    a{color:inherit;text-decoration:none;}
+    @keyframes shimmer {
+      0%, 100% { opacity: 0.8; transform: scaleX(1); }
+      50% { opacity: 1; transform: scaleX(1.1); }
+    }
 
-    /* ================== SIDEBAR ================== */
     .sidebar-header {
-      padding: 2rem 1.5rem 1.5rem;
-      background: var(--accent-gradient);
-      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2rem;
+      background: var(--gold-gradient);
       position: relative;
       overflow: hidden;
     }
@@ -119,211 +195,453 @@
       pointer-events: none;
     }
 
-    aside h2{
-      font-size:2rem; margin-bottom:0;
-      color: #000;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      letter-spacing: 2px;
-      font-weight: 700;
+    .logo {
       position: relative;
       z-index: 1;
     }
 
-    .sidebar-section{margin-top:1rem;}
-    .sidebar-section:first-of-type{margin-top:1rem;}
-    .sidebar-section + .sidebar-section{
-      border-top:1px solid var(--border);
-      padding-top:1rem;
+    .logo-main {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-black);
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      background: linear-gradient(135deg, #000000, #2a2a2a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    aside a.nav-link{
-      display:flex;align-items:center;gap:.75rem;
-      padding:1rem 1.5rem; border-radius:0;
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      color: var(--text-alt);
+    .logo-subtitle {
+      font-family: var(--font-tech);
+      font-size: 0.75rem;
+      color: rgba(0,0,0,0.7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
       font-weight: 500;
-      border-left: 3px solid transparent;
+    }
+
+    .sidebar-content {
+      flex: 1;
+      padding: 1.5rem 0;
+      overflow-y: auto;
+    }
+
+    .nav-section {
+      margin-bottom: 1rem;
+    }
+
+    .nav-section-title {
+      font-family: var(--font-tech);
+      font-size: 0.65rem;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 0 2rem 1rem;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+    .nav-item {
+      position: relative;
+      margin: 0 1rem 0.5rem;
+    }
+
+    .nav-link, .nav-toggler {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.5rem;
+      color: var(--champagne);
+      text-decoration: none;
+      border-radius: var(--border-radius);
+      transition: var(--transition-luxury);
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+      border: 1px solid transparent;
     }
 
-    aside a.nav-link::before {
+    .nav-link::before, .nav-toggler::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: var(--accent-gradient);
+      background: var(--gold-gradient);
       opacity: 0.1;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition-luxury);
+      z-index: -1;
     }
 
-    aside a.nav-link:hover::before {
+    .nav-link:hover::before, .nav-toggler:hover::before {
       left: 0;
     }
 
-    aside a.nav-link:hover{
-      background:var(--hover-bg);
-      transform:translateX(3px);
-      color:var(--accent);
-      border-left-color: var(--accent);
+    .nav-link:hover, .nav-toggler:hover {
+      color: var(--gold-bright);
+      border-color: var(--glass-border);
+      transform: translateX(8px);
+      box-shadow: var(--shadow-gold);
     }
 
-    aside a.nav-link.active{
-      background:var(--hover-bg); color:var(--accent);
-      font-weight:600; 
-      border-left-color: var(--accent);
-      box-shadow:var(--shadow-accent);
-    }
-
-    aside .sidebar-toggler{
-      cursor:pointer;
-      display:flex;align-items:center;gap:.75rem;
-      padding:1rem 1.5rem;
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      color: var(--text);
+    .nav-link.active {
+      background: var(--glass-gradient);
+      color: var(--gold-bright);
+      border-color: var(--gold-primary);
       font-weight: 500;
-      position: relative;
-      overflow: hidden;
+      box-shadow: var(--shadow-gold);
     }
 
-    aside .sidebar-toggler::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: var(--accent-gradient);
-      opacity: 0.1;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    aside .sidebar-toggler:hover::before {
-      left: 0;
-    }
-
-    aside .sidebar-toggler:hover {
-      color: var(--accent);
-      padding-left: 2rem;
-    }
-
-    aside .sidebar-toggler i {
-      width: 20px;
+    .nav-icon {
+      font-size: 1.1rem;
+      width: 24px;
       text-align: center;
+      transition: var(--transition-luxury);
     }
 
-    ul.submenu{
-      list-style:none; margin:0;
-      max-height:0; overflow:hidden;
-      transition:max-height .3s ease-out;
-      background: rgba(0, 0, 0, 0.2);
+    .nav-link:hover .nav-icon, .nav-toggler:hover .nav-icon {
+      transform: scale(1.2);
     }
-    ul.submenu.open{ max-height:600px; }
-    ul.submenu li{margin:0;}
-    ul.submenu a{
-      font-size:.9rem; color:var(--text-alt);
-      padding: 0.75rem 1.5rem 0.75rem 3rem;
+
+    .submenu {
+      list-style: none;
+      margin: 0.5rem 0 0 0;
+      padding-left: 1rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .submenu.open {
+      max-height: 800px;
+    }
+
+    .submenu li {
+      margin: 0.25rem 0;
+    }
+
+    .submenu .nav-link {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: rgba(245, 230, 211, 0.8);
+      margin: 0;
+      border-radius: 12px;
+    }
+
+    .submenu .nav-link:hover {
+      color: var(--gold-bright);
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateX(4px);
+    }
+
+    /* ================== THEME SWITCHER LUXE ================== */
+    .theme-switcher {
+      padding: 2rem;
+      border-top: 1px solid var(--glass-border);
+      margin-top: auto;
+    }
+
+    .theme-button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      color: var(--champagne);
+      cursor: pointer;
+      font-weight: 500;
+      transition: var(--transition-luxury);
+      font-family: var(--font-primary);
+    }
+
+    .theme-button:hover {
+      background: var(--gold-gradient);
+      color: var(--primary-black);
+      border-color: var(--gold-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    /* ================== MAIN CONTENT ULTRA PRO ================== */
+    .main-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--deep-black);
+    }
+
+    .main-header {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-backdrop);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      box-shadow: var(--shadow-glass);
+    }
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--champagne);
+      margin: 0;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-subtitle {
+      font-family: var(--font-tech);
+      font-size: 0.9rem;
+      color: rgba(245, 230, 211, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 300;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .action-button {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-left: 3px solid transparent;
-    }
-    ul.submenu a:hover {
-      color: var(--accent);
-      background: var(--hover-bg);
-      border-left-color: var(--accent);
-      padding-left: 3.5rem;
-    }
-
-    /* ================== THEME SWITCH ================== */
-    .theme-switch{
-      padding: 1.5rem;
-      border-top: 1px solid var(--border);
-      margin-top: auto;
-    }
-    .theme-switch button{
-      background:var(--glass-bg);border:1px solid var(--glass-border);
-      padding:.75rem 1rem;border-radius:50px;
-      color:var(--text-alt);cursor:pointer;
-      display:inline-flex;align-items:center;gap:.5rem;
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 0.75rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      color: var(--champagne);
+      text-decoration: none;
       font-weight: 500;
-      width: 100%;
-      justify-content: center;
-      backdrop-filter: blur(10px);
+      font-size: 0.85rem;
+      transition: var(--transition-luxury);
+      cursor: pointer;
     }
-    .theme-switch button:hover{
-      background:var(--hover-bg);
-      color: var(--accent);
-      border-color: var(--accent);
+
+    .action-button.primary {
+      background: var(--gold-gradient);
+      color: var(--primary-black);
+      border-color: var(--gold-primary);
+    }
+
+    .action-button:hover {
       transform: translateY(-2px);
-      box-shadow: var(--shadow-accent);
+      box-shadow: var(--shadow-gold);
+      border-color: var(--gold-primary);
     }
 
-    /* ================== HEADER ================== */
-    .main-header{
-      display:flex;justify-content:space-between;
-      padding:1.5rem 2rem; 
-      background:var(--glass-bg);
-      backdrop-filter: blur(20px);
-      border-bottom:1px solid var(--glass-border);
-      transition:background .3s;
+    .notification-icon {
       position: relative;
+      padding: 0.75rem;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--champagne);
+      cursor: pointer;
+      transition: var(--transition-luxury);
     }
 
-    .main-header::before {
+    .notification-icon:hover {
+      color: var(--gold-bright);
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      width: 8px;
+      height: 8px;
+      background: #ff4444;
+      border-radius: 50%;
+      animation: pulse-notification 2s infinite;
+    }
+
+    @keyframes pulse-notification {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.7; }
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.25rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition-luxury);
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gold-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-black);
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .user-name {
+      font-weight: 500;
+      color: var(--champagne);
+      font-size: 0.9rem;
+    }
+
+    .user-role {
+      font-size: 0.75rem;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .user-profile:hover {
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-gold);
+    }
+    /* ================== DASHBOARD CONTENT LUXE ================== */
+    .dashboard-content {
+      flex: 1;
+      padding: 2.5rem;
+      overflow-y: auto;
+    }
+
+    .welcome-hero {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-backdrop);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 3rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-luxury);
+    }
+
+    .welcome-hero::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      height: 2px;
-      background: var(--accent-gradient);
-      opacity: 0.5;
+      height: 4px;
+      background: var(--gold-gradient);
+      animation: shimmer 3s ease-in-out infinite;
     }
 
-    .main-header h3{
-      font-size:1.8rem;
-      font-weight: 600;
-      color: var(--text);
-      margin: 0;
+    .hero-content {
+      position: relative;
+      z-index: 1;
     }
-    .user-profile{
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size:1.2rem;cursor:pointer;transition:color .2s;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--champagne);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.2rem;
+      color: rgba(245, 230, 211, 0.8);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .hero-stat {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--border-radius);
+      transition: var(--transition-luxury);
+    }
+
+    .hero-stat:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-gold);
+      border-color: var(--gold-primary);
+    }
+
+    .stat-value {
+      font-family: var(--font-tech);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(245, 230, 211, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .dashboard-card {
       background: var(--glass-bg);
+      backdrop-filter: var(--glass-backdrop);
       border: 1px solid var(--glass-border);
-      color: var(--text-alt);
-    }
-    .user-profile:hover{
-      color:var(--accent);
-      background: var(--hover-bg);
-      border-color: var(--accent);
-      transform: translateY(-1px);
-    }
-
-    /* ================== DASHBOARD CARDS ================== */
-    .dashboard-grid{
-      display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:2rem;padding:2rem;
-    }
-    .dashboard-card{
-      background:var(--glass-bg);
-      backdrop-filter: blur(20px);
-      padding:2rem;
-      border-radius:20px;box-shadow:var(--shadow);
-      display:flex;flex-direction:column;justify-content:space-between;
-      transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius-lg);
+      padding: 2.5rem;
+      transition: var(--transition-luxury);
       position: relative;
       overflow: hidden;
+      box-shadow: var(--shadow-glass);
     }
 
     .dashboard-card::before {
@@ -333,9 +651,9 @@
       left: 0;
       right: 0;
       height: 3px;
-      background: var(--accent-gradient);
+      background: var(--gold-gradient);
       transform: scaleX(0);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition-luxury);
     }
 
     .dashboard-card:hover::before {
@@ -344,58 +662,87 @@
 
     .dashboard-card:hover {
       transform: translateY(-8px);
-      box-shadow: var(--shadow-accent);
-      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: var(--shadow-luxury);
+      border-color: rgba(212, 175, 55, 0.4);
     }
 
-    .dashboard-card h3{margin-bottom:1rem;font-size:1.4rem;
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--border-radius);
+      background: var(--gold-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: var(--primary-black);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
       font-weight: 600;
-      color: var(--text);
+      color: var(--champagne);
+      margin: 0;
     }
-    .dashboard-card p{font-size:1rem;line-height:1.6;color:var(--text-alt);
-      margin-bottom: 1.5rem;
+
+    .card-content {
+      margin-bottom: 2rem;
     }
-    .card-link{
-      margin-top:auto;color:var(--accent);
-      font-weight:600;display:inline-flex;align-items:center;
-      gap:.5rem;transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    .card-description {
+      color: rgba(245, 230, 211, 0.8);
+      line-height: 1.7;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    .card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--gold-primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition-luxury);
       position: relative;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--gold-primary);
+      border-radius: 50px;
+      background: rgba(212, 175, 55, 0.05);
     }
 
-    .card-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent-gradient);
-      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    .card-action:hover {
+      color: var(--gold-bright);
+      transform: translateX(8px);
+      box-shadow: var(--shadow-gold);
+      background: rgba(212, 175, 55, 0.1);
     }
 
-    .card-link:hover::after {
-      width: 100%;
-    }
-
-    .card-link:hover{
-      transform:translateX(5px);
-      color:var(--accent-hover);
-    }
-
-    /* ================== MOBILE NAV ================== */
+    /* ================== MOBILE NAVIGATION ================== */
     .mobile-nav-bar {
       display: none;
       justify-content: space-around;
       align-items: center;
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
+      backdrop-filter: var(--glass-backdrop);
       border-top: 1px solid var(--glass-border);
-      padding: 1rem 0;
+      padding: 1rem 0.5rem;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       z-index: 1000;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .mobile-nav-link {
@@ -403,25 +750,27 @@
       flex-direction: column;
       align-items: center;
       gap: 0.25rem;
-      color: var(--text-alt);
+      color: var(--champagne);
       text-decoration: none;
       font-size: 0.7rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition-luxury);
       padding: 0.5rem;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 500;
+      opacity: 0.7;
     }
 
-    .mobile-nav-link:hover,
-    .mobile-nav-link.active {
-      color: var(--accent);
-      background: var(--hover-bg);
+    .mobile-nav-link.active,
+    .mobile-nav-link:hover {
+      color: var(--gold-bright);
+      background: rgba(212, 175, 55, 0.1);
+      opacity: 1;
+      transform: translateY(-2px);
     }
 
-    .mobile-nav-link svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
+    .mobile-nav-link i {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
     }
 
     /* Menu overlay mobile */
@@ -431,11 +780,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.9);
       z-index: 2000;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      backdrop-filter: blur(10px);
     }
 
     #mobileMenuOverlay.open {
@@ -448,13 +798,15 @@
       right: 0;
       top: 0;
       height: 100%;
-      width: 300px;
+      width: 85%;
+      max-width: 350px;
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
+      backdrop-filter: var(--glass-backdrop);
       padding: 2rem;
       transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-y: auto;
+      border-left: 1px solid var(--glass-border);
     }
 
     #mobileMenuOverlay.open .mobile-menu-content {
@@ -467,35 +819,55 @@
       right: 1rem;
       background: none;
       border: none;
-      color: var(--text);
+      color: var(--champagne);
       font-size: 1.5rem;
       cursor: pointer;
       padding: 0.5rem;
       border-radius: 50%;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: var(--transition-luxury);
+      z-index: 10;
     }
 
     .close-button:hover {
-      background: var(--hover-bg);
-      color: var(--accent);
+      background: var(--glass-gradient);
+      color: var(--gold-bright);
     }
 
-    /* ================== RESPONSIVE ================== */
+    .mobile-menu-content h2 {
+      font-family: var(--font-display);
+      color: var(--gold-bright);
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    /* ================== RESPONSIVE DESIGN COMPLET ================== */
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      }
+      
+      .hero-title {
+        font-size: 2.5rem;
+      }
+    }
+
     @media (max-width: 768px) {
-      aside {
+      .sidebar {
+        width: 100%;
         position: fixed;
-        left: -280px;
+        left: -100%;
         top: 0;
         height: 100vh;
         z-index: 1500;
-        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: left var(--transition-luxury);
       }
 
-      aside.open {
+      .sidebar.open {
         left: 0;
       }
 
-      main {
+      .main-container {
         margin-left: 0;
       }
 
@@ -503,203 +875,258 @@
         display: flex;
       }
 
+      .main-header {
+        padding: 1.5rem 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .header-actions {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .header-title {
+        font-size: 1.8rem;
+      }
+
+      .header-subtitle {
+        font-size: 0.8rem;
+      }
+
+      .user-info {
+        display: none;
+      }
+
+      .action-button {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .dashboard-content {
+        padding: 1.5rem 1rem;
+        padding-bottom: 6rem;
+      }
+
+      .welcome-hero {
+        padding: 2rem 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+        line-height: 1.3;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .hero-stat {
+        padding: 1rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+      }
+
       .dashboard-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .dashboard-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .card-header {
         gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.4rem;
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+      }
+
+      .sidebar-header {
+        padding: 2rem 1.5rem 1.5rem;
+      }
+
+      .logo-main {
+        font-size: 2rem;
+      }
+
+      .nav-section-title {
+        padding: 0 1.5rem 0.8rem;
+        font-size: 0.6rem;
+      }
+
+      .nav-item {
+        margin: 0 0.5rem 0.3rem;
+      }
+
+      .nav-link, .nav-toggler {
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .submenu .nav-link {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        font-size: 1.6rem;
+      }
+
+      .header-title {
+        font-size: 1.5rem;
+      }
+
+      .dashboard-card {
+        padding: 1.5rem 1rem;
+      }
+
+      .welcome-hero {
+        padding: 1.5rem 1rem;
+      }
+
+      .main-header {
+        padding: 1rem;
+      }
+
+      .dashboard-content {
         padding: 1rem;
         padding-bottom: 6rem;
       }
 
-      .main-header {
-        padding: 1rem 1.5rem;
+      .mobile-nav-link {
+        font-size: 0.65rem;
+        padding: 0.3rem;
       }
 
-      .main-header h3 {
-        font-size: 1.4rem;
-      }
-
-      body.no-scroll {
-        overflow: hidden;
+      .mobile-nav-link i {
+        font-size: 1rem;
       }
     }
 
-    /* ================== ANIMATIONS ================== */
-    .fade-in {
-      animation: fadeIn 0.6s ease-out forwards;
+    /* ================== LOADING ANIMATIONS ================== */
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .slide-in-right {
+      animation: slideInRight 1s ease-out forwards;
     }
 
-    /* ================== SCROLLBAR ================== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* ================== SCROLLBAR LUXURY ================== */
     ::-webkit-scrollbar {
       width: 8px;
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--bg-alt);
+      background: var(--obsidian);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--accent);
+      background: var(--gold-gradient);
       border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: var(--accent-hover);
+      background: var(--gold-bright);
+    }
+
+    /* Hide scrollbar for mobile */
+    @media (max-width: 768px) {
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
     }
   </style>
 </head>
-<body class="no-js">
-  <aside>
+<body>
+  <!-- Background System -->
+  <div class="luxury-background"></div>
+  <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <div class="geometric-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
     <div class="sidebar-header">
-      <h2>SELEZIONE</h2>
-    </div>
-
-    <div class="sidebar-section">
-      <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Tableau de bord</a>
-    </div>
-
-    <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false">  
-        <i class="fas fa-gem"></i> Sourcing & Veille Luxe
-      </a>
-      <ul class="submenu">
-        <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-        <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-        <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-        <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-        <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false">
-        <i class="fas fa-cogs"></i> Gestion & Opérations Premium
-      </a>
-      <ul class="submenu">
-        <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-        <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-        <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-        <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-        <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-        <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false">
-        <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
-      </a>
-      <ul class="submenu">
-        <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-        <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false">
-        <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
-      </a>
-      <ul class="submenu">
-        <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-        <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-        <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-        <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-        <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-section">
-      <a href="#" class="sidebar-toggler" aria-expanded="false">
-        <i class="fas fa-headset"></i> Support Privilège & Communauté
-      </a>
-      <ul class="submenu">
-        <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-        <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-        <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-        <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
-      </ul>
-    </div>
-
-    <div class="theme-switch">
-      <button id="themeToggle">
-        <i class="fas fa-moon"></i> <span>Mode Sombre</span>
-      </button>
-    </div>
-  </aside>
-
-  <main>
-    <header class="main-header">
-      <h3>Votre Tableau de Bord SELEZIONE</h3>
-      <div class="user-profile"><i class="fas fa-user-circle"></i></div>
-    </header>
-
-    <section class="dashboard-grid fade-in">
-      <div class="dashboard-card">
-        <h3>Votre Avancement Formation</h3>
-        <p>Continuez votre parcours… Prochaine étape : Fonctionnement des Marques.</p>
-        <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
+      <div class="logo">
+        <h1 class="logo-main">SELEZIONE</h1>
+        <p class="logo-subtitle">Luxury Fashion Intelligence</p>
       </div>
-      <div class="dashboard-card">
-        <h3>Statistiques Clés</h3>
-        <p>Suivez vos marges, vos ventes et l'évolution du marché.</p>
-        <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="dashboard-card">
-        <h3>Opportunités IA</h3>
-        <p>Notre IA identifie les tendances : sacs vintage, sneakers édition limitée…</p>
-        <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
-      </div>
-      <div class="dashboard-card">
-        <h3>Dernières Commandes</h3>
-        <p>2 commandes en attente, 1 expédiée hier.</p>
-        <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </section>
+    </div>
 
-    <!-- Barre de nav mobile -->
-    <nav class="mobile-nav-bar">
-      <a href="index.html" class="mobile-nav-link active" aria-label="Accueil">
-        <svg viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32.1-14-32.1-32.1c0-9 3.8-17.6 10.4-23.7l432-404c4.4-4.1 10.1-6.2 15.6-6.2s11.3 2.1 15.6 6.2l432 404c6.6 6.1 10.4 14.7 10.4 23.7z"/></svg>
-        <span>Accueil</span>
-      </a>
-      <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
-        <svg viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-  <svg viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        <span>Veille</span>
-      </a>
-      <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
-        <svg viewBox="0 0 512 512"><path d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H96c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192z"/></svg>
-        <span>Commandes</span>
-      </a>
-      <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
-        <svg viewBox="0 0 640 512"><path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160s6.3 19.1 15.8 22.6l57.9 20.9C57.3 229.3 48 259.8 48 291.9v28.1c0 28.4-10.8 57.7-22.3 80.8c-6.5 13-13.9 25.8-22.5 37.6C0 442.7-.9 448.3 .9 453.4s6 8.9 11.2 10.2l64 16c4.2 1.1 8.7 .3 12.4-2s6.3-6.1 7.1-10.4c8.6-42.8 4.3-81.2-2.1-119.8c-.6-3.6-.6-7.4 0-11c.6-3.4 .8-6.9 .8-10.5v-28.1c0-35.3 28.7-64 64-64h64c35.3 0 64 28.7 64 64v28.1c0 3.6 .2 7.1 .8 10.5c.6 3.6 .6 7.4 0 11c-6.4 38.6-10.7 77-2.1 119.8c.8 4.3 3.4 8.3 7.1 10.4s8.2 3.1 12.4 2l64-16c5.2-1.3 9.2-5.1 11.2-10.2s.9-10.7-2.3-14.8c-8.6-11.9-16-24.7-22.5-37.6C631.8 349.7 621 320.4 621 292v-28.1c0-32.1-9.3-62.6-25.7-88.4l57.9-20.9C662.7 179.1 669 170.1 669 160s-6.3-19.1-15.8-22.6L372.7 36.1C365.1 33.4 342.6 32 320 32zM264 160c0 8.8 7.2 16 16 16h80c8.8 0 16-7.2 16-16s-7.2-16-16-16H280c-8.8 0-16 7.2-16 16z"/></svg>
-        <span>Académie</span>
-      </a>
-      <a href="#" id="menuButton" class="mobile-nav-link" aria-label="Menu">
-        <svg viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-        <span>Menu</span>
-      </a>
-    </nav>
-
-    <!-- Overlay menu mobile -->
-    <div id="mobileMenuOverlay">
-      <div class="mobile-menu-content">
-        <button id="closeMenuButton" class="close-button"><i class="fas fa-times"></i></button>
-        <h2>Navigation</h2>
-        
-        <div class="sidebar-section">
-          <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Tableau de bord</a>
-        </div>
-
-        <div class="sidebar-section">
-          <a href="#" class="sidebar-toggler mobile-toggler" data-target="sourcing-mobile">  
-            <i class="fas fa-gem"></i> Sourcing & Veille Luxe
+    <div class="sidebar-content">
+      <div class="nav-section">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link active">
+            <i class="nav-icon fas fa-home"></i>
+            <span>Dashboard</span>
           </a>
-          <ul class="submenu" id="sourcing-mobile">
+        </div>
+      </div>
+
+      <div class="nav-section">
+        <h3 class="nav-section-title">Sourcing & Intelligence</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="sourcing-menu">
+            <i class="nav-icon fas fa-gem"></i>
+            <span>Sourcing & Veille Luxe</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="sourcing-menu">
             <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
             <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
             <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
@@ -707,12 +1134,17 @@
             <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
           </ul>
         </div>
+      </div>
 
-        <div class="sidebar-section">
-          <a href="#" class="sidebar-toggler mobile-toggler" data-target="operations-mobile">
-            <i class="fas fa-cogs"></i> Gestion & Opérations Premium
-          </a>
-          <ul class="submenu" id="operations-mobile">
+      <div class="nav-section">
+        <h3 class="nav-section-title">Operations Management</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="operations-menu">
+            <i class="nav-icon fas fa-cogs"></i>
+            <span>Gestion & Opérations Premium</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="operations-menu">
             <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
             <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
             <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
@@ -721,22 +1153,32 @@
             <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
           </ul>
         </div>
+      </div>
 
-        <div class="sidebar-section">
-          <a href="#" class="sidebar-toggler mobile-toggler" data-target="analysis-mobile">
-            <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
-          </a>
-          <ul class="submenu" id="analysis-mobile">
+      <div class="nav-section">
+        <h3 class="nav-section-title">Analytics & Strategy</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="analytics-menu">
+            <i class="nav-icon fas fa-chart-line"></i>
+            <span>Analyse & Stratégie IA</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="analytics-menu">
             <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
             <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
           </ul>
         </div>
+      </div>
 
-        <div class="sidebar-section">
-          <a href="#" class="sidebar-toggler mobile-toggler" data-target="academy-mobile">
-            <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
-          </a>
-          <ul class="submenu" id="academy-mobile">
+      <div class="nav-section">
+        <h3 class="nav-section-title">Education & Training</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="academy-menu">
+            <i class="nav-icon fas fa-graduation-cap"></i>
+            <span>Académie SELEZIONE</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="academy-menu">
             <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
             <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
             <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
@@ -744,112 +1186,572 @@
             <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
           </ul>
         </div>
+      </div>
 
-        <div class="sidebar-section">
-          <a href="#" class="sidebar-toggler mobile-toggler" data-target="support-mobile">
-            <i class="fas fa-headset"></i> Support Privilège & Communauté
-          </a>
-          <ul class="submenu" id="support-mobile">
+      <div class="nav-section">
+        <h3 class="nav-section-title">Support & Community</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="support-menu">
+            <i class="nav-icon fas fa-headset"></i>
+            <span>Support Privilège & Communauté</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="support-menu">
             <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
             <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
             <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
             <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
           </ul>
         </div>
-
-        <div class="theme-switch">
-          <button id="themeToggleMobile">
-            <i class="fas fa-moon"></i> <span>Mode Sombre</span>
-          </button>
-        </div>
       </div>
     </div>
 
-  </main>
+    <div class="theme-switcher">
+      <button class="theme-button" id="themeToggle">
+        <i class="fas fa-moon"></i>
+        <span>Mode Sombre</span>
+      </button>
+    </div>
+  </aside>
 
-  <script>
-    document.body.classList.remove('no-js');
-
-    // Sous-menus sidebar & overlay
-    document.querySelectorAll('.sidebar-toggler').forEach(t => {
-      t.addEventListener('click', e => {
-        e.preventDefault();
-        const ul = t.nextElementSibling;
-        if (ul && ul.classList.contains('submenu')) {
-          ul.classList.toggle('open');
-        }
-      });
-    });
-
-    // Menu mobile
-    const overlay = document.getElementById('mobileMenuOverlay');
-    const menuButton = document.getElementById('menuButton');
-    const closeButton = document.getElementById('closeMenuButton');
-
-    if (menuButton) {
-      menuButton.addEventListener('click', e => {
-        e.preventDefault(); 
-        overlay.classList.add('open');
-        document.body.classList.add('no-scroll');
-      });
-    }
-
-    if (closeButton) {
-      closeButton.addEventListener('click', () => {
-        overlay.classList.remove('open');
-        document.body.classList.remove('no-scroll');
-      });
-    }
-
-    if (overlay) {
-      overlay.addEventListener('click', e => {
-        if (e.target === overlay) {
-          overlay.classList.remove('open');
-          document.body.classList.remove('no-scroll');
-        }
-      });
-    }
-
-    // Switch Clair/Sombre
-    function setTheme(mode) {
-      document.body.classList.toggle('light-mode', mode === 'light');
-      const icon = mode === 'light' ? 'fa-sun' : 'fa-moon';
-      const text = mode === 'light' ? 'Mode Clair' : 'Mode Sombre';
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-left">
+        <h1 class="header-title">Fashion Intelligence Hub</h1>
+        <p class="header-subtitle">Votre centre de contrôle premium pour le prêt-à-porter de luxe</p>
+      </div>
       
-      document.querySelectorAll('#themeToggle i, #themeToggleMobile i')
-        .forEach(i => i.className = `fas ${icon}`);
-      document.querySelectorAll('#themeToggle span, #themeToggleMobile span')
-        .forEach(s => s.textContent = text);
-      localStorage.setItem('theme', mode);
-    }
+      <div class="header-actions">
+        <div class="notification-icon">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge"></span>
+        </div>
+        
+        <a href="#" class="action-button">
+          <i class="fas fa-search"></i>
+          <span>Rechercher</span>
+        </a>
+        
+        <a href="#" class="action-button primary">
+          <i class="fas fa-plus"></i>
+          <span>Nouveau Projet</span>
+        </a>
+        
+        <div class="user-profile">
+          <div class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="user-info">
+            <div class="user-name">Premium Member</div>
+            <div class="user-role">Luxury Expert</div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    // Initialisation du thème
-    const savedTheme = localStorage.getItem('theme') || 
-      (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-    setTheme(savedTheme);
+    <!-- Dashboard Content -->
+    <div class="dashboard-content">
+      <!-- Hero Section -->
+      <section class="welcome-hero fade-in-up">
+        <div class="hero-content">
+          <h2 class="hero-title">Bienvenue dans l'élite du Fashion Tech</h2>
+          <p class="hero-subtitle">
+            Exploitez la puissance de l'intelligence artificielle pour dominer le marché du prêt-à-porter de luxe. 
+            Analyses prédictives, sourcing intelligent et stratégies data-driven à votre service.
+          </p>
+          
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <div class="stat-value" data-target="127000">€0</div>
+              <div class="stat-label">Portfolio Value</div>
+            </div>
+            <div class="hero-stat">
+              <div class="stat-value" data-target="2847">0</div>
+              <div class="stat-label">Articles Analysés</div>
+            </div>
+            <div class="hero-stat">
+              <div class="stat-value" data-target="34.2">0%</div>
+              <div class="stat-label">Marge Moyenne</div>
+            </div>
+            <div class="hero-stat">
+              <div class="stat-value" data-target="156">0</div>
+              <div class="stat-label">Marques Trackées</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    // Event listeners pour les boutons de thème
-    const themeToggle = document.getElementById('themeToggle');
-    const themeToggleMobile = document.getElementById('themeToggleMobile');
+      <!-- Dashboard Cards -->
+      <section class="dashboard-grid">
+        <div class="dashboard-card slide-in-right" style="animation-delay: 0.2s;">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+             <h3 class="card-title">Formation Elite</h3>
+         </div>
+         <div class="card-content">
+           <p class="card-description">
+             Maîtrisez l'univers du luxe avec notre académie exclusive. Prochaine étape : 
+             comprendre les stratégies des maisons iconiques et leurs codes d'excellence.
+           </p>
+         </div>
+         <a href="formation-selezione-2.html" class="card-action">
+           <span>Continuer la formation</span>
+           <i class="fas fa-arrow-right"></i>
+         </a>
+       </div>
 
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        const currentMode = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-        setTheme(currentMode === 'light' ? 'dark' : 'light');
-      });
-    }
+       <div class="dashboard-card slide-in-right" style="animation-delay: 0.4s;">
+         <div class="card-header">
+           <div class="card-icon">
+             <i class="fas fa-chart-pie"></i>
+           </div>
+           <h3 class="card-title">Analytics Avancées</h3>
+         </div>
+         <div class="card-content">
+           <p class="card-description">
+             Suivez vos KPIs en temps réel : marges optimisées, tendances de vente, 
+             et évolution des marchés de niche. Dashboard intelligent avec alertes personnalisées.
+           </p>
+         </div>
+         <a href="stats-performance.html" class="card-action">
+           <span>Analyser les performances</span>
+           <i class="fas fa-chart-line"></i>
+         </a>
+       </div>
 
-    if (themeToggleMobile) {
-      themeToggleMobile.addEventListener('click', () => {
-        const currentMode = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-        setTheme(currentMode === 'light' ? 'dark' : 'light');
-      });
-    }
+       <div class="dashboard-card slide-in-right" style="animation-delay: 0.6s;">
+         <div class="card-header">
+           <div class="card-icon">
+             <i class="fas fa-brain"></i>
+           </div>
+           <h3 class="card-title">IA Prédictive</h3>
+         </div>
+         <div class="card-content">
+           <p class="card-description">
+             Notre intelligence artificielle identifie les opportunités émergentes : 
+             collections vintage sous-évaluées, sneakers édition limitée, et pièces rares.
+           </p>
+         </div>
+         <a href="tendances-ia.html" class="card-action">
+           <span>Explorer les prédictions</span>
+           <i class="fas fa-crystal-ball"></i>
+         </a>
+       </div>
 
-    // Animation au chargement
-    window.addEventListener('load', () => {
-      document.querySelector('.dashboard-grid').classList.add('fade-in');
-    });
-  </script>
+       <div class="dashboard-card slide-in-right" style="animation-delay: 0.8s;">
+         <div class="card-header">
+           <div class="card-icon">
+             <i class="fas fa-shipping-fast"></i>
+           </div>
+           <h3 class="card-title">Commandes Premium</h3>
+         </div>
+         <div class="card-content">
+           <p class="card-description">
+             Gestion centralisée de vos transactions haut de gamme. 2 commandes en attente, 
+             1 expédiée hier. Suivi en temps réel avec notifications intelligentes.
+           </p>
+         </div>
+         <a href="module7.html" class="card-action">
+           <span>Gérer les commandes</span>
+           <i class="fas fa-tasks"></i>
+         </a>
+       </div>
+
+       <div class="dashboard-card slide-in-right" style="animation-delay: 1.0s;">
+         <div class="card-header">
+           <div class="card-icon">
+             <i class="fas fa-gem"></i>
+           </div>
+           <h3 class="card-title">Sourcing Intelligent</h3>
+         </div>
+         <div class="card-content">
+           <p class="card-description">
+             Découvrez des fournisseurs exclusifs et des pièces rares grâce à notre réseau 
+             mondial. Authentification garantie et négociation assistée par IA.
+           </p>
+         </div>
+         <a href="fournisseur-order.html" class="card-action">
+           <span>Explorer le sourcing</span>
+           <i class="fas fa-search-plus"></i>
+         </a>
+       </div>
+
+       <div class="dashboard-card slide-in-right" style="animation-delay: 1.2s;">
+         <div class="card-header">
+           <div class="card-icon">
+             <i class="fas fa-eye"></i>
+           </div>
+           <h3 class="card-title">Veille Concurrentielle</h3>
+         </div>
+         <div class="card-content">
+           <p class="card-description">
+             Surveillez vos concurrents avec notre système de veille automatisé. 
+             Alertes prix, nouveaux produits, et stratégies marketing en temps réel.
+           </p>
+         </div>
+         <a href="module6.html" class="card-action">
+           <span>Lancer la veille</span>
+           <i class="fas fa-radar"></i>
+         </a>
+       </div>
+     </section>
+   </div>
+ </main>
+
+ <!-- Mobile Navigation -->
+ <nav class="mobile-nav-bar">
+   <a href="index.html" class="mobile-nav-link active">
+     <i class="fas fa-home"></i>
+     <span>Accueil</span>
+   </a>
+   <a href="module6.html" class="mobile-nav-link">
+     <i class="fas fa-search"></i>
+     <span>Veille</span>
+   </a>
+   <a href="module7.html" class="mobile-nav-link">
+     <i class="fas fa-shopping-cart"></i>
+     <span>Commandes</span>
+   </a>
+   <a href="formation-selezione-1.html" class="mobile-nav-link">
+     <i class="fas fa-graduation-cap"></i>
+     <span>Académie</span>
+   </a>
+   <a href="#" id="menuButton" class="mobile-nav-link">
+     <i class="fas fa-bars"></i>
+     <span>Menu</span>
+   </a>
+ </nav>
+
+ <!-- Mobile Menu Overlay -->
+ <div id="mobileMenuOverlay">
+   <div class="mobile-menu-content">
+     <button id="closeMenuButton" class="close-button">
+       <i class="fas fa-times"></i>
+     </button>
+     
+     <h2>Navigation</h2>
+     
+     <!-- Reproduction de la navigation complète pour mobile -->
+     <div class="nav-section">
+       <div class="nav-item">
+         <a href="index.html" class="nav-link active">
+           <i class="nav-icon fas fa-home"></i>
+           <span>Dashboard</span>
+         </a>
+       </div>
+     </div>
+
+     <div class="nav-section">
+       <h3 class="nav-section-title">Sourcing & Intelligence</h3>
+       <div class="nav-item">
+         <div class="nav-toggler" data-target="sourcing-menu-mobile">
+           <i class="nav-icon fas fa-gem"></i>
+           <span>Sourcing & Veille Luxe</span>
+           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+         </div>
+         <ul class="submenu" id="sourcing-menu-mobile">
+           <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
+           <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
+           <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
+           <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
+           <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
+         </ul>
+       </div>
+     </div>
+
+     <div class="nav-section">
+       <h3 class="nav-section-title">Operations Management</h3>
+       <div class="nav-item">
+         <div class="nav-toggler" data-target="operations-menu-mobile">
+           <i class="nav-icon fas fa-cogs"></i>
+           <span>Gestion & Opérations Premium</span>
+           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+         </div>
+         <ul class="submenu" id="operations-menu-mobile">
+           <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
+           <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
+           <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
+           <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
+           <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
+           <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+         </ul>
+       </div>
+     </div>
+
+     <div class="nav-section">
+       <h3 class="nav-section-title">Analytics & Strategy</h3>
+       <div class="nav-item">
+         <div class="nav-toggler" data-target="analytics-menu-mobile">
+           <i class="nav-icon fas fa-chart-line"></i>
+           <span>Analyse & Stratégie IA</span>
+           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+         </div>
+         <ul class="submenu" id="analytics-menu-mobile">
+           <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
+           <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+         </ul>
+       </div>
+     </div>
+
+     <div class="nav-section">
+       <h3 class="nav-section-title">Education & Training</h3>
+       <div class="nav-item">
+         <div class="nav-toggler" data-target="academy-menu-mobile">
+           <i class="nav-icon fas fa-graduation-cap"></i>
+           <span>Académie SELEZIONE</span>
+           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+         </div>
+         <ul class="submenu" id="academy-menu-mobile">
+           <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
+           <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
+           <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
+           <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
+           <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
+         </ul>
+       </div>
+     </div>
+
+     <div class="nav-section">
+       <h3 class="nav-section-title">Support & Community</h3>
+       <div class="nav-item">
+         <div class="nav-toggler" data-target="support-menu-mobile">
+           <i class="nav-icon fas fa-headset"></i>
+           <span>Support Privilège & Communauté</span>
+           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+         </div>
+         <ul class="submenu" id="support-menu-mobile">
+           <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
+           <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
+           <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
+           <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+         </ul>
+       </div>
+     </div>
+
+     <div class="theme-switcher">
+       <button class="theme-button" id="themeToggleMobile">
+         <i class="fas fa-moon"></i>
+         <span>Mode Sombre</span>
+       </button>
+     </div>
+   </div>
+ </div>
+
+ <script>
+   // Remove no-js class
+   document.body.classList.remove('no-js');
+
+   // Navigation togglers
+   document.querySelectorAll('.nav-toggler').forEach(toggler => {
+     toggler.addEventListener('click', () => {
+       const target = toggler.getAttribute('data-target');
+       const submenu = document.getElementById(target);
+       const chevron = toggler.querySelector('.fa-chevron-down');
+       
+       if (submenu) {
+         submenu.classList.toggle('open');
+         chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+       }
+     });
+   });
+
+   // Mobile menu
+   const overlay = document.getElementById('mobileMenuOverlay');
+   const menuButton = document.getElementById('menuButton');
+   const closeButton = document.getElementById('closeMenuButton');
+
+   if (menuButton) {
+     menuButton.addEventListener('click', e => {
+       e.preventDefault(); 
+       overlay.classList.add('open');
+       document.body.classList.add('no-scroll');
+     });
+   }
+
+   if (closeButton) {
+     closeButton.addEventListener('click', () => {
+       overlay.classList.remove('open');
+       document.body.classList.remove('no-scroll');
+     });
+   }
+
+   if (overlay) {
+     overlay.addEventListener('click', e => {
+       if (e.target === overlay) {
+         overlay.classList.remove('open');
+         document.body.classList.remove('no-scroll');
+       }
+     });
+   }
+
+   // Theme toggle
+   const themeToggle = document.getElementById('themeToggle');
+   const themeToggleMobile = document.getElementById('themeToggleMobile');
+   const body = document.body;
+   
+   // Load saved theme
+   const savedTheme = localStorage.getItem('theme') || 'dark';
+   if (savedTheme === 'light') {
+     body.classList.add('light-mode');
+     updateThemeButtons(true);
+   }
+   
+   function toggleTheme() {
+     body.classList.toggle('light-mode');
+     const isLight = body.classList.contains('light-mode');
+     localStorage.setItem('theme', isLight ? 'light' : 'dark');
+     updateThemeButtons(isLight);
+   }
+
+   if (themeToggle) {
+     themeToggle.addEventListener('click', toggleTheme);
+   }
+   
+   if (themeToggleMobile) {
+     themeToggleMobile.addEventListener('click', toggleTheme);
+   }
+   
+   function updateThemeButtons(isLight) {
+     const buttons = [themeToggle, themeToggleMobile].filter(Boolean);
+     buttons.forEach(button => {
+       const icon = button.querySelector('i');
+       const text = button.querySelector('span');
+       
+       icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+       text.textContent = isLight ? 'Mode Clair' : 'Mode Sombre';
+     });
+   }
+
+   // Animated counters
+   function animateCounter(element, target, duration = 2000) {
+     const start = 0;
+     const increment = target / (duration / 16);
+     let current = start;
+     
+     const timer = setInterval(() => {
+       current += increment;
+       if (current >= target) {
+         element.textContent = formatNumber(target);
+         clearInterval(timer);
+       } else {
+         element.textContent = formatNumber(Math.floor(current));
+       }
+     }, 16);
+   }
+   
+   function formatNumber(num) {
+     if (num >= 1000) {
+       return (num / 1000).toFixed(1) + 'K';
+     }
+     return num.toString();
+   }
+   
+   // Animate counters on load
+   window.addEventListener('load', () => {
+     const counters = document.querySelectorAll('.stat-value[data-target]');
+     counters.forEach((counter, index) => {
+       setTimeout(() => {
+         const target = parseFloat(counter.getAttribute('data-target'));
+         
+         if (counter.textContent.includes('%')) {
+           animateCounter(counter, target, 1500);
+           setTimeout(() => {
+             counter.textContent = target + '%';
+           }, 1500);
+         } else if (counter.textContent.includes('€')) {
+           animateCounter(counter, target, 2000);
+           setTimeout(() => {
+             counter.textContent = '€' + target.toLocaleString('fr-FR');
+           }, 2000);
+         } else {
+           animateCounter(counter, target, 1500);
+         }
+       }, index * 200);
+     });
+   });
+
+   // Parallax effect for particles
+   document.addEventListener('mousemove', (e) => {
+     const particles = document.querySelectorAll('.particle');
+     const x = e.clientX / window.innerWidth;
+     const y = e.clientY / window.innerHeight;
+     
+     particles.forEach((particle, index) => {
+       const speed = (index + 1) * 0.5;
+       particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+     });
+   });
+
+   // Intersection Observer for animations
+   const observerOptions = {
+     threshold: 0.1,
+     rootMargin: '0px 0px -50px 0px'
+   };
+   
+   const observer = new IntersectionObserver((entries) => {
+     entries.forEach(entry => {
+       if (entry.isIntersecting) {
+         entry.target.style.opacity = '1';
+         entry.target.style.transform = 'translateY(0)';
+       }
+     });
+   }, observerOptions);
+   
+   document.querySelectorAll('.dashboard-card').forEach(card => {
+     card.style.opacity = '0';
+     card.style.transform = 'translateY(30px)';
+     card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
+     observer.observe(card);
+   });
+
+   // Smooth scrolling
+   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+     anchor.addEventListener('click', function (e) {
+       e.preventDefault();
+       const target = document.querySelector(this.getAttribute('href'));
+       if (target) {
+         target.scrollIntoView({
+           behavior: 'smooth',
+           block: 'start'
+         });
+       }
+     });
+   });
+
+   // Performance optimization: Reduce animations on mobile
+   const isMobile = window.innerWidth <= 768;
+   if (isMobile) {
+     document.querySelectorAll('.particle').forEach(particle => {
+       particle.style.animationDuration = '20s';
+     });
+   }
+
+   // Handle resize events
+   window.addEventListener('resize', () => {
+     const sidebar = document.querySelector('.sidebar');
+     const overlay = document.getElementById('mobileMenuOverlay');
+     
+     if (window.innerWidth > 768) {
+       sidebar.classList.remove('open');
+       overlay.classList.remove('open');
+       document.body.classList.remove('no-scroll');
+     }
+   });
+
+   // Preload critical animations
+   document.addEventListener('DOMContentLoaded', () => {
+     // Trigger reflow to ensure animations are ready
+     document.body.offsetHeight;
+     
+     // Add loaded class for enhanced animations
+     setTimeout(() => {
+       document.body.classList.add('loaded');
+     }, 100);
+   });
+ </script>
 </body>
 </html>
