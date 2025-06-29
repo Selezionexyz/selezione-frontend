@@ -1,139 +1,268 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>  
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>  
-  <title>SELEZIONE – Tableau de bord</title>  
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Outfit:wght@400;500&display=swap" rel="stylesheet"/>  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>SELEZIONE – Application Luxe IA</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet"
+  />
   <style>
+    /* ================== VARIABLES ================== */
     :root {
-      --gold: #d4af37;
-      --gray-dark: #333;
-      --gray-light: #888;
-      --bg: #fff;
-      --card-bg: #fafafa;
+      --gold: #fbb034;
+      --gold-dark: #cca028;
+      --bg: #121212;
+      --bg-alt: #1f1f1f;
+      --text: #eee;
+      --text-muted: #888;
+      --border: #333;
+      --shadow: rgba(0,0,0,0.5);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light {
+      --bg: #f5f5f5;
+      --bg-alt: #fff;
+      --text: #111;
+      --text-muted: #555;
+      --border: #ddd;
       --shadow: rgba(0,0,0,0.1);
     }
+
+    /* ========== RESET & LAYOUT ========== */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family:'Outfit',sans-serif;
-      background:var(--bg);
-      color:var(--gray-dark);
-      display:flex;
-      min-height:100vh;
-      overflow:hidden;
+      display:flex; min-height:100vh;
+      font-family:"Outfit",sans-serif;
+      background:var(--bg); color:var(--text);
     }
-    a { color:var(--gold); text-decoration:none; }
-    a:hover { text-decoration:underline; }
-    h1, h2 {
-      font-family:'Playfair Display',serif;
-      color:var(--gray-dark);
-    }
-    /* Sidebar */
     aside {
-      width:240px;
-      background:#fafafa;
-      border-right:1px solid var(--shadow);
-      padding:1.5rem;
-      overflow-y:auto;
+      width:250px; flex-shrink:0;
+      background:var(--bg-alt); border-right:1px solid var(--border);
+      padding:2rem 1rem; overflow-y:auto;
     }
+    main {
+      flex:1; overflow-y:auto;
+    }
+
+    /* ========== SIDEBAR ========== */
     aside h2 {
-      font-size:1.5rem;
-      margin-bottom:1rem;
+      font-family:"Playfair Display",serif;
+      font-size:1.8rem; margin-bottom:1.5rem;
+      border-bottom:1px solid var(--border); padding-bottom:.5rem;
     }
     .nav-link {
-      display:flex;
-      align-items:center;
-      gap:.6rem;
-      padding:.6rem 0;
-      font-weight:500;
+      display:flex; align-items:center; gap:.6rem;
+      padding:.6rem 1rem; margin:0.2rem 0;
+      color:var(--text); text-decoration:none; border-radius:6px;
+      transition:background .2s,transform .2s;
     }
-    /* Main content */
-    main {
-      flex:1;
-      overflow-y:auto;
-      padding:2rem;
+    .nav-link:hover {
+      background:var(--border); transform:translateX(4px);
     }
-    /* Cards grid */
+    .nav-link.active {
+      background:var(--gold); color:var(--bg);
+      font-weight:600; box-shadow:0 4px 12px var(--shadow);
+    }
+    .nav-link svg { width:20px; height:20px; fill:currentColor; }
+
+    /* ========== HEADER ========== */
+    .header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1.5rem; background:var(--bg-alt); border-bottom:1px solid var(--border);
+    }
+    .header h1 {
+      font-family:"Playfair Display",serif; font-size:1.6rem;
+    }
+    .btn-theme {
+      background:none; border:1px solid var(--border);
+      border-radius:20px; padding:.4rem .8rem;
+      color:var(--text); cursor:pointer; display:flex;
+      align-items:center; gap:.4rem; font-size:.9rem;
+      transition:background .2s;
+    }
+    .btn-theme:hover { background:var(--border); }
+
+    /* ========== DASHBOARD ========== */
     .grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-      gap:1.5rem;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1rem; padding:1rem;
     }
     .card {
-      background:var(--card-bg);
-      border-radius:8px;
-      box-shadow:0 2px 8px var(--shadow);
-      padding:1rem;
-      text-align:center;
+      background:var(--bg-alt); border:1px solid var(--border);
+      border-radius:12px; padding:1.2rem; box-shadow:0 4px 10px var(--shadow);
+      display:flex; flex-direction:column; justify-content:space-between;
     }
     .card h3 {
-      font-family:'Playfair Display',serif;
-      margin-bottom:.5rem;
-      font-size:1.1rem;
+      font-family:"Playfair Display",serif; margin-bottom:.8rem;
     }
-    .card p {
-      font-size:.9rem;
-      color:var(--gray-light);
+    .card p { flex:1; color:var(--text-muted); }
+    .card a {
+      margin-top:1rem; color:var(--gold); text-decoration:none;
+      font-weight:600; display:inline-flex; align-items:center; gap:.4rem;
+      transition:transform .2s;
+    }
+    .card a:hover { transform:translateX(6px); }
+
+    /* ========== MODULE COMMANDES (EXEMPLE) ========== */
+    .form-group { margin-bottom:1rem; }
+    .form-group label { display:block; margin-bottom:.3rem; }
+    .form-group input,
+    .form-group textarea {
+      width:100%; padding:.6rem; border-radius:6px;
+      border:1px solid var(--border); background:var(--bg);
+      color:var(--text);
+    }
+    .form-group textarea { resize:vertical; }
+    .btn-send {
+      background:var(--gold); color:var(--bg);
+      padding:.6rem 1.2rem; border:none; border-radius:6px;
+      cursor:pointer; font-weight:600;
+      transition:background .2s;
+    }
+    .btn-send:hover { background:var(--gold-dark); }
+    #feedback { margin-top:1rem; font-weight:600; }
+
+    /* ========== RESPONSIVE ========== */
+    @media(max-width:768px){
+      aside { display:none; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ========== SIDEBAR ========== -->
   <aside>
     <h2>SELEZIONE</h2>
-    <nav>
-      <a href="index.html"        class="nav-link">🏠 Accueil</a>
-      <a href="dashboard.html"    class="nav-link">📊 Tableau de bord</a>
-      <a href="fournisseur.html"  class="nav-link">📦 Module Fournisseur</a>
-      <a href="marge.html"        class="nav-link">🧮 Calculateur de marge</a>
-      <a href="tchat.html"        class="nav-link">💬 Tchat SELEZIONE</a>
-      <a href="actu.html"         class="nav-link">📰 Actu Live</a>
-      <a href="ia-image.html"     class="nav-link">🖼️ IA + Image</a>
-      <a href="fiche.html"        class="nav-link">📝 Fiche produit</a>
-      <a href="estimation.html"   class="nav-link">💎 Estimation</a>
-      <a href="scraper.html"      class="nav-link">🔍 Scraper VC</a>
-      <a href="commandes.html"    class="nav-link">📦 Commandes</a>
-      <a href="formation.html"    class="nav-link">🎓 Formation</a>
-    </nav>
+    <a href="#" class="nav-link" data-view="home"        ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Accueil</a>
+    <a href="#" class="nav-link" data-view="fournisseur" ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Module Fournisseur</a>
+    <a href="#" class="nav-link" data-view="marge"       ><svg viewBox="0 0 512 512"><path d="M..."/></svg>Calculateur de marge</a>
+    <a href="#" class="nav-link" data-view="tchat"       ><svg viewBox="0 0 512 512"><path d="M..."/></svg>Tchat SELEZIONE</a>
+    <a href="#" class="nav-link" data-view="actu"        ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Actu Direct</a>
+    <a href="#" class="nav-link" data-view="image"       ><svg viewBox="0 0 512 512"><path d="M..."/></svg>IA + Image</a>
+    <a href="#" class="nav-link" data-view="fiche"       ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Fiche Produit</a>
+    <a href="#" class="nav-link" data-view="estimation"  ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Estimation</a>
+    <a href="#" class="nav-link" data-view="scraper"     ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Scraper VC</a>
+    <a href="#" class="nav-link" data-view="commandes"   ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Commandes</a>
+    <a href="#" class="nav-link" data-view="formation"   ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Formations</a>
+    <button class="btn-theme" id="toggleTheme"><i class="fas fa-moon"></i> Mode Sombre</button>
   </aside>
+
+  <!-- ========== MAIN CONTAINER ========== -->
   <main>
-    <h1>Votre Tableau de Bord</h1>
-    <div class="grid">
-      <div class="card">
-        <h3>Assistant Luxe IA</h3>
-        <p>Conseils personnalisés sur les marques.</p>
-      </div>
-      <div class="card">
-        <h3>Actu & Image IA</h3>
-        <p>Articles et visuels générés par IA.</p>
-      </div>
-      <div class="card">
-        <h3>Fiche Produit IA</h3>
-        <p>Création automatique de fiches produit.</p>
-      </div>
-      <div class="card">
-        <h3>Estimation</h3>
-        <p>Évaluez vos pièces luxe en temps réel.</p>
-      </div>
-      <div class="card">
-        <h3>Scraper VC</h3>
-        <p>Analyse de prix sur Vestiaire Collective.</p>
-      </div>
-      <div class="card">
-        <h3>Commandes</h3>
-        <p>Importez un fichier, générez vos commandes.</p>
-      </div>
-      <div class="card">
-        <h3>Formations</h3>
-        <p>Accédez à vos modules pédagogiques.</p>
-      </div>
+    <!-- header commun -->
+    <div class="header">
+      <h1 id="pageTitle">Bienvenue</h1>
+      <button class="btn-theme" id="toggleThemeTop"><i class="fas fa-moon"></i></button>
     </div>
+
+    <!-- zone d’injection des vues -->
+    <div id="app"></div>
   </main>
 
-  <!-- optionnel: ton script de connexion / logout -->
+  <!-- ========== TEMPLATES ========== -->
+  <template id="home">
+    <div class="grid">
+      <div class="card">
+        <h3>Bienvenue sur SELEZIONE</h3>
+        <p>Pilotez votre activité luxe IA en quelques clics.</p>
+        <a href="#" data-view="fournisseur">Commencer →</a>
+      </div>
+      <!-- autres cartes -->
+    </div>
+  </template>
+
+  <template id="commandes">
+    <section>
+      <h2>📦 Module Commandes</h2>
+      <form id="commande-form">
+        <div class="form-group">
+          <label for="user">👤 Nom du membre</label>
+          <input type="text" id="user" required>
+        </div>
+        <div class="form-group">
+          <label for="fichier">📁 Nom du fichier</label>
+          <input type="text" id="fichier" required>
+        </div>
+        <div class="form-group">
+          <label for="selections">🛒 Sélections (JSON)</label>
+          <textarea id="selections" rows="4" required>[{"ligne":10,"taille":"M","quantite":2}]</textarea>
+        </div>
+        <button type="submit" class="btn-send">✅ Envoyer</button>
+        <div id="feedback"></div>
+      </form>
+    </section>
+    <script>
+      // Formulaire Commandes
+      (function(){
+        const form = document.getElementById('commande-form');
+        const fb   = document.getElementById('feedback');
+        form.addEventListener('submit', async e=>{
+          e.preventDefault();
+          let data;
+          try { data = JSON.parse(selections.value); }
+          catch{ fb.innerHTML="❌ JSON invalide"; return; }
+          fb.innerHTML="✓ Envoyé !"; fb.style.color=var(--gold);
+          // ici fetch POST...
+        });
+      })();
+    </script>
+  </template>
+
+  <!-- stubs pour les autres modules -->
+  <template id="fournisseur"><h2>Module Fournisseur</h2><p>…</p></template>
+  <template id="marge"><h2>Calculateur de marge</h2><p>…</p></template>
+  <template id="tchat"><h2>Tchat SELEZIONE</h2><p>…</p></template>
+  <template id="actu"><h2>Actu Direct</h2><p>…</p></template>
+  <template id="image"><h2>IA + Image</h2><p>…</p></template>
+  <template id="fiche"><h2>Fiche Produit</h2><p>…</p></template>
+  <template id="estimation"><h2>Estimation</h2><p>…</p></template>
+  <template id="scraper"><h2>Scraper VC</h2><p>…</p></template>
+  <template id="formation"><h2>Formations SELEZIONE</h2><p>…</p></template>
+
+  <!-- ========== ROUTER & LOGIQUE ========== -->
   <script>
-    // fetchUser(), logout(), etc.
+    const app       = document.getElementById('app');
+    const navLinks  = document.querySelectorAll('aside .nav-link');
+    const title     = document.getElementById('pageTitle');
+    const templates = document.querySelectorAll('template');
+    let currentView = 'home';
+
+    function render(view){
+      const tpl = document.getElementById(view);
+      if(!tpl) return;
+      app.innerHTML = tpl.innerHTML;
+      title.textContent = tpl.querySelector('h2, h3')?.textContent || 'SELEZIONE';
+      navLinks.forEach(a=>a.classList.toggle('active', a.dataset.view===view));
+      if(view==='commandes'){
+        // exécution du <script> inline du template
+        tpl.content.querySelectorAll('script').forEach(s=>{
+          eval(s.innerHTML);
+        });
+      }
+    }
+
+    navLinks.forEach(a=>{
+      a.onclick=e=>{
+        e.preventDefault();
+        render(a.dataset.view);
+      }
+    });
+
+    // Thème sombre/clair
+    function toggleTheme(){
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light')?'light':'dark');
+    }
+    document.getElementById('toggleTheme').onclick = toggleTheme;
+    document.getElementById('toggleThemeTop').onclick = toggleTheme;
+    // charger préférence
+    if(localStorage.getItem('theme')==='light') document.body.classList.add('light');
+
+    // initial
+    render(currentView);
   </script>
+
 </body>
 </html>
-  
