@@ -147,6 +147,121 @@
       50% { opacity: 0.7; }
     }
 
+    /* ================== PROGRESS BAR FORMATION ================== */
+    .formation-progress {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-backdrop);
+      border: 1px solid var(--gold-primary);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .progress-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gold-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-black);
+      font-size: 1.2rem;
+    }
+
+    .progress-info h3 {
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-subtitle {
+      color: rgba(245, 230, 211, 0.8);
+      font-size: 0.9rem;
+    }
+
+    .progress-bar-container {
+      margin: 1rem 0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(212, 175, 55, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold-gradient);
+      transition: width 1s ease-in-out;
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer-progress 2s infinite;
+    }
+
+    @keyframes shimmer-progress {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: var(--champagne);
+      margin-top: 0.5rem;
+    }
+
+    .progress-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .progress-btn {
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--gold-primary);
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-bright);
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: var(--transition-luxury);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .progress-btn:hover {
+      background: var(--gold-gradient);
+      color: var(--primary-black);
+      transform: translateY(-2px);
+    }
+
+    .supplier-lock {
+      background: rgba(255, 68, 68, 0.1);
+      border-color: #ff4444;
+      color: #ff6666;
+      cursor: not-allowed;
+    }
     /* ================== SIDEBAR ULTRA LUXE ================== */
     .sidebar {
       width: 320px;
@@ -395,6 +510,12 @@
 
     .header-left {
       display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .header-welcome {
+      display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
@@ -418,6 +539,19 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       font-weight: 300;
+    }
+
+    .user-level-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--gold-gradient);
+      color: var(--primary-black);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
     .header-actions {
@@ -882,6 +1016,12 @@
         text-align: center;
       }
 
+      .header-left {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+
       .header-actions {
         gap: 1rem;
         flex-wrap: wrap;
@@ -908,6 +1048,11 @@
       .dashboard-content {
         padding: 1.5rem 1rem;
         padding-bottom: 6rem;
+      }
+
+      .formation-progress {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
       }
 
       .welcome-hero {
@@ -1029,7 +1174,6 @@
         font-size: 1rem;
       }
     }
-
     /* ================== LOADING ANIMATIONS ================== */
     .fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
@@ -1118,60 +1262,138 @@
         </div>
       </div>
 
+      <div class="nav-section
+        /* ================== LOADING ANIMATIONS ================== */
+    .fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .slide-in-right {
+      animation: slideInRight 1s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(60px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* ================== SCROLLBAR LUXURY ================== */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--obsidian);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-gradient);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-bright);
+    }
+
+    /* Hide scrollbar for mobile */
+    @media (max-width: 768px) {
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background System -->
+  <div class="luxury-background"></div>
+  <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <div class="geometric-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <h1 class="logo-main">SELEZIONE</h1>
+        <p class="logo-subtitle">Luxury Fashion Intelligence</p>
+      </div>
+    </div>
+
+    <div class="sidebar-content">
       <div class="nav-section">
-        <h3 class="nav-section-title">Sourcing & Intelligence</h3>
+        <h3 class="nav-section-title">Sourcing Intelligence</h3>
         <div class="nav-item">
           <div class="nav-toggler" data-target="sourcing-menu">
-            <i class="nav-icon fas fa-gem"></i>
-            <span>Sourcing & Veille Luxe</span>
+            <i class="nav-icon fas fa-search"></i>
+            <span>Sourcing & Veille</span>
             <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
           </div>
           <ul class="submenu" id="sourcing-menu">
-            <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-            <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-            <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-            <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-            <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
+            <li><a href="module6.html" class="nav-link">Scraping Vestiaire Collective</a></li>
+            <li><a href="module4.html" class="nav-link">Analyse Produits (IA Image)</a></li>
+            <li><a href="analyse-concurrence.html" class="nav-link">Top Marques Analysis</a></li>
+            <li><a href="module_nouvelle_acquisition.html" class="nav-link">Best Products Finder</a></li>
+            <li><a href="fournisseur-order.html" class="nav-link supplier-lock">🔒 Module Fournisseurs (80% requis)</a></li>
           </ul>
         </div>
       </div>
 
       <div class="nav-section">
-        <h3 class="nav-section-title">Operations Management</h3>
+        <h3 class="nav-section-title">Fashion Intelligence</h3>
         <div class="nav-item">
-          <div class="nav-toggler" data-target="operations-menu">
-            <i class="nav-icon fas fa-cogs"></i>
-            <span>Gestion & Opérations Premium</span>
+          <div class="nav-toggler" data-target="intelligence-menu">
+            <i class="nav-icon fas fa-newspaper"></i>
+            <span>Veille & Actualités</span>
             <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
           </div>
-          <ul class="submenu" id="operations-menu">
-            <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-            <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-            <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-            <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-            <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-            <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+          <ul class="submenu" id="intelligence-menu">
+            <li><a href="module8.html" class="nav-link">News Mode & Luxe</a></li>
+            <li><a href="tendances-ia.html" class="nav-link">Data Marques & Chiffres</a></li>
+            <li><a href="stats-performance.html" class="nav-link">Graphiques & Tendances</a></li>
           </ul>
         </div>
       </div>
 
       <div class="nav-section">
-        <h3 class="nav-section-title">Analytics & Strategy</h3>
+        <h3 class="nav-section-title">Analytics & Reports</h3>
         <div class="nav-item">
           <div class="nav-toggler" data-target="analytics-menu">
             <i class="nav-icon fas fa-chart-line"></i>
-            <span>Analyse & Stratégie IA</span>
+            <span>Performance & ROI</span>
             <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
           </div>
           <ul class="submenu" id="analytics-menu">
-            <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-            <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+            <li><a href="calculateur-marge-costo.html" class="nav-link">ROI Calculator</a></li>
+            <li><a href="gestion-stock.html" class="nav-link">Performance Tracking</a></li>
+            <li><a href="module7.html" class="nav-link">Export Reports</a></li>
           </ul>
         </div>
       </div>
 
       <div class="nav-section">
-        <h3 class="nav-section-title">Education & Training</h3>
+        <h3 class="nav-section-title">Formation</h3>
         <div class="nav-item">
           <div class="nav-toggler" data-target="academy-menu">
             <i class="nav-icon fas fa-graduation-cap"></i>
@@ -1179,28 +1401,11 @@
             <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
           </div>
           <ul class="submenu" id="academy-menu">
-            <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-            <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-            <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-            <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-            <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="nav-section">
-        <h3 class="nav-section-title">Support & Community</h3>
-        <div class="nav-item">
-          <div class="nav-toggler" data-target="support-menu">
-            <i class="nav-icon fas fa-headset"></i>
-            <span>Support Privilège & Communauté</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-          </div>
-          <ul class="submenu" id="support-menu">
-            <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-            <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-            <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-            <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+            <li><a href="formation-selezione-1.html" class="nav-link">Secteur Luxe</a></li>
+            <li><a href="formation-selezione-2.html" class="nav-link">Sourcing & Négociation</a></li>
+            <li><a href="formation-selezione-3.html" class="nav-link">Analyse Produits</a></li>
+            <li><a href="formation-selezione-4.html" class="nav-link">Business Fashion</a></li>
+            <li><a href="onboarding-guide.html" class="nav-link">Retail & Distribution</a></li>
           </ul>
         </div>
       </div>
@@ -1212,15 +1417,29 @@
         <span>Mode Sombre</span>
       </button>
     </div>
-  </aside>
+  </aside>">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link active">
+            <i class="nav-icon fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </div>
 
-  <!-- Main Content -->
+      <div class="nav-section
+        <!-- Main Content -->
   <main class="main-container">
     <!-- Header -->
     <header class="main-header">
       <div class="header-left">
-        <h1 class="header-title">Fashion Intelligence Hub</h1>
-        <p class="header-subtitle">Votre centre de contrôle premium pour le prêt-à-porter de luxe</p>
+        <div class="header-welcome">
+          <h1 class="header-title">👋 Bienvenue Premium Member</h1>
+          <p class="header-subtitle">Votre tableau de bord Fashion Intelligence</p>
+        </div>
+        <div class="user-level-badge">
+          <i class="fas fa-crown"></i>
+          <span>Niveau User | Formation : 65%</span>
+        </div>
       </div>
       
       <div class="header-actions">
@@ -1236,7 +1455,7 @@
         
         <a href="#" class="action-button primary">
           <i class="fas fa-plus"></i>
-          <span>Nouveau Projet</span>
+          <span>Nouvelle Analyse</span>
         </a>
         
         <div class="user-profile">
@@ -1245,7 +1464,7 @@
           </div>
           <div class="user-info">
             <div class="user-name">Premium Member</div>
-            <div class="user-role">Luxury Expert</div>
+            <div class="user-role">User</div>
           </div>
         </div>
       </div>
@@ -1253,31 +1472,60 @@
 
     <!-- Dashboard Content -->
     <div class="dashboard-content">
+      <!-- Barre de progression formation -->
+      <div class="formation-progress fade-in-up">
+        <div class="progress-header">
+          <div class="progress-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="progress-info">
+            <h3>Progression Formation</h3>
+            <p class="progress-subtitle">Chapitre actuel : "Négociation Avancée"</p>
+          </div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 65%"></div>
+          </div>
+          <p class="progress-text">65% complété</p>
+        </div>
+        <div class="progress-actions">
+          <a href="formation-selezione-2.html" class="progress-btn">
+            <i class="fas fa-play"></i>
+            Continuer la formation
+          </a>
+          <span class="progress-btn supplier-lock">
+            <i class="fas fa-lock"></i>
+            Module Fournisseurs à 80%
+          </span>
+        </div>
+      </div>
+
       <!-- Hero Section -->
       <section class="welcome-hero fade-in-up">
         <div class="hero-content">
-          <h2 class="hero-title">Bienvenue dans l'élite du Fashion Tech</h2>
+          <h2 class="hero-title">Dashboard Fashion Intelligence</h2>
           <p class="hero-subtitle">
-            Exploitez la puissance de l'intelligence artificielle pour dominer le marché du prêt-à-porter de luxe. 
-            Analyses prédictives, sourcing intelligent et stratégies data-driven à votre service.
+            Votre centre de contrôle pour dominer le marché du prêt-à-porter de luxe. 
+            Analyses en temps réel, sourcing intelligent et stratégies data-driven.
           </p>
           
           <div class="hero-stats">
             <div class="hero-stat">
-              <div class="stat-value" data-target="127000">€0</div>
-              <div class="stat-label">Portfolio Value</div>
+              <div class="stat-value" data-target="142">142</div>
+              <div class="stat-label">Analyses Réalisées</div>
             </div>
             <div class="hero-stat">
-              <div class="stat-value" data-target="2847">0</div>
-              <div class="stat-label">Articles Analysés</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-value" data-target="34.2">0%</div>
-              <div class="stat-label">Marge Moyenne</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-value" data-target="156">0</div>
+              <div class="stat-value" data-target="28">28</div>
               <div class="stat-label">Marques Trackées</div>
+            </div>
+            <div class="hero-stat">
+              <div class="stat-value" data-target="2847">€2,847</div>
+              <div class="stat-label">Économies Générées</div>
+            </div>
+            <div class="hero-stat">
+              <div class="stat-value" data-target="87">87%</div>
+              <div class="stat-label">Taux de Réussite</div>
             </div>
           </div>
         </div>
@@ -1288,470 +1536,597 @@
         <div class="dashboard-card slide-in-right" style="animation-delay: 0.2s;">
           <div class="card-header">
             <div class="card-icon">
+              <i class="fas fa-search"></i>
+            </div>
+            <h3 class="card-title">Sourcing Intelligence</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Scraping Vestiaire Collective, analyse par IA d'images, identification des top marques 
+              et meilleurs produits. Votre radar pour les opportunités cachées.
+            </p>
+          </div>
+          <a href="module6.html" class="card-action">
+            <span>Lancer une analyse</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card slide-in-right" style="animation-delay: 0.4s;">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-newspaper"></i>
+            </div>
+            <h3 class="card-title">Fashion Intelligence</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              News mode & luxe quotidiennes, data des grandes marques, graphiques de tendances 
+              et rapports sectoriels. Votre veille stratégique automatisée.
+            </p>
+          </div>
+          <a href="module8.html" class="card-action">
+            <span>Voir les actualités</span>
+            <i class="fas fa-chart-line"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card slide-in-right" style="animation-delay: 0.6s;">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <h3 class="card-title">Analytics & ROI</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Calculateur de ROI, tracking de performance, export de rapports détaillés. 
+              Mesurez et optimisez chaque décision business.
+            </p>
+          </div>
+          <a href="calculateur-marge-costo.html" class="card-action">
+            <span>Calculer le ROI</span>
+            <i class="fas fa-chart-pie"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card slide-in-right" style="animation-delay: 0.8s;">
+          <div class="card-header">
+            <div class="card-icon">
               <i class="fas fa-graduation-cap"></i>
             </div>
-             <h3 class="card-title">Formation Elite</h3>
-         </div>
-         <div class="card-content">
-           <p class="card-description">
-             Maîtrisez l'univers du luxe avec notre académie exclusive. Prochaine étape : 
-             comprendre les stratégies des maisons iconiques et leurs codes d'excellence.
-           </p>
-         </div>
-         <a href="formation-selezione-2.html" class="card-action">
-           <span>Continuer la formation</span>
-           <i class="fas fa-arrow-right"></i>
-         </a>
-       </div>
+            <h3 class="card-title">Formation Continue</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Formation complète : secteur luxe, sourcing, négociation, analyse produits, 
+              business fashion. Plus que 35% pour débloquer le module Fournisseurs !
+            </p>
+          </div>
+          <a href="formation-selezione-2.html" class="card-action">
+            <span>Continuer (65%)</span>
+            <i class="fas fa-play"></i>
+          </a>
+        </div>
 
-       <div class="dashboard-card slide-in-right" style="animation-delay: 0.4s;">
-         <div class="card-header">
-           <div class="card-icon">
-             <i class="fas fa-chart-pie"></i>
-           </div>
-           <h3 class="card-title">Analytics Avancées</h3>
-         </div>
-         <div class="card-content">
-           <p class="card-description">
-             Suivez vos KPIs en temps réel : marges optimisées, tendances de vente, 
-             et évolution des marchés de niche. Dashboard intelligent avec alertes personnalisées.
-           </p>
-         </div>
-         <a href="stats-performance.html" class="card-action">
-           <span>Analyser les performances</span>
-           <i class="fas fa-chart-line"></i>
-         </a>
-       </div>
+        <div class="dashboard-card slide-in-right" style="animation-delay: 1.0s;">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-lock" style="opacity: 0.6;"></i>
+            </div>
+            <h3 class="card-title" style="opacity: 0.7;">Module Fournisseurs</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description" style="opacity: 0.7;">
+              Accès exclusif aux fournisseurs premium, négociation assistée par IA, 
+              évaluation fournisseurs. Débloqué à 80% de formation complétée.
+            </p>
+          </div>
+          <span class="card-action supplier-lock">
+            <i class="fas fa-lock"></i>
+            <span>Débloqué à 80%</span>
+          </span>
+        </div>
 
-       <div class="dashboard-card slide-in-right" style="animation-delay: 0.6s;">
-         <div class="card-header">
-           <div class="card-icon">
-             <i class="fas fa-brain"></i>
-           </div>
-           <h3 class="card-title">IA Prédictive</h3>
-         </div>
-         <div class="card-content">
-           <p class="card-description">
-             Notre intelligence artificielle identifie les opportunités émergentes : 
-             collections vintage sous-évaluées, sneakers édition limitée, et pièces rares.
-           </p>
-         </div>
-         <a href="tendances-ia.html" class="card-action">
-           <span>Explorer les prédictions</span>
-           <i class="fas fa-crystal-ball"></i>
-         </a>
-       </div>
+        <div class="dashboard-card slide-in-right" style="animation-delay: 1.2s;">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3 class="card-title">Performances Récentes</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Dernière analyse : Hermès Birkin 35cm (+12% vs estimation), 
+              économie générée cette semaine : €847. Tendance positive sur 7 jours.
+            </p>
+          </div>
+          <a href="stats-performance.html" class="card-action">
+            <span>Détails performance</span>
+            <i class="fas fa-eye"></i>
+          </a>
+        </div>
+      </section>
+    </div>
+      </main>
+      <!-- Mobile Navigation -->
+  <nav class="mobile-nav-bar">
+    <a href="index.html" class="mobile-nav-link active">
+      <i class="fas fa-home"></i>
+      <span>Accueil</span>
+    </a>
+    <a href="module6.html" class="mobile-nav-link">
+      <i class="fas fa-search"></i>
+      <span>Sourcing</span>
+    </a>
+    <a href="module8.html" class="mobile-nav-link">
+      <i class="fas fa-newspaper"></i>
+      <span>News</span>
+    </a>
+    <a href="formation-selezione-1.html" class="mobile-nav-link">
+      <i class="fas fa-graduation-cap"></i>
+      <span>Formation</span>
+    </a>
+    <a href="#" id="menuButton" class="mobile-nav-link">
+      <i class="fas fa-bars"></i>
+      <span>Menu</span>
+    </a>
+  </nav>
 
-       <div class="dashboard-card slide-in-right" style="animation-delay: 0.8s;">
-         <div class="card-header">
-           <div class="card-icon">
-             <i class="fas fa-shipping-fast"></i>
-           </div>
-           <h3 class="card-title">Commandes Premium</h3>
-         </div>
-         <div class="card-content">
-           <p class="card-description">
-             Gestion centralisée de vos transactions haut de gamme. 2 commandes en attente, 
-             1 expédiée hier. Suivi en temps réel avec notifications intelligentes.
-           </p>
-         </div>
-         <a href="module7.html" class="card-action">
-           <span>Gérer les commandes</span>
-           <i class="fas fa-tasks"></i>
-         </a>
-       </div>
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileMenuOverlay">
+    <div class="mobile-menu-content">
+      <button id="closeMenuButton" class="close-button">
+        <i class="fas fa-times"></i>
+      </button>
+      
+      <h2>Navigation</h2>
+      
+      <!-- Reproduction de la navigation complète pour mobile -->
+      <div class="nav-section">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link active">
+            <i class="nav-icon fas fa-home"></i>
+            <span>Dashboard</span>
+          </a>
+        </div>
+      </div>
 
-       <div class="dashboard-card slide-in-right" style="animation-delay: 1.0s;">
-         <div class="card-header">
-           <div class="card-icon">
-             <i class="fas fa-gem"></i>
-           </div>
-           <h3 class="card-title">Sourcing Intelligent</h3>
-         </div>
-         <div class="card-content">
-           <p class="card-description">
-             Découvrez des fournisseurs exclusifs et des pièces rares grâce à notre réseau 
-             mondial. Authentification garantie et négociation assistée par IA.
-           </p>
-         </div>
-         <a href="fournisseur-order.html" class="card-action">
-           <span>Explorer le sourcing</span>
-           <i class="fas fa-search-plus"></i>
-         </a>
-       </div>
+      <div class="nav-section">
+        <h3 class="nav-section-title">Sourcing Intelligence</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="sourcing-menu-mobile">
+            <i class="nav-icon fas fa-search"></i>
+            <span>Sourcing & Veille</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="sourcing-menu-mobile">
+            <li><a href="module6.html" class="nav-link">Scraping Vestiaire Collective</a></li>
+            <li><a href="module4.html" class="nav-link">Analyse Produits (IA Image)</a></li>
+            <li><a href="analyse-concurrence.html" class="nav-link">Top Marques Analysis</a></li>
+            <li><a href="module_nouvelle_acquisition.html" class="nav-link">Best Products Finder</a></li>
+            <li><a href="fournisseur-order.html" class="nav-link supplier-lock">🔒 Module Fournisseurs (80% requis)</a></li>
+          </ul>
+        </div>
+      </div>
 
-       <div class="dashboard-card slide-in-right" style="animation-delay: 1.2s;">
-         <div class="card-header">
-           <div class="card-icon">
-             <i class="fas fa-eye"></i>
-           </div>
-           <h3 class="card-title">Veille Concurrentielle</h3>
-         </div>
-         <div class="card-content">
-           <p class="card-description">
-             Surveillez vos concurrents avec notre système de veille automatisé. 
-             Alertes prix, nouveaux produits, et stratégies marketing en temps réel.
-           </p>
-         </div>
-         <a href="module6.html" class="card-action">
-           <span>Lancer la veille</span>
-           <i class="fas fa-radar"></i>
-         </a>
-       </div>
-     </section>
-   </div>
- </main>
+      <div class="nav-section">
+        <h3 class="nav-section-title">Fashion Intelligence</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="intelligence-menu-mobile">
+            <i class="nav-icon fas fa-newspaper"></i>
+            <span>Veille & Actualités</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="intelligence-menu-mobile">
+            <li><a href="module8.html" class="nav-link">News Mode & Luxe</a></li>
+            <li><a href="tendances-ia.html" class="nav-link">Data Marques & Chiffres</a></li>
+            <li><a href="stats-performance.html" class="nav-link">Graphiques & Tendances</a></li>
+          </ul>
+        </div>
+      </div>
 
- <!-- Mobile Navigation -->
- <nav class="mobile-nav-bar">
-   <a href="index.html" class="mobile-nav-link active">
-     <i class="fas fa-home"></i>
-     <span>Accueil</span>
-   </a>
-   <a href="module6.html" class="mobile-nav-link">
-     <i class="fas fa-search"></i>
-     <span>Veille</span>
-   </a>
-   <a href="module7.html" class="mobile-nav-link">
-     <i class="fas fa-shopping-cart"></i>
-     <span>Commandes</span>
-   </a>
-   <a href="formation-selezione-1.html" class="mobile-nav-link">
-     <i class="fas fa-graduation-cap"></i>
-     <span>Académie</span>
-   </a>
-   <a href="#" id="menuButton" class="mobile-nav-link">
-     <i class="fas fa-bars"></i>
-     <span>Menu</span>
-   </a>
- </nav>
+      <div class="nav-section">
+        <h3 class="nav-section-title">Analytics & Reports</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="analytics-menu-mobile">
+            <i class="nav-icon fas fa-chart-line"></i>
+            <span>Performance & ROI</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="analytics-menu-mobile">
+            <li><a href="calculateur-marge-costo.html" class="nav-link">ROI Calculator</a></li>
+            <li><a href="gestion-stock.html" class="nav-link">Performance Tracking</a></li>
+            <li><a href="module7.html" class="nav-link">Export Reports</a></li>
+          </ul>
+        </div>
+      </div>
 
- <!-- Mobile Menu Overlay -->
- <div id="mobileMenuOverlay">
-   <div class="mobile-menu-content">
-     <button id="closeMenuButton" class="close-button">
-       <i class="fas fa-times"></i>
-     </button>
-     
-     <h2>Navigation</h2>
-     
-     <!-- Reproduction de la navigation complète pour mobile -->
-     <div class="nav-section">
-       <div class="nav-item">
-         <a href="index.html" class="nav-link active">
-           <i class="nav-icon fas fa-home"></i>
-           <span>Dashboard</span>
-         </a>
-       </div>
-     </div>
+      <div class="nav-section">
+        <h3 class="nav-section-title">Formation</h3>
+        <div class="nav-item">
+          <div class="nav-toggler" data-target="academy-menu-mobile">
+            <i class="nav-icon fas fa-graduation-cap"></i>
+            <span>Académie SELEZIONE</span>
+            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+          </div>
+          <ul class="submenu" id="academy-menu-mobile">
+            <li><a href="formation-selezione-1.html" class="nav-link">Secteur Luxe</a></li>
+            <li><a href="formation-selezione-2.html" class="nav-link">Sourcing & Négociation</a></li>
+            <li><a href="formation-selezione-3.html" class="nav-link">Analyse Produits</a></li>
+            <li><a href="formation-selezione-4.html" class="nav-link">Business Fashion</a></li>
+            <li><a href="onboarding-guide.html" class="nav-link">Retail & Distribution</a></li>
+          </ul>
+        </div>
+      </div>
 
-     <div class="nav-section">
-       <h3 class="nav-section-title">Sourcing & Intelligence</h3>
-       <div class="nav-item">
-         <div class="nav-toggler" data-target="sourcing-menu-mobile">
-           <i class="nav-icon fas fa-gem"></i>
-           <span>Sourcing & Veille Luxe</span>
-           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-         </div>
-         <ul class="submenu" id="sourcing-menu-mobile">
-           <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-           <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-           <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-           <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-           <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
-         </ul>
-       </div>
-     </div>
+      <div class="theme-switcher">
+        <button class="theme-button" id="themeToggleMobile">
+          <i class="fas fa-moon"></i>
+          <span>Mode Sombre</span>
+        </button>
+      </div>
+    </div>
+  </div>
+        <script>
+    // Remove no-js class
+    document.body.classList.remove('no-js');
 
-     <div class="nav-section">
-       <h3 class="nav-section-title">Operations Management</h3>
-       <div class="nav-item">
-         <div class="nav-toggler" data-target="operations-menu-mobile">
-           <i class="nav-icon fas fa-cogs"></i>
-           <span>Gestion & Opérations Premium</span>
-           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-         </div>
-         <ul class="submenu" id="operations-menu-mobile">
-           <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-           <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-           <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-           <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-           <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-           <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
-         </ul>
-       </div>
-     </div>
+    // Navigation togglers
+    document.querySelectorAll('.nav-toggler').forEach(toggler => {
+      toggler.addEventListener('click', () => {
+        const target = toggler.getAttribute('data-target');
+        const submenu = document.getElementById(target);
+        const chevron = toggler.querySelector('.fa-chevron-down');
+        
+        if (submenu) {
+          submenu.classList.toggle('open');
+          chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+      });
+    });
 
-     <div class="nav-section">
-       <h3 class="nav-section-title">Analytics & Strategy</h3>
-       <div class="nav-item">
-         <div class="nav-toggler" data-target="analytics-menu-mobile">
-           <i class="nav-icon fas fa-chart-line"></i>
-           <span>Analyse & Stratégie IA</span>
-           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-         </div>
-         <ul class="submenu" id="analytics-menu-mobile">
-           <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-           <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
-         </ul>
-       </div>
-     </div>
+    // Mobile menu
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const menuButton = document.getElementById('menuButton');
+    const closeButton = document.getElementById('closeMenuButton');
 
-     <div class="nav-section">
-       <h3 class="nav-section-title">Education & Training</h3>
-       <div class="nav-item">
-         <div class="nav-toggler" data-target="academy-menu-mobile">
-           <i class="nav-icon fas fa-graduation-cap"></i>
-           <span>Académie SELEZIONE</span>
-           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-         </div>
-         <ul class="submenu" id="academy-menu-mobile">
-           <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-           <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-           <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-           <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-           <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-         </ul>
-       </div>
-     </div>
+    if (menuButton) {
+      menuButton.addEventListener('click', e => {
+        e.preventDefault(); 
+        overlay.classList.add('open');
+        document.body.classList.add('no-scroll');
+      });
+    }
 
-     <div class="nav-section">
-       <h3 class="nav-section-title">Support & Community</h3>
-       <div class="nav-item">
-         <div class="nav-toggler" data-target="support-menu-mobile">
-           <i class="nav-icon fas fa-headset"></i>
-           <span>Support Privilège & Communauté</span>
-           <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-         </div>
-         <ul class="submenu" id="support-menu-mobile">
-           <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-           <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-           <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-           <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
-         </ul>
-       </div>
-     </div>
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        overlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      });
+    }
 
-     <div class="theme-switcher">
-       <button class="theme-button" id="themeToggleMobile">
-         <i class="fas fa-moon"></i>
-         <span>Mode Sombre</span>
-       </button>
-     </div>
-   </div>
- </div>
+    if (overlay) {
+      overlay.addEventListener('click', e => {
+        if (e.target === overlay) {
+          overlay.classList.remove('open');
+          document.body.classList.remove('no-scroll');
+        }
+      });
+    }
 
- <script>
-   // Remove no-js class
-   document.body.classList.remove('no-js');
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeToggleMobile = document.getElementById('themeToggleMobile');
+    const body = document.body;
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+      body.classList.add('light-mode');
+      updateThemeButtons(true);
+    }
+    
+    function toggleTheme() {
+      body.classList.toggle('light-mode');
+      const isLight = body.classList.contains('light-mode');
+      localStorage.setItem('theme', isLight ? 'light' : 'dark');
+      updateThemeButtons(isLight);
+    }
 
-   // Navigation togglers
-   document.querySelectorAll('.nav-toggler').forEach(toggler => {
-     toggler.addEventListener('click', () => {
-       const target = toggler.getAttribute('data-target');
-       const submenu = document.getElementById(target);
-       const chevron = toggler.querySelector('.fa-chevron-down');
-       
-       if (submenu) {
-         submenu.classList.toggle('open');
-         chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
-       }
-     });
-   });
+    if (themeToggle) {
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+    
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener('click', toggleTheme);
+    }
+    
+    function updateThemeButtons(isLight) {
+      const buttons = [themeToggle, themeToggleMobile].filter(Boolean);
+      buttons.forEach(button => {
+        const icon = button.querySelector('i');
+        const text = button.querySelector('span');
+        
+        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        text.textContent = isLight ? 'Mode Clair' : 'Mode Sombre';
+      });
+    }
 
-   // Mobile menu
-   const overlay = document.getElementById('mobileMenuOverlay');
-   const menuButton = document.getElementById('menuButton');
-   const closeButton = document.getElementById('closeMenuButton');
+    // Formation progress animation
+    window.addEventListener('load', () => {
+      const progressFill = document.querySelector('.progress-fill');
+      if (progressFill) {
+        setTimeout(() => {
+          progressFill.style.width = '65%';
+        }, 500);
+      }
+    });
 
-   if (menuButton) {
-     menuButton.addEventListener('click', e => {
-       e.preventDefault(); 
-       overlay.classList.add('open');
-       document.body.classList.add('no-scroll');
-     });
-   }
+    // Animated counters for stats
+    function animateCounter(element, target, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+      
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          element.textContent = formatNumber(target);
+          clearInterval(timer);
+        } else {
+          element.textContent = formatNumber(Math.floor(current));
+        }
+      }, 16);
+    }
+    
+    function formatNumber(num) {
+      if (num >= 1000) {
+        return '€' + (num / 1000).toFixed(1) + 'K';
+      }
+      return num.toString();
+    }
+    
+    // Animate counters on load
+    window.addEventListener('load', () => {
+      const counters = document.querySelectorAll('.stat-value[data-target]');
+      counters.forEach((counter, index) => {
+        setTimeout(() => {
+          const target = parseFloat(counter.getAttribute('data-target'));
+          
+          if (counter.textContent.includes('%')) {
+            animateCounter(counter, target, 1500);
+            setTimeout(() => {
+              counter.textContent = target + '%';
+            }, 1500);
+          } else if (counter.textContent.includes('€')) {
+            const timer = setInterval(() => {
+              const current = parseFloat(counter.textContent.replace(/[€,]/g, '')) || 0;
+              const increment = target / 100;
+              if (current < target) {
+                counter.textContent = '€' + Math.floor(current + increment).toLocaleString('fr-FR');
+              } else {
+                counter.textContent = '€' + target.toLocaleString('fr-FR');
+                clearInterval(timer);
+              }
+            }, 20);
+          } else {
+            animateCounter(counter, target, 1500);
+          }
+        }, index * 200);
+      });
+    });
+          // Parallax effect for particles
+    document.addEventListener('mousemove', (e) => {
+      const particles = document.querySelectorAll('.particle');
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      particles.forEach((particle, index) => {
+        const speed = (index + 1) * 0.5;
+        particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+      });
+    });
 
-   if (closeButton) {
-     closeButton.addEventListener('click', () => {
-       overlay.classList.remove('open');
-       document.body.classList.remove('no-scroll');
-     });
-   }
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.dashboard-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
+      observer.observe(card);
+    });
 
-   if (overlay) {
-     overlay.addEventListener('click', e => {
-       if (e.target === overlay) {
-         overlay.classList.remove('open');
-         document.body.classList.remove('no-scroll');
-       }
-     });
-   }
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
 
-   // Theme toggle
-   const themeToggle = document.getElementById('themeToggle');
-   const themeToggleMobile = document.getElementById('themeToggleMobile');
-   const body = document.body;
-   
-   // Load saved theme
-   const savedTheme = localStorage.getItem('theme') || 'dark';
-   if (savedTheme === 'light') {
-     body.classList.add('light-mode');
-     updateThemeButtons(true);
-   }
-   
-   function toggleTheme() {
-     body.classList.toggle('light-mode');
-     const isLight = body.classList.contains('light-mode');
-     localStorage.setItem('theme', isLight ? 'light' : 'dark');
-     updateThemeButtons(isLight);
-   }
+    // Performance optimization: Reduce animations on mobile
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      document.querySelectorAll('.particle').forEach(particle => {
+        particle.style.animationDuration = '20s';
+      });
+    }
 
-   if (themeToggle) {
-     themeToggle.addEventListener('click', toggleTheme);
-   }
-   
-   if (themeToggleMobile) {
-     themeToggleMobile.addEventListener('click', toggleTheme);
-   }
-   
-   function updateThemeButtons(isLight) {
-     const buttons = [themeToggle, themeToggleMobile].filter(Boolean);
-     buttons.forEach(button => {
-       const icon = button.querySelector('i');
-       const text = button.querySelector('span');
-       
-       icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
-       text.textContent = isLight ? 'Mode Clair' : 'Mode Sombre';
-     });
-   }
+    // Handle resize events
+    window.addEventListener('resize', () => {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      }
+    });
 
-   // Animated counters
-   function animateCounter(element, target, duration = 2000) {
-     const start = 0;
-     const increment = target / (duration / 16);
-     let current = start;
-     
-     const timer = setInterval(() => {
-       current += increment;
-       if (current >= target) {
-         element.textContent = formatNumber(target);
-         clearInterval(timer);
-       } else {
-         element.textContent = formatNumber(Math.floor(current));
-       }
-     }, 16);
-   }
-   
-   function formatNumber(num) {
-     if (num >= 1000) {
-       return (num / 1000).toFixed(1) + 'K';
-     }
-     return num.toString();
-   }
-   
-   // Animate counters on load
-   window.addEventListener('load', () => {
-     const counters = document.querySelectorAll('.stat-value[data-target]');
-     counters.forEach((counter, index) => {
-       setTimeout(() => {
-         const target = parseFloat(counter.getAttribute('data-target'));
-         
-         if (counter.textContent.includes('%')) {
-           animateCounter(counter, target, 1500);
-           setTimeout(() => {
-             counter.textContent = target + '%';
-           }, 1500);
-         } else if (counter.textContent.includes('€')) {
-           animateCounter(counter, target, 2000);
-           setTimeout(() => {
-             counter.textContent = '€' + target.toLocaleString('fr-FR');
-           }, 2000);
-         } else {
-           animateCounter(counter, target, 1500);
-         }
-       }, index * 200);
-     });
-   });
+    // Supplier module lock logic
+    document.querySelectorAll('.supplier-lock').forEach(element => {
+      element.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Module Fournisseurs débloqué à 80% de formation complétée.\nActuellement : 65%\n\nContinuez votre formation pour débloquer ce module premium !');
+      });
+    });
 
-   // Parallax effect for particles
-   document.addEventListener('mousemove', (e) => {
-     const particles = document.querySelectorAll('.particle');
-     const x = e.clientX / window.innerWidth;
-     const y = e.clientY / window.innerHeight;
-     
-     particles.forEach((particle, index) => {
-       const speed = (index + 1) * 0.5;
-       particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-     });
-   });
+    // Notification for formation progress
+    function checkFormationProgress() {
+      const currentProgress = 65; // Récupérer depuis localStorage ou API
+      if (currentProgress >= 75 && currentProgress < 80) {
+        setTimeout(()
+          // Parallax effect for particles
+    document.addEventListener('mousemove', (e) => {
+      const particles = document.querySelectorAll('.particle');
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      particles.forEach((particle, index) => {
+        const speed = (index + 1) * 0.5;
+        particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+      });
+    });
 
-   // Intersection Observer for animations
-   const observerOptions = {
-     threshold: 0.1,
-     rootMargin: '0px 0px -50px 0px'
-   };
-   
-   const observer = new IntersectionObserver((entries) => {
-     entries.forEach(entry => {
-       if (entry.isIntersecting) {
-         entry.target.style.opacity = '1';
-         entry.target.style.transform = 'translateY(0)';
-       }
-     });
-   }, observerOptions);
-   
-   document.querySelectorAll('.dashboard-card').forEach(card => {
-     card.style.opacity = '0';
-     card.style.transform = 'translateY(30px)';
-     card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
-     observer.observe(card);
-   });
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.dashboard-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
+      observer.observe(card);
+    });
 
-   // Smooth scrolling
-   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-     anchor.addEventListener('click', function (e) {
-       e.preventDefault();
-       const target = document.querySelector(this.getAttribute('href'));
-       if (target) {
-         target.scrollIntoView({
-           behavior: 'smooth',
-           block: 'start'
-         });
-       }
-     });
-   });
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
 
-   // Performance optimization: Reduce animations on mobile
-   const isMobile = window.innerWidth <= 768;
-   if (isMobile) {
-     document.querySelectorAll('.particle').forEach(particle => {
-       particle.style.animationDuration = '20s';
-     });
-   }
+    // Performance optimization: Reduce animations on mobile
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+      document.querySelectorAll('.particle').forEach(particle => {
+        particle.style.animationDuration = '20s';
+      });
+    }
 
-   // Handle resize events
-   window.addEventListener('resize', () => {
-     const sidebar = document.querySelector('.sidebar');
-     const overlay = document.getElementById('mobileMenuOverlay');
-     
-     if (window.innerWidth > 768) {
-       sidebar.classList.remove('open');
-       overlay.classList.remove('open');
-       document.body.classList.remove('no-scroll');
-     }
-   });
+    // Handle resize events
+    window.addEventListener('resize', () => {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.getElementById('mobileMenuOverlay');
+      
+      if (window.innerWidth > 768) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      }
+    });
 
-   // Preload critical animations
-   document.addEventListener('DOMContentLoaded', () => {
-     // Trigger reflow to ensure animations are ready
-     document.body.offsetHeight;
-     
-     // Add loaded class for enhanced animations
-     setTimeout(() => {
-       document.body.classList.add('loaded');
-     }, 100);
-   });
- </script>
+    // Supplier module lock logic
+    document.querySelectorAll('.supplier-lock').forEach(element => {
+      element.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('Module Fournisseurs débloqué à 80% de formation complétée.\nActuellement : 65%\n\nContinuez votre formation pour débloquer ce module premium !');
+      });
+    });
+
+    // Notification for formation progress
+    function checkFormationProgress() {
+      const currentProgress = 65; // Récupérer depuis localStorage ou API
+      if (currentProgress >= 75 && currentProgress < 80) {
+        setTimeout(() => {
+          const notification = document.createElement('div');
+          notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gold-gradient);
+            color: var(--primary-black);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 10000;
+            animation: slideInRight 0.5s ease-out;
+            box-shadow: var(--shadow-gold);
+          `;
+          notification.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fas fa-star"></i>
+              <span>Plus que ${80 - currentProgress}% pour débloquer le Module Fournisseurs !</span>
+              <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; margin-left: 0.5rem; cursor: pointer;">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          `;
+          document.body.appendChild(notification);
+          
+          setTimeout(() => {
+            if (notification.parentElement) {
+              notification.remove();
+            }
+          }, 5000);
+        }, 2000);
+      }
+    }
+
+    // Check formation progress on load
+    window.addEventListener('load', checkFormationProgress);
+
+    // Preload critical animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Trigger reflow to ensure animations are ready
+      document.body.offsetHeight;
+      
+      // Add loaded class for enhanced animations
+      setTimeout(() => {
+        document.body.classList.add('loaded');
+      }, 100);
+    });
+  </script>
 </body>
 </html>
+          
+        
