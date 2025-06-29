@@ -4,208 +4,531 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>SELEZIONE – Tableau de bord</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
   />
   <style>
+    /* ========== VARIABLES & PALETTE ========== */
     :root {
-      --gold: #fbb034;
-      --gold-hover: #ffdd00;
-      --bg: #121212;
-      --bg-alt: #1f1f1f;
-      --text: #eee;
-      --text-muted: #888;
-      --border: #333;
-      --shadow: rgba(0,0,0,0.5);
+      --color-bg-dark: #121212;
+      --color-sidebar-bg: #111111;
+      --color-header-bg: #181818;
+      --color-card-bg: #1f1f1f;
+      --color-border-dark: #222222;
+      --color-border-medium: #333333;
+      --color-border-light: #444444;
+      --color-text-light: #ffffff;
+      --color-text-medium: #dddddd;
+      --color-text-dark: #aaa;
+      --color-accent-gold: #fbb034;
+      --color-accent-gold-hover: #ffdd00;
+      --color-shadow-dark: rgba(0,0,0,0.5);
+      --color-shadow-light: rgba(0,0,0,0.1);
     }
-    body.light {
-      --bg: #f5f5f5;
-      --bg-alt: #fff;
-      --text: #111;
-      --text-muted: #555;
-      --border: #ddd;
-      --shadow: rgba(0,0,0,0.1);
+    /* Mode clair */
+    body.light-mode {
+      --color-bg-dark: #f0f2f5;
+      --color-sidebar-bg: #ffffff;
+      --color-header-bg: #e0e2e5;
+      --color-card-bg: #ffffff;
+      --color-border-dark: #cccccc;
+      --color-border-medium: #bbbbbb;
+      --color-border-light: #aaaaaa;
+      --color-text-light: #333333;
+      --color-text-medium: #555555;
+      --color-text-dark: #777;
+      --color-accent-gold: #e6a000;
+      --color-accent-gold-hover: #ffbb00;
+      --color-shadow-dark: rgba(0,0,0,0.1);
+      --color-shadow-light: rgba(0,0,0,0.05);
     }
+
+    /* ========== RESET & LAYOUT ========== */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family:"Outfit",sans-serif;
-      display:flex; min-height:100vh;
-      background:var(--bg); color:var(--text);
-      transition:background .3s,color .3s;
+      font-family:'Outfit',sans-serif;
+      display:flex;
+      min-height:100vh;
+      background:var(--color-bg-dark);
+      color:var(--color-text-light);
+      overflow-y:auto;
+      position: relative;
+      transition: background-color .3s, color .3s;
     }
+    body.no-scroll { overflow:hidden; }
+    body.no-js .submenu { visibility:hidden; max-height:none; }
     aside {
-      width:250px; flex-shrink:0;
-      background:var(--bg-alt); border-right:1px solid var(--border);
-      padding:2rem 1rem; overflow-y:auto;
+      width:250px;
+      background:var(--color-sidebar-bg);
+      padding:2rem 1rem;
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+      overflow-y:auto;
+      flex-shrink:0;
+      transition:background-color .3s;
     }
     main {
-      flex:1; overflow-y:auto; background:var(--bg);
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      overflow-y:auto;
     }
-    .header {
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1.5rem; background:var(--bg-alt); border-bottom:1px solid var(--border);
+
+    /* ========== SIDEBAR ========== */
+    aside h2 {
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem;
+      border-bottom:1px solid var(--color-border-light);
+      padding-bottom:.5rem;
+      margin-bottom:1rem;
     }
-    .header h1 {
-      font-family:"Playfair Display",serif; font-size:1.6rem;
+    .sidebar-section { margin-bottom:1.5rem; }
+    .sidebar-section + .sidebar-section {
+      margin-top:1.5rem;
+      border-top:1px solid var(--color-border-medium);
+      padding-top:1rem;
     }
-    .btn-theme {
-      background:none; border:1px solid var(--border);
-      border-radius:20px; padding:.4rem .8rem;
-      color:var(--text); cursor:pointer; display:flex;
-      align-items:center; gap:.4rem; font-size:.9rem;
-      transition:background .2s;
+    aside a {
+      display:flex; align-items:center; gap:.8rem;
+      color:var(--color-text-light);
+      text-decoration:none;
+      font-weight:400;
+      padding:.7rem 1rem;
+      border-radius:6px;
+      transition:background-color .2s, color .2s, transform .2s;
     }
-    .btn-theme:hover { background:var(--border); }
-    .nav-link {
-      display:flex; align-items:center; gap:.6rem;
-      padding:.6rem 1rem; margin:.2rem 0;
-      color:var(--text); text-decoration:none; border-radius:6px;
-      transition:background .2s,transform .2s;
+    aside a:hover {
+      background-color:rgba(255,255,255,0.08);
+      color:var(--color-accent-gold);
+      transform:translateX(3px);
     }
-    .nav-link:hover {
-      background:var(--border); transform:translateX(4px);
+    aside a .fas, aside a .fab {
+      font-size:1.1rem; width:20px; text-align:center;
     }
-    .nav-link.active {
-      background:var(--gold); color:var(--bg);
-      font-weight:600; box-shadow:0 4px 12px var(--shadow);
+    aside a.active {
+      background-color:var(--color-accent-gold);
+      color:var(--color-bg-dark);
+      font-weight:600;
+      box-shadow:0 4px 8px rgba(251,176,52,0.3);
     }
-    .nav-link svg { width:20px; height:20px; fill:currentColor; }
+    aside a.active .fas, aside a.active .fab {
+      color:var(--color-bg-dark);
+    }
+    .sidebar-section .sidebar-toggler { cursor:pointer; }
+    .submenu {
+      list-style:none;
+      margin-top:.5rem; margin-left:1.5rem;
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease-out;
+    }
+    .submenu.open { overflow:visible; }
+    .submenu li { margin:.4rem 0; }
+    .submenu a {
+      color:var(--color-text-medium);
+      text-decoration:none;
+      font-size:.9rem;
+      padding:.5rem .8rem;
+      display:block;
+    }
+    .submenu a:hover { color:var(--color-accent-gold); }
+    .submenu a.active { color:var(--color-accent-gold); font-weight:600; }
+
+    /* ========== THEME SWITCH ========== */
+    .theme-switch {
+      display:flex; align-items:center; justify-content:center;
+      padding:1rem 0; border-top:1px solid var(--color-border-medium);
+      margin-top:1rem;
+    }
+    .theme-switch button {
+      background:none; border:1px solid var(--color-border-light);
+      border-radius:20px; padding:.5rem 1rem;
+      color:var(--color-text-medium); cursor:pointer;
+      font-size:.9rem; display:flex; align-items:center; gap:.5rem;
+      transition:background-color .2s, color .2s, border-color .2s;
+    }
+    .theme-switch button:hover {
+      background-color:rgba(255,255,255,0.08);
+      color:var(--color-text-light);
+    }
+    body.light-mode .theme-switch button:hover {
+      background-color:rgba(0,0,0,0.05);
+    }
+    .theme-switch button i { font-size:1.1rem; }
+
+    /* ========== HEADER ========== */
+    .main-header {
+      padding:1.5rem; background:var(--color-header-bg);
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid var(--color-border-dark);
+      transition:background-color .3s;
+    }
+    .main-header h1 {
+      font-family:'Playfair Display',serif;
+      font-size:1.8rem; color:var(--color-text-light);
+    }
+    .user-profile {
+      font-size:1.8rem; color:var(--color-text-light);
+      cursor:pointer; transition:color .2s;
+    }
+    .user-profile:hover { color:var(--color-accent-gold); }
+
+    /* ========== DASHBOARD CARDS ========== */
+    .dashboard-card {
+      background:var(--color-card-bg);
+      border-radius:12px; padding:2rem; margin:1.5rem;
+      box-shadow:0 4px 12px var(--color-shadow-dark);
+      display:flex; flex-direction:column; justify-content:space-between;
+      transition:background-color .3s, box-shadow .3s;
+    }
+    .dashboard-card h3 {
+      font-family:'Playfair Display',serif;
+      font-size:1.6rem; margin-bottom:.8rem;
+      color:var(--color-text-light);
+    }
+    .dashboard-card p {
+      font-size:1rem; line-height:1.6;
+      color:var(--color-text-medium);
+      margin-bottom:1rem; font-weight:300;
+    }
+    .welcome-hero {
+      text-align:center;
+      background:linear-gradient(135deg,var(--color-card-bg),#2a2a2a);
+      border:1px solid var(--color-border-dark);
+    }
+    body.light-mode .welcome-hero {
+      background:linear-gradient(135deg,var(--color-card-bg),#f8f8f8);
+    }
+    .welcome-hero h3 { font-size:2.5rem; margin-bottom:1rem; }
+    .welcome-hero p { font-size:1.1rem; max-width:700px; margin:0 auto 1.5rem; }
+    .hero-buttons {
+      display:flex; justify-content:center; gap:1.5rem; flex-wrap:wrap;
+      margin-top:1.5rem;
+    }
+    .btn-primary, .btn-outline {
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding:.8rem 1.8rem; border-radius:8px;
+      font-weight:600; text-decoration:none;
+      transition:transform .2s, box-shadow .2s, background-color .3s, color .3s;
+      white-space:nowrap;
+    }
+    .btn-primary {
+      background:linear-gradient(90deg,var(--color-accent-gold),var(--color-accent-gold-hover));
+      color:var(--color-bg-dark);
+      box-shadow:0 4px 10px rgba(251,176,52,0.4);
+    }
+    .btn-primary:hover {
+      transform:translateY(-2px);
+      box-shadow:0 6px 15px rgba(251,176,52,0.5);
+    }
+    .btn-primary:active {
+      transform:translateY(1px);
+      box-shadow:0 2px 5px rgba(251,176,52,0.3);
+    }
+    .btn-primary[data-loading="true"] {
+      pointer-events:none; opacity:.8; cursor:not-allowed;
+    }
+    .btn-primary[data-loading="true"] .btn-text { visibility:hidden; }
+    .btn-primary[data-loading="true"] .loader-spinner { display:inline-block; }
+    .loader-spinner {
+      display:none; width:1em; height:1em;
+      border:2px solid rgba(255,255,255,0.5);
+      border-top-color:var(--color-bg-dark);
+      border-radius:50%; animation:spin .8s linear infinite;
+    }
+    @keyframes spin { to{transform:rotate(360deg);} }
+
+    .btn-outline {
+      background:transparent;
+      border:2px solid var(--color-accent-gold);
+      color:var(--color-accent-gold);
+    }
+    .btn-outline:hover {
+      background:var(--color-accent-gold);
+      color:var(--color-bg-dark);
+      transform:translateY(-2px);
+      box-shadow:0 4px 10px rgba(251,176,52,0.4);
+    }
+    .btn-outline:active {
+      transform:translateY(1px);
+      background:var(--color-accent-gold);
+      box-shadow:0 2px 5px rgba(251,176,52,0.3);
+    }
   </style>
 </head>
-<body>
-  <aside>
+<body class="no-js">
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
     <h2>SELEZIONE</h2>
-    <a href="#" class="nav-link" data-view="home">
-      <svg><!-- icône home --></svg>Accueil
-    </a>
-    <a href="#" class="nav-link" data-view="fournisseur">
-      <svg><!-- icône box --></svg>Module Fournisseur
-    </a>
-    <a href="#" class="nav-link" data-view="marge">
-      <svg><!-- icône abacus --></svg>Calculateur de marge
-    </a>
-    <a href="#" class="nav-link" data-view="tchat">
-      <svg><!-- icône chat --></svg>Tchat SELEZIONE
-    </a>
-    <a href="#" class="nav-link" data-view="actu">
-      <svg><!-- icône newspaper --></svg>Actu Direct
-    </a>
-    <a href="#" class="nav-link" data-view="image">
-      <svg><!-- icône image --></svg>IA + Image
-    </a>
-    <a href="#" class="nav-link" data-view="fiche">
-      <svg><!-- icône pencil --></svg>Fiche Produit
-    </a>
-    <a href="#" class="nav-link" data-view="estimation">
-      <svg><!-- icône diamond --></svg>Estimation
-    </a>
-    <a href="#" class="nav-link" data-view="scraper">
-      <svg><!-- icône magnifier --></svg>Scraper VC
-    </a>
-    <a href="#" class="nav-link" data-view="commandes">
-      <svg><!-- icône package --></svg>Commandes
-    </a>
-    <a href="#" class="nav-link" data-view="formation">
-      <svg><!-- icône graduation cap --></svg>Formations
-    </a>
-    <button class="btn-theme" id="toggleThemeAside">
-      <i class="fas fa-moon"></i> Thème
-    </button>
-  </aside>
-  <main>
-    <div class="header">
-      <h1 id="pageTitle">Bienvenue</h1>
-      <button class="btn-theme" id="toggleThemeMain">
-        <i class="fas fa-moon"></i>
+
+    <div class="sidebar-section">
+      <a href="index.html" class="nav-link" aria-label="Tableau de bord">
+        <i class="fas fa-home"></i> Tableau de bord
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu" aria-label="Sourcing & Veille">
+        <i class="fas fa-gem"></i> Sourcing & Veille Luxe
+      </a>
+      <ul class="submenu" id="sourcing-submenu">
+        <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
+        <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
+        <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
+        <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
+        <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu" aria-label="Opérations">
+        <i class="fas fa-cogs"></i> Gestion & Opérations Premium
+      </a>
+      <ul class="submenu" id="operations-submenu">
+        <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
+        <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
+        <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
+        <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
+        <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
+        <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu" aria-label="Analyse & Stratégie">
+        <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
+      </a>
+      <ul class="submenu" id="analyse-submenu">
+        <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
+        <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu" aria-label="Académie">
+        <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
+      </a>
+      <ul class="submenu" id="academie-submenu">
+        <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
+        <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
+        <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
+        <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
+        <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu" aria-label="Support">
+        <i class="fas fa-headset"></i> Support Privilège & Communauté
+      </a>
+      <ul class="submenu" id="support-submenu">
+        <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
+        <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
+        <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
+        <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+      </ul>
+    </div>
+
+    <div class="theme-switch">
+      <button id="themeToggle" aria-label="Changer de thème">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span id="themeText">Mode Sombre</span>
       </button>
     </div>
-    <div id="app"><!-- contenu injecté ici --></div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <header class="main-header">
+      <h1>Votre Tableau de Bord SELEZIONE</h1>
+      <div class="user-profile" role="button" aria-label="Profil Utilisateur" loading="lazy">
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <section class="dashboard-card welcome-hero">
+      <h3>Bienvenue sur SELEZIONE, votre Partenaire Luxe IA</h3>
+      <p>Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. Tous vos outils IA, vos formations et votre communauté au même endroit.</p>
+      <div class="hero-buttons">
+        <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
+          <span class="btn-text">🚀 Démarrer</span>
+          <span class="loader-spinner"></span>
+        </a>
+        <a href="support-faq.html" class="btn-outline">💡 Aide & FAQ</a>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      <section class="dashboard-card">
+        <h3>Vos Performances</h3>
+        <p>Suivez vos marges, vos volumes de commandes et l’évolution du marché.</p>
+        <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Opportunités IA</h3>
+        <p>Notre IA identifie les tendances fortes : sacs vintage, sneakers édition limitée, etc.</p>
+        <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Dernières Commandes</h3>
+        <p>2 commandes en attente, 1 expédiée hier.</p>
+        <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
+      </section>
+
+      <section class="dashboard-card">
+        <h3>Formation en cours</h3>
+        <p>Prochaine étape : Fonctionnement des Marques.</p>
+        <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
+      </section>
+    </div>
+
+    <section class="content-block">
+      <h2>Actualités & Insights Luxe</h2>
+      <p>Restez informé des dernières évolutions du prêt-à-porter de luxe et des stratégies IA.</p>
+      <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
+    </section>
   </main>
+  <!-- NAVIGATION MOBILE -->
+  <nav class="mobile-nav-bar">
+    <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 ..."/></svg>
+      <span>Accueil</span>
+    </a>
+    <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 ..."/></svg>
+      <span>Veille</span>
+    </a>
+    <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 ..."/></svg>
+      <span>Commandes</span>
+    </a>
+    <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320 ..."/></svg>
+      <span>Académie</span>
+    </a>
+    <a href="#" id="menuButton" class="mobile-nav-link" role="button" aria-label="Ouvrir le menu mobile">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 ..."/></svg>
+      <span>Menu</span>
+    </a>
+  </nav>
 
-  <!-- TEMPLATES MODULES -->
-  <template id="home">
-    <section style="padding:1.5rem;">
-      <h2>Bienvenue sur SELEZIONE</h2>
-      <p>Pilotez votre activité luxe IA en quelques clics.</p>
-    </section>
-  </template>
-
-  <template id="commandes">
-    <section style="padding:1.5rem;">
-      <h2>Module Commandes</h2>
-      <form id="commande-form">
-        <label>👤 Nom du membre<input id="user" required></label><br/>
-        <label>📁 Nom du fichier<input id="fichier" required></label><br/>
-        <label>🛒 Sélections (JSON)<textarea id="selections" required>[{"ligne":10,"taille":"M","quantite":2}]</textarea></label><br/>
-        <button type="submit" class="btn-send" style="margin-top:1rem;
-          background:var(--gold);color:var(--bg);padding:.6rem 1.2rem;
-          border:none;border-radius:6px;cursor:pointer;">
-          ✅ Envoyer
+  <!-- OVERLAY MENU MOBILE -->
+  <div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menu mobile">
+    <div class="mobile-menu-content">
+      <button class="close-button" id="closeMenuButton" aria-label="Fermer le menu mobile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 ..."/></svg>
+      </button>
+      <h2>Navigation SELEZIONE</h2>
+      <!-- (Copiez ici les mêmes blocs .sidebar-section que dans <aside>) -->
+      <!-- ... -->
+      <div class="theme-switch">
+        <button id="themeToggleMobile" aria-label="Changer de thème">
+          <i class="fas fa-moon" id="themeIconMobile"></i>
+          <span id="themeTextMobile">Mode Sombre</span>
         </button>
-        <div id="feedback" style="margin-top:.8rem;font-weight:600;"></div>
-      </form>
-    </section>
-  </template>
+      </div>
+    </div>
+  </div>
 
-  <!-- stub pour les autres -->
-  <template id="fournisseur"><section style="padding:1.5rem;"><h2>Module Fournisseur</h2></section></template>
-  <template id="marge"><section style="padding:1.5rem;"><h2>Calculateur de marge</h2></section></template>
-  <template id="tchat"><section style="padding:1.5rem;"><h2>Tchat SELEZIONE</h2></section></template>
-  <template id="actu"><section style="padding:1.5rem;"><h2>Actu Direct</h2></section></template>
-  <template id="image"><section style="padding:1.5rem;"><h2>IA + Image</h2></section></template>
-  <template id="fiche"><section style="padding:1.5rem;"><h2>Fiche Produit</h2></section></template>
-  <template id="estimation"><section style="padding:1.5rem;"><h2>Estimation</h2></section></template>
-  <template id="scraper"><section style="padding:1.5rem;"><h2>Scraper VC</h2></section></template>
-  <template id="formation"><section style="padding:1.5rem;"><h2>Formations</h2></section></template>
-
-  <!-- ROUTER & LOGIQUE -->
+  <!-- SCRIPT DE GESTION MENU & THEME -->
   <script>
-    const app = document.getElementById('app'),
-          links = document.querySelectorAll('.nav-link'),
-          pageTitle = document.getElementById('pageTitle');
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.remove('no-js');
+      // Variables
+      const togglers = document.querySelectorAll('.sidebar-toggler');
+      const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+      const menuButton = document.getElementById('menuButton');
+      const closeMenuButton = document.getElementById('closeMenuButton');
+      const startBtn = document.getElementById('startBtn');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeIcon = document.getElementById('themeIcon');
+      const themeText = document.getElementById('themeText');
+      const themeToggleMobile = document.getElementById('themeToggleMobile');
+      const themeIconMobile = document.getElementById('themeIconMobile');
+      const themeTextMobile = document.getElementById('themeTextMobile');
 
-    function render(view) {
-      const tpl = document.getElementById(view);
-      if (!tpl) return;
-      app.innerHTML = tpl.innerHTML;
-      const h = tpl.content.querySelector('h2')?.textContent || '';
-      pageTitle.textContent = h;
-      links.forEach(a => a.classList.toggle('active', a.dataset.view===view));
-
-      if (view==='commandes') {
-        document.getElementById('commande-form').addEventListener('submit', e=>{
-          e.preventDefault();
-          let fb = document.getElementById('feedback');
-          try {
-            JSON.parse(document.getElementById('selections').value);
-            fb.textContent = '✅ Commande envoyée !'; fb.style.color= 'var(--gold)';
-          } catch {
-            fb.textContent = '❌ JSON invalide'; fb.style.color = 'tomato';
+      // Ouvre/ferme les sous‐menus
+      function closeAllSubmenus(except=null){
+        document.querySelectorAll('.submenu.open').forEach(sm=>{
+          if(sm!==except){
+            sm.style.maxHeight='0'; sm.classList.remove('open');
+            sm.previousElementSibling.setAttribute('aria-expanded','false');
           }
         });
       }
-    }
+      togglers.forEach(t=>{
+        t.addEventListener('click',e=>{
+          e.preventDefault();
+          const sm=t.nextElementSibling;
+          const open=sm.classList.contains('open');
+          closeAllSubmenus(open?null:sm);
+          if(!open){
+            sm.classList.add('open');
+            sm.style.maxHeight=sm.scrollHeight+'px';
+            t.setAttribute('aria-expanded','true');
+          }
+        });
+      });
 
-    links.forEach(a=>{
-      a.onclick = e=>{
+      // Mobile menu overlay
+      menuButton.addEventListener('click',e=>{
         e.preventDefault();
-        render(a.dataset.view);
-      };
+        mobileMenuOverlay.classList.add('open');
+        document.body.classList.add('no-scroll');
+        closeAllSubmenus();
+      });
+      closeMenuButton.addEventListener('click',()=>{
+        mobileMenuOverlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      });
+      mobileMenuOverlay.addEventListener('click',e=>{
+        if(e.target===mobileMenuOverlay){
+          mobileMenuOverlay.classList.remove('open');
+          document.body.classList.remove('no-scroll');
+        }
+      });
+
+      // Bouton Démarrer feedback
+      if(startBtn){
+        startBtn.addEventListener('click',e=>{
+          startBtn.setAttribute('data-loading','true');
+          setTimeout(()=>{
+            startBtn.setAttribute('data-loading','false');
+          },1500);
+        });
+      }
+
+      // Thème clair/sombre
+      function applyTheme(t){
+        if(t==='light'){
+          document.body.classList.add('light-mode');
+          themeIcon.classList.replace('fa-moon','fa-sun');
+          themeText.textContent='Mode Clair';
+          themeIconMobile.classList.replace('fa-moon','fa-sun');
+          themeTextMobile.textContent='Mode Clair';
+        }else{
+          document.body.classList.remove('light-mode');
+          themeIcon.classList.replace('fa-sun','fa-moon');
+          themeText.textContent='Mode Sombre';
+          themeIconMobile.classList.replace('fa-sun','fa-moon');
+          themeTextMobile.textContent='Mode Sombre';
+        }
+        localStorage.setItem('theme',t);
+      }
+      const saved=localStorage.getItem('theme');
+      if(saved) applyTheme(saved);
+      else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) applyTheme('light');
+      else applyTheme('dark');
+
+      themeToggle.addEventListener('click',()=>applyTheme(document.body.classList.contains('light-mode')?'dark':'light'));
+      themeToggleMobile.addEventListener('click',()=>applyTheme(document.body.classList.contains('light-mode')?'dark':'light'));
     });
-
-    // Thème
-    function toggleTheme() {
-      document.body.classList.toggle('light');
-      localStorage.setItem('theme', document.body.classList.contains('light')?'light':'dark');
-    }
-    document.getElementById('toggleThemeAside').onclick = toggleTheme;
-    document.getElementById('toggleThemeMain').onclick = toggleTheme;
-    if (localStorage.getItem('theme')==='light') document.body.classList.add('light');
-
-    // init
-    render('home');
   </script>
-
 </body>
 </html>
