@@ -1,1070 +1,1315 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>SELEZIONE – Tableau de bord</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <style>
-    /* VARIABLES DE COULEURS (Avec prise en compte du mode clair/sombre) */
-    :root {
-        /* Dark Mode (par défaut) */
-        --color-bg-dark: #121212;
-        --color-sidebar-bg: #111111;
-        --color-header-bg: #181818;
-        --color-card-bg: #1f1f1f;
-        --color-border-dark: #222222;
-        --color-border-medium: #333333;
-        --color-border-light: #444444;
-
-        --color-text-light: #ffffff;
-        --color-text-medium: #dddddd;
-        --color-text-dark: #aaa; /* Pour mobile nav bar */
-        --color-text-skeleton: #333; /* Couleur de base du skeleton */
-        --color-skeleton-highlight: #444; /* Couleur de l'animation du skeleton */
-
-        --color-accent-gold: #fbb034;
-        --color-accent-gold-hover: #ffdd00;
-
-        --color-shadow-dark: rgba(0,0,0,0.5);
-        --color-shadow-light: rgba(0,0,0,0.1);
-    }
-
-    /* Light Mode */
-    body.light-mode {
-        --color-bg-dark: #f0f2f5; /* Fond principal clair */
-        --color-sidebar-bg: #ffffff; /* Sidebar claire */
-        --color-header-bg: #e0e2e5; /* Header clair */
-        --color-card-bg: #ffffff; /* Cartes claires */
-        --color-border-dark: #cccccc;
-        --color-border-medium: #bbbbbb;
-        --color-border-light: #aaaaaa;
-
-        --color-text-light: #333333; /* Texte sombre sur fond clair */
-        --color-text-medium: #555555;
-        --color-text-dark: #777; /* Pour mobile nav bar */
-        --color-text-skeleton: #e0e0e0;
-        --color-skeleton-highlight: #f5f5f5;
-
-        --color-accent-gold: #e6a000; /* Un peu moins vif en mode clair */
-        --color-accent-gold-hover: #ffbb00;
-
-        --color-shadow-dark: rgba(0,0,0,0.1);
-        --color-shadow-light: rgba(0,0,0,0.05);
-    }
-
-
-    /* ========== RESET & LAYOUT ========== */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family:'Outfit',sans-serif;
-      display:flex;
-      min-height:100vh;
-      background:var(--color-bg-dark);
-      color:var(--color-text-light);
-      overflow-y:auto; /* Permet le scroll par défaut */
-      position: relative; /* Pour positionner l'overlay mobile */
-      transition: background-color .3s, color .3s; /* Transition fluide entre modes */
-    }
-
-    /* Empêche le scroll quand l'overlay mobile est ouvert (sur les écrans appropriés) */
-    body.no-scroll {
-        overflow: hidden;
-    }
-
-    aside {
-      width:250px;
-      background:var(--color-sidebar-bg);
-      padding:2rem 1rem;
-      display:flex;
-      flex-direction:column;
-      gap:1rem;
-      overflow-y:auto; /* Permet le défilement de la sidebar */
-      flex-shrink: 0; /* Empêche la sidebar de se rétrécir */
-      transition: background-color .3s;
-    }
-    main {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      overflow-y:auto; /* Permet le défilement du contenu principal */
-    }
-
-    /* ========== SIDEBAR ========== */
-    aside h2 {
-      font-family:'Playfair Display',serif;
-      font-size:1.8rem;
-      border-bottom:1px solid var(--color-border-light);
-      padding-bottom:.5rem;
-      margin-bottom:1rem;
-    }
-    .sidebar-section {
-        margin-bottom: 1.5rem;
-    }
-    .sidebar-section + .sidebar-section {
-      margin-top:1.5rem;
-      border-top:1px solid var(--color-border-medium);
-      padding-top:1rem;
-    }
-    aside a {
-      display:flex;
-      align-items:center;
-      gap:.8rem;
-      color:var(--color-text-light);
-      text-decoration:none;
-      font-weight:400;
-      padding: 0.7rem 1rem;
-      border-radius: 6px;
-      transition: background-color .2s, color .2s, transform .2s;
-    }
-    aside a:hover {
-      background-color: rgba(255, 255, 255, 0.08);
-      color: var(--color-accent-gold);
-      transform: translateX(3px);
-    }
-    aside a .fas, aside a .fab {
-        font-size: 1.1rem;
-        width: 20px;
-        text-align: center;
-    }
-    aside a.active {
-        background-color: var(--color-accent-gold);
-        color: var(--color-bg-dark);
-        font-weight: 600;
-        box-shadow: 0 4px 8px rgba(251, 176, 52, 0.3);
-    }
-    aside a.active .fas, aside a.active .fab {
-        color: var(--color-bg-dark);
-    }
-
-    .sidebar-section .sidebar-toggler {
-      cursor:pointer;
-    }
-    .submenu {
-      list-style:none;
-      margin-top:0.5rem;
-      margin-left:1.5rem;
-      max-height:0;
-      overflow:hidden;
-      transition:max-height .3s ease-out;
-    }
-    /* Classe pour éviter le FOUC (Flash Of Unstyled Content) avant que JS ne gère l'ouverture */
-    body.no-js .submenu {
-        visibility: hidden;
-        max-height: none;
-    }
-    .submenu.open {
-      overflow: visible;
-    }
-    .submenu li {
-      margin:.4rem 0;
-    }
-    .submenu a {
-      color:var(--color-text-medium);
-      text-decoration:none;
-      font-size:.9rem;
-      padding: 0.5rem 0.8rem;
-    }
-    .submenu a:hover {
-        background-color: transparent;
-        color: var(--color-accent-gold);
-        transform: translateX(0);
-    }
-    .submenu a.active {
-      background-color: transparent;
-      color: var(--color-accent-gold);
-      font-weight: 600;
-      box-shadow: none;
-    }
-
-    /* Mode Switch */
-    .theme-switch {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 1rem 0;
-        border-top: 1px solid var(--color-border-medium);
-        margin-top: 1rem;
-    }
-    .theme-switch button {
-        background: none;
-        border: 1px solid var(--color-border-light);
-        border-radius: 20px;
-        padding: 0.5rem 1rem;
-        color: var(--color-text-medium);
-        cursor: pointer;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-    }
-    .theme-switch button:hover {
-        background-color: rgba(255, 255, 255, 0.08);
-        color: var(--color-text-light);
-    }
-    body.light-mode .theme-switch button:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
-    .theme-switch button i {
-        font-size: 1.1rem;
-    }
-
-
-    /* ========== ACCESSIBILITY FOCUS STATES ========== */
-    a:focus-visible,
-    button:focus-visible {
-        outline: 2px solid var(--color-accent-gold-hover);
-        outline-offset: 3px;
-        border-radius: 4px;
-    }
-    a:focus:not(:focus-visible),
-    button:focus:not(:focus-visible) {
-        outline: none;
-    }
-
-    /* ========== HEADER (MAIN CONTENT) ========== */
-    .main-header {
-      padding:1.5rem;
-      background:var(--color-header-bg);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      border-bottom:1px solid var(--color-border-dark);
-      transition: background-color .3s;
-    }
-    .main-header h1 {
-      font-family:'Playfair Display',serif;
-      font-size:1.8rem;
-      color:var(--color-text-light);
-    }
-    .user-profile {
-        font-size:1.8rem;
-        color:var(--color-text-light);
-        cursor:pointer;
-        transition: color .2s;
-    }
-    .user-profile:hover {
-        color: var(--color-accent-gold);
-    }
-
-    /* ========== DASHBOARD CARDS ========== */
-    .dashboard-card {
-      background:var(--color-card-bg);
-      border-radius:12px;
-      padding:2rem;
-      margin:1.5rem;
-      box-shadow:0 4px 12px var(--color-shadow-dark);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: background-color .3s, box-shadow .3s;
-    }
-    .dashboard-card h3 {
-        font-family:'Playfair Display',serif;
-        font-size:1.6rem;
-        margin-bottom:0.8rem;
-        color:var(--color-text-light);
-    }
-    .dashboard-card p {
-        font-size:1rem;
-        line-height:1.6;
-        color:var(--color-text-medium);
-        margin-bottom:1rem;
-        font-weight: 300;
-    }
-
-    /* Welcome Hero Card */
-    .welcome-hero {
-        text-align:center;
-        background: linear-gradient(135deg, var(--color-card-bg), #2a2a2a);
-        border: 1px solid var(--color-border-dark);
-    }
-    body.light-mode .welcome-hero {
-        background: linear-gradient(135deg, var(--color-card-bg), #f8f8f8);
-    }
-
-    .welcome-hero h3 {
-        font-size:2.5rem;
-        margin-bottom:1rem;
-    }
-    .welcome-hero p {
-        font-size:1.1rem;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom:1.5rem;
-    }
-    .hero-buttons {
-      margin-top:1.5rem;
-      display:flex;
-      justify-content:center;
-      gap:1.5rem;
-      flex-wrap:wrap;
-    }
-    .btn-primary, .btn-outline {
-      display:inline-flex;
-      align-items:center;
-      gap:.6rem;
-      padding:.8rem 1.8rem;
-      border-radius:8px;
-      font-weight:600;
-      text-decoration:none;
-      transition:transform .2s, box-shadow .2s, background-color .3s, color .3s;
-      white-space: nowrap; /* Empêche le texte de se casser sur plusieurs lignes */
-    }
-    .btn-primary {
-      background:linear-gradient(90deg, var(--color-accent-gold), var(--color-accent-gold-hover));
-      color:var(--color-bg-dark);
-      box-shadow:0 4px 10px rgba(251, 176, 52, 0.4);
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow:0 6px 15px rgba(251, 176, 52, 0.5);
-    }
-    .btn-primary:active { /* Feedback au clic */
-        transform: translateY(1px);
-        box-shadow: 0 2px 5px rgba(251, 176, 52, 0.3);
-    }
-
-    /* Bouton "Démarrer" avec feedback visuel de chargement */
-    .btn-primary[data-loading="true"] {
-        pointer-events: none; /* Désactive le clic pendant le chargement */
-        opacity: 0.8;
-        cursor: not-allowed;
-    }
-    .btn-primary[data-loading="true"] .btn-text {
-        visibility: hidden; /* Cache le texte */
-    }
-    .btn-primary[data-loading="true"] .loader-spinner {
-        display: inline-block; /* Affiche le spinner */
-    }
-    .loader-spinner {
-        display: none;
-        width: 1em;
-        height: 1em;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        border-top-color: var(--color-bg-dark);
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin {
-        to { transform: rotate(360deg); }
-    }
-
-
-    .btn-outline {
-      background:transparent;
-      border:2px solid var(--color-accent-gold);
-      color:var(--color-accent-gold);
-      box-shadow: none;
-    }
-    .btn-outline:hover {
-      background:var(--color-accent-gold);
-      color:var(--color-bg-dark);
-      transform: translateY(-2px);
-      box-shadow:0 4px 10px rgba(251, 176, 52, 0.4);
-    }
-    .btn-outline:active {
-        transform: translateY(1px);
-        background: var(--color-accent-gold);
-        box-shadow: 0 2px 5px rgba(251, 176, 52, 0.3);
-    }
-
-    /* ========== GRID CARDS ========== */
-    .dashboard-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:1.5rem;
-      padding:0 1.5rem 1.5rem;
-    }
-    .card-link {
-      margin-top:1.5rem;
-      display:inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color:var(--color-accent-gold);
-      font-weight:600;
-      text-decoration:none;
-      transition: transform .2s, color .2s;
-    }
-    .card-link:hover {
-        transform: translateX(5px);
-        color: var(--color-accent-gold-hover);
-    }
-    .card-link i { margin-left:.3rem; }
-
-    /* ========== CONTENT BLOCK (En bas du Main) ========== */
-    .content-block {
-      background:var(--color-card-bg);
-      border-radius:12px;
-      padding:2rem;
-      margin:1.5rem;
-      box-shadow:0 4px 12px var(--color-shadow-dark);
-      transition: background-color .3s, box-shadow .3s;
-    }
-    .content-block h2 {
-        font-family:'Playfair Display',serif;
-        font-size:1.8rem;
-        margin-bottom:1rem;
-        color:var(--color-text-light);
-    }
-    .content-block p {
-        font-size:1rem;
-        line-height:1.6;
-        color:var(--color-text-medium);
-        margin-bottom:1.5rem;
-        font-weight: 300;
-    }
-
-    /* ========== SKELETON LOADER (Placeholders pour contenu dynamique) ========== */
-    @keyframes pulse-bg {
-        0% { background-color: var(--color-text-skeleton); }
-        50% { background-color: var(--color-skeleton-highlight); }
-        100% { background-color: var(--color-text-skeleton); }
-    }
-    .skeleton-text {
-        background-color: var(--color-text-skeleton);
-        animation: pulse-bg 1.5s infinite;
-        border-radius: 4px;
-        height: 1em; /* Hauteur de ligne */
-        margin-bottom: 0.5em;
-    }
-    .skeleton-text.short { width: 60%; }
-    .skeleton-text.medium { width: 80%; }
-    .skeleton-text.long { width: 95%; }
-
-    .skeleton-card {
-        background-color: var(--color-text-skeleton);
-        animation: pulse-bg 1.5s infinite;
-        border-radius: 12px;
-        height: 150px; /* Hauteur de carte typique */
-        margin-bottom: 1rem;
-    }
-
-
-    /* ========== MOBILE NAV BAR (Barre fixe en bas) ========== */
-    .mobile-nav-bar {
-      display:none;
-      position:fixed;
-      bottom:0; left:0; right:0;
-      height:70px;
-      background:var(--color-header-bg);
-      border-top:1px solid var(--color-border-dark);
-      justify-content:space-around;
-      align-items:center;
-      z-index:100;
-      transition: background-color .3s, border-color .3s;
-    }
-    .mobile-nav-bar a {
-      color:var(--color-text-dark);
-      text-decoration:none;
-      font-size:.75rem;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:5px;
-      padding: 0.5rem;
-      transition: color .2s, transform .2s;
-    }
-    .mobile-nav-bar a svg { /* Style des SVG inline */
-        width: 24px;
-        height: 24px;
-        fill: currentColor; /* Permet de changer la couleur du SVG avec 'color' CSS */
-    }
-    .mobile-nav-bar a:hover {
-        color: var(--color-accent-gold);
-        transform: translateY(-3px);
-    }
-    .mobile-nav-bar a.active {
-        color:var(--color-accent-gold);
-        transform: translateY(-3px);
-    }
-
-    /* ========== MOBILE MENU OVERLAY ========== */
-    #mobileMenuOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        z-index: 200;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    #mobileMenuOverlay.open {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .mobile-menu-content {
-        background: var(--color-sidebar-bg);
-        padding: 2rem 1.5rem;
-        width: 90%;
-        max-width: 400px;
-        border-radius: 15px;
-        overflow-y: auto;
-        max-height: 90vh;
-        box-shadow: 0 5px 25px var(--color-shadow-dark);
-        position: relative;
-        color: var(--color-text-light);
-        transition: background-color .3s;
-    }
-
-    .mobile-menu-content .close-button {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        background: none;
-        border: none;
-        font-size: 2rem;
-        color: var(--color-text-light);
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-    .mobile-menu-content .close-button:hover {
-        color: var(--color-accent-gold);
-    }
-    .mobile-menu-content .close-button svg { /* Style des SVG inline */
-        width: 30px; /* Plus grande pour un bouton de fermeture */
-        height: 30px;
-        fill: currentColor;
-    }
-
-    .mobile-menu-content h2 {
-        font-family:'Playfair Display',serif;
-        font-size:2rem;
-        border-bottom:1px solid var(--color-border-light);
-        padding-bottom:.8rem;
-        margin-bottom:1.5rem;
-        text-align: center;
-    }
-
-    /* Styles pour les liens et sous-menus dans l'overlay mobile */
-    .mobile-menu-content .sidebar-section {
-        margin-bottom: 1rem;
-    }
-    .mobile-menu-content .sidebar-section:last-of-type {
-        margin-bottom: 0;
-    }
-    .mobile-menu-content a {
-        padding: 0.7rem 1rem;
-        font-size: 1rem;
-        gap: 0.8rem;
-    }
-    .mobile-menu-content a .fas, .mobile-menu-content a .fab {
-        font-size: 1.1rem;
-        width: 20px;
-    }
-    .mobile-menu-content .submenu {
-        margin-left: 1.2rem;
-        margin-top: 0.3rem;
-    }
-    .mobile-menu-content .submenu a {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
-    }
-
-
-    /* ========== RESPONSIVE ========== */
-    @media(max-width:992px) { /* Tablette (légers ajustements) */
-        aside { width:220px; padding:1.5rem 0.8rem; }
-        aside h2 { font-size:1.6rem; margin-bottom:1.5rem; }
-        aside a { font-size:0.95rem; padding:0.6rem 0.8rem; }
-        aside a .fas, aside a .fab { font-size:1rem; width:18px; }
-        aside .sidebar-section { margin-bottom: 1rem; }
-        aside .sidebar-section + .sidebar-section { margin-top:1rem; padding-top:0.8rem; }
-        .submenu a { font-size:0.85rem; padding:0.4rem 0.6rem; }
-
-        .main-header h1 { font-size:1.6rem; }
-        .dashboard-card { padding:1.5rem; margin:1rem; }
-        .dashboard-card h3 { font-size:1.4rem; }
-        .dashboard-card p { font-size:0.9rem; }
-        .welcome-hero h3 { font-size:2rem; }
-        .welcome-hero p { font-size:1rem; }
-        .btn-primary, .btn-outline { padding:.6rem 1.2rem; font-size:0.9rem; }
-        .dashboard-grid { grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; padding:0 1rem 1rem; }
-        .content-block { padding:1.5rem; margin:1rem; }
-        .content-block h2 { font-size:1.6rem; }
-    }
-
-    @media(max-width:768px) { /* Mobile */
-      body {
-        padding-bottom: 70px;
-      }
-      aside {
-        display: none;
-      }
-      main {
-        margin-left:0;
-        padding: 1rem;
-      }
-      .main-header {
-        padding: 0.8rem 1rem;
-      }
-      .main-header h1 {
-        font-size: 1.4rem;
-      }
-      .user-profile {
-        font-size: 1.5rem;
-      }
-
-      .dashboard-card {
-        padding:1.2rem;
-        margin:0.8rem 0;
-      }
-      .dashboard-card h3 { font-size:1.2rem; }
-      .dashboard-card p { font-size:0.85rem; }
-      .welcome-hero { padding:1.5rem; margin:0.8rem 0; }
-      .welcome-hero h3 { font-size:1.8rem; }
-      .welcome-hero p { font-size:0.9rem; margin-bottom:1rem;}
-      .hero-buttons { flex-direction:column; gap:0.8rem; }
-      .btn-primary, .btn-outline { width:100%; text-align:center; justify-content:center; }
-
-      .dashboard-grid {
-        grid-template-columns:1fr;
-        gap:0.8rem;
-        padding:0 0.8rem 0.8rem;
-      }
-      .content-block {
-        padding:1.2rem;
-        margin:0.8rem 0;
-      }
-      .content-block h2 { font-size:1.4rem; }
-
-      .mobile-nav-bar {
-        display:flex;
-      }
-
-      #mobileMenuOverlay {
-          display: flex;
-      }
-    }
-
-    /* S'assurer que l'overlay est caché sur les écrans plus grands que mobile */
-    @media (min-width: 769px) {
-        #mobileMenuOverlay {
-            display: none !important;
-        }
-        /* Assure que le body scroll normalement sur desktop */
-        body.no-scroll {
-            overflow-y: auto !important;
-        }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SELEZIONE - Votre Tableau de Bord Luxe IA</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="no-js"> <aside id="sidebar">
-    <h2>SELEZIONE</h2>
+<body class="no-js">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="Logo SELEZIONE" class="logo"> </div>
 
-    <div class="sidebar-section">
-        <a href="index.html" class="nav-link" aria-label="Tableau de bord"><i class="fas fa-home"></i> Tableau de bord</a>
-    </div>
+        <div class="sidebar-section">
+            <a href="index.html" class="nav-link" aria-label="Tableau de bord">
+                <i class="fas fa-home"></i> Tableau de bord
+            </a>
+        </div>
 
-    <div class="sidebar-section">
-        <a href="#" class="sidebar-toggle
-          r" aria-expanded="false" aria-controls="sourcing-submenu" aria-label="Sourcing et Veille Luxe"><i class="fas fa-gem"></i> Sourcing & Veille Luxe</a>
-        <ul class="submenu" id="sourcing-submenu">
-            <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-            <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-            <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-            <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-            <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
-        </ul>
-    </div>
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="sourcing-submenu" aria-label="Sourcing et Veille Luxe">
+                <i class="fas fa-gem"></i> Sourcing & Veille Luxe
+            </a>
+            <ul class="submenu" id="sourcing-submenu">
+                <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
+                <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
+                <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
+                <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
+                <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
+            </ul>
+        </div>
 
-    <div class="sidebar-section">
-        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu" aria-label="Gestion et Opérations Premium"><i class="fas fa-cogs"></i> Gestion & Opérations Premium</a>
-        <ul class="submenu" id="operations-submenu">
-            <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-            <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-            <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-            <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-            <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-            <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
-        </ul>
-    </div>
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="operations-submenu" aria-label="Gestion et Opérations Premium">
+                <i class="fas fa-cogs"></i> Gestion & Opérations Premium
+            </a>
+            <ul class="submenu" id="operations-submenu">
+                <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
+                <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
+                <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
+                <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
+                <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
+                <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+            </ul>
+        </div>
 
-    <div class="sidebar-section">
-        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu" aria-label="Analyse et Stratégie IA"><i class="fas fa-chart-line"></i> Analyse & Stratégie IA</a>
-        <ul class="submenu" id="analyse-submenu">
-            <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-            <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
-        </ul>
-    </div>
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="analyse-submenu" aria-label="Analyse et Stratégie IA">
+                <i class="fas fa-chart-line"></i> Analyse & Stratégie IA
+            </a>
+            <ul class="submenu" id="analyse-submenu">
+                <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
+                <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+            </ul>
+        </div>
 
-    <div class="sidebar-section">
-        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu" aria-label="Académie SELEZIONE"><i class="fas fa-graduation-cap"></i> Académie SELEZIONE</a>
-        <ul class="submenu" id="academie-submenu">
-            <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-            <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-            <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-            <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-            <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-        </ul>
-    </div>
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="academie-submenu" aria-label="Académie SELEZIONE">
+                <i class="fas fa-graduation-cap"></i> Académie SELEZIONE
+            </a>
+            <ul class="submenu" id="academie-submenu">
+                <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
+                <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
+                <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
+                <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
+                <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
+            </ul>
+        </div>
 
-    <div class="sidebar-section">
-        <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu" aria-label="Support Privilège et Communauté"><i class="fas fa-headset"></i> Support Privilège & Communauté</a>
-        <ul class="submenu" id="support-submenu">
-            <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-            <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-            <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-            <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
-        </ul>
-    </div>
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="support-submenu" aria-label="Support Privilège et Communauté">
+                <i class="fas fa-headset"></i> Support Privilège & Communauté
+            </a>
+            <ul class="submenu" id="support-submenu">
+                <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
+                <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
+                <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
+                <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+            </ul>
+        </div>
 
-    <div class="theme-switch">
-        <button id="themeToggle" aria-label="Changer de thème (clair ou sombre)">
-            <i class="fas fa-moon" id="themeIcon"></i> <span id="themeText">Mode Sombre</span>
-        </button>
-    </div>
-  </aside>
+        <div class="theme-switch">
+            <button id="themeToggle" aria-label="Changer de thème (clair ou sombre)">
+                <i class="fas fa-moon" id="themeIcon"></i> <span id="themeText">Mode Sombre</span>
+            </button>
+        </div>
+    </aside>
 
-  <main>
-    <header class="main-header">
-      <h1>Votre Tableau de Bord SELEZIONE</h1>
-      <div class="user-profile" role="button" aria-label="Profil Utilisateur" loading="lazy"><i class="fas fa-user-circle"></i></div>
-    </header>
+    ```
+      <main class="main-content">
+        <header class="main-header">
+            <h1 class="main-title">Votre Tableau de Bord SELEZIONE</h1>
+            <div class="user-profile" role="button" aria-label="Profil Utilisateur">
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </header>
 
-    <section class="dashboard-card welcome-hero">
-      <h3>Bienvenue sur SELEZIONE, votre Partenaire Luxe IA</h3>
-      <p>Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. Tous vos outils IA, vos formations et votre communauté au même endroit.</p>
-      <div class="hero-buttons">
-        <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
-            <span class="btn-text">🚀 Démarrer</span>
-            <span class="loader-spinner"></span>
+        <section class="dashboard-card welcome-hero">
+            <h2 class="section-title">Bienvenue sur SELEZIONE, votre Partenaire Luxe IA</h2>
+            <p class="section-description">Pilotez votre business d'achat-revente de prêt-à-porter de luxe avec intelligence et précision. Tous vos outils IA, vos formations et votre communauté au même endroit.</p>
+            <div class="hero-buttons">
+                <a href="onboarding-guide.html" class="btn-primary" id="startBtn">
+                    <span class="btn-text">🚀 Démarrer</span>
+                    <span class="loader-spinner"></span>
+                </a>
+                <a href="support-faq.html" class="btn-outline">💡 Aide & FAQ</a>
+            </div>
+        </section>
+
+        <div class="dashboard-grid">
+            <section class="dashboard-card">
+                <h3 class="card-title">Vos Performances</h3>
+                <p class="card-text">Suivez vos marges, vos volumes de commandes et l’évolution du marché.</p>
+                <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
+            </section>
+
+            <section class="dashboard-card">
+                <h3 class="card-title">Opportunités IA</h3>
+                <p class="card-text">Notre IA identifie les tendances fortes : sacs vintage, sneakers édition limitée, etc.</p>
+                <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
+            </section>
+
+            <section class="dashboard-card">
+                <h3 class="card-title">Dernières Commandes</h3>
+                <p class="card-text">2 commandes en attente, 1 expédiée hier.</p>
+                <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
+            </section>
+
+            <section class="dashboard-card">
+                <h3 class="card-title">Formation en cours</h3>
+                <p class="card-text">Prochaine étape : Fonctionnement des Marques.</p>
+                <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
+            </section>
+        </div>
+
+        <section class="content-block">
+            <h2 class="section-title">Actualités & Insights Luxe</h2>
+            <div class="news-list">
+                <div class="news-item skeleton-card">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-content">
+                        <p class="skeleton-text long"></p>
+                        <p class="skeleton-text medium"></p>
+                    </div>
+                </div>
+                <div class="news-item skeleton-card">
+                    <div class="skeleton-image"></div>
+                    <div class="skeleton-content">
+                        <p class="skeleton-text long"></p>
+                        <p class="skeleton-text medium"></p>
+                    </div>
+                </div>
+            </div>
+            <p class="section-description">Restez informé des dernières évolutions du prêt-à-porter de luxe et des stratégies IA.</p>
+            <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
+        </section>
+    </main>
+
+    <nav class="mobile-nav-bar">
+        <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.4c-1.5 0-3-.1-4.5-.2H96c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17.6 10-24.7L266.4 8.2c6.1-5.6 14.8-8.2 22.4-8.2s16.3 2.6 22.4 8.2l25.5 23.4V56.8c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16.8c0-6.7-7.7-10.4-13.3-6.3L2.7 236.4c-11.3 10.4-11.3 27.2 0 37.6l258.6 237.4c5.4 5 12.7 7.6 20.1 7.6s14.7-2.6 20.1-7.6l264.7-243.2c8.2-7.9 13.3-19.2 13.3-31.1z"/></svg>
+            <span>Accueil</span>
         </a>
-        <a href="support-faq.html" class="btn-outline">💡 Aide & FAQ</a>
-      </div>
-    </section>
+        <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+            <span>Veille</span>
+        </a>
+        <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM192 192H320c17.7 0 32 14.3 32 32V320c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/></svg>
+            <span>Commandes</span>
+        </a>
+        <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160v.9 144V448c0 35.3 28.7 64 64 64H576c35.3 0 64-28.7 64-64V304.9 160.9 160c0-10.1-6.3-19.1-15.8-22.5L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 288c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H160c-17.7 0-32-14.3-32-32zM96 160c0 17.7 14.3 32 32 32H288c17.7 0 32-14.3 32-32s-14.3-32-32-32H128c-17.7 0-32 14.3-32 32z"/></svg>
+            <span>Académie</span>
+        </a>
+        <a href="#" id="menuButton" class="mobile-nav-link" role="button" aria-label="Ouvrir le menu mobile">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0 17.7 14.3 32 32 32H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H32c-17.7 0-32 14.3-32 32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
+            <span>Menu</span>
+        </a>
+    </nav>
 
-    <div class="dashboard-grid">
-      <section class="dashboard-card">
-        <h3>Vos Performances</h3>
-        <p class="skeleton-text long"></p>
-        <p class="skeleton-text short"></p>
-        <p>Suivez vos marges, vos volumes de commandes et l’évolution du marché.</p>
-        <a href="stats-performance.html" class="card-link">Voir toutes les stats <i class="fas fa-arrow-right"></i></a>
-      </section>
+    <div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menu de navigation mobile">
+        <div class="mobile-menu-content">
+            <button class="close-button" id="closeMenuButton" aria-label="Fermer le menu mobile">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+            </button>
+            <h2 class="menu-overlay-title">Navigation SELEZIONE</h2>
 
-      <section class="dashboard-card">
-        <h3>Opportunités IA</h3>
-        <p>Notre IA identifie les tendances fortes : sacs vintage, sneakers édition limitée, etc.</p>
-        <a href="tendances-ia.html" class="card-link">Découvrir les tendances <i class="fas fa-arrow-right"></i></a>
-      </section>
+            <div class="sidebar-section">
+                <a href="index.html" class="nav-link" aria-label="Tableau de bord"><i class="fas fa-home"></i> Tableau de bord</a>
+            </div>
 
-      <section class="dashboard-card">
-        <h3>Dernières Commandes</h3>
-        <p>2 commandes en attente, 1 expédiée hier.</p>
-        <a href="module7.html" class="card-link">Gérer les commandes <i class="fas fa-arrow-right"></i></a>
-      </section>
+            <div class="sidebar-section">
+                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-sourcing-submenu" aria-label="Sourcing et Veille Luxe"><i class="fas fa-gem"></i> Sourcing & Veille Luxe</a>
+                <ul class="submenu" id="mobile-sourcing-submenu">
+                    <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
+                    <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
+                    <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
+                    <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
+                    <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
+                </ul>
+            </div>
 
-      <section class="dashboard-card">
-        <h3>Formation en cours</h3>
-        <p>Prochaine étape : Fonctionnement des Marques.</p>
-        <a href="formation-selezione-2.html" class="card-link">Reprendre la formation <i class="fas fa-arrow-right"></i></a>
-      </section>
+            <div class="sidebar-section">
+                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-operations-submenu" aria-label="Gestion et Opérations Premium"><i class="fas fa-cogs"></i> Gestion & Opérations Premium</a>
+                <ul class="submenu" id="mobile-operations-submenu">
+                    <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
+                    <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
+                    <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
+                    <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
+                    <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
+                    <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-analyse-submenu" aria-label="Analyse et Stratégie IA"><i class="fas fa-chart-line"></i> Analyse & Stratégie IA</a>
+                <ul class="submenu" id="mobile-analyse-submenu">
+                    <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
+                    <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-academie-submenu" aria-label="Académie SELEZIONE"><i class="fas fa-graduation-cap"></i> Académie SELEZIONE</a>
+                <ul class="submenu" id="mobile-academie-submenu">
+                    <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
+                    <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
+                    <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
+                    <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
+                    <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-support-submenu" aria-label="Support Privilège et Communauté"><i class="fas fa-headset"></i> Support Privilège & Communauté</a>
+                <ul class="submenu" id="mobile-support-submenu">
+                    <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
+                    <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
+                    <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
+                    <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
+                </ul>
+            </div>
+            <div class="theme-switch">
+                <button id="themeToggleMobile" aria-label="Changer de thème (clair ou sombre)">
+                    <i class="fas fa-moon" id="themeIconMobile"></i> <span id="themeTextMobile">Mode Sombre</span>
+                </button>
+            </div>
+        </div>
     </div>
+  /* ==========================================================================
+   1. VARIABLES & BASE
+   ========================================================================== */
 
-    <section class="content-block">
-      <h2>Actualités & Insights Luxe</h2>
-      <div class="skeleton-card"></div>
-      <p class="skeleton-text long"></p>
-      <p class="skeleton-text medium"></p>
-      <p>Restez informé des dernières évolutions du prêt-à-porter de luxe et des stratégies IA.</p>
-      <a href="module8.html" class="card-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
-    </section>
-  </main>
+:root {
+    /* Couleurs principales pour le mode sombre (par défaut) */
+    --bg-dark: #1A1A1A; /* Arrière-plan sombre général */
+    --surface-dark: #2A2A2A; /* Surfaces des cartes, menus */
+    --accent-dark: #8A2BE2; /* Violet éclatant */
+    --accent-light-dark: #9A4BEF; /* Version plus claire de l'accent pour les hover/active */
+    --text-primary-dark: #E0E0E0; /* Texte principal clair */
+    --text-secondary-dark: #A0A0A0; /* Texte secondaire, descriptions */
+    --border-dark: #3A3A3A; /* Bordures subtiles */
+    --gradient-start-dark: #8A2BE2; /* Début du dégradé (violet) */
+    --gradient-end-dark: #FF69B4; /* Fin du dégradé (rose vif) */
 
-  <nav class="mobile-nav-bar">
-    <a href="index.html" class="mobile-nav-link" aria-label="Accueil">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.4c-1.5 0-3-.1-4.5-.2H96c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17.6 10-24.7L266.4 8.2c6.1-5.6 14.8-8.2 22.4-8.2s16.3 2.6 22.4 8.2l25.5 23.4V56.8c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16.8c0-6.7-7.7-10.4-13.3-6.3L2.7 236.4c-11.3 10.4-11.3 27.2 0 37.6l258.6 237.4c5.4 5 12.7 7.6 20.1 7.6s14.7-2.6 20.1-7.6l264.7-243.2c8.2-7.9 13.3-19.2 13.3-31.1z"/></svg>
-        <span>Accueil</span>
-    </a>
-    <a href="module6.html" class="mobile-nav-link" aria-label="Veille">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-        <span>Veille</span>
-    </a>
-    <a href="module7.html" class="mobile-nav-link" aria-label="Commandes">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM192 192H320c17.7 0 32 14.3 32 32V320c0 17.7-14.3 32-32 32H192c-17.7 0-32-14.3-32-32V224c0-17.7 14.3-32 32-32z"/></svg>
-        <span>Commandes</span>
-    </a>
-    <a href="formation-selezione-1.html" class="mobile-nav-link" aria-label="Académie">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M320 32c-8.1 0-16.1 1.4-23.7 4.1L15.8 137.4C6.3 140.9 0 149.9 0 160v.9 144V448c0 35.3 28.7 64 64 64H576c35.3 0 64-28.7 64-64V304.9 160.9 160c0-10.1-6.3-19.1-15.8-22.5L343.7 36.1C336.1 33.4 328.1 32 320 32zM128 288c0-17.7 14.3-32 32-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H160c-17.7 0-32-14.3-32-32zM96 160c0 17.7 14.3 32 32 32H288c17.7 0 32-14.3 32-32s-14.3-32-32-32H128c-17.7 0-32 14.3-32 32z"/></svg>
-        <span>Académie</span>
-    </a>
-    <a href="#" id="menuButton" class="mobile-nav-link" role="button" aria-label="Ouvrir le menu mobile">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0 17.7 14.3 32 32 32H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H32c-17.7 0-32 14.3-32 32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg>
-        <span>Menu</span>
-    </a>
-  </nav>
+    /* Couleurs principales pour le mode clair */
+    --bg-light: #F0F2F5; /* Arrière-plan clair général */
+    --surface-light: #FFFFFF; /* Surfaces des cartes, menus */
+    --accent-light: #6A1FB8; /* Violet foncé pour le mode clair */
+    --accent-dark-light: #5A0EC0; /* Version plus foncée de l'accent */
+    --text-primary-light: #333333; /* Texte principal foncé */
+    --text-secondary-light: #666666; /* Texte secondaire, descriptions */
+    --border-light: #E0E0E0; /* Bordures subtiles */
+    --gradient-start-light: #6A1FB8; /* Début du dégradé (violet) */
+    --gradient-end-light: #FF69B4; /* Fin du dégradé (rose vif) */
 
-  <div id="mobileMenuOverlay" role="dialog" aria-modal="true" aria-label="Menu de navigation mobile">
-      <div class="mobile-menu-content">
-          <button class="close-button" id="closeMenuButton" aria-label="Fermer le menu mobile">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
-          </button>
-          <h2>Navigation SELEZIONE</h2>
+    /* Variables pour le thème actuel (changent avec JS) */
+    --bg: var(--bg-dark);
+    --surface: var(--surface-dark);
+    --accent: var(--accent-dark);
+    --accent-light: var(--accent-light-dark); /* Pour les états hover/active */
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --border: var(--border-dark);
+    --gradient-start: var(--gradient-start-dark);
+    --gradient-end: var(--gradient-end-dark);
 
-          <div class="sidebar-section">
-              <a href="index.html" class="nav-link" aria-label="Tableau de bord"><i class="fas fa-home"></i> Tableau de bord</a>
-          </div>
+    /* Ombres */
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-dark: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow: var(--shadow-dark); /* Dynamique selon le thème */
 
-          <div class="sidebar-section">
-              <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-sourcing-submenu" aria-label="Sourcing et Veille Luxe"><i class="fas fa-gem"></i> Sourcing & Veille Luxe</a>
-              <ul class="submenu" id="mobile-sourcing-submenu">
-                  <li><a href="fournisseur-order.html" class="nav-link">Gestion Fournisseurs</a></li>
-                  <li><a href="module6.html" class="nav-link">Scraper VC (Veille)</a></li>
-                  <li><a href="module4.html" class="nav-link">Estimation & Authentification</a></li>
-                  <li><a href="module_nouvelle_acquisition.html" class="nav-link">Nouveaux Sourcing</a></li>
-                  <li><a href="analyse-concurrence.html" class="nav-link">Analyse Concurrentielle</a></li>
-              </ul>
-          </div>
+    /* Transitions */
+    --transition-speed: 0.3s ease;
+    --transition-fast: 0.15s ease-out;
 
-          <div class="sidebar-section">
-              <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-operations-submenu" aria-label="Gestion et Opérations Premium"><i class="fas fa-cogs"></i> Gestion & Opérations Premium</a>
-              <ul class="submenu" id="mobile-operations-submenu">
-                  <li><a href="calculateur-marge-costo.html" class="nav-link">Calculateur de Marge</a></li>
-                  <li><a href="module3.html" class="nav-link">Fiches Produits IA</a></li>
-                  <li><a href="module7.html" class="nav-link">Gestion des Commandes</a></li>
-                  <li><a href="gestion-stock.html" class="nav-link">Gestion de Stock</a></li>
-                  <li><a href="marketing-ia.html" class="nav-link">Marketing & Réseaux Sociaux</a></li>
-                  <li><a href="module2.html" class="nav-link">IA + Création Visuelle</a></li>
-              </ul>
-          </div>
+    /* Rayons de bordure */
+    --border-radius: 12px;
+}
 
-          <div class="sidebar-section">
-              <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-analyse-submenu" aria-label="Analyse et Stratégie IA"><i class="fas fa-chart-line"></i> Analyse & Stratégie IA</a>
-              <ul class="submenu" id="mobile-analyse-submenu">
-                  <li><a href="stats-performance.html" class="nav-link">Statistiques & Performance</a></li>
-                  <li><a href="tendances-ia.html" class="nav-link">Tendances IA & Marché</a></li>
-              </ul>
-          </div>
+/* Mode clair activé par la classe sur le body */
+body.light-mode {
+    --bg: var(--bg-light);
+    --surface: var(--surface-light);
+    --accent: var(--accent-light);
+    --accent-light: var(--accent-dark-light);
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --border: var(--border-light);
+    --gradient-start: var(--gradient-start-light);
+    --gradient-end: var(--gradient-end-light);
+    --shadow: var(--shadow-light);
+}
 
-          <div class="sidebar-section">
-              <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-academie-submenu" aria-label="Académie SELEZIONE"><i class="fas fa-graduation-cap"></i> Académie SELEZIONE</a>
-              <ul class="submenu" id="mobile-academie-submenu">
-                  <li><a href="formation-selezione-1.html" class="nav-link">Histoire du Luxe</a></li>
-                  <li><a href="formation-selezione-2.html" class="nav-link">Fonctionnement des Marques</a></li>
-                  <li><a href="formation-selezione-3.html" class="nav-link">Marketing & Positionnement</a></li>
-                  <li><a href="formation-selezione-4.html" class="nav-link">Lancer son activité</a></li>
-                  <li><a href="onboarding-guide.html" class="nav-link">Guide de Démarrage</a></li>
-              </ul>
-          </div>
+/* Box-sizing universel */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-          <div class="sidebar-section">
-              <a href="#" class="sidebar-toggler" aria-expanded="false" aria-controls="mobile-support-submenu" aria-label="Support Privilège et Communauté"><i class="fas fa-headset"></i> Support Privilège & Communauté</a>
-              <ul class="submenu" id="mobile-support-submenu">
-                  <li><a href="tchat-selezione.html" class="nav-link">Tchat SELEZIONE</a></li>
-                  <li><a href="module8.html" class="nav-link">Actu Direct & Veille</a></li>
-                  <li><a href="support-faq.html" class="nav-link">Centre d'Aide & FAQ</a></li>
-                  <li><a href="contact-support.html" class="nav-link">Contacter le Support</a></li>
-              </ul>
-          </div>
-          <div class="theme-switch">
-              <button id="themeToggleMobile" aria-label="Changer de thème (clair ou sombre)">
-                  <i class="fas fa-moon" id="themeIconMobile"></i> <span id="themeTextMobile">Mode Sombre</span>
-              </button>
-          </div>
-      </div>
-  </div>
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden; /* Empêche le défilement horizontal causé par le menu mobile */
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        // Retirer la classe 'no-js' du body dès que le JS est chargé pour permettre les animations CSS
-        document.body.classList.remove('no-js');
+/* Empêche le scroll du body quand le menu mobile est ouvert */
+body.no-scroll {
+    overflow: hidden;
+}
 
-        const currentPath = window.location.pathname.split('/').pop();
-        const mainLinks = document.querySelectorAll('aside .nav-link, .mobile-menu-content .nav-link');
-        const sidebarTogglers = document.querySelectorAll('.sidebar-toggler');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const menuButton = document.getElementById('menuButton');
-        const closeMenuButton = document.getElementById('closeMenuButton');
-        const startBtn = document.getElementById('startBtn'); // Bouton "Démarrer" pour le feedback
+/* Cache les éléments qui nécessitent JS pour éviter le FOUC (Flash Of Unstyled Content) */
+body.no-js .sidebar .submenu,
+body.no-js .mobile-menu-overlay,
+body.no-js .theme-switch {
+    display: none;
+}
 
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
-        const themeIconMobile = document.getElementById('themeIconMobile');
-        const themeTextMobile = document.getElementById('themeTextMobile');
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text-primary);
+    margin-bottom: 0.8em;
+    line-height: 1.2;
+}
 
-        // --- Fonctions utilitaires ---
-        function closeAllSubmenus(exceptSubmenu = null) {
-            document.querySelectorAll('.submenu.open').forEach(openSub => {
-                if (openSub !== exceptSubmenu) {
-                    openSub.style.maxHeight = '0';
-                    openSub.classList.remove('open');
-                    const toggler = openSub.previousElementSibling;
-                    if (toggler && toggler.classList.contains('sidebar-toggler')) {
-                        toggler.setAttribute('aria-expanded', 'false');
-                    }
-                }
-            });
-        }
+h1 { font-size: 2.5em; }
+h2 { font-size: 2em; }
+h3 { font-size: 1.5em; }
 
-        function toggleSubmenu(toggler) {
-            const submenu = toggler.nextElementSibling;
-            if (submenu && submenu.classList.contains('submenu')) {
-                const isOpen = submenu.classList.contains('open');
+p {
+    margin-bottom: 1em;
+    color: var(--text-secondary);
+}
 
-                closeAllSubmenus(submenu);
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
 
-                if (!isOpen) {
-                    submenu.classList.add('open');
-                    submenu.style.maxHeight = submenu.scrollHeight + 'px';
-                    toggler.setAttribute('aria-expanded', 'true');
-                } else {
-                    submenu.classList.remove('open');
-                    submenu.style.maxHeight = '0';
-                    toggler.setAttribute('aria-expanded', 'false');
-                }
-            }
-        }
+a:hover {
+    color: var(--accent-light);
+}
 
-        // --- Gestion des liens actifs (Desktop Sidebar et Mobile Menu Overlay) ---
-        mainLinks.forEach(link => {
-            const linkPath = link.getAttribute('href');
-            const normalizedCurrentPath = currentPath === '' ? 'index.html' : currentPath;
+ul {
+    list-style: none;
+}
 
-            if (normalizedCurrentPath === linkPath) {
-                link.classList.add('active');
-                const parentSubmenu = link.closest('.submenu');
-                if (parentSubmenu) {
-                    parentSubmenu.classList.add('open');
-                    parentSubmenu.style.maxHeight = parentSubmenu.scrollHeight + 'px';
-                    const toggler = parentSubmenu.previousElementSibling;
-                    if (toggler && toggler.classList.contains('sidebar-toggler')) {
-                        toggler.setAttribute('aria-expanded', 'true');
-                    }
-                }
-            }
-        });
+/* ==========================================================================
+   2. LAYOUT GÉNÉRAL (Flexbox pour Desktop)
+   ========================================================================== */
 
-        // --- Gestion des sous-menus (Desktop Sidebar et Mobile Menu Overlay) ---
-        sidebarTogglers.forEach(toggler => {
-            toggler.addEventListener('click', (e) => {
-                e.preventDefault();
-                toggleSubmenu(toggler);
-            });
-        });
+.sidebar {
+    width: 280px;
+    background-color: var(--surface);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+    z-index: 100; /* Assure que la sidebar est au-dessus du contenu principal */
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+    position: sticky; /* Rends la sidebar fixe au scroll */
+    top: 0; /* Alignement en haut */
+    height: 100vh; /* Prend toute la hauteur de la vue */
+    overflow-y: auto; /* Permet le scroll si le contenu est trop long */
+    /* Masqué par défaut sur mobile, affiché via JS pour le menu mobile */
+    transform: translateX(0);
+    transition: transform var(--transition-speed);
+}
 
-        // --- Gestion de la Mobile Nav Bar active (et icônes SVG) ---
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-bar .mobile-nav-link');
-        mobileNavLinks.forEach(link => {
-            const linkPath = link.getAttribute('href');
-            const normalizedCurrentPath = currentPath === '' ? 'index.html' : currentPath;
+.main-content {
+    flex-grow: 1;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-width: calc(100% - 280px); /* Ajuste la largeur du contenu principal */
+}
 
-            if (link.id === 'menuButton') {
-                link.addEventListener('click', (e) => {
+/* ==========================================================================
+   3. SIDEBAR (Barre Latérale)
+   ========================================================================== */
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.sidebar-header .logo {
+    max-width: 150px;
+    height: auto;
+    filter: invert(0.9); /* Adapte le logo au thème sombre/clair si besoin */
+    transition: filter var(--transition-speed);
+}
+body.light-mode .sidebar-header .logo {
+    filter: invert(0);
+}
+
+
+.sidebar-section {
+    margin-bottom: 15px;
+}
+
+.sidebar-section:last-of-type {
+    margin-bottom: 0;
+}
+
+.sidebar-section .nav-link,
+.sidebar-section .sidebar-toggler {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: background-color var(--transition-speed), color var(--transition-speed), transform var(--transition-fast);
+    white-space: nowrap; /* Empêche le texte de se casser */
+    overflow: hidden; /* Cache le débordement */
+    text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+}
+
+.sidebar-section .nav-link i,
+.sidebar-section .sidebar-toggler i {
+    margin-right: 12px;
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    transition: color var(--transition-speed);
+}
+
+.sidebar-section .nav-link:hover,
+.sidebar-section .sidebar-toggler:hover {
+    background-color: var(--border);
+    color: var(--text-primary);
+    transform: translateX(5px);
+}
+
+.sidebar-section .nav-link.active {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: #FFFFFF; /* Texte blanc sur le lien actif */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+}
+
+.sidebar-section .nav-link.active i {
+    color: #FFFFFF;
+}
+
+.sidebar-toggler {
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.sidebar-toggler[aria-expanded="true"] i {
+    color: var(--accent); /* Icône accentuée quand le menu est ouvert */
+}
+
+.submenu {
+    max-height: 0; /* Initialement caché */
+    overflow: hidden;
+    transition: max-height var(--transition-speed) ease-out;
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.submenu.open {
+    max-height: 500px; /* Grande valeur pour couvrir tout le contenu */
+}
+
+.submenu li a {
+    display: block;
+    padding: 8px 15px;
+    color: var(--text-secondary);
+    border-radius: var(--border-radius);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    font-size: 0.95em;
+    position: relative;
+}
+
+.submenu li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: var(--text-secondary);
+    border-radius: 50%;
+    transition: background-color var(--transition-speed);
+}
+.submenu li a.active::before {
+    background-color: #FFFFFF; /* White dot for active submenu item */
+}
+
+
+.submenu li a:hover {
+    background-color: var(--border);
+    color: var(--text-primary);
+}
+
+.submenu li a:hover::before {
+    background-color: var(--accent);
+}
+
+.submenu li a.active {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: #FFFFFF;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   4. THÈME SWITCH
+   ========================================================================== */
+
+.theme-switch {
+    margin-top: auto; /* Pousse le bouton en bas de la sidebar */
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: center;
+}
+
+.theme-switch button {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.theme-switch button:hover {
+    background-color: var(--border);
+}
+
+.theme-switch button i {
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    transition: color var(--transition-speed);
+}
+body.light-mode .theme-switch button i.fa-sun {
+    color: var(--accent-light); /* Couleur spécifique pour l'icône soleil en mode clair */
+}
+body:not(.light-mode) .theme-switch button i.fa-moon {
+    color: var(--accent); /* Couleur spécifique pour l'icône lune en mode sombre */
+}
+
+
+/* ==========================================================================
+   5. HEADER PRINCIPAL
+   ========================================================================== */
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.main-title {
+    font-size: 2em;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    color: var(--text-primary);
+}
+
+.user-profile {
+    font-size: 2.5em;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.user-profile:hover {
+    color: var(--accent);
+}
+
+/* ==========================================================================
+   6. CARTES ET SECTIONS DU DASHBOARD
+   ========================================================================== */
+
+.dashboard-card {
+    background-color: var(--surface);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.welcome-hero {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: #FFFFFF;
+    text-align: center;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+    opacity: 0.8;
+    animation: pulse-gradient 10s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes pulse-gradient {
+    0% { transform: scale(0.9); opacity: 0.05; }
+    100% { transform: scale(1.1); opacity: 0.1; }
+}
+
+.welcome-hero .section-title {
+    color: #FFFFFF;
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.welcome-hero .section-description {
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn-primary, .btn-outline {
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all var(--transition-speed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 180px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: #FFFFFF;
+    color: var(--accent);
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline {
+    background: none;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    color: #FFFFFF;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: #FFFFFF;
+    transform: translateY(-3px);
+}
+
+/* Loader Spinner pour le bouton */
+.loader-spinner {
+    display: none; /* Caché par défaut */
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-top: 3px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.btn-primary[data-loading="true"] .btn-text {
+    opacity: 0;
+}
+
+.btn-primary[data-loading="true"] .loader-spinner {
+    display: block;
+    opacity: 1;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.dashboard-card .card-title {
+    font-size: 1.3em;
+    font-family: 'Inter', sans-serif; /* Titres de carte en Inter */
+    margin-bottom: 10px;
+    color: var(--text-primary);
+}
+
+.dashboard-card .card-text {
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.dashboard-card .card-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--accent);
+}
+
+.dashboard-card .card-link:hover {
+    color: var(--accent-light);
+    transform: translateX(3px);
+}
+
+.content-block {
+    background-color: var(--surface);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.content-block .section-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.news-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.news-item {
+    background-color: var(--border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-item .skeleton-image {
+    width: 100%;
+    height: 150px;
+    background-color: var(--text-secondary);
+    opacity: 0.2;
+    animation: pulse-bg 1.5s infinite ease-in-out;
+}
+
+.news-item .skeleton-content {
+    padding: 15px;
+}
+
+.news-item p {
+    margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   7. SKELETON LOADERS (Pour un meilleur UX en attendant le contenu)
+   ========================================================================== */
+
+.skeleton-text {
+    background-color: var(--text-secondary);
+    opacity: 0.3;
+    border-radius: 4px;
+    height: 1em;
+    margin-bottom: 0.8em;
+    animation: pulse-bg 1.5s infinite ease-in-out;
+}
+
+.skeleton-text.long {
+    width: 90%;
+}
+
+.skeleton-text.medium {
+    width: 70%;
+}
+
+.skeleton-text.short {
+    width: 40%;
+}
+
+.skeleton-card {
+    background-color: var(--border);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    box-shadow: var(--shadow);
+    animation: pulse-bg 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse-bg {
+    0% { opacity: 0.2; }
+    50% { opacity: 0.1; }
+    100% { opacity: 0.2; }
+}
+
+
+/* ==========================================================================
+   8. MOBILE NAVIGATION BAR (Fixe en bas sur mobile)
+   ========================================================================== */
+
+.mobile-nav-bar {
+    display: none; /* Caché par défaut sur desktop */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--surface);
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.mobile-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 0.75em;
+    font-weight: 500;
+    padding: 5px 0;
+    flex: 1; /* Prend l'espace disponible */
+    transition: color var(--transition-speed);
+}
+
+.mobile-nav-link svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-secondary); /* Couleur des icônes SVG */
+    margin-bottom: 5px;
+    transition: fill var(--transition-speed);
+}
+
+.mobile-nav-link span {
+    white-space: nowrap;
+}
+
+.mobile-nav-link:hover {
+    color: var(--accent);
+}
+
+.mobile-nav-link:hover svg {
+    fill: var(--accent);
+}
+
+.mobile-nav-link.active {
+    color: var(--accent);
+}
+
+.mobile-nav-link.active svg {
+    fill: var(--accent);
+}
+
+/* ==========================================================================
+   9. MOBILE MENU OVERLAY (Le menu complet qui apparaît sur mobile)
+   ========================================================================== */
+
+#mobileMenuOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fond semi-transparent */
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end; /* Fait apparaître le menu depuis la droite */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-speed), visibility var(--transition-speed);
+}
+
+#mobileMenuOverlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-content {
+    background-color: var(--surface);
+    width: 80%; /* Largeur du menu qui apparaît */
+    max-width: 350px;
+    height: 100%;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%); /* Caché à droite */
+    transition: transform var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+#mobileMenuOverlay.open .mobile-menu-content {
+    transform: translateX(0); /* Apparaît */
+}
+
+.mobile-menu-content .close-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.8em;
+    align-self: flex-end; /* Bouton de fermeture à droite */
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: color var(--transition-speed);
+}
+
+.mobile-menu-content .close-button:hover {
+    color: var(--accent);
+}
+
+.mobile-menu-content .close-button svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--text-secondary);
+    transition: fill var(--transition-speed);
+}
+.mobile-menu-content .close-button:hover svg {
+    fill: var(--accent);
+}
+
+.mobile-menu-content .menu-overlay-title {
+    font-size: 1.6em;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+}
+
+/* Réutilisation des styles de sidebar pour le menu mobile */
+.mobile-menu-content .sidebar-section {
+    margin-bottom: 10px;
+}
+
+.mobile-menu-content .sidebar-section .nav-link,
+.mobile-menu-content .sidebar-section .sidebar-toggler {
+    padding: 10px 15px;
+    font-size: 1em;
+}
+
+.mobile-menu-content .submenu {
+    padding-left: 15px;
+}
+
+.mobile-menu-content .submenu li a {
+    font-size: 0.9em;
+    padding: 6px 15px;
+}
+
+.mobile-menu-content .theme-switch {
+    margin-top: 20px; /* Moins d'espace que sur desktop */
+    padding-top: 15px;
+}
+
+
+/* ==========================================================================
+   10. MEDIA QUERIES (RESPONSIVE DESIGN)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 250px;
+    }
+
+    .main-content {
+        max-width: calc(100% - 250px);
+        padding: 20px;
+    }
+
+    .main-title {
+        font-size: 1.8em;
+    }
+
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.3em; }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column; /* La sidebar n'est plus à côté du contenu */
+    }
+
+    .sidebar {
+        display: none; /* Cache la sidebar desktop par défaut sur mobile */
+    }
+
+    .main-content {
+        max-width: 100%; /* Prend toute la largeur */
+        padding: 15px;
+        padding-bottom: 80px; /* Espace pour la barre de navigation mobile fixe */
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding-bottom: 15px;
+    }
+
+    .main-title {
+        font-size: 1.6em;
+    }
+
+    .user-profile {
+        margin-left: auto; /* Pousse l'icône de profil à droite */
+    }
+
+    .welcome-hero {
+        padding: 30px 20px;
+    }
+
+    .welcome-hero .section-title {
+        font-size: 1.8em;
+    }
+
+    .hero-buttons {
+        flex-direction: column; /* Boutons l'un en dessous de l'autre */
+        gap: 15px;
+    }
+
+    .btn-primary, .btn-outline {
+        width: 100%; /* Les boutons prennent toute la largeur */
+        max-width: 300px; /* Limite la largeur pour ne pas être trop grands sur les tablettes */
+        margin: 0 auto;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr; /* Une seule colonne */
+        gap: 15px;
+    }
+
+    .content-block {
+        padding: 20px;
+    }
+
+    .content-block .section-title {
+        font-size: 1.5em;
+    }
+
+    .news-list {
+        grid-template-columns: 1fr; /* Une seule colonne pour les actualités */
+        gap: 15px;
+    }
+
+    .mobile-nav-bar {
+        display: flex; /* Affiche la barre de navigation mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 10px;
+    }
+
+    .main-title {
+        font-size: 1.4em;
+    }
+
+    .welcome-hero .section-title {
+        font-size: 1.6em;
+    }
+
+    .dashboard-card {
+        padding: 20px;
+    }
+}
+
+/* ==========================================================================
+   11. UTILITIES (Optionnel: pour des classes helper)
+   ========================================================================== */
+
+/* Pas de classes utilitaires spécifiques pour l'instant, mais peut être ajouté ici. */
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const sidebarTogglers = document.querySelectorAll('.sidebar-toggler');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const startBtn = document.getElementById('startBtn');
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+
+            // Mobile specific elements
+            const menuButton = document.getElementById('menuButton');
+            const closeMenuButton = document.getElementById('closeMenuButton');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const themeToggleMobile = document.getElementById('themeToggleMobile');
+            const themeIconMobile = document.getElementById('themeIconMobile');
+            const themeTextMobile = document.getElementById('themeTextMobile');
+
+            // Remove no-js class once JS is loaded
+            body.classList.remove('no-js');
+
+            // --- Sidebar Submenu Toggle ---
+            sidebarTogglers.forEach(toggler => {
+                toggler.addEventListener('click', (e) => {
                     e.preventDefault();
-                    mobileMenuOverlay.classList.add('open');
-                    document.body.classList.add('no-scroll'); // Empêche le scroll du body
-                    closeAllSubmenus(); // Ferme tous les sous-menus à l'ouverture du menu mobile
+                    const submenuId = toggler.getAttribute('aria-controls');
+                    const submenu = document.getElementById(submenuId);
+
+                    if (submenu) {
+                        const isExpanded = toggler.getAttribute('aria-expanded') === 'true';
+                        toggler.setAttribute('aria-expanded', !isExpanded);
+                        submenu.classList.toggle('open');
+                    }
                 });
-            } else if (linkPath && normalizedCurrentPath === linkPath) {
-                mobileNavLinks.forEach(navLink => navLink.classList.remove('active'));
-                link.classList.add('active');
-            }
-        });
-        
-        // Initialiser le lien "Accueil" de la mobile nav bar si on est sur la page d'accueil au chargement
-        const initialHomeLink = document.querySelector('.mobile-nav-bar a[href="index.html"]');
-        if ((currentPath === '' || currentPath === 'index.html') && initialHomeLink) {
-            mobileNavLinks.forEach(navLink => navLink.classList.remove('active'));
-            initialHomeLink.classList.add('active');
-        }
-
-        // --- Gestion de l'Overlay du Menu Mobile ---
-        if (closeMenuButton && mobileMenuOverlay) {
-            const closeMobileMenu = () => {
-                mobileMenuOverlay.classList.remove('open');
-                document.body.classList.remove('no-scroll'); // Rétablit le scroll du body
-                closeAllSubmenus();, closeMobileMenu);
-
-            mobileMenuOverlay.addEventListener('click', (e) => {
-                if (e.target === mobileMenuOverlay) {
-                    closeMobileMenu();
-                }
             });
-        }
 
-        // --- Feedback sur le bouton "Démarrer" ---
-        if (startBtn) {
-            startBtn.addEventListener('click', (e) => {
-                // Pour un vrai cas, e.preventDefault() serait ici si vous gérez une action asynchrone
-                // e.preventDefault(); 
-                startBtn.setAttribute('data-loading', 'true');
-                // Simuler une action asynchrone (ex: appel API)
-                setTimeout(() => {
-                    startBtn.setAttribute('data-loading', 'false');
-                    // Redirection après la "fin" de l'action
-                    // window.location.href = startBtn.href;
-                }, 1500); // 1.5 secondes de "chargement"
-            });
-        }
+            // --- Active Nav Link Highlighting ---
+            const highlightActiveLink = () => {
+                const currentPath = window.location.pathname.split('/').pop(); // Get current file name (e.g., index.html)
 
-        // --- Gestion du mode clair/sombre ---
-        const setLocalTheme = (theme) => {
-            if (theme === 'dark') {
-                document.body.classList.remove('light-mode');
-                localStorage.setItem('theme', 'dark');
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                themeText.textContent = 'Mode Sombre';
-                if (themeIconMobile) themeIconMobile.classList.replace('fa-sun', 'fa-moon');
-                if (themeTextMobile) themeTextMobile.textContent = 'Mode Sombre';
-            } else {
-                document.body.classList.add('light-mode');
-                localStorage.setItem('theme', 'light');
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                themeText.textContent = 'Mode Clair';
-                if (themeIconMobile) themeIconMobile.classList.replace('fa-moon', 'fa-sun');
-                if (themeTextMobile) themeTextMobile.textContent = 'Mode Clair';
-            }
-        };
+                navLinks.forEach(link => {
+                    const linkPath = link.href.split('/').pop();
+                    if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+                        link.classList.add('active');
 
-        // Charger le thème depuis localStorage ou par défaut
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setLocalTheme(savedTheme);
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            // Détecte la préférence système si aucune préférence locale n'est sauvegardée
-            setLocalTheme('light');
-        } else {
-            setLocalTheme('dark'); // Thème sombre par défaut
-        }
+                        // Open parent submenu if active link is inside one
+                        let parentSubmenu = link.closest('.submenu');
+                        if (parentSubmenu) {
+                            parentSubmenu.classList.add('open');
+                            let parentToggler = document.querySelector(`[aria-controls="${parentSubmenu.id}"]`);
+                            if (parentToggler) {
+                                parentToggler.setAttribute('aria-expanded', 'true');
+                            }
+                        }
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
 
-        // Gérer le clic sur le bouton de basculement du thème (desktop)
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-                setLocalTheme(currentTheme === 'dark' ? 'light' : 'dark');
-            });
-        }
-        // Gérer le clic sur le bouton de basculement du thème (mobile)
-        if (themeToggleMobile) {
-            themeToggleMobile.addEventListener('click', () => {
-                const currentTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-                setLocalTheme(currentTheme === 'dark' ? 'light' : 'dark');
-            });
-        }
-    });
-  </script>
-</body>
-</html>
-
+                // Highlight active link in mobile nav bar
+                const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+                mobileNavLinks.forEach(link => {
+                    const linkPath = link.href.split('/').pop();
+                    if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
             };
 
-            closeMenuButton.addEventListener('click'
+            highlightActiveLink(); // Call on initial load
+
+            // --- Mobile Menu Functionality ---
+            const openMobileMenu = () => {
+                mobileMenuOverlay.classList.add('open');
+                body.classList.add('no-scroll'); // Prevent body scroll
+            };
+
+            const closeMobileMenu = () => {
+                mobileMenuOverlay.classList.remove('open');
+                body.classList.remove('no-scroll'); // Allow body scroll
+            };
+
+            if (menuButton) {
+                menuButton.addEventListener('click', openMobileMenu);
+            }
+
+            if (closeMenuButton) {
+                closeMenuButton.addEventListener('click', closeMobileMenu);
+            }
+
+            if (mobileMenuOverlay) {
+                mobileMenuOverlay.addEventListener('click', (e) => {
+                    if (e.target === mobileMenuOverlay) { // Close only if overlay itself is clicked, not children
+                        closeMobileMenu();
+                    }
+                });
+            }
+
+            // --- Start Button Feedback (Simulated Loading) ---
+            if (startBtn) {
+                startBtn.addEventListener('click', (e) => {
+                    // Prevent default navigation for demonstration of loading state
+                    // In a real app, you might prevent default, do an async operation,
+                    // then navigate or update content.
+                    e.preventDefault(); 
+                    startBtn.setAttribute('data-loading', 'true');
+
+                    // Simulate an asynchronous action (e.g., API call, data processing)
+                    setTimeout(() => {
+                        startBtn.setAttribute('data-loading', 'false');
+                        // After simulation, you would typically navigate:
+                        window.location.href = startBtn.href;
+                    }, 1500); // 1.5 seconds of "loading"
+                });
+            }
+
+            // --- Theme Switcher Functionality ---
+            const setLocalTheme = (theme) => {
+                if (theme === 'dark') {
+                    body.classList.remove('light-mode');
+                    localStorage.setItem('theme', 'dark');
+                    if (themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon');
+                    if (themeText) themeText.textContent = 'Mode Sombre';
+                    if (themeIconMobile) themeIconMobile.classList.replace('fa-sun', 'fa-moon');
+                    if (themeTextMobile) themeTextMobile.textContent = 'Mode Sombre';
+                } else {
+                    body.classList.add('light-mode');
+                    localStorage.setItem('theme', 'light');
+                    if (themeIcon) themeIcon.classList.replace('fa-moon', 'fa-sun');
+                    if (themeText) themeText.textContent = 'Mode Clair';
+                    if (themeIconMobile) themeIconMobile.classList.replace('fa-moon', 'fa-sun');
+                    if (themeTextMobile) themeTextMobile.textContent = 'Mode Clair';
+                }
+            };
+
+            // Load theme from localStorage or default to system preference/dark
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                setLocalTheme(savedTheme);
+            } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                // Detect system preference if no local preference saved
+                setLocalTheme('light');
+            } else {
+                setLocalTheme('dark'); // Default to dark theme
+            }
+
+            // Handle theme toggle click (desktop)
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+                    setLocalTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                });
+            }
+            // Handle theme toggle click (mobile)
+            if (themeToggleMobile) {
+                themeToggleMobile.addEventListener('click', () => {
+                    const currentTheme = body.classList.contains('light-mode') ? 'light' : 'dark';
+                    setLocalTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
