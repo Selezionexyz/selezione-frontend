@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>SELEZIONE – Application Luxe IA</title>
+  <title>SELEZIONE – Tableau de bord</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet"
   />
   <style>
-    /* ================== VARIABLES ================== */
     :root {
       --gold: #fbb034;
-      --gold-dark: #cca028;
+      --gold-hover: #ffdd00;
       --bg: #121212;
       --bg-alt: #1f1f1f;
       --text: #eee;
       --text-muted: #888;
       --border: #333;
       --shadow: rgba(0,0,0,0.5);
-      transition: background 0.3s, color 0.3s;
     }
     body.light {
       --bg: #f5f5f5;
@@ -29,13 +27,12 @@
       --border: #ddd;
       --shadow: rgba(0,0,0,0.1);
     }
-
-    /* ========== RESET & LAYOUT ========== */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      display:flex; min-height:100vh;
       font-family:"Outfit",sans-serif;
+      display:flex; min-height:100vh;
       background:var(--bg); color:var(--text);
+      transition:background .3s,color .3s;
     }
     aside {
       width:250px; flex-shrink:0;
@@ -43,31 +40,8 @@
       padding:2rem 1rem; overflow-y:auto;
     }
     main {
-      flex:1; overflow-y:auto;
+      flex:1; overflow-y:auto; background:var(--bg);
     }
-
-    /* ========== SIDEBAR ========== */
-    aside h2 {
-      font-family:"Playfair Display",serif;
-      font-size:1.8rem; margin-bottom:1.5rem;
-      border-bottom:1px solid var(--border); padding-bottom:.5rem;
-    }
-    .nav-link {
-      display:flex; align-items:center; gap:.6rem;
-      padding:.6rem 1rem; margin:0.2rem 0;
-      color:var(--text); text-decoration:none; border-radius:6px;
-      transition:background .2s,transform .2s;
-    }
-    .nav-link:hover {
-      background:var(--border); transform:translateX(4px);
-    }
-    .nav-link.active {
-      background:var(--gold); color:var(--bg);
-      font-weight:600; box-shadow:0 4px 12px var(--shadow);
-    }
-    .nav-link svg { width:20px; height:20px; fill:currentColor; }
-
-    /* ========== HEADER ========== */
     .header {
       display:flex; justify-content:space-between; align-items:center;
       padding:1.5rem; background:var(--bg-alt); border-bottom:1px solid var(--border);
@@ -83,185 +57,154 @@
       transition:background .2s;
     }
     .btn-theme:hover { background:var(--border); }
-
-    /* ========== DASHBOARD ========== */
-    .grid {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:1rem; padding:1rem;
+    .nav-link {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.6rem 1rem; margin:.2rem 0;
+      color:var(--text); text-decoration:none; border-radius:6px;
+      transition:background .2s,transform .2s;
     }
-    .card {
-      background:var(--bg-alt); border:1px solid var(--border);
-      border-radius:12px; padding:1.2rem; box-shadow:0 4px 10px var(--shadow);
-      display:flex; flex-direction:column; justify-content:space-between;
+    .nav-link:hover {
+      background:var(--border); transform:translateX(4px);
     }
-    .card h3 {
-      font-family:"Playfair Display",serif; margin-bottom:.8rem;
-    }
-    .card p { flex:1; color:var(--text-muted); }
-    .card a {
-      margin-top:1rem; color:var(--gold); text-decoration:none;
-      font-weight:600; display:inline-flex; align-items:center; gap:.4rem;
-      transition:transform .2s;
-    }
-    .card a:hover { transform:translateX(6px); }
-
-    /* ========== MODULE COMMANDES (EXEMPLE) ========== */
-    .form-group { margin-bottom:1rem; }
-    .form-group label { display:block; margin-bottom:.3rem; }
-    .form-group input,
-    .form-group textarea {
-      width:100%; padding:.6rem; border-radius:6px;
-      border:1px solid var(--border); background:var(--bg);
-      color:var(--text);
-    }
-    .form-group textarea { resize:vertical; }
-    .btn-send {
+    .nav-link.active {
       background:var(--gold); color:var(--bg);
-      padding:.6rem 1.2rem; border:none; border-radius:6px;
-      cursor:pointer; font-weight:600;
-      transition:background .2s;
+      font-weight:600; box-shadow:0 4px 12px var(--shadow);
     }
-    .btn-send:hover { background:var(--gold-dark); }
-    #feedback { margin-top:1rem; font-weight:600; }
-
-    /* ========== RESPONSIVE ========== */
-    @media(max-width:768px){
-      aside { display:none; }
-    }
+    .nav-link svg { width:20px; height:20px; fill:currentColor; }
   </style>
 </head>
 <body>
-
-  <!-- ========== SIDEBAR ========== -->
   <aside>
     <h2>SELEZIONE</h2>
-    <a href="#" class="nav-link" data-view="home"        ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Accueil</a>
-    <a href="#" class="nav-link" data-view="fournisseur" ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Module Fournisseur</a>
-    <a href="#" class="nav-link" data-view="marge"       ><svg viewBox="0 0 512 512"><path d="M..."/></svg>Calculateur de marge</a>
-    <a href="#" class="nav-link" data-view="tchat"       ><svg viewBox="0 0 512 512"><path d="M..."/></svg>Tchat SELEZIONE</a>
-    <a href="#" class="nav-link" data-view="actu"        ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Actu Direct</a>
-    <a href="#" class="nav-link" data-view="image"       ><svg viewBox="0 0 512 512"><path d="M..."/></svg>IA + Image</a>
-    <a href="#" class="nav-link" data-view="fiche"       ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Fiche Produit</a>
-    <a href="#" class="nav-link" data-view="estimation"  ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Estimation</a>
-    <a href="#" class="nav-link" data-view="scraper"     ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Scraper VC</a>
-    <a href="#" class="nav-link" data-view="commandes"   ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Commandes</a>
-    <a href="#" class="nav-link" data-view="formation"   ><svg viewBox="0 0 576 512"><path d="M..."/></svg>Formations</a>
-    <button class="btn-theme" id="toggleTheme"><i class="fas fa-moon"></i> Mode Sombre</button>
+    <a href="#" class="nav-link" data-view="home">
+      <svg><!-- icône home --></svg>Accueil
+    </a>
+    <a href="#" class="nav-link" data-view="fournisseur">
+      <svg><!-- icône box --></svg>Module Fournisseur
+    </a>
+    <a href="#" class="nav-link" data-view="marge">
+      <svg><!-- icône abacus --></svg>Calculateur de marge
+    </a>
+    <a href="#" class="nav-link" data-view="tchat">
+      <svg><!-- icône chat --></svg>Tchat SELEZIONE
+    </a>
+    <a href="#" class="nav-link" data-view="actu">
+      <svg><!-- icône newspaper --></svg>Actu Direct
+    </a>
+    <a href="#" class="nav-link" data-view="image">
+      <svg><!-- icône image --></svg>IA + Image
+    </a>
+    <a href="#" class="nav-link" data-view="fiche">
+      <svg><!-- icône pencil --></svg>Fiche Produit
+    </a>
+    <a href="#" class="nav-link" data-view="estimation">
+      <svg><!-- icône diamond --></svg>Estimation
+    </a>
+    <a href="#" class="nav-link" data-view="scraper">
+      <svg><!-- icône magnifier --></svg>Scraper VC
+    </a>
+    <a href="#" class="nav-link" data-view="commandes">
+      <svg><!-- icône package --></svg>Commandes
+    </a>
+    <a href="#" class="nav-link" data-view="formation">
+      <svg><!-- icône graduation cap --></svg>Formations
+    </a>
+    <button class="btn-theme" id="toggleThemeAside">
+      <i class="fas fa-moon"></i> Thème
+    </button>
   </aside>
-
-  <!-- ========== MAIN CONTAINER ========== -->
   <main>
-    <!-- header commun -->
     <div class="header">
       <h1 id="pageTitle">Bienvenue</h1>
-      <button class="btn-theme" id="toggleThemeTop"><i class="fas fa-moon"></i></button>
+      <button class="btn-theme" id="toggleThemeMain">
+        <i class="fas fa-moon"></i>
+      </button>
     </div>
-
-    <!-- zone d’injection des vues -->
-    <div id="app"></div>
+    <div id="app"><!-- contenu injecté ici --></div>
   </main>
 
-  <!-- ========== TEMPLATES ========== -->
+  <!-- TEMPLATES MODULES -->
   <template id="home">
-    <div class="grid">
-      <div class="card">
-        <h3>Bienvenue sur SELEZIONE</h3>
-        <p>Pilotez votre activité luxe IA en quelques clics.</p>
-        <a href="#" data-view="fournisseur">Commencer →</a>
-      </div>
-      <!-- autres cartes -->
-    </div>
+    <section style="padding:1.5rem;">
+      <h2>Bienvenue sur SELEZIONE</h2>
+      <p>Pilotez votre activité luxe IA en quelques clics.</p>
+    </section>
   </template>
 
   <template id="commandes">
-    <section>
-      <h2>📦 Module Commandes</h2>
+    <section style="padding:1.5rem;">
+      <h2>Module Commandes</h2>
       <form id="commande-form">
-        <div class="form-group">
-          <label for="user">👤 Nom du membre</label>
-          <input type="text" id="user" required>
-        </div>
-        <div class="form-group">
-          <label for="fichier">📁 Nom du fichier</label>
-          <input type="text" id="fichier" required>
-        </div>
-        <div class="form-group">
-          <label for="selections">🛒 Sélections (JSON)</label>
-          <textarea id="selections" rows="4" required>[{"ligne":10,"taille":"M","quantite":2}]</textarea>
-        </div>
-        <button type="submit" class="btn-send">✅ Envoyer</button>
-        <div id="feedback"></div>
+        <label>👤 Nom du membre<input id="user" required></label><br/>
+        <label>📁 Nom du fichier<input id="fichier" required></label><br/>
+        <label>🛒 Sélections (JSON)<textarea id="selections" required>[{"ligne":10,"taille":"M","quantite":2}]</textarea></label><br/>
+        <button type="submit" class="btn-send" style="margin-top:1rem;
+          background:var(--gold);color:var(--bg);padding:.6rem 1.2rem;
+          border:none;border-radius:6px;cursor:pointer;">
+          ✅ Envoyer
+        </button>
+        <div id="feedback" style="margin-top:.8rem;font-weight:600;"></div>
       </form>
     </section>
-    <script>
-      // Formulaire Commandes
-      (function(){
-        const form = document.getElementById('commande-form');
-        const fb   = document.getElementById('feedback');
-        form.addEventListener('submit', async e=>{
-          e.preventDefault();
-          let data;
-          try { data = JSON.parse(selections.value); }
-          catch{ fb.innerHTML="❌ JSON invalide"; return; }
-          fb.innerHTML="✓ Envoyé !"; fb.style.color=var(--gold);
-          // ici fetch POST...
-        });
-      })();
-    </script>
   </template>
 
-  <!-- stubs pour les autres modules -->
-  <template id="fournisseur"><h2>Module Fournisseur</h2><p>…</p></template>
-  <template id="marge"><h2>Calculateur de marge</h2><p>…</p></template>
-  <template id="tchat"><h2>Tchat SELEZIONE</h2><p>…</p></template>
-  <template id="actu"><h2>Actu Direct</h2><p>…</p></template>
-  <template id="image"><h2>IA + Image</h2><p>…</p></template>
-  <template id="fiche"><h2>Fiche Produit</h2><p>…</p></template>
-  <template id="estimation"><h2>Estimation</h2><p>…</p></template>
-  <template id="scraper"><h2>Scraper VC</h2><p>…</p></template>
-  <template id="formation"><h2>Formations SELEZIONE</h2><p>…</p></template>
+  <!-- stub pour les autres -->
+  <template id="fournisseur"><section style="padding:1.5rem;"><h2>Module Fournisseur</h2></section></template>
+  <template id="marge"><section style="padding:1.5rem;"><h2>Calculateur de marge</h2></section></template>
+  <template id="tchat"><section style="padding:1.5rem;"><h2>Tchat SELEZIONE</h2></section></template>
+  <template id="actu"><section style="padding:1.5rem;"><h2>Actu Direct</h2></section></template>
+  <template id="image"><section style="padding:1.5rem;"><h2>IA + Image</h2></section></template>
+  <template id="fiche"><section style="padding:1.5rem;"><h2>Fiche Produit</h2></section></template>
+  <template id="estimation"><section style="padding:1.5rem;"><h2>Estimation</h2></section></template>
+  <template id="scraper"><section style="padding:1.5rem;"><h2>Scraper VC</h2></section></template>
+  <template id="formation"><section style="padding:1.5rem;"><h2>Formations</h2></section></template>
 
-  <!-- ========== ROUTER & LOGIQUE ========== -->
+  <!-- ROUTER & LOGIQUE -->
   <script>
-    const app       = document.getElementById('app');
-    const navLinks  = document.querySelectorAll('aside .nav-link');
-    const title     = document.getElementById('pageTitle');
-    const templates = document.querySelectorAll('template');
-    let currentView = 'home';
+    const app = document.getElementById('app'),
+          links = document.querySelectorAll('.nav-link'),
+          pageTitle = document.getElementById('pageTitle');
 
-    function render(view){
+    function render(view) {
       const tpl = document.getElementById(view);
-      if(!tpl) return;
+      if (!tpl) return;
       app.innerHTML = tpl.innerHTML;
-      title.textContent = tpl.querySelector('h2, h3')?.textContent || 'SELEZIONE';
-      navLinks.forEach(a=>a.classList.toggle('active', a.dataset.view===view));
-      if(view==='commandes'){
-        // exécution du <script> inline du template
-        tpl.content.querySelectorAll('script').forEach(s=>{
-          eval(s.innerHTML);
+      const h = tpl.content.querySelector('h2')?.textContent || '';
+      pageTitle.textContent = h;
+      links.forEach(a => a.classList.toggle('active', a.dataset.view===view));
+
+      if (view==='commandes') {
+        document.getElementById('commande-form').addEventListener('submit', e=>{
+          e.preventDefault();
+          let fb = document.getElementById('feedback');
+          try {
+            JSON.parse(document.getElementById('selections').value);
+            fb.textContent = '✅ Commande envoyée !'; fb.style.color= 'var(--gold)';
+          } catch {
+            fb.textContent = '❌ JSON invalide'; fb.style.color = 'tomato';
+          }
         });
       }
     }
 
-    navLinks.forEach(a=>{
-      a.onclick=e=>{
+    links.forEach(a=>{
+      a.onclick = e=>{
         e.preventDefault();
         render(a.dataset.view);
-      }
+      };
     });
 
-    // Thème sombre/clair
-    function toggleTheme(){
+    // Thème
+    function toggleTheme() {
       document.body.classList.toggle('light');
       localStorage.setItem('theme', document.body.classList.contains('light')?'light':'dark');
     }
-    document.getElementById('toggleTheme').onclick = toggleTheme;
-    document.getElementById('toggleThemeTop').onclick = toggleTheme;
-    // charger préférence
-    if(localStorage.getItem('theme')==='light') document.body.classList.add('light');
+    document.getElementById('toggleThemeAside').onclick = toggleTheme;
+    document.getElementById('toggleThemeMain').onclick = toggleTheme;
+    if (localStorage.getItem('theme')==='light') document.body.classList.add('light');
 
-    // initial
-    render(currentView);
+    // init
+    render('home');
   </script>
 
 </body>
