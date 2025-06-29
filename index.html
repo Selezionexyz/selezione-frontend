@@ -1,70 +1,36 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>SELEZIONE – Luxury Fashion Intelligence Platform</title>
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
-    /* ================== VARIABLES ULTRA PRO ================== */
     :root {
-      /* Colors Luxury */
       --primary-black: #000000;
       --deep-black: #0a0a0a;
-      --carbon-black: #141414;
-      --obsidian: #1a1a1a;
-      --charcoal: #2a2a2a;
-      
-      /* Gold Palette */
       --gold-primary: #d4af37;
       --gold-bright: #ffd700;
-      --gold-pale: #f4e4bc;
-      --gold-dark: #b8941f;
       --champagne: #f5e6d3;
-      
-      /* Luxury Gradients */
-      --gold-gradient: linear-gradient(135deg, #d4af37 0%, #ffd700 25%, #f4e4bc 50%, #ffd700 75%, #d4af37 100%);
-      --black-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #2a2a2a 100%);
-      --glass-gradient: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
-      
-      /* Typography */
-      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-display: 'Playfair Display', serif;
-      --font-tech: 'Space Grotesk', monospace;
-      
-      /* Spacing & Layout */
-      --border-radius: 16px;
-      --border-radius-lg: 24px;
-      --shadow-luxury: 0 32px 64px rgba(0, 0, 0, 0.4);
-      --shadow-gold: 0 16px 48px rgba(212, 175, 55, 0.3);
-      --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.15);
-      
-      /* Animation */
-      --transition-luxury: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      
-      /* Glass Effects */
+      --gold-gradient: linear-gradient(135deg, #d4af37, #ffd700);
       --glass-bg: rgba(26, 26, 26, 0.85);
       --glass-border: rgba(212, 175, 55, 0.2);
-      --glass-backdrop: blur(20px) saturate(180%);
+      --border-radius: 16px;
+      --font-primary: 'Inter', sans-serif;
+      --font-display: 'Playfair Display', serif;
+      --transition-luxury: all 0.3s ease;
+      --shadow-gold: 0 8px 24px rgba(212, 175, 55, 0.3);
     }
 
     body.light-mode {
       --primary-black: #ffffff;
       --deep-black: #f8f9fa;
-      --carbon-black: #ffffff;
-      --obsidian: #f5f5f5;
-      --charcoal: #e0e0e0;
       --champagne: #2a2a2a;
       --glass-bg: rgba(255, 255, 255, 0.9);
-      --glass-border: rgba(212, 175, 55, 0.3);
-      --shadow-luxury: 0 32px 64px rgba(0, 0, 0, 0.1);
     }
 
-    /* ================== RESET & BASE ================== */
     * {
       margin: 0;
       padding: 0;
@@ -77,17 +43,13 @@
       color: var(--champagne);
       display: flex;
       min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      font-weight: 300;
-      letter-spacing: 0.02em;
     }
 
     body.no-scroll {
       overflow: hidden;
     }
 
-    /* ================== ANIMATED BACKGROUND SYSTEM ================== */
+    /* Background */
     .luxury-background {
       position: fixed;
       top: 0;
@@ -95,7 +57,7 @@
       width: 100vw;
       height: 100vh;
       z-index: -2;
-      background: var(--black-gradient);
+      background: linear-gradient(135deg, #000000, #1a1a1a);
     }
 
     .particles-container {
@@ -105,262 +67,74 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      overflow: hidden;
     }
 
     .particle {
       position: absolute;
       background: var(--gold-primary);
       border-radius: 50%;
-      animation: float-particle 15s infinite ease-in-out;
+      animation: float 15s infinite ease-in-out;
       opacity: 0.6;
     }
 
-    .particle:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(1) { width: 4px; height: 4px; top: 20%; left: 10%; }
     .particle:nth-child(2) { width: 6px; height: 6px; top: 40%; left: 30%; animation-delay: 2s; }
     .particle:nth-child(3) { width: 3px; height: 3px; top: 60%; left: 70%; animation-delay: 4s; }
-    .particle:nth-child(4) { width: 5px; height: 5px; top: 80%; left: 20%; animation-delay: 6s; }
-    .particle:nth-child(5) { width: 2px; height: 2px; top: 30%; left: 80%; animation-delay: 8s; }
 
-    @keyframes float-particle {
-      0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); opacity: 0.6; }
-      25% { transform: translateY(-30px) translateX(20px) rotate(90deg); opacity: 0.8; }
-      50% { transform: translateY(-60px) translateX(-10px) rotate(180deg); opacity: 0.4; }
-      75% { transform: translateY(-30px) translateX(-30px) rotate(270deg); opacity: 0.9; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); opacity: 0.6; }
+      50% { transform: translateY(-20px); opacity: 0.8; }
     }
 
-    .geometric-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: 
-        radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
-      animation: pulse-overlay 8s ease-in-out infinite;
-    }
-
-    @keyframes pulse-overlay {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
-
-    /* ================== PROGRESS BAR FORMATION ================== */
-    .formation-progress {
-      background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
-      border: 1px solid var(--gold-primary);
-      border-radius: var(--border-radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .progress-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .progress-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--gold-gradient);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary-black);
-      font-size: 1.2rem;
-    }
-
-    .progress-info h3 {
-      color: var(--gold-bright);
-      font-family: var(--font-display);
-      margin-bottom: 0.25rem;
-    }
-
-    .progress-subtitle {
-      color: rgba(245, 230, 211, 0.8);
-      font-size: 0.9rem;
-    }
-
-    .progress-bar-container {
-      margin: 1rem 0;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: rgba(212, 175, 55, 0.2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--gold-gradient);
-      transition: width 1s ease-in-out;
-      position: relative;
-    }
-
-    .progress-fill::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      animation: shimmer-progress 2s infinite;
-    }
-
-    @keyframes shimmer-progress {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-
-    .progress-text {
-      font-size: 0.85rem;
-      color: var(--champagne);
-      margin-top: 0.5rem;
-    }
-
-    .progress-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .progress-btn {
-      padding: 0.6rem 1.2rem;
-      border: 1px solid var(--gold-primary);
-      background: rgba(212, 175, 55, 0.1);
-      color: var(--gold-bright);
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: var(--transition-luxury);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .progress-btn:hover {
-      background: var(--gold-gradient);
-      color: var(--primary-black);
-      transform: translateY(-2px);
-    }
-
-    .supplier-lock {
-      background: rgba(255, 68, 68, 0.1);
-      border-color: #ff4444;
-      color: #ff6666;
-      cursor: not-allowed;
-    }
-    /* ================== SIDEBAR ULTRA LUXE ================== */
+    /* Sidebar */
     .sidebar {
       width: 320px;
       background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
       border-right: 1px solid var(--glass-border);
       display: flex;
       flex-direction: column;
       position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-glass);
-      transition: var(--transition-luxury);
-    }
-
-    .sidebar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: var(--gold-gradient);
-      animation: shimmer 3s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0%, 100% { opacity: 0.8; transform: scaleX(1); }
-      50% { opacity: 1; transform: scaleX(1.1); }
     }
 
     .sidebar-header {
-      padding: 3rem 2rem 2rem;
+      padding: 2rem;
       background: var(--gold-gradient);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .sidebar-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.1) 100%);
-      pointer-events: none;
-    }
-
-    .logo {
-      position: relative;
-      z-index: 1;
+      color: var(--primary-black);
     }
 
     .logo-main {
       font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--primary-black);
-      letter-spacing: 3px;
+      font-size: 2rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      background: linear-gradient(135deg, #000000, #2a2a2a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
 
     .logo-subtitle {
-      font-family: var(--font-tech);
-      font-size: 0.75rem;
-      color: rgba(0,0,0,0.7);
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 500;
+      letter-spacing: 1px;
+      opacity: 0.8;
     }
 
     .sidebar-content {
       flex: 1;
-      padding: 1.5rem 0;
-      overflow-y: auto;
+      padding: 1rem 0;
     }
 
     .nav-section {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
     .nav-section-title {
-      font-family: var(--font-tech);
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: var(--gold-primary);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      padding: 0 2rem 1rem;
+      letter-spacing: 1px;
+      padding: 0 1.5rem 0.5rem;
       font-weight: 600;
-      opacity: 0.8;
     }
 
     .nav-item {
-      position: relative;
       margin: 0 1rem 0.5rem;
     }
 
@@ -368,99 +142,62 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       color: var(--champagne);
       text-decoration: none;
       border-radius: var(--border-radius);
       transition: var(--transition-luxury);
-      font-weight: 400;
       font-size: 0.9rem;
-      letter-spacing: 0.3px;
-      position: relative;
-      overflow: hidden;
       cursor: pointer;
-      border: 1px solid transparent;
-    }
-
-    .nav-link::before, .nav-toggler::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+      border: none;
+      background: none;
       width: 100%;
-      height: 100%;
-      background: var(--gold-gradient);
-      opacity: 0.1;
-      transition: var(--transition-luxury);
-      z-index: -1;
-    }
-
-    .nav-link:hover::before, .nav-toggler:hover::before {
-      left: 0;
     }
 
     .nav-link:hover, .nav-toggler:hover {
+      background: rgba(212, 175, 55, 0.1);
       color: var(--gold-bright);
-      border-color: var(--glass-border);
-      transform: translateX(8px);
-      box-shadow: var(--shadow-gold);
+      transform: translateX(4px);
     }
 
     .nav-link.active {
-      background: var(--glass-gradient);
+      background: rgba(212, 175, 55, 0.2);
       color: var(--gold-bright);
-      border-color: var(--gold-primary);
-      font-weight: 500;
-      box-shadow: var(--shadow-gold);
+      border: 1px solid var(--gold-primary);
     }
 
     .nav-icon {
-      font-size: 1.1rem;
-      width: 24px;
+      width: 20px;
       text-align: center;
-      transition: var(--transition-luxury);
-    }
-
-    .nav-link:hover .nav-icon, .nav-toggler:hover .nav-icon {
-      transform: scale(1.2);
     }
 
     .submenu {
       list-style: none;
-      margin: 0.5rem 0 0 0;
-      padding-left: 1rem;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: max-height 0.3s ease;
+      margin-left: 1rem;
     }
 
     .submenu.open {
-      max-height: 800px;
-    }
-
-    .submenu li {
-      margin: 0.25rem 0;
+      max-height: 500px;
     }
 
     .submenu .nav-link {
-      padding: 0.75rem 1rem;
+      padding: 0.75rem;
       font-size: 0.85rem;
       color: rgba(245, 230, 211, 0.8);
-      margin: 0;
-      border-radius: 12px;
     }
 
-    .submenu .nav-link:hover {
-      color: var(--gold-bright);
-      background: rgba(212, 175, 55, 0.1);
-      transform: translateX(4px);
+    .supplier-lock {
+      background: rgba(255, 68, 68, 0.1);
+      color: #ff6666;
+      cursor: not-allowed;
     }
 
-    /* ================== THEME SWITCHER LUXE ================== */
     .theme-switcher {
       padding: 2rem;
       border-top: 1px solid var(--glass-border);
-      margin-top: auto;
     }
 
     .theme-button {
@@ -472,7 +209,7 @@
       padding: 1rem;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      border-radius: 50px;
+      border-radius: 25px;
       color: var(--champagne);
       cursor: pointer;
       font-weight: 500;
@@ -483,29 +220,22 @@
     .theme-button:hover {
       background: var(--gold-gradient);
       color: var(--primary-black);
-      border-color: var(--gold-primary);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-gold);
     }
 
-    /* ================== MAIN CONTENT ULTRA PRO ================== */
+    /* Main Content */
     .main-container {
       flex: 1;
       display: flex;
       flex-direction: column;
-      background: var(--deep-black);
     }
 
     .main-header {
       background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
       border-bottom: 1px solid var(--glass-border);
       padding: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
-      box-shadow: var(--shadow-glass);
     }
 
     .header-left {
@@ -522,10 +252,8 @@
 
     .header-title {
       font-family: var(--font-display);
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 600;
-      color: var(--champagne);
-      margin: 0;
       background: var(--gold-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -533,7 +261,6 @@
     }
 
     .header-subtitle {
-      font-family: var(--font-tech);
       font-size: 0.9rem;
       color: rgba(245, 230, 211, 0.7);
       text-transform: uppercase;
@@ -548,7 +275,7 @@
       padding: 0.5rem 1rem;
       background: var(--gold-gradient);
       color: var(--primary-black);
-      border-radius: 50px;
+      border-radius: 25px;
       font-size: 0.8rem;
       font-weight: 600;
       white-space: nowrap;
@@ -559,7 +286,6 @@
       align-items: center;
       gap: 1.5rem;
     }
-
     .action-button {
       display: flex;
       align-items: center;
@@ -567,25 +293,22 @@
       padding: 0.75rem 1.5rem;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      border-radius: 50px;
+      border-radius: 25px;
       color: var(--champagne);
       text-decoration: none;
       font-weight: 500;
       font-size: 0.85rem;
       transition: var(--transition-luxury);
-      cursor: pointer;
     }
 
     .action-button.primary {
       background: var(--gold-gradient);
       color: var(--primary-black);
-      border-color: var(--gold-primary);
     }
 
     .action-button:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow-gold);
-      border-color: var(--gold-primary);
     }
 
     .notification-icon {
@@ -599,12 +322,6 @@
       transition: var(--transition-luxury);
     }
 
-    .notification-icon:hover {
-      color: var(--gold-bright);
-      border-color: var(--gold-primary);
-      box-shadow: var(--shadow-gold);
-    }
-
     .notification-badge {
       position: absolute;
       top: 0.25rem;
@@ -613,12 +330,6 @@
       height: 8px;
       background: #ff4444;
       border-radius: 50%;
-      animation: pulse-notification 2s infinite;
-    }
-
-    @keyframes pulse-notification {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.3); opacity: 0.7; }
     }
 
     .user-profile {
@@ -628,9 +339,8 @@
       padding: 0.75rem 1.25rem;
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      border-radius: 50px;
+      border-radius: 25px;
       cursor: pointer;
-      transition: var(--transition-luxury);
     }
 
     .user-avatar {
@@ -643,7 +353,6 @@
       justify-content: center;
       color: var(--primary-black);
       font-weight: 600;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
     }
 
     .user-info {
@@ -665,67 +374,122 @@
       letter-spacing: 0.5px;
     }
 
-    .user-profile:hover {
-      border-color: var(--gold-primary);
-      box-shadow: var(--shadow-gold);
-    }
-    /* ================== DASHBOARD CONTENT LUXE ================== */
     .dashboard-content {
       flex: 1;
-      padding: 2.5rem;
-      overflow-y: auto;
+      padding: 2rem;
     }
 
+    /* Formation Progress */
+    .formation-progress {
+      background: var(--glass-bg);
+      border: 1px solid var(--gold-primary);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .progress-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .progress-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gold-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-black);
+    }
+
+    .progress-info h3 {
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-subtitle {
+      color: rgba(245, 230, 211, 0.8);
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(212, 175, 55, 0.2);
+      border-radius: 4px;
+      margin: 1rem 0;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gold-gradient);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .progress-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .progress-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--gold-primary);
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-bright);
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: var(--transition-luxury);
+    }
+
+    .progress-btn:hover {
+      background: var(--gold-gradient);
+      color: var(--primary-black);
+    }
+
+    /* Hero Section */
     .welcome-hero {
       background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
       border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius-lg);
-      padding: 3rem;
-      margin-bottom: 3rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-luxury);
-    }
-
-    .welcome-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gold-gradient);
-      animation: shimmer 3s ease-in-out infinite;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
     }
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 700;
-      color: var(--champagne);
       margin-bottom: 1rem;
-      line-height: 1.2;
     }
 
     .hero-subtitle {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: rgba(245, 230, 211, 0.8);
       margin-bottom: 2rem;
       line-height: 1.6;
-      font-weight: 300;
     }
 
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: 1.5rem;
     }
 
     .hero-stat {
@@ -740,12 +504,10 @@
     .hero-stat:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-gold);
-      border-color: var(--gold-primary);
     }
 
     .stat-value {
-      font-family: var(--font-tech);
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       color: var(--gold-bright);
       margin-bottom: 0.5rem;
@@ -755,120 +517,89 @@
       font-size: 0.8rem;
       color: rgba(245, 230, 211, 0.7);
       text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 500;
+      letter-spacing: 0.5px;
     }
 
+    /* Dashboard Cards */
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 2rem;
       margin-top: 2rem;
     }
 
     .dashboard-card {
       background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
       border: 1px solid var(--glass-border);
-      border-radius: var(--border-radius-lg);
-      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      padding: 2rem;
       transition: var(--transition-luxury);
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--shadow-glass);
-    }
-
-    .dashboard-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gold-gradient);
-      transform: scaleX(0);
-      transition: var(--transition-luxury);
-    }
-
-    .dashboard-card:hover::before {
-      transform: scaleX(1);
     }
 
     .dashboard-card:hover {
-      transform: translateY(-8px);
-      box-shadow: var(--shadow-luxury);
-      border-color: rgba(212, 175, 55, 0.4);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-gold);
     }
 
     .card-header {
       display: flex;
       align-items: center;
       gap: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .card-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: var(--border-radius);
+      width: 60px;
+      height: 60px;
       background: var(--gold-gradient);
+      border-radius: var(--border-radius);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       color: var(--primary-black);
-      box-shadow: var(--shadow-gold);
     }
 
     .card-title {
       font-family: var(--font-display);
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 600;
-      color: var(--champagne);
-      margin: 0;
     }
 
     .card-content {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .card-description {
       color: rgba(245, 230, 211, 0.8);
-      line-height: 1.7;
-      font-size: 1rem;
-      font-weight: 300;
+      line-height: 1.6;
     }
 
     .card-action {
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
       color: var(--gold-primary);
       text-decoration: none;
       font-weight: 500;
-      font-size: 0.95rem;
-      transition: var(--transition-luxury);
-      position: relative;
       padding: 0.75rem 1.5rem;
       border: 1px solid var(--gold-primary);
-      border-radius: 50px;
+      border-radius: 25px;
       background: rgba(212, 175, 55, 0.05);
+      transition: var(--transition-luxury);
     }
 
     .card-action:hover {
-      color: var(--gold-bright);
-      transform: translateX(8px);
-      box-shadow: var(--shadow-gold);
-      background: rgba(212, 175, 55, 0.1);
+      background: var(--gold-gradient);
+      color: var(--primary-black);
     }
 
-    /* ================== MOBILE NAVIGATION ================== */
+    /* Mobile Navigation */
     .mobile-nav-bar {
       display: none;
       justify-content: space-around;
       align-items: center;
       background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
       border-top: 1px solid var(--glass-border);
       padding: 1rem 0.5rem;
       position: fixed;
@@ -876,7 +607,6 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
     }
 
     .mobile-nav-link {
@@ -887,10 +617,9 @@
       color: var(--champagne);
       text-decoration: none;
       font-size: 0.7rem;
-      transition: var(--transition-luxury);
       padding: 0.5rem;
       border-radius: 12px;
-      font-weight: 500;
+      transition: var(--transition-luxury);
       opacity: 0.7;
     }
 
@@ -899,7 +628,6 @@
       color: var(--gold-bright);
       background: rgba(212, 175, 55, 0.1);
       opacity: 1;
-      transform: translateY(-2px);
     }
 
     .mobile-nav-link i {
@@ -907,7 +635,6 @@
       margin-bottom: 0.25rem;
     }
 
-    /* Menu overlay mobile */
     #mobileMenuOverlay {
       position: fixed;
       top: 0;
@@ -918,8 +645,7 @@
       z-index: 2000;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
     }
 
     #mobileMenuOverlay.open {
@@ -935,12 +661,10 @@
       width: 85%;
       max-width: 350px;
       background: var(--glass-bg);
-      backdrop-filter: var(--glass-backdrop);
       padding: 2rem;
       transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s ease;
       overflow-y: auto;
-      border-left: 1px solid var(--glass-border);
     }
 
     #mobileMenuOverlay.open .mobile-menu-content {
@@ -958,13 +682,6 @@
       cursor: pointer;
       padding: 0.5rem;
       border-radius: 50%;
-      transition: var(--transition-luxury);
-      z-index: 10;
-    }
-
-    .close-button:hover {
-      background: var(--glass-gradient);
-      color: var(--gold-bright);
     }
 
     .mobile-menu-content h2 {
@@ -974,27 +691,15 @@
       font-size: 1.8rem;
       text-align: center;
     }
-
-    /* ================== RESPONSIVE DESIGN COMPLET ================== */
-    @media (max-width: 1024px) {
-      .dashboard-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      }
-      
-      .hero-title {
-        font-size: 2.5rem;
-      }
-    }
-
+    /* Responsive */
     @media (max-width: 768px) {
       .sidebar {
-        width: 100%;
         position: fixed;
         left: -100%;
         top: 0;
         height: 100vh;
-        z-index: 1500;
-        transition: left var(--transition-luxury);
+        z-index: 1000;
+        transition: left 0.3s ease;
       }
 
       .sidebar.open {
@@ -1010,7 +715,7 @@
       }
 
       .main-header {
-        padding: 1.5rem 1rem;
+        padding: 1rem;
         flex-direction: column;
         gap: 1rem;
         text-align: center;
@@ -1022,211 +727,30 @@
         text-align: center;
       }
 
-      .header-actions {
-        gap: 1rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
       .header-title {
-        font-size: 1.8rem;
-      }
-
-      .header-subtitle {
-        font-size: 0.8rem;
+        font-size: 1.5rem;
       }
 
       .user-info {
         display: none;
       }
 
-      .action-button {
-        padding: 0.6rem 1rem;
-        font-size: 0.8rem;
-      }
-
       .dashboard-content {
-        padding: 1.5rem 1rem;
-        padding-bottom: 6rem;
-      }
-
-      .formation-progress {
         padding: 1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .welcome-hero {
-        padding: 2rem 1.5rem;
-        margin-bottom: 2rem;
+        padding-bottom: 6rem;
       }
 
       .hero-title {
         font-size: 2rem;
-        line-height: 1.3;
-      }
-
-      .hero-subtitle {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
       }
 
       .hero-stats {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-      }
-
-      .hero-stat {
-        padding: 1rem;
-      }
-
-      .stat-value {
-        font-size: 1.5rem;
       }
 
       .dashboard-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-      }
-
-      .dashboard-card {
-        padding: 2rem 1.5rem;
-      }
-
-      .card-header {
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .card-icon {
-        width: 48px;
-        height: 48px;
-        font-size: 1.4rem;
-      }
-
-      .card-title {
-        font-size: 1.3rem;
-      }
-
-      .sidebar-header {
-        padding: 2rem 1.5rem 1.5rem;
-      }
-
-      .logo-main {
-        font-size: 2rem;
-      }
-
-      .nav-section-title {
-        padding: 0 1.5rem 0.8rem;
-        font-size: 0.6rem;
-      }
-
-      .nav-item {
-        margin: 0 0.5rem 0.3rem;
-      }
-
-      .nav-link, .nav-toggler {
-        padding: 0.8rem 1rem;
-        font-size: 0.85rem;
-      }
-
-      .submenu .nav-link {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.8rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-stats {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-title {
-        font-size: 1.6rem;
-      }
-
-      .header-title {
-        font-size: 1.5rem;
-      }
-
-      .dashboard-card {
-        padding: 1.5rem 1rem;
-      }
-
-      .welcome-hero {
-        padding: 1.5rem 1rem;
-      }
-
-      .main-header {
-        padding: 1rem;
-      }
-
-      .dashboard-content {
-        padding: 1rem;
-        padding-bottom: 6rem;
-      }
-
-      .mobile-nav-link {
-        font-size: 0.65rem;
-        padding: 0.3rem;
-      }
-
-      .mobile-nav-link i {
-        font-size: 1rem;
-      }
-    }
-    /* ================== LOADING ANIMATIONS ================== */
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-
-    .slide-in-right {
-      animation: slideInRight 1s ease-out forwards;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(60px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* ================== SCROLLBAR LUXURY ================== */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--obsidian);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--gold-gradient);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-bright);
-    }
-
-    /* Hide scrollbar for mobile */
-    @media (max-width: 768px) {
-      ::-webkit-scrollbar {
-        width: 4px;
       }
     }
   </style>
@@ -1238,10 +762,7 @@
     <div class="particle"></div>
     <div class="particle"></div>
     <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
   </div>
-  <div class="geometric-overlay"></div>
 
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -1262,93 +783,13 @@
         </div>
       </div>
 
-      <div class="nav-section
-        /* ================== LOADING ANIMATIONS ================== */
-    .fade-in-up {
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-
-    .slide-in-right {
-      animation: slideInRight 1s ease-out forwards;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideInRight {
-      from {
-        opacity: 0;
-        transform: translateX(60px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* ================== SCROLLBAR LUXURY ================== */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--obsidian);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--gold-gradient);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--gold-bright);
-    }
-
-    /* Hide scrollbar for mobile */
-    @media (max-width: 768px) {
-      ::-webkit-scrollbar {
-        width: 4px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Background System -->
-  <div class="luxury-background"></div>
-  <div class="particles-container">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-  </div>
-  <div class="geometric-overlay"></div>
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="logo">
-        <h1 class="logo-main">SELEZIONE</h1>
-        <p class="logo-subtitle">Luxury Fashion Intelligence</p>
-      </div>
-    </div>
-
-    <div class="sidebar-content">
       <div class="nav-section">
         <h3 class="nav-section-title">Sourcing Intelligence</h3>
         <div class="nav-item">
           <div class="nav-toggler" data-target="sourcing-menu">
             <i class="nav-icon fas fa-search"></i>
             <span>Sourcing & Veille</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+            <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
           </div>
           <ul class="submenu" id="sourcing-menu">
             <li><a href="module6.html" class="nav-link">Scraping Vestiaire Collective</a></li>
@@ -1366,7 +807,7 @@
           <div class="nav-toggler" data-target="intelligence-menu">
             <i class="nav-icon fas fa-newspaper"></i>
             <span>Veille & Actualités</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+            <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
           </div>
           <ul class="submenu" id="intelligence-menu">
             <li><a href="module8.html" class="nav-link">News Mode & Luxe</a></li>
@@ -1382,7 +823,7 @@
           <div class="nav-toggler" data-target="analytics-menu">
             <i class="nav-icon fas fa-chart-line"></i>
             <span>Performance & ROI</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+            <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
           </div>
           <ul class="submenu" id="analytics-menu">
             <li><a href="calculateur-marge-costo.html" class="nav-link">ROI Calculator</a></li>
@@ -1398,7 +839,7 @@
           <div class="nav-toggler" data-target="academy-menu">
             <i class="nav-icon fas fa-graduation-cap"></i>
             <span>Académie SELEZIONE</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+            <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
           </div>
           <ul class="submenu" id="academy-menu">
             <li><a href="formation-selezione-1.html" class="nav-link">Secteur Luxe</a></li>
@@ -1417,17 +858,9 @@
         <span>Mode Sombre</span>
       </button>
     </div>
-  </aside>">
-        <div class="nav-item">
-          <a href="index.html" class="nav-link active">
-            <i class="nav-icon fas fa-home"></i>
-            <span>Dashboard</span>
-          </a>
-        </div>
-      </div>
+  </aside>
 
-      <div class="nav-section
-        <!-- Main Content -->
+  <!-- Main Content -->
   <main class="main-container">
     <!-- Header -->
     <header class="main-header">
@@ -1473,7 +906,7 @@
     <!-- Dashboard Content -->
     <div class="dashboard-content">
       <!-- Barre de progression formation -->
-      <div class="formation-progress fade-in-up">
+      <div class="formation-progress">
         <div class="progress-header">
           <div class="progress-icon">
             <i class="fas fa-graduation-cap"></i>
@@ -1483,12 +916,10 @@
             <p class="progress-subtitle">Chapitre actuel : "Négociation Avancée"</p>
           </div>
         </div>
-        <div class="progress-bar-container">
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 65%"></div>
-          </div>
-          <p class="progress-text">65% complété</p>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
         </div>
+        <p class="progress-text">65% complété</p>
         <div class="progress-actions">
           <a href="formation-selezione-2.html" class="progress-btn">
             <i class="fas fa-play"></i>
@@ -1502,7 +933,7 @@
       </div>
 
       <!-- Hero Section -->
-      <section class="welcome-hero fade-in-up">
+      <section class="welcome-hero">
         <div class="hero-content">
           <h2 class="hero-title">Dashboard Fashion Intelligence</h2>
           <p class="hero-subtitle">
@@ -1533,7 +964,7 @@
 
       <!-- Dashboard Cards -->
       <section class="dashboard-grid">
-        <div class="dashboard-card slide-in-right" style="animation-delay: 0.2s;">
+        <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon">
               <i class="fas fa-search"></i>
@@ -1552,7 +983,7 @@
           </a>
         </div>
 
-        <div class="dashboard-card slide-in-right" style="animation-delay: 0.4s;">
+        <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon">
               <i class="fas fa-newspaper"></i>
@@ -1571,7 +1002,7 @@
           </a>
         </div>
 
-        <div class="dashboard-card slide-in-right" style="animation-delay: 0.6s;">
+        <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon">
               <i class="fas fa-calculator"></i>
@@ -1590,7 +1021,7 @@
           </a>
         </div>
 
-        <div class="dashboard-card slide-in-right" style="animation-delay: 0.8s;">
+        <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon">
               <i class="fas fa-graduation-cap"></i>
@@ -1609,7 +1040,7 @@
           </a>
         </div>
 
-        <div class="dashboard-card slide-in-right" style="animation-delay: 1.0s;">
+        <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon">
               <i class="fas fa-lock" style="opacity: 0.6;"></i>
@@ -1628,7 +1059,7 @@
           </span>
         </div>
 
-        <div class="dashboard-card slide-in-right" style="animation-delay: 1.2s;">
+        <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon">
               <i class="fas fa-chart-bar"></i>
@@ -1648,8 +1079,127 @@
         </div>
       </section>
     </div>
-      </main>
-      <!-- Mobile Navigation -->
+  </main>
+  <!-- Dashboard Cards -->
+      <section class="dashboard-grid">
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-search"></i>
+            </div>
+            <h3 class="card-title">Sourcing Intelligence</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Scraping Vestiaire Collective, analyse par IA d'images, identification des top marques 
+              et meilleurs produits. Votre radar pour les opportunités cachées.
+            </p>
+          </div>
+          <a href="module6.html" class="card-action">
+            <span>Lancer une analyse</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-newspaper"></i>
+            </div>
+            <h3 class="card-title">Fashion Intelligence</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              News mode & luxe quotidiennes, data des grandes marques, graphiques de tendances 
+              et rapports sectoriels. Votre veille stratégique automatisée.
+            </p>
+          </div>
+          <a href="module8.html" class="card-action">
+            <span>Voir les actualités</span>
+            <i class="fas fa-chart-line"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <h3 class="card-title">Analytics & ROI</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Calculateur de ROI, tracking de performance, export de rapports détaillés. 
+              Mesurez et optimisez chaque décision business.
+            </p>
+          </div>
+          <a href="calculateur-marge-costo.html" class="card-action">
+            <span>Calculer le ROI</span>
+            <i class="fas fa-chart-pie"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3 class="card-title">Formation Continue</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Formation complète : secteur luxe, sourcing, négociation, analyse produits, 
+              business fashion. Plus que 35% pour débloquer le module Fournisseurs !
+            </p>
+          </div>
+          <a href="formation-selezione-2.html" class="card-action">
+            <span>Continuer (65%)</span>
+            <i class="fas fa-play"></i>
+          </a>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-lock" style="opacity: 0.6;"></i>
+            </div>
+            <h3 class="card-title" style="opacity: 0.7;">Module Fournisseurs</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description" style="opacity: 0.7;">
+              Accès exclusif aux fournisseurs premium, négociation assistée par IA, 
+              évaluation fournisseurs. Débloqué à 80% de formation complétée.
+            </p>
+          </div>
+          <span class="card-action supplier-lock">
+            <i class="fas fa-lock"></i>
+            <span>Débloqué à 80%</span>
+          </span>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3 class="card-title">Performances Récentes</h3>
+          </div>
+          <div class="card-content">
+            <p class="card-description">
+              Dernière analyse : Hermès Birkin 35cm (+12% vs estimation), 
+              économie générée cette semaine : €847. Tendance positive sur 7 jours.
+            </p>
+          </div>
+          <a href="stats-performance.html" class="card-action">
+            <span>Détails performance</span>
+            <i class="fas fa-eye"></i>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Mobile Navigation -->
   <nav class="mobile-nav-bar">
     <a href="index.html" class="mobile-nav-link active">
       <i class="fas fa-home"></i>
@@ -1682,7 +1232,6 @@
       
       <h2>Navigation</h2>
       
-      <!-- Reproduction de la navigation complète pour mobile -->
       <div class="nav-section">
         <div class="nav-item">
           <a href="index.html" class="nav-link active">
@@ -1698,7 +1247,7 @@
           <div class="nav-toggler" data-target="sourcing-menu-mobile">
             <i class="nav-icon fas fa-search"></i>
             <span>Sourcing & Veille</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
+            <i class="fas fa-chevron-down" style="margin-left: auto;"></i>
           </div>
           <ul class="submenu" id="sourcing-menu-mobile">
             <li><a href="module6.html" class="nav-link">Scraping Vestiaire Collective</a></li>
@@ -1706,56 +1255,6 @@
             <li><a href="analyse-concurrence.html" class="nav-link">Top Marques Analysis</a></li>
             <li><a href="module_nouvelle_acquisition.html" class="nav-link">Best Products Finder</a></li>
             <li><a href="fournisseur-order.html" class="nav-link supplier-lock">🔒 Module Fournisseurs (80% requis)</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="nav-section">
-        <h3 class="nav-section-title">Fashion Intelligence</h3>
-        <div class="nav-item">
-          <div class="nav-toggler" data-target="intelligence-menu-mobile">
-            <i class="nav-icon fas fa-newspaper"></i>
-            <span>Veille & Actualités</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-          </div>
-          <ul class="submenu" id="intelligence-menu-mobile">
-            <li><a href="module8.html" class="nav-link">News Mode & Luxe</a></li>
-            <li><a href="tendances-ia.html" class="nav-link">Data Marques & Chiffres</a></li>
-            <li><a href="stats-performance.html" class="nav-link">Graphiques & Tendances</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="nav-section">
-        <h3 class="nav-section-title">Analytics & Reports</h3>
-        <div class="nav-item">
-          <div class="nav-toggler" data-target="analytics-menu-mobile">
-            <i class="nav-icon fas fa-chart-line"></i>
-            <span>Performance & ROI</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-          </div>
-          <ul class="submenu" id="analytics-menu-mobile">
-            <li><a href="calculateur-marge-costo.html" class="nav-link">ROI Calculator</a></li>
-            <li><a href="gestion-stock.html" class="nav-link">Performance Tracking</a></li>
-            <li><a href="module7.html" class="nav-link">Export Reports</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="nav-section">
-        <h3 class="nav-section-title">Formation</h3>
-        <div class="nav-item">
-          <div class="nav-toggler" data-target="academy-menu-mobile">
-            <i class="nav-icon fas fa-graduation-cap"></i>
-            <span>Académie SELEZIONE</span>
-            <i class="fas fa-chevron-down" style="margin-left: auto; transition: transform 0.3s;"></i>
-          </div>
-          <ul class="submenu" id="academy-menu-mobile">
-            <li><a href="formation-selezione-1.html" class="nav-link">Secteur Luxe</a></li>
-            <li><a href="formation-selezione-2.html" class="nav-link">Sourcing & Négociation</a></li>
-            <li><a href="formation-selezione-3.html" class="nav-link">Analyse Produits</a></li>
-            <li><a href="formation-selezione-4.html" class="nav-link">Business Fashion</a></li>
-            <li><a href="onboarding-guide.html" class="nav-link">Retail & Distribution</a></li>
           </ul>
         </div>
       </div>
@@ -1768,10 +1267,8 @@
       </div>
     </div>
   </div>
-        <script>
-    // Remove no-js class
-    document.body.classList.remove('no-js');
 
+  <script>
     // Navigation togglers
     document.querySelectorAll('.nav-toggler').forEach(toggler => {
       toggler.addEventListener('click', () => {
@@ -1781,7 +1278,9 @@
         
         if (submenu) {
           submenu.classList.toggle('open');
-          chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+          if (chevron) {
+            chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+          }
         }
       });
     });
@@ -1794,15 +1293,19 @@
     if (menuButton) {
       menuButton.addEventListener('click', e => {
         e.preventDefault(); 
-        overlay.classList.add('open');
-        document.body.classList.add('no-scroll');
+        if (overlay) {
+          overlay.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
       });
     }
 
     if (closeButton) {
       closeButton.addEventListener('click', () => {
-        overlay.classList.remove('open');
-        document.body.classList.remove('no-scroll');
+        if (overlay) {
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        }
       });
     }
 
@@ -1810,7 +1313,7 @@
       overlay.addEventListener('click', e => {
         if (e.target === overlay) {
           overlay.classList.remove('open');
-          document.body.classList.remove('no-scroll');
+          document.body.style.overflow = '';
         }
       });
     }
@@ -1818,40 +1321,28 @@
     // Theme toggle
     const themeToggle = document.getElementById('themeToggle');
     const themeToggleMobile = document.getElementById('themeToggleMobile');
-    const body = document.body;
-    
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    if (savedTheme === 'light') {
-      body.classList.add('light-mode');
-      updateThemeButtons(true);
-    }
-    
+
     function toggleTheme() {
-      body.classList.toggle('light-mode');
-      const isLight = body.classList.contains('light-mode');
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
       updateThemeButtons(isLight);
     }
 
-    if (themeToggle) {
-      themeToggle.addEventListener('click', toggleTheme);
-    }
-    
-    if (themeToggleMobile) {
-      themeToggleMobile.addEventListener('click', toggleTheme);
-    }
-    
     function updateThemeButtons(isLight) {
       const buttons = [themeToggle, themeToggleMobile].filter(Boolean);
       buttons.forEach(button => {
         const icon = button.querySelector('i');
         const text = button.querySelector('span');
-        
-        icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
-        text.textContent = isLight ? 'Mode Clair' : 'Mode Sombre';
+        if (icon && text) {
+          icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+          text.textContent = isLight ? 'Mode Clair' : 'Mode Sombre';
+        }
       });
     }
+
+    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+    if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
 
     // Formation progress animation
     window.addEventListener('load', () => {
@@ -1864,125 +1355,42 @@
     });
 
     // Animated counters for stats
-    function animateCounter(element, target, duration = 2000) {
-      const start = 0;
-      const increment = target / (duration / 16);
-      let current = start;
-      
+    function animateCounter(element, target) {
+      let current = 0;
+      const increment = target / 100;
       const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
-          element.textContent = formatNumber(target);
+          if (element.textContent.includes('€')) {
+            element.textContent = '€' + target.toLocaleString('fr-FR');
+          } else if (element.textContent.includes('%')) {
+            element.textContent = target + '%';
+          } else {
+            element.textContent = Math.floor(target);
+          }
           clearInterval(timer);
         } else {
-          element.textContent = formatNumber(Math.floor(current));
+          if (element.textContent.includes('€')) {
+            element.textContent = '€' + Math.floor(current).toLocaleString('fr-FR');
+          } else if (element.textContent.includes('%')) {
+            element.textContent = Math.floor(current) + '%';
+          } else {
+            element.textContent = Math.floor(current);
+          }
         }
-      }, 16);
+      }, 20);
     }
-    
-    function formatNumber(num) {
-      if (num >= 1000) {
-        return '€' + (num / 1000).toFixed(1) + 'K';
-      }
-      return num.toString();
-    }
-    
+
     // Animate counters on load
     window.addEventListener('load', () => {
       const counters = document.querySelectorAll('.stat-value[data-target]');
       counters.forEach((counter, index) => {
         setTimeout(() => {
           const target = parseFloat(counter.getAttribute('data-target'));
-          
-          if (counter.textContent.includes('%')) {
-            animateCounter(counter, target, 1500);
-            setTimeout(() => {
-              counter.textContent = target + '%';
-            }, 1500);
-          } else if (counter.textContent.includes('€')) {
-            const timer = setInterval(() => {
-              const current = parseFloat(counter.textContent.replace(/[€,]/g, '')) || 0;
-              const increment = target / 100;
-              if (current < target) {
-                counter.textContent = '€' + Math.floor(current + increment).toLocaleString('fr-FR');
-              } else {
-                counter.textContent = '€' + target.toLocaleString('fr-FR');
-                clearInterval(timer);
-              }
-            }, 20);
-          } else {
-            animateCounter(counter, target, 1500);
-          }
+          animateCounter(counter, target);
         }, index * 200);
       });
     });
-          // Parallax effect for particles
-    document.addEventListener('mousemove', (e) => {
-      const particles = document.querySelectorAll('.particle');
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      
-      particles.forEach((particle, index) => {
-        const speed = (index + 1) * 0.5;
-        particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-      });
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('.dashboard-card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
-      card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
-      observer.observe(card);
-    });
-
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Performance optimization: Reduce animations on mobile
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      document.querySelectorAll('.particle').forEach(particle => {
-        particle.style.animationDuration = '20s';
-      });
-    }
-
-    // Handle resize events
-    window.addEventListener('resize', () => {
-      const sidebar = document.querySelector('.sidebar');
-      const overlay = document.getElementById('mobileMenuOverlay');
-      
-      if (window.innerWidth > 768) {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
-        document.body.classList.remove('no-scroll');
-      }
-    });
 
     // Supplier module lock logic
     document.querySelectorAll('.supplier-lock').forEach(element => {
@@ -1992,141 +1400,17 @@
       });
     });
 
-    // Notification for formation progress
-    function checkFormationProgress() {
-      const currentProgress = 65; // Récupérer depuis localStorage ou API
-      if (currentProgress >= 75 && currentProgress < 80) {
-        setTimeout(()
-          // Parallax effect for particles
-    document.addEventListener('mousemove', (e) => {
-      const particles = document.querySelectorAll('.particle');
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      
-      particles.forEach((particle, index) => {
-        const speed = (index + 1) * 0.5;
-        particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-      });
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('.dashboard-card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
-      card.style.transition = 'all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)';
-      observer.observe(card);
-    });
-
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Performance optimization: Reduce animations on mobile
-    const isMobile = window.innerWidth <= 768;
-    if (isMobile) {
-      document.querySelectorAll('.particle').forEach(particle => {
-        particle.style.animationDuration = '20s';
-      });
-    }
-
     // Handle resize events
     window.addEventListener('resize', () => {
-      const sidebar = document.querySelector('.sidebar');
-      const overlay = document.getElementById('mobileMenuOverlay');
-      
       if (window.innerWidth > 768) {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
-        document.body.classList.remove('no-scroll');
+        const sidebar = document.querySelector('.sidebar');
+        if (sidebar) sidebar.classList.remove('open');
+        if (overlay) {
+          overlay.classList.remove('open');
+          document.body.style.overflow = '';
+        }
       }
-    });
-
-    // Supplier module lock logic
-    document.querySelectorAll('.supplier-lock').forEach(element => {
-      element.addEventListener('click', (e) => {
-        e.preventDefault();
-        alert('Module Fournisseurs débloqué à 80% de formation complétée.\nActuellement : 65%\n\nContinuez votre formation pour débloquer ce module premium !');
-      });
-    });
-
-    // Notification for formation progress
-    function checkFormationProgress() {
-      const currentProgress = 65; // Récupérer depuis localStorage ou API
-      if (currentProgress >= 75 && currentProgress < 80) {
-        setTimeout(() => {
-          const notification = document.createElement('div');
-          notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--gold-gradient);
-            color: var(--primary-black);
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 500;
-            z-index: 10000;
-            animation: slideInRight 0.5s ease-out;
-            box-shadow: var(--shadow-gold);
-          `;
-          notification.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <i class="fas fa-star"></i>
-              <span>Plus que ${80 - currentProgress}% pour débloquer le Module Fournisseurs !</span>
-              <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; color: inherit; margin-left: 0.5rem; cursor: pointer;">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          `;
-          document.body.appendChild(notification);
-          
-          setTimeout(() => {
-            if (notification.parentElement) {
-              notification.remove();
-            }
-          }, 5000);
-        }, 2000);
-      }
-    }
-
-    // Check formation progress on load
-    window.addEventListener('load', checkFormationProgress);
-
-    // Preload critical animations
-    document.addEventListener('DOMContentLoaded', () => {
-      // Trigger reflow to ensure animations are ready
-      document.body.offsetHeight;
-      
-      // Add loaded class for enhanced animations
-      setTimeout(() => {
-        document.body.classList.add('loaded');
-      }, 100);
     });
   </script>
 </body>
 </html>
-          
-        
