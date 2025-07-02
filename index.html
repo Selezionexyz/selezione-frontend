@@ -7,6 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <style>
     :root {
       --primary-black: #000000;
@@ -25,6 +27,12 @@
       --success-green: #10b981;
       --warning-orange: #f59e0b;
       --danger-red: #ef4444;
+
+      /* Nouvelles couleurs pour plus de richesse */
+      --sapphire-blue: #2a2a6a; 
+      --emerald-green: #0a6a2a; 
+      --accent-blue-gradient: linear-gradient(135deg, #4a69bd, #3f5aa7);
+      --accent-green-gradient: linear-gradient(135deg, #10b981, #0c9e6f);
     }
 
     body.light-mode {
@@ -32,6 +40,9 @@
       --deep-black: #f8f9fa;
       --champagne: #2a2a2a;
       --glass-bg: rgba(255, 255, 255, 0.9);
+      /* Ajustements pour le mode clair si nécessaire pour les nouvelles couleurs */
+      --sapphire-blue: #cddffb;
+      --emerald-green: #a7f3d0;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -309,7 +320,7 @@
       padding: 2rem;
     }
 
-    /* ================== FORMATION PROGRESS ================== */
+    /* ================== FORMATION PROGRESS (Votre code existant) ================== */
     .formation-progress {
       background: var(--glass-bg);
       border: 1px solid var(--gold-primary);
@@ -393,7 +404,7 @@
       color: var(--primary-black);
     }
 
-    /* ================== HERO SECTION AVEC MÉTRIQUES CORRIGÉES ================== */
+    /* ================== HERO SECTION AVEC MÉTRIQUES CORRIGÉES (Votre code existant) ================== */
     .welcome-hero {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -430,8 +441,7 @@
       border-radius: var(--border-radius);
       transition: var(--transition-luxury);
     }
-
-    .hero-stat:hover {
+        .hero-stat:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-gold);
     }
@@ -450,7 +460,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* ================== NOUVELLES DASHBOARD CARDS (SANS DOUBLONS) ================== */
+    /* ================== NOUVELLES DASHBOARD CARDS (SANS DOUBLONS) (Votre code existant) ================== */
     .dashboard-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -526,7 +536,7 @@
       color: var(--primary-black);
     }
 
-    /* ================== STYLES SPÉCIAUX POUR NOUVELLES CARDS ================== */
+    /* ================== STYLES SPÉCIAUX POUR NOUVELLES CARDS (Votre code existant) ================== */
     .recent-analyses {
       list-style: none;
       margin: 0;
@@ -612,6 +622,280 @@
       color: rgba(245, 230, 211, 0.7);
       text-transform: uppercase;
     }
+
+    /* ================== NOUVEAU CSS : AI Intelligence Section ================== */
+    .ai-intelligence-section {
+      padding: 2rem;
+      padding-top: 0; 
+    }
+
+    .ai-main-card {
+      display: flex;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      overflow: hidden; 
+      box-shadow: var(--shadow-gold); 
+    }
+
+    .ai-card-content {
+      flex: 2; 
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ai-card-title {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ai-card-description {
+      font-size: 1.1rem;
+      color: rgba(245, 230, 211, 0.8);
+      margin-bottom: 2rem;
+    }
+
+    .ai-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .ai-stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(212, 175, 55, 0.08); 
+      border-radius: 12px;
+    }
+
+    .ai-stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-bright);
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .ai-stat-label {
+      font-size: 0.8rem;
+      color: rgba(245, 230, 211, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ai-graph-placeholder {
+      height: 150px; 
+      width: 100%;
+    }
+    #aiTrendChart {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .ai-news-feed-card {
+      flex: 1; 
+      background: rgba(0, 0, 0, 0.4); 
+      padding: 2.5rem;
+      border-left: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ai-news-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--champagne);
+      margin-bottom: 1.5rem;
+    }
+
+    .ai-news-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .ai-news-list li {
+      font-size: 0.95rem;
+      color: rgba(245, 230, 211, 0.85);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .ai-news-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .ai-news-link {
+      color: var(--gold-primary);
+      text-decoration: none;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition-luxury);
+    }
+
+    .ai-news-link:hover {
+      color: var(--gold-bright);
+      transform: translateX(5px);
+    }
+
+    /* ================== NOUVEAU CSS : Annonces et Nouveaux Membres ================== */
+    .announcements-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem 2rem; 
+    }
+
+    .announcement-banner,
+    .new-members-banner {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: var(--transition-luxury);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .announcement-banner:hover,
+    .new-members-banner:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-gold);
+    }
+
+    .banner-icon {
+      font-size: 2rem;
+      color: var(--gold-bright);
+    }
+
+    .banner-content {
+      flex-grow: 1;
+    }
+
+    .banner-tag {
+      display: block;
+      font-size: 0.75rem;
+      color: rgba(245, 230, 211, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+
+    .banner-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--champagne);
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-subtitle {
+      font-size: 0.9rem;
+      color: rgba(245, 230, 211, 0.8);
+    }
+
+    .banner-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--gold-gradient);
+      color: var(--primary-black);
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition-luxury);
+    }
+
+    .banner-action-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .member-avatars {
+      display: flex;
+      margin-top: 0.75rem;
+    }
+
+    .member-avatar {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-primary);
+      margin-right: -10px; 
+      object-fit: cover;
+      transition: transform 0.2s ease;
+    }
+
+    .member-avatar:hover {
+      transform: translateY(-3px) scale(1.1);
+      z-index: 10;
+    }
+
+    /* ================== NOUVEAU CSS : Bottom Navigation Bar ================== */
+    .bottom-nav-bar {
+      display: none; /* Masqué par défaut sur desktop */
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: var(--glass-bg);
+      border-top: 1px solid var(--glass-border);
+      justify-content: space-around;
+      padding: 0.75rem 0;
+      z-index: 100;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      color: rgba(245, 230, 211, 0.7);
+      text-decoration: none;
+      font-size: 0.75rem;
+      transition: var(--transition-luxury);
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .bottom-nav-item i {
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .bottom-nav-item.active {
+      color: var(--gold-bright);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .bottom-nav-item:hover {
+      color: var(--gold-bright);
+      transform: translateY(-2px);
+    }
+
+
     /* ================== RESPONSIVE ================== */
     @media (max-width: 768px) {
       .sidebar {
@@ -650,7 +934,7 @@
 
       .dashboard-content {
         padding: 1rem;
-        padding-bottom: 6rem;
+        padding-bottom: 6rem; /* Espace pour la barre de nav mobile */
       }
 
       .hero-title {
@@ -673,11 +957,35 @@
       .performance-grid {
         grid-template-columns: 1fr;
       }
+
+      /* Responsive for new AI section */
+      .ai-main-card {
+        flex-direction: column; 
+      }
+      .ai-news-feed-card {
+        border-left: none;
+        border-top: 1px solid var(--glass-border);
+      }
+      .ai-stats-grid {
+        grid-template-columns: 1fr; 
+      }
+
+      /* Responsive for new announcements section */
+      .announcements-section {
+        grid-template-columns: 1fr;
+      }
+
+      /* Display bottom nav on mobile */
+      .bottom-nav-bar {
+        display: flex; 
+      }
+      body {
+        padding-bottom: 5rem; /* Espace pour la barre de nav */
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Background System -->
   <div class="luxury-background"></div>
   <div class="particles-container">
     <div class="particle"></div>
@@ -685,7 +993,6 @@
     <div class="particle"></div>
   </div>
 
-  <!-- ================== SIDEBAR SIMPLIFIÉ (SANS DOUBLONS) ================== -->
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="logo">
@@ -695,7 +1002,6 @@
     </div>
 
     <div class="sidebar-content">
-      <!-- Dashboard -->
       <div class="nav-section">
         <div class="nav-item">
           <a href="index.html" class="nav-link active">
@@ -705,7 +1011,6 @@
         </div>
       </div>
 
-      <!-- Sourcing Intelligence -->
       <div class="nav-section">
         <h3 class="nav-section-title">Sourcing Intelligence</h3>
         <div class="nav-item">
@@ -724,7 +1029,6 @@
         </div>
       </div>
 
-      <!-- Fashion Intelligence -->
       <div class="nav-section">
         <h3 class="nav-section-title">Fashion Intelligence</h3>
         <div class="nav-item">
@@ -741,7 +1045,6 @@
         </div>
       </div>
 
-      <!-- Analytics & Reports -->
       <div class="nav-section">
         <h3 class="nav-section-title">Analytics & Reports</h3>
         <div class="nav-item">
@@ -758,7 +1061,6 @@
         </div>
       </div>
 
-      <!-- Formation -->
       <div class="nav-section">
         <h3 class="nav-section-title">Formation</h3>
         <div class="nav-item">
@@ -778,9 +1080,7 @@
     </div>
   </aside>
 
-  <!-- ================== MAIN CONTENT ================== -->
   <main class="main-container">
-    <!-- Header -->
     <header class="main-header">
       <div class="header-left">
         <div class="header-welcome">
@@ -789,529 +1089,306 @@
         </div>
         <div class="user-level-badge">
           <i class="fas fa-crown"></i>
-          <span>Niveau User | Formation : 65%</span>
+          <span>Premium Status</span>
         </div>
       </div>
-      
       <div class="header-actions">
-        <a href="module4.html" class="action-button">
-          <i class="fas fa-camera"></i>
-          <span>Analyser Image</span>
+        <a href="#" class="action-button">
+          <i class="fas fa-bell"></i> Notifications
         </a>
-        
-        <a href="module6.html" class="action-button primary">
-          <i class="fas fa-search"></i>
-          <span>Nouveau Sourcing</span>
+        <a href="#" class="action-button primary">
+          <i class="fas fa-plus-circle"></i> Nouvelle Analyse
         </a>
       </div>
     </header>
 
-    <!-- Dashboard Content -->
-    <div class="dashboard-content">
-      <!-- Barre de progression formation -->
-      <div class="formation-progress">
-        <div class="progress-header">
-          <div class="progress-icon">
-            <i class="fas fa-graduation-cap"></i>
+    <section class="ai-intelligence-section">
+      <div class="ai-main-card">
+        <div class="ai-card-content">
+          <h2 class="ai-card-title">Selezione AI Intelligence</h2>
+          <p class="ai-card-description">Décryptez les tendances du prêt-à-porter de luxe en temps réel.</p>
+          
+          <div class="ai-stats-grid">
+            <div class="ai-stat-item">
+              <span class="ai-stat-value">12.5K</span>
+              <span class="ai-stat-label">Tendances Détectées</span>
+            </div>
+            <div class="ai-stat-item">
+              <span class="ai-stat-value">€1.2M</span>
+              <span class="ai-stat-label">Valeur Marché Estimée</span>
+            </div>
+            <div class="ai-stat-item">
+              <span class="ai-stat-value">+18%</span>
+              <span class="ai-stat-label">Croissance Annuelle</span>
+            </div>
           </div>
-          <div class="progress-info">
-            <h3>Progression Formation</h3>
-            <p class="progress-subtitle">Chapitre actuel : "Négociation Avancée"</p>
+          <div class="ai-graph-placeholder">
+            <canvas id="aiTrendChart"></canvas>
           </div>
         </div>
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
-        </div>
-        <p class="progress-text">65% complété</p>
-        <div class="progress-actions">
-          <a href="formation-selezione-2.html" class="progress-btn">
-            <i class="fas fa-play"></i>
-            Continuer la formation
-          </a>
-          <span class="progress-btn supplier-lock">
-            <i class="fas fa-lock"></i>
-            Module Fournisseurs à 80%
-          </span>
+        <div class="ai-news-feed-card">
+          <h3 class="ai-news-title"><i class="fas fa-robot"></i> Dernières Nouvelles IA</h3>
+          <ul class="ai-news-list">
+            <li>**02 Juil:** Nouvelle collection Dior "Élégance Immersive" lancée à Paris.</li>
+            <li>**01 Juil:** LVMH annonce une acquisition stratégique dans la maroquinerie de luxe.</li>
+            <li>**30 Juin:** Hausse de 5% des ventes en ligne pour le segment prêt-à-porter de luxe.</li>
+          </ul>
+          <a href="#" class="ai-news-link">Voir toutes les actualités <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
+    </section>
 
-      <!-- Hero Section avec métriques CORRIGÉES -->
-      <section class="welcome-hero">
-        <div class="hero-content">
-          <h2 class="hero-title">Dashboard Fashion Intelligence</h2>
-          <p class="hero-subtitle">
-            Votre centre de contrôle pour dominer le marché du prêt-à-porter de luxe. 
-            Analyses en temps réel, sourcing intelligent et stratégies data-driven.
-          </p>
-          
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <div class="stat-value" data-target="12847">€12,847</div>
-              <div class="stat-label">Valeur Portfolio</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-value" data-target="142">142</div>
-              <div class="stat-label">Analyses Réalisées</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-value" data-target="34.2">34.2%</div>
-              <div class="stat-label">Marge Moyenne</div>
-            </div>
-            <div class="hero-stat">
-              <div class="stat-value" data-target="28">28</div>
-              <div class="stat-label">Marques Trackées</div>
-            </div>
+    <section class="announcements-section">
+      <div class="announcement-banner">
+        <div class="banner-icon"><i class="fas fa-bullhorn"></i></div>
+        <div class="banner-content">
+          <span class="banner-tag">Annonce du Jour</span>
+          <h3 class="banner-title">Partenariat exclusif avec **Chanel Haute Couture** !</h3>
+          <p class="banner-subtitle">Accédez dès maintenant à leurs dernières collections.</p>
+        </div>
+        <a href="#" class="banner-action-btn">Découvrir <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <div class="new-members-banner">
+        <div class="banner-icon"><i class="fas fa-user-plus"></i></div>
+        <div class="banner-content">
+          <span class="banner-tag">Communauté Selezione</span>
+          <h3 class="banner-title">Bienvenue à nos **12 Nouveaux Membres** !</h3>
+          <div class="member-avatars">
+            <img src="https://via.placeholder.com/35/d4af37/000000?text=JD" alt="Membre" class="member-avatar">
+            <img src="https://via.placeholder.com/35/d4af37/000000?text=AM" alt="Membre" class="member-avatar">
+            <img src="https://via.placeholder.com/35/d4af37/000000?text=SL" alt="Membre" class="member-avatar">
+            <img src="https://via.placeholder.com/35/d4af37/000000?text=MR" alt="Membre" class="member-avatar">
+            <img src="https://via.placeholder.com/35/d4af37/000000?text=EL" alt="Membre" class="member-avatar">
           </div>
         </div>
+        <a href="#" class="banner-action-btn">Voir le Canal <i class="fas fa-comments"></i></a>
+      </div>
+    </section>
+        <div class="dashboard-content">
+      <section class="formation-progress">
+          <div class="progress-header">
+              <div class="progress-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div class="progress-info">
+                  <h3>Votre Parcours de Formation Selezione</h3>
+                  <p class="progress-subtitle">Maîtrisez chaque outil de la plateforme.</p>
+              </div>
+          </div>
+          <div class="progress-bar">
+              <div class="progress-fill" style="width: 60%;"></div>
+          </div>
+          <p class="progress-text">60% complété - Continuez votre apprentissage !</p>
+          <div class="progress-actions">
+              <a href="formation-selezione-1.html" class="progress-btn">
+                  <i class="fas fa-play-circle"></i> Reprendre la formation
+              </a>
+              <a href="formation-selezione-1.html" class="progress-btn">
+                  <i class="fas fa-book"></i> Voir l'Académie
+              </a>
+          </div>
       </section>
-      <!-- ================== NOUVELLES DASHBOARD CARDS (SANS DOUBLONS) ================== -->
-      <section class="dashboard-grid">
+
+      <div class="dashboard-grid">
+        <div class="dashboard-card">
+          <div class="card-header">
+              <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+              <h3 class="card-title">Analyse Stratégique</h3>
+          </div>
+          <div class="card-content">
+              <p class="card-description">Découvrez des opportunités de marché grâce à nos analyses approfondies des tendances et des comportements des consommateurs.</p>
+          </div>
+          <a href="#" class="card-action">Explorer les Insights <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+              <div class="card-icon"><i class="fas fa-robot"></i></div>
+              <h3 class="card-title">Assistant IA Personnel</h3>
+          </div>
+          <div class="card-content">
+              <p class="card-description">Votre assistant IA est prêt à répondre à toutes vos questions sur le marché du luxe et vous guider dans vos recherches.</p>
+          </div>
+          <a href="#" class="card-action">Poser une question <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+              <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+              <h3 class="card-title">Performance & ROI</h3>
+          </div>
+          <div class="card-content">
+              <p class="card-description">Suivez la performance de vos acquisitions et calculez le retour sur investissement de vos stratégies avec nos outils d'analyse.</p>
+          </div>
+          <a href="#" class="card-action">Voir les rapports <i class="fas fa-arrow-right"></i></a>
+        </div>
         
-        <!-- Card 1: Analyses Récentes (Remplace "Sourcing Intelligence") -->
         <div class="dashboard-card">
           <div class="card-header">
-            <div class="card-icon">
-              <i class="fas fa-chart-bar"></i>
-            </div>
-            <h3 class="card-title">Analyses Récentes</h3>
+              <div class="card-icon"><i class="fas fa-tags"></i></div>
+              <h3 class="card-title">Optimisation des Stocks</h3>
           </div>
           <div class="card-content">
-            <ul class="recent-analyses">
-              <li class="analysis-item">
-                <span class="analysis-name">Hermès Birkin 35cm</span>
-                <span class="analysis-result">+12% vs marché</span>
-              </li>
-              <li class="analysis-item warning">
-                <span class="analysis-name">Chanel 2.55 Vintage</span>
-                <span class="analysis-result warning">-5% opportunité</span>
-              </li>
-              <li class="analysis-item">
-                <span class="analysis-name">Rolex Submariner</span>
-                <span class="analysis-result">Prix correct</span>
-              </li>
-            </ul>
+              <p class="card-description">Gérez votre inventaire de manière optimale grâce à des prévisions de demande et des alertes de stock en temps réel.</p>
+              <ul class="recent-analyses">
+                  <li class="analysis-item">
+                      <span class="analysis-name">Stock Prada</span>
+                      <span class="analysis-result">OK</span>
+                  </li>
+                  <li class="analysis-item warning">
+                      <span class="analysis-name">Stock Gucci</span>
+                      <span class="analysis-result warning">Faible</span>
+                  </li>
+              </ul>
           </div>
-          <a href="stats-performance.html" class="card-action">
-            <span>Voir toutes les analyses</span>
-            <i class="fas fa-arrow-right"></i>
-          </a>
+          <a href="#" class="card-action">Gérer le stock <i class="fas fa-arrow-right"></i></a>
         </div>
 
-        <!-- Card 2: Actions Rapides (Remplace "Fashion Intelligence") -->
         <div class="dashboard-card">
           <div class="card-header">
-            <div class="card-icon">
-              <i class="fas fa-bolt"></i>
-            </div>
-            <h3 class="card-title">Actions Rapides</h3>
+              <div class="card-icon"><i class="fas fa-bolt"></i></div>
+              <h3 class="card-title">Actions Rapides</h3>
           </div>
           <div class="card-content">
-            <div class="quick-actions">
-              <a href="module4.html" class="quick-action-btn">
-                <i class="fas fa-camera"></i>
-                Analyser Image
-              </a>
-              <a href="module8.html" class="quick-action-btn">
-                <i class="fas fa-newspaper"></i>
-                Voir News
-              </a>
-              <a href="calculateur-marge-costo.html" class="quick-action-btn">
-                <i class="fas fa-calculator"></i>
-                Calculer ROI
-              </a>
-              <a href="fournisseur-order.html" class="quick-action-btn supplier-lock">
-                <i class="fas fa-lock"></i>
-                Fournisseurs
-              </a>
-            </div>
+              <p class="card-description">Accédez instantanément aux fonctionnalités les plus utilisées pour une efficacité maximale au quotidien.</p>
+              <div class="quick-actions">
+                  <a href="#" class="quick-action-btn"><i class="fas fa-plus"></i> Ajouter Produit</a>
+                  <a href="#" class="quick-action-btn"><i class="fas fa-download"></i> Télécharger Rapport</a>
+                  <a href="#" class="quick-action-btn"><i class="fas fa-question-circle"></i> Aide</a>
+                  <a href="#" class="quick-action-btn"><i class="fas fa-cog"></i> Paramètres</a>
+              </div>
           </div>
-          <a href="module6.html" class="card-action">
-            <span>Nouveau sourcing complet</span>
-            <i class="fas fa-search"></i>
-          </a>
         </div>
 
-        <!-- Card 3: Alertes & Opportunités (Remplace "Analytics & ROI") -->
         <div class="dashboard-card">
           <div class="card-header">
-            <div class="card-icon">
-              <i class="fas fa-bell"></i>
-            </div>
-            <h3 class="card-title">Alertes & Opportunités</h3>
+              <div class="card-icon"><i class="fas fa-award"></i></div>
+              <h3 class="card-title">Vos Performances</h3>
           </div>
           <div class="card-content">
-            <ul class="recent-analyses">
-              <li class="analysis-item">
-                <span class="analysis-name">3 nouveaux produits détectés</span>
-                <span class="analysis-result">Vestiaire</span>
-              </li>
-              <li class="analysis-item warning">
-                <span class="analysis-name">Baisse de prix: Louis Vuitton</span>
-                <span class="analysis-result warning">-15%</span>
-              </li>
-              <li class="analysis-item">
-                <span class="analysis-name">Tendance montante: Bottega Veneta</span>
-                <span class="analysis-result">+23%</span>
-              </li>
-            </ul>
+              <p class="card-description">Suivez vos métriques clés et visualisez votre progression par rapport aux objectifs fixés.</p>
+              <div class="performance-grid">
+                  <div class="performance-metric">
+                      <div class="metric-value">€15K</div>
+                      <div class="metric-label">Revenus</div>
+                  </div>
+                  <div class="performance-metric">
+                      <div class="metric-value">85%</div>
+                      <div class="metric-label">Marge Moyenne</div>
+                  </div>
+                  <div class="performance-metric">
+                      <div class="metric-value">250</div>
+                      <div class="metric-label">Produits Analysés</div>
+                  </div>
+                  <div class="performance-metric">
+                      <div class="metric-value">4.8/5</div>
+                      <div class="metric-label">Satisfaction IA</div>
+                  </div>
+              </div>
           </div>
-          <a href="module6.html" class="card-action">
-            <span>Configurer alertes</span>
-            <i class="fas fa-cog"></i>
-          </a>
         </div>
-
-        <!-- Card 4: Mes Performances (Remplace "Formation Continue") -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <div class="card-icon">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <h3 class="card-title">Mes Performances</h3>
-          </div>
-          <div class="card-content">
-            <div class="performance-grid">
-              <div class="performance-metric">
-                <div class="metric-value">€2,847</div>
-                <div class="metric-label">Cette semaine</div>
-              </div>
-              <div class="performance-metric">
-                <div class="metric-value">94%</div>
-                <div class="metric-label">Précision</div>
-              </div>
-              <div class="performance-metric">
-                <div class="metric-value">67%</div>
-                <div class="metric-label">Objectif mensuel</div>
-              </div>
-              <div class="performance-metric">
-                <div class="metric-value">8.5</div>
-                <div class="metric-label">Score IA</div>
-              </div>
-            </div>
-          </div>
-          <a href="stats-performance.html" class="card-action">
-            <span>Détails performance</span>
-            <i class="fas fa-chart-line"></i>
-          </a>
-        </div>
-
-        <!-- Card 5: Progression Formation (Nouvelle, spécialisée) -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <div class="card-icon">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <h3 class="card-title">Agenda Formation</h3>
-          </div>
-          <div class="card-content">
-            <p class="card-description">
-              <strong>Prochaine étape :</strong> Négociation Avancée<br>
-              <strong>Temps estimé :</strong> 45 minutes<br>
-              <strong>Récompense :</strong> +15% vers module Fournisseurs
-            </p>
-            <div class="performance-grid" style="margin-top: 1rem;">
-              <div class="performance-metric">
-                <div class="metric-value">65%</div>
-                <div class="metric-label">Complété</div>
-              </div>
-              <div class="performance-metric">
-                <div class="metric-value">15%</div>
-                <div class="metric-label">Reste</div>
-              </div>
-            </div>
-          </div>
-          <a href="formation-selezione-2.html" class="card-action">
-            <span>Continuer formation</span>
-            <i class="fas fa-play"></i>
-          </a>
-        </div>
-
-        <!-- Card 6: Recommandations IA (Nouvelle fonctionnalité) -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <div class="card-icon">
-              <i class="fas fa-robot"></i>
-            </div>
-            <h3 class="card-title">Recommandations IA</h3>
-          </div>
-          <div class="card-content">
-            <ul class="recent-analyses">
-              <li class="analysis-item">
-                <span class="analysis-name">Analyser segment sacs Hermès</span>
-                <span class="analysis-result">Potentiel élevé</span>
-              </li>
-              <li class="analysis-item">
-                <span class="analysis-name">Surveiller Jacquemus printemps</span>
-                <span class="analysis-result">Tendance</span>
-              </li>
-              <li class="analysis-item warning">
-                <span class="analysis-name">Éviter Balenciaga cette semaine</span>
-                <span class="analysis-result warning">Risque</span>
-              </li>
-            </ul>
-          </div>
-          <a href="tendances-ia.html" class="card-action">
-            <span>Plus de recommandations</span>
-            <i class="fas fa-lightbulb"></i>
-          </a>
-        </div>
-
-      </section>
+      </div>
     </div>
   </main>
-      <script>
-    // ================== NAVIGATION TOGGLERS ==================
-    document.querySelectorAll('.nav-toggler').forEach(toggler => {
-      toggler.addEventListener('click', () => {
-        const target = toggler.getAttribute('data-target');
-        const submenu = document.getElementById(target);
-        const chevron = toggler.querySelector('.fa-chevron-down');
-        
-        if (submenu) {
-          submenu.classList.toggle('open');
-          if (chevron) {
-            chevron.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+
+  <nav class="bottom-nav-bar">
+    <a href="index.html" class="bottom-nav-item active">
+      <i class="fas fa-home"></i>
+      <span>Accueil</span>
+    </a>
+    <a href="module_nouvelle_acquisition.html" class="bottom-nav-item">
+      <i class="fas fa-star"></i>
+      <span>Produits</span>
+    </a>
+    <a href="stats-performance.html" class="bottom-nav-item">
+      <i class="fas fa-chart-line"></i>
+      <span>Analyses</span>
+    </a>
+    <a href="formation-selezione-1.html" class="bottom-nav-item">
+      <i class="fas fa-graduation-cap"></i>
+      <span>Académie</span>
+    </a>
+  </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Gestionnaire pour les sous-menus
+      document.querySelectorAll('.nav-toggler').forEach(toggler => {
+        toggler.addEventListener('click', function() {
+          const targetId = this.dataset.target;
+          const targetMenu = document.getElementById(targetId);
+          if (targetMenu) {
+            targetMenu.classList.toggle('open');
+            // Changer l'icône de la flèche
+            const icon = this.querySelector('.fas.fa-chevron-down, .fas.fa-chevron-up');
+            if (icon) {
+              icon.classList.toggle('fa-chevron-down');
+              icon.classList.toggle('fa-chevron-up');
+            }
           }
-        }
+        });
       });
-    });
 
-    // ================== THEME TOGGLE ==================
-    const themeToggle = document.getElementById('themeToggle');
-
-    function toggleTheme() {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      localStorage.setItem('theme', isLight ? 'light' : 'dark');
-      updateThemeButton(isLight);
-    }
-
-    function updateThemeButton(isLight) {
+      // Gestionnaire de thème
+      const themeToggle = document.getElementById('themeToggle');
       if (themeToggle) {
-        const icon = themeToggle.querySelector('i');
-        const text = themeToggle.querySelector('span');
-        if (icon && text) {
-          icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
-          text.textContent = isLight ? 'Mode Clair' : 'Mode Sombre';
-        }
+        themeToggle.addEventListener('click', () => {
+          document.body.classList.toggle('light-mode');
+          const isLightMode = document.body.classList.contains('light-mode');
+          themeToggle.querySelector('i').className = isLightMode ? 'fas fa-sun' : 'fas fa-moon';
+          themeToggle.querySelector('span').textContent = isLightMode ? 'Mode Clair' : 'Mode Sombre';
+        });
       }
-    }
 
-    if (themeToggle) {
-      themeToggle.addEventListener('click', toggleTheme);
-    }
-
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme') || 'dark';
-    if (savedTheme === 'light') {
-      document.body.classList.add('light-mode');
-      updateThemeButton(true);
-    }
-
-    // ================== FORMATION PROGRESS ANIMATION ==================
-    window.addEventListener('load', () => {
-      const progressFill = document.querySelector('.progress-fill');
-      if (progressFill) {
-        setTimeout(() => {
-          progressFill.style.width = '65%';
-        }, 500);
-      }
-    });
-
-    // ================== MÉTRIQUES ANIMÉES (CORRIGÉES) ==================
-    function animateCounter(element, target) {
-      let current = 0;
-      const increment = target / 100;
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          // Format final selon le type
-          if (element.textContent.includes('€')) {
-            element.textContent = '€' + target.toLocaleString('fr-FR');
-          } else if (element.textContent.includes('%')) {
-            element.textContent = target + '%';
-          } else {
-            element.textContent = Math.floor(target);
+      // Graphique des tendances IA (Chart.js)
+      const aiTrendCtx = document.getElementById('aiTrendChart');
+      if (aiTrendCtx) {
+        new Chart(aiTrendCtx, {
+          type: 'line',
+          data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil'],
+            datasets: [{
+              label: 'Tendances de Luxe',
+              data: [65, 59, 80, 81, 56, 55, 70],
+              borderColor: 'rgba(255, 215, 0, 0.8)', // gold-bright
+              backgroundColor: 'rgba(255, 215, 0, 0.2)',
+              tension: 0.4,
+              fill: true,
+              pointRadius: 0
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: false
+              },
+              tooltip: {
+                mode: 'index',
+                intersect: false
+              }
+            },
+            scales: {
+              x: {
+                grid: {
+                  color: 'rgba(212, 175, 55, 0.1)',
+                },
+                ticks: {
+                  color: 'rgba(245, 230, 211, 0.6)'
+                }
+              },
+              y: {
+                grid: {
+                  color: 'rgba(212, 175, 55, 0.1)',
+                },
+                ticks: {
+                  color: 'rgba(245, 230, 211, 0.6)'
+                }
+              }
+            }
           }
-          clearInterval(timer);
-        } else {
-          // Format pendant l'animation
-          if (element.textContent.includes('€')) {
-            element.textContent = '€' + Math.floor(current).toLocaleString('fr-FR');
-          } else if (element.textContent.includes('%')) {
-            element.textContent = Math.floor(current) + '%';
-          } else {
-            element.textContent = Math.floor(current);
-          }
-        }
-      }, 20);
-    }
-
-    // Animate counters on load
-    window.addEventListener('load', () => {
-      const counters = document.querySelectorAll('.stat-value[data-target]');
-      counters.forEach((counter, index) => {
-        setTimeout(() => {
-          const target = parseFloat(counter.getAttribute('data-target'));
-          animateCounter(counter, target);
-        }, index * 300); // Délai échelonné pour effet visuel
-      });
-    });
-
-    // ================== SUPPLIER MODULE LOCK ==================
-    document.querySelectorAll('.supplier-lock').forEach(element => {
-      element.addEventListener('click', (e) => {
-        e.preventDefault();
-        
-        // Notification stylée au lieu d'une alert basique
-        showNotification(
-          'Module Fournisseurs verrouillé',
-          'Complétez 80% de la formation pour débloquer ce module premium. Actuellement : 65%',
-          'warning'
-        );
-      });
-    });
-
-    // ================== SYSTÈME DE NOTIFICATIONS ==================
-    function showNotification(title, message, type = 'info') {
-      const notification = document.createElement('div');
-      notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        max-width: 350px;
-        background: ${type === 'warning' ? 'var(--warning-orange)' : 'var(--gold-gradient)'};
-        color: var(--primary-black);
-        padding: 1.5rem;
-        border-radius: 12px;
-        font-weight: 500;
-        z-index: 10000;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-      `;
-      
-      notification.innerHTML = `
-        <div style="display: flex; align-items: flex-start; gap: 1rem;">
-          <i class="fas ${type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle'}" style="margin-top: 0.2rem;"></i>
-          <div style="flex: 1;">
-            <strong style="display: block; margin-bottom: 0.5rem;">${title}</strong>
-            <p style="margin: 0; font-size: 0.9rem; opacity: 0.9;">${message}</p>
-          </div>
-          <button onclick="this.parentElement.parentElement.remove()" 
-                  style="background: none; border: none; color: inherit; cursor: pointer; padding: 0.25rem;">
-            <i class="fas fa-times"></i>
-          </button>
-        </div>
-      `;
-      
-      document.body.appendChild(notification);
-      
-      // Animation d'entrée
-      setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-      }, 100);
-      
-      // Auto-suppression après 5 secondes
-      setTimeout(() => {
-        if (notification.parentElement) {
-          notification.style.transform = 'translateX(100%)';
-          setTimeout(() => notification.remove(), 300);
-        }
-      }, 5000);
-    }
-
-    // ================== NOTIFICATION PROGRESSION FORMATION ==================
-    function checkFormationProgress() {
-      const currentProgress = 65;
-      
-      // Notification d'encouragement à 65%
-      if (currentProgress >= 60 && currentProgress < 80) {
-        setTimeout(() => {
-          showNotification(
-            'Bientôt le module Fournisseurs !',
-            `Plus que ${80 - currentProgress}% pour débloquer les fournisseurs premium. Continuez votre formation !`,
-            'info'
-          );
-        }, 3000); // 3 secondes après le chargement
+        });
       }
-    }
-
-    // Check formation progress on load
-    window.addEventListener('load', checkFormationProgress);
-
-    // ================== RESPONSIVE SIDEBAR ==================
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 768) {
-        const sidebar = document.querySelector('.sidebar');
-        if (sidebar) sidebar.classList.remove('open');
-      }
-    });
-
-    // ================== ANIMATIONS D'ENTRÉE ==================
-    // Intersection Observer pour les cards
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-    
-    // Initialiser les animations pour les cards
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.dashboard-card').forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = `all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) ${index * 0.1}s`;
-        observer.observe(card);
-      });
-    });
-
-    // ================== EFFETS PARALLAX PARTICULES ==================
-    document.addEventListener('mousemove', (e) => {
-      const particles = document.querySelectorAll('.particle');
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      
-      particles.forEach((particle, index) => {
-        const speed = (index + 1) * 0.3; // Réduction de la vitesse pour plus de subtilité
-        particle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-      });
-    });
-
-    // ================== OPTIMISATION PERFORMANCE MOBILE ==================
-    if (window.innerWidth <= 768) {
-      // Réduire les animations sur mobile
-      document.querySelectorAll('.particle').forEach(particle => {
-        particle.style.animationDuration = '25s';
-      });
-      
-      // Désactiver l'effet parallax sur mobile
-      document.removeEventListener('mousemove', () => {});
-    }
-
-    // ================== INITIALISATION FINALE ==================
-    document.addEventListener('DOMContentLoaded', () => {
-      // Trigger reflow pour s'assurer que les animations sont prêtes
-      document.body.offsetHeight;
-      
-      // Marquer comme chargé pour les animations CSS
-      setTimeout(() => {
-        document.body.classList.add('loaded');
-      }, 100);
-      
-      console.log('🎉 SELEZIONE Dashboard chargé avec succès !');
-      console.log('✅ Navigation simplifiée sans doublons');
-      console.log('✅ Métriques corrigées (€12,847 au lieu de €0)');
-      console.log('✅ 6 nouvelles cards fonctionnelles');
-      console.log('✅ Système de notifications moderne');
     });
   </script>
 </body>
