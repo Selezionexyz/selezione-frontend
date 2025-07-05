@@ -281,7 +281,28 @@ const renderContent = () => { switch (currentChapter) { case "chapitre4": return
 
 };
 
-return ( <div className="min-h-screen bg-[#0f0c29] text-white p-6"> <div className="flex justify-center space-x-4 mb-6"> <button className={px-4 py-2 rounded-md font-semibold bg-cyan-600 hover:bg-cyan-700} onClick={() => setCurrentChapter("chapitre4")} > Chapitre 4 </button> {/* Autres boutons chapitre ici */} </div> <div className="max-w-4xl mx-auto bg-[#1b1b3a] p-6 rounded-2xl shadow-xl"> {renderContent()} </div> </div> ); };
+return ( <div className="min-h-screen bg-[#0f0c29] text-white p-6"> <div className="flex flex-wrap justify-center gap-4 mb-6">
+  <button onClick={() => setCurrentChapter("chapitre1")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 1</button>
+  <button onClick={() => setCurrentChapter("chapitre2")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 2</button>
+  <button onClick={() => setCurrentChapter("chapitre3")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 3</button>
+  <button onClick={() => setCurrentChapter("chapitre4")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 4</button>
+  <button onClick={() => setCurrentChapter("chapitre5")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 5</button>
+  <button onClick={() => setCurrentChapter("chapitre6")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 6</button>
+  <button onClick={() => setCurrentChapter("chapitre7")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 7</button>
+  <button onClick={() => setCurrentChapter("chapitre8")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 8</button>
+  <button onClick={() => setCurrentChapter("chapitre9")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 9</button>
+  <button onClick={() => setCurrentChapter("chapitre10")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 10</button>
+  <button onClick={() => setCurrentChapter("chapitre11")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 11</button>
+  <button onClick={() => setCurrentChapter("chapitre12")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 12</button>
+  <button onClick={() => setCurrentChapter("chapitre13")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 13</button>
+  <button onClick={() => setCurrentChapter("chapitre14")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 14</button>
+  <button onClick={() => setCurrentChapter("chapitre15")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 15</button>
+  <button onClick={() => setCurrentChapter("chapitre16")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 16</button>
+  <button onClick={() => setCurrentChapter("chapitre17")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 17</button>
+  <button onClick={() => setCurrentChapter("chapitre18")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 18</button>
+  <button onClick={() => setCurrentChapter("chapitre19")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 19</button>
+  <button onClick={() => setCurrentChapter("chapitre20")} className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 rounded-md font-semibold">Chapitre 20</button>
+</div> <button className={px-4 py-2 rounded-md font-semibold bg-cyan-600 hover:bg-cyan-700} onClick={() => setCurrentChapter("chapitre4")} > Chapitre 4 </button> {/* Autres boutons chapitre ici */} </div> <div className="max-w-4xl mx-auto bg-[#1b1b3a] p-6 rounded-2xl shadow-xl"> {renderContent()} </div> </div> ); };
 
 export default Academy;
 import React, { useState } from "react";
