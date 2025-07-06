@@ -1,106 +1,135 @@
-<!DOCTYPE html><html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📰 Actus Luxe RSS – Selezione</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f0c29;
-      color: white;
-      padding: 2rem;
-      margin: 0;
-    }h1 {
-  text-align: center;
-  font-size: 2rem;
-  color: #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-}
+import { useState } from "react";
 
-.container {
-  max-width: 600px;
-  margin: 2rem auto;
-  background-color: #1b1b3a;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,255,255,0.1);
-}
+export default function Module5() {
+  const [keyword, setKeyword] = useState("");
+  const [date, setDate] = useState("");
+  const [output, setOutput] = useState("⌛ En attente...");
+  const [loading, setLoading] = useState(false);
 
-label {
-  font-weight: bold;
-  display: block;
-  margin-top: 1rem;
-}
-
-input, select, button {
-  width: 100%;
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-  border-radius: 8px;
-  border: none;
-  font-size: 1rem;
-}
-
-input, select {
-  background-color: #2c2c54;
-  color: white;
-}
-
-button {
-  margin-top: 1.5rem;
-  background: linear-gradient(to right, #00ffff, #0077ff);
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-button:hover {
-  opacity: 0.9;
-}
-
-.result {
-  margin-top: 1.5rem;
-  background-color: #141432;
-  padding: 1rem;
-  border-radius: 10px;
-  white-space: pre-wrap;
-}
-
-  </style>
-</head>
-<body>
-  <h1>🗞️ Actus Luxe par Date & RSS</h1>
-  <div class="container">
-    <label for="keyword">🔍 Sujet facultatif (Dior, Fashion Week, etc) :</label>
-    <input type="text" id="keyword" placeholder="Ex : Gucci, Met Gala..."><label for="date">📅 Choisis une date (facultatif) :</label>
-<input type="date" id="date">
-
-<button onclick="generer()">🚀 Générer Actus</button>
-
-<div id="output" class="result">⌛ En attente...</div>
-
-  </div>  <script>
-    async function generer() {
-      const sujet = document.getElementById("keyword").value;
-      const date = document.getElementById("date").value;
-      const out = document.getElementById("output");
-
-      out.innerText = "⏳ Chargement des actualités...";
-
-      try {
-        const res = await fetch("https://selezione-ia-backend.onrender.com/rss-luxe", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ sujet, date })
-        });
-
-        const data = await res.json();
-        out.innerText = data.contenu || "❌ Aucune actualité trouvée.";
-      } catch (err) {
-        out.innerText = "❌ Erreur de génération.";
-      }
+  const generer = async () => {
+    setOutput("⏳ Chargement des actualités...");
+    setLoading(true);
+    try {
+      const res = await fetch("https://selezione-ia-backend.onrender.com/rss-luxe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sujet: keyword, date }),
+      });
+      const data = await res.json();
+      setOutput(data.contenu || "❌ Aucune actualité trouvée.");
+    } catch (err) {
+      setOutput("❌ Erreur de génération.");
     }
-  </script></body>
-</html>
+    setLoading(false);
+  };
+
+  return (
+    <div
+      style={{
+        fontFamily: "'Poppins', sans-serif",
+        backgroundColor: "#0f0c29",
+        color: "white",
+        minHeight: "100vh",
+        padding: "2rem",
+      }}
+    >
+      <h1
+        style={{
+          textAlign: "center",
+          fontSize: "2rem",
+          color: "#00ffff",
+          textShadow: "0 0 10px #00ffff",
+        }}
+      >
+        🗞️ Actus Luxe par Date & RSS
+      </h1>
+      <div
+        className="container"
+        style={{
+          maxWidth: 600,
+          margin: "2rem auto",
+          backgroundColor: "#1b1b3a",
+          padding: "2rem",
+          borderRadius: "12px",
+          boxShadow: "0 0 20px rgba(0,255,255,0.1)",
+        }}
+      >
+        <label htmlFor="keyword" style={{ fontWeight: "bold", display: "block", marginTop: "1rem" }}>
+          🔍 Sujet facultatif (Dior, Fashion Week, etc) :
+        </label>
+        <input
+          type="text"
+          id="keyword"
+          value={keyword}
+          onChange={e => setKeyword(e.target.value)}
+          placeholder="Ex : Gucci, Met Gala..."
+          style={{
+            width: "100%",
+            padding: "0.75rem",
+            marginTop: "0.5rem",
+            borderRadius: "8px",
+            border: "none",
+            fontSize: "1rem",
+            backgroundColor: "#2c2c54",
+            color: "white",
+          }}
+          disabled={loading}
+        />
+        <label htmlFor="date" style={{ fontWeight: "bold", display: "block", marginTop: "1rem" }}>
+          📅 Choisis une date (facultatif) :
+        </label>
+        <input
+          type="date"
+          id="date"
+          value={date}
+          onChange={e => setDate(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "0.75rem",
+            marginTop: "0.5rem",
+            borderRadius: "8px",
+            border: "none",
+            fontSize: "1rem",
+            backgroundColor: "#2c2c54",
+            color: "white",
+          }}
+          disabled={loading}
+        />
+        <button
+          onClick={generer}
+          style={{
+            width: "100%",
+            padding: "0.75rem",
+            marginTop: "1.5rem",
+            borderRadius: "8px",
+            border: "none",
+            fontSize: "1rem",
+            background: "linear-gradient(to right, #00ffff, #0077ff)",
+            color: "black",
+            fontWeight: "bold",
+            cursor: loading ? "not-allowed" : "pointer",
+            transition: "0.3s ease",
+            opacity: loading ? 0.7 : 1,
+          }}
+          disabled={loading}
+        >
+          🚀 Générer Actus
+        </button>
+        <div
+          id="output"
+          className="result"
+          style={{
+            marginTop: "1.5rem",
+            backgroundColor: "#141432",
+            padding: "1rem",
+            borderRadius: "10px",
+            whiteSpace: "pre-wrap",
+            minHeight: "60px",
+          }}
+        >
+          {output}
+        </div>
+      </div>
+    </div>
+  );
+}
