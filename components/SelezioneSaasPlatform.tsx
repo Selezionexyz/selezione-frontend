@@ -493,4 +493,34 @@ const SelezionePlatform = () => {
         return <Dashboard />;
     }
   };
-            
+   // ==================== BARRE DE NAVIGATION BASSE (si besoin) ====================
+  const BottomNav = () => (
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-black border-t border-yellow-500/20 px-6 py-3 flex justify-between items-center md:hidden">
+      {/* Ajoute ici boutons mobiles si besoin */}
+    </nav>
+  );
+
+  // ==================== RENDU FINAL ====================
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Overlay sidebar */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        ></div>
+      )}
+      
+      <Sidebar />
+      <TopNav />
+      
+      <main className="pb-20">
+        {renderMainContent()}
+      </main>
+      
+      <BottomNav />
+    </div>
+  );
+};
+
+export default SelezionePlatform;         
