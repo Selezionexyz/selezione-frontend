@@ -9,7 +9,7 @@ export default function Home() {
       alignItems: "center",
       fontSize: "2rem"
     }}>
-      Hello Selezione !
+      Hello Selezione !
     </div>
   );
 }
