@@ -452,4 +452,45 @@ const SelezionePlatform = () => {
       </div>
     </nav>
   );
-  
+                      {module.progress > 0 ? 'Continuer' : 'Commencer'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case 'marketplace':
+        return (
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-white mb-6">Marketplace SELEZIONE</h2>
+            <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-8 text-center">
+              <ShoppingCart className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Site Marchand en Développement</h3>
+              <p className="text-gray-400">Notre marketplace de luxe sera bientôt disponible !</p>
+            </div>ng':
+        return (
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-white mb-6">Plateforme de Revente</h2>
+            <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-8 text-center">
+              <Package className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Plateforme de Vente en Développement</h3>
+              <p className="text-gray-400">Votre espace vendeur professionnel arrive bientôt !</p>
+            </div>
+          </div>
+        );
+      case 'chat':
+        return (
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-white mb-6">Tchat Communauté</h2>
+            <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-8 text-center">
+              <MessageCircle className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-white mb-2">Tchat Professionnel</h3>
+              <p className="text-gray-400">Échangez avec la communauté SELEZIONE !</p>
+            </div>
+          </div>
+        );
+      default:
+        return <Dashboard />;
+    }
+  };
+            
