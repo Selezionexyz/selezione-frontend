@@ -417,10 +417,39 @@ const SelezionePlatform = () => {
     );
   };
 
-  // ==================== NAVIGATION PRINCIPALE ====================
+// ==================== NAVIGATION PRINCIPALE ====================
   const TopNav = () => (
     <nav className="bg-black border-b border-yellow-500/20 px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <button 
-            onClick={() => setSidebarOpe
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 text-gray-400 hover:text-white"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+          <div className="flex items-center space-x-3">
+            <Diamond className="w-8 h-8 text-yellow-400" />
+            <div>
+              <h1 className="text-xl font-bold text-white">SELEZIONE</h1>
+              <p className="text-yellow-400 text-xs">Luxury Intelligence Platform</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          <Bell className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer" />
+          <div className="flex items-center space-x-3">
+            <div className="text-right">
+              <p className="text-sm font-medium text-white">{user.name}</p>
+              <p className="text-xs text-yellow-400">{user.level}</p>
+            </div>
+            <div className="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center text-xl">
+              {user.avatar}
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+  
